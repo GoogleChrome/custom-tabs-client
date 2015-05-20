@@ -99,6 +99,7 @@ public class HostedActivityManager {
     private static final String CHROME_SERVICE_CLASS_NAME =
             "org.chromium.chrome.browser.hosted.ChromeConnectionService";
     private static final String EXTRA_HOSTED_SESSION_ID = "hosted:session_id";
+    private static final String EXTRA_HOSTED_KEEP_ALIVE = "hosted:keep_alive";
 
     private static final Object sConstructionLock = new Object();
     private static HostedActivityManager sInstance;
@@ -112,7 +113,7 @@ public class HostedActivityManager {
     private ServiceConnection mConnection;
     private Handler mMainLooperHandler; // Used for tasks needing the service.
     private final Context mContext;
-    private boolean mTooLateToSetCallback;
+    private boolean mBindHasBeenCalled;
     private NavigationCallback mNavigationCallback;
     private long mSessionId;
 
@@ -145,7 +146,7 @@ public class HostedActivityManager {
      * before binding to the service.
      */
     public void setNavigationCallback(NavigationCallback navigationCallback) {
-        if (!mTooLateToSetCallback && mNavigationCallback == null) {
+        if (!mBindHasBeenCalled && mNavigationCallback == null) {
             mNavigationCallback = navigationCallback;
         }
     }
@@ -156,7 +157,7 @@ public class HostedActivityManager {
      * @return true for success.
      */
     public boolean bindService() {
-        mTooLateToSetCallback = true;
+        mBindHasBeenCalled = true;
         mShouldRebind = true;
         Intent intent = new Intent();
         intent.setClassName(CHROME_PACKAGE, CHROME_SERVICE_CLASS_NAME);
@@ -244,17 +245,24 @@ public class HostedActivityManager {
         final Bundle startBundle = uiBuilder.getStartBundle();
         intent.setData(Uri.parse(url));
         intent.putExtra(EXTRA_HOSTED_SESSION_ID, mSessionId);
-        mTooLateToSetCallback = true;
-        if (mNavigationCallback != null) {
-            enqueueServiceRunnable(new Runnable() {
+        Intent keepAliveIntent = new Intent().setClassName(
+                mContext.getPackageName(), KeepAliveService.class.getCanonicalName());
+        intent.putExtra(EXTRA_HOSTED_KEEP_ALIVE, keepAliveIntent);
+        // The service needs to be reachable to get a sessionID, which is
+        // required to connect to the KeepAlive service. We don't want users to
+        // have to bind to the service manually, so do it for them here.
+        if (!mBindHasBeenCalled) {
+            bindService();
+        }
+        enqueueServiceRunnable(new Runnable() {
                 @Override
                 public void run() {
+                    // If bindService() has not been called before, the
+                    // sessionId is unknown up to this point.
+                    intent.putExtra(EXTRA_HOSTED_SESSION_ID, mSessionId);
                     mContext.startActivity(intent, startBundle);
                 }
             });
-        } else {
-            mContext.startActivity(intent, startBundle);
-        }
     }
 
     /**
