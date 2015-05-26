@@ -14,9 +14,9 @@
      limitations under the License.
 -->
 <resources>
-    <string name="app_name">Chrome Hosted Client Example</string>
+    <string name="app_name">Chrome Custom Tabs Example</string>
     <string name="url_hint">Please type the url here.</string>
     <string name="warmup_button_text">Warmup Chrome</string>
     <string name="may_launch_button_text">May Launch URL</string>
-    <string name="button_text">Launch url in hosted Chrome</string>
+    <string name="button_text">Launch URL in custom Chrome tab</string>
 </resources>
