@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Helper class to build the custom Hosted Activity UI.
  */
 public class HostedUiBuilder {
-    private static final String EXTRA_HOSTED_MODE = "com.android.chrome.hosted_mode";
+    private static final String EXTRA_HOSTED_MODE = "com.android.chrome.append_task";
     private static final String EXTRA_HOSTED_EXIT_ANIMATION_BUNDLE = "hosted:exit_animation_bundle";
     private static final String EXTRA_HOSTED_TOOLBAR_COLOR = "hosted:toolbar_color";
     private static final String EXTRA_HOSTED_MENU_ITEMS = "hosted:menu_items";

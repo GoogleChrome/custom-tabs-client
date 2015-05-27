@@ -95,7 +95,7 @@ public class HostedActivityManager {
 
     private static final String TAG = "BrowserConnection";
 
-    static final String CHROME_PACKAGE = "com.google.android.apps.chrome";
+    static final String CHROME_PACKAGE = "com.chrome.dev";
     private static final String CHROME_SERVICE_CLASS_NAME =
             "org.chromium.chrome.browser.hosted.ChromeConnectionService";
     private static final String EXTRA_HOSTED_SESSION_ID = "hosted:session_id";
