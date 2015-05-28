@@ -23,7 +23,7 @@ In particular, this covers:
   * Custom in/out animations
 * Navigation awareness: the browser delivers a callback to the application upon
   an external navigation.
-* Performance optimization:
+* Performance optimizations:
   * Pre-warming of the Browser in the background, while avoiding stealing
     resources from the application
   * Providing a likely URL in advance to the browser, which may perform
@@ -47,7 +47,7 @@ classes in this sample, namely:
 ## UI Customization
 
 UI customization is handled by the `HostedUiBuilder` class. An instance of this
-class has to be provided to `HostedActivityManager#loadUrl()` to load a URL in a
+class has to be provided to `HostedActivityManager.loadUrl()` to load a URL in a
 custom tab.
 
 **Example:**
@@ -64,12 +64,12 @@ hostedManager.loadUrl(url, uiBuilder);
 In this example, no UI customization is done, aside from the animations and the
 toolbar color. The general usage is:
 
-1. Create in instance of `HostedUiBuilder`
+1. Create an instance of `HostedUiBuilder`
 2. Build the UI using the methods of `HostedUiBuilder`
-3. Provide this instance to `HostedActivityManager#loadUrl()`
+3. Provide this instance to `HostedActivityManager.loadUrl()`
 
 The communication between the custom tab activity and the application is done
-through pending intents. For each interaction leading back to the application
+via pending intents. For each interaction leading back to the application
 (through menu items), a
 [`PendingIntent`](http://developer.android.com/reference/android/app/PendingIntent.html)
 must be provided, and will be delivered upon activation of the UI element.
@@ -77,8 +77,8 @@ must be provided, and will be delivered upon activation of the UI element.
 ## Navigation
 
 After a URL has been loaded inside a custom tab activity, the application can
-opt to receive a notification when the user navigates to another location. This
-is done using a callback, which implements the interface of
+receive a notification when the user navigates to another location. This is done
+using a callback. The callback implements the interface of
 `HostedActivityManager.NavigationCallback`, that is:
 
 ```java
@@ -87,60 +87,60 @@ void run(String url, Bundle extras);
 
 This callback must be set before binding to the service, that is:
 
-* Before calling `HostedActivityManager#bindService()`
-* Before calling `HostedActivityManager#loadUrl()`
+* Before calling `HostedActivityManager.bindService()`
+* Before calling `HostedActivityManager.loadUrl()`
 
 It can only be set **once**.
 
 ## Optimization
 
-**WARNING:** All the optimizations described in this section are only treated as
-  advice by the browser. Actual behavior may depend on connectivity, available
-  memory and other resources.
+**WARNING:** The browser treats the calls described in this section only as
+  advice. Actual behavior may depend on connectivity, available memory and other
+  resources.
 
 The application can communicate its intention to the browser, that is:
 * Warming up the browser
 * Indicating a likely navigation to a given URL
 
 In both cases, communication with the browser is done through a bound background
-service. This binding is done by `HostedActivityManager#bindService()`. This
+service. This binding is done by `HostedActivityManager.bindService()`. This
 **must** be called before the other methods discussed in this section.
 
 * **Warmup:** Warms up the browser to make navigation faster. This is expected
   to create some CPU and IO activity, and to have a duration comparable to a
   normal Chrome startup. Once started, Chrome will not use additional
-  resources. To warm up Chrome, use `HostedActivityManager#warmup()`.
+  resources. To warm up Chrome, use `HostedActivityManager.warmup()`.
 * **May Launch URL:** Indicates that a given URL may be loaded in the
   future. Chrome may perform speculative work to speed up page load time. The
-  application must call `HostedActivityManager#warmup()` first.
+  application must call `HostedActivityManager.warmup()` first.
 
 **Example:**
 ```java
-// When the application main activity has been shown, for instance.
+// It is preferable to call this once the main activity has been shown.
 // These calls are non-blocking and can be issued from the UI thread
-// or any other thread.
-HostedActivityManager hostedManager = HostedActivityManager.getInstance(this);
+// or any other thread. However, HostedActivityManager is not threadsafe.
+HostedActivityManager hostedManager = HostedActivityManager.getInstance(activity);
 hostedManager.bindService();
 hostedManager.warmup();
 
-// Later, when the application has some confidence about the destination
+// This URL is likely to be loaded. Tell the browser about it.
 hostedManager.mayLaunchUrl(url, null);
 
-// Finally
+// Show the custom tab.
 hostedManager.loadUrl(url, uiBuilder);
 ```
 
 **Tips**
 
-* If possible, issue the warmup call in advance, to reduce waiting when the
+* If possible, issue the warmup call in advance to reduce waiting when the
   custom tab activity is started.
 * If possible, advise Chrome about the likely target URL in advance, as the
   loading optimization can take time (requiring network traffic, for instance).
 
 ## Lifecycle
 
-Chrome Custom Tabs have been designed with two constraints in mind regarding
-lifecycle management:
+Chrome Custom Tabs were designed with two constraints regarding lifecycle
+management:
 
 1. When Chrome is in the background, it should not steal CPU and/or memory from
    the application.
@@ -149,7 +149,7 @@ lifecycle management:
 
 The first concern is addressed by giving the background service a lower CPU
 priority and eviction importance (using the `BIND_WAVE_PRIORITY` flag when
-binding to the background service), and the second by having Chrome bind to a
+binding to the background service); the second by having Chrome bind to a
 `Service` in the application to keep it alive. Such a dummy "KeepAlive" service
 is provided in the example application. This requires a modification to the
 `AndroidManifest.xml` file:
