@@ -19,7 +19,7 @@ import android.os.Bundle;
 /**
  * Interface for the client-provided callback on user navigation.
  */
-interface IBrowserConnectionCallback {
+interface ICustomTabsConnectionCallback {
     /**
      * To be called when a page navigation starts.
      *

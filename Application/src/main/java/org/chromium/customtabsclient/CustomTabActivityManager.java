@@ -33,8 +33,8 @@ import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.Log;
 
-import org.chromium.chrome.browser.customtabs.IBrowserConnectionCallback;
-import org.chromium.chrome.browser.customtabs.IBrowserConnectionService;
+import org.chromium.chrome.browser.customtabs.ICustomTabsConnectionCallback;
+import org.chromium.chrome.browser.customtabs.ICustomTabsConnectionService;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -84,9 +84,9 @@ public class CustomTabActivityManager {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            IBrowserConnectionCallback.Stub cb = null;
+            ICustomTabsConnectionCallback.Stub cb = null;
             if (mNavigationCallback != null) {
-                cb = new IBrowserConnectionCallback.Stub() {
+                cb = new ICustomTabsConnectionCallback.Stub() {
                     @Override
                     public void onUserNavigationStarted(long sessionId, String url, Bundle extras)
                             throws RemoteException {
@@ -101,7 +101,7 @@ public class CustomTabActivityManager {
                 };
             }
             synchronized (mLock) {
-                mConnectionService = IBrowserConnectionService.Stub.asInterface(service);
+                mConnectionService = ICustomTabsConnectionService.Stub.asInterface(service);
                 try {
                     if (cb != null) mConnectionService.finishSetup(cb);
                     mSessionId = mConnectionService.newSession();
@@ -155,7 +155,7 @@ public class CustomTabActivityManager {
 
     private Object mLock; // Protects the variables in this paragraph.
     private List<Runnable> mServiceRunnables;
-    private IBrowserConnectionService mConnectionService;
+    private ICustomTabsConnectionService mConnectionService;
     private boolean mServiceConnected;
 
     private boolean mShouldRebind;
