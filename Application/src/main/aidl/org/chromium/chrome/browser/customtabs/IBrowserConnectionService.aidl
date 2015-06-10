@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package org.chromium.chrome.browser.hosted;
+package org.chromium.chrome.browser.customtabs;
+
+import org.chromium.chrome.browser.customtabs.IBrowserConnectionCallback;
 
 import android.os.Bundle;
-
-import org.chromium.chrome.browser.hosted.IBrowserConnectionCallback;
 
 /**
  * Interface for communicating between a browser background service and another application.

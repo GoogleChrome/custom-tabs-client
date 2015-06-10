@@ -12,20 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package org.chromium.chrome.browser.hosted;
+package org.chromium.customtabsclient;
 
-import android.os.Bundle;
+import android.app.Service;
+import android.content.Intent;
+import android.os.Binder;
+import android.os.IBinder;
 
 /**
- * Interface for the client-provided callback on user navigation.
+ * Empty service used by the custom tab to bind to, raising the application's importance.
  */
-interface IBrowserConnectionCallback {
-    /**
-     * To be called when the user triggers an external navigation.
-     *
-     * @param sessionId As returned by {@link IBrowserConnectionService#newSession}.
-     * @param url URL the user has navigated to.
-     * @param extras Reserved for future use.
-     */
-    void onUserNavigation(long sessionId, String url, in Bundle extras);
+public class KeepAliveService extends Service {
+    private static final Binder sBinder = new Binder();
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return sBinder;
+    }
 }

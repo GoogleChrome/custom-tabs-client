@@ -4,7 +4,7 @@ android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
     defaultConfig {
-        applicationId "org.chromium.hostedclient.example"
+        applicationId "org.chromium.customtabsclient.example"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1

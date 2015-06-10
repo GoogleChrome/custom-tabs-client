@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package org.chromium.hostedclient;
+package org.chromium.customtabsclient;
 
 import android.app.ActivityOptions;
 import android.app.PendingIntent;
@@ -24,28 +24,31 @@ import android.os.Bundle;
 import java.util.ArrayList;
 
 /**
- * Helper class to build the custom Hosted Activity UI.
+ * Helper class to build the Custom Tab Activity UI.
  */
-public class HostedUiBuilder {
-    private static final String EXTRA_HOSTED_MODE = "com.android.chrome.append_task";
-    private static final String EXTRA_HOSTED_EXIT_ANIMATION_BUNDLE = "hosted:exit_animation_bundle";
-    private static final String EXTRA_HOSTED_TOOLBAR_COLOR = "hosted:toolbar_color";
-    private static final String EXTRA_HOSTED_MENU_ITEMS = "hosted:menu_items";
-    private static final String EXTRA_HOSTED_ACTION_BUTTON_BUNDLE = "hosted:action_button_bundle";
-    private static final String KEY_HOSTED_ICON = "hosted:icon";
-    private static final String KEY_HOSTED_MENU_TITLE = "hosted:menu_title";
-    private static final String KEY_HOSTED_PENDING_INTENT = "hosted:pending_intent";
+public class CustomTabUiBuilder {
+    private static final String EXTRA_CUSTOM_TABS_EXIT_ANIMATION_BUNDLE =
+            "android.support.CUSTOM_TABS:exit_animation_bundle";
+    private static final String EXTRA_CUSTOM_TABS_TOOLBAR_COLOR =
+            "android.support.CUSTOM_TABS:toolbar_color";
+    private static final String EXTRA_CUSTOM_TABS_MENU_ITEMS =
+            "android.support.CUSTOM_TABS:menu_items";
+    private static final String EXTRA_CUSTOM_TABS_ACTION_BUTTON_BUNDLE =
+            "android.support.CUSTOM_TABS:action_button_bundle";
+    private static final String KEY_CUSTOM_TABS_ICON = "android.support.CUSTOM_TABS:icon";
+    private static final String KEY_CUSTOM_TABS_MENU_TITLE =
+            "android.support.CUSTOM_TABS:menu_title";
+    private static final String KEY_CUSTOM_TABS_PENDING_INTENT =
+            "android.support.CUSTOM_TABS:pending_intent";
 
     private final Intent mIntent;
     private Bundle mStartBundle;
     private final ArrayList<Bundle> mMenuItems;
 
-    public HostedUiBuilder() {
+    public CustomTabUiBuilder() {
         mIntent = new Intent();
         mStartBundle = null;
         mMenuItems = new ArrayList<Bundle>();
-        mIntent.putExtra(EXTRA_HOSTED_MODE, true);
-        mIntent.setPackage(HostedActivityManager.CHROME_PACKAGE);
         mIntent.setAction(Intent.ACTION_VIEW);
     }
 
@@ -54,8 +57,8 @@ public class HostedUiBuilder {
      *
      * @param color The color.
      */
-    public HostedUiBuilder setToolbarColor(int color) {
-        mIntent.putExtra(EXTRA_HOSTED_TOOLBAR_COLOR, color);
+    public CustomTabUiBuilder setToolbarColor(int color) {
+        mIntent.putExtra(EXTRA_CUSTOM_TABS_TOOLBAR_COLOR, color);
         return this;
     }
 
@@ -65,10 +68,10 @@ public class HostedUiBuilder {
      * @param label Menu label.
      * @param pendingIntent Pending intent delivered when the menu item is clicked.
      */
-    public HostedUiBuilder addMenuItem(String label, PendingIntent pendingIntent) {
+    public CustomTabUiBuilder addMenuItem(String label, PendingIntent pendingIntent) {
         Bundle bundle = new Bundle();
-        bundle.putString(KEY_HOSTED_MENU_TITLE, label);
-        bundle.putParcelable(KEY_HOSTED_PENDING_INTENT, pendingIntent);
+        bundle.putString(KEY_CUSTOM_TABS_MENU_TITLE, label);
+        bundle.putParcelable(KEY_CUSTOM_TABS_PENDING_INTENT, pendingIntent);
         mMenuItems.add(bundle);
         return this;
     }
@@ -79,11 +82,11 @@ public class HostedUiBuilder {
      * @param bitmap The icon.
      * @param pendingIntent pending intent delivered when the button is clicked.
      */
-    public HostedUiBuilder setActionButton(Bitmap bitmap, PendingIntent pendingIntent) {
+    public CustomTabUiBuilder setActionButton(Bitmap bitmap, PendingIntent pendingIntent) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable(KEY_HOSTED_ICON, bitmap);
-        bundle.putParcelable(KEY_HOSTED_PENDING_INTENT, pendingIntent);
-        mIntent.putExtra(EXTRA_HOSTED_ACTION_BUTTON_BUNDLE, bundle);
+        bundle.putParcelable(KEY_CUSTOM_TABS_ICON, bitmap);
+        bundle.putParcelable(KEY_CUSTOM_TABS_PENDING_INTENT, pendingIntent);
+        mIntent.putExtra(EXTRA_CUSTOM_TABS_ACTION_BUTTON_BUNDLE, bundle);
         return this;
     }
 
@@ -94,7 +97,7 @@ public class HostedUiBuilder {
      * @param enterResId Resource ID of the "enter" animation for the browser.
      * @param exitResId Resource ID of the "exit" animation for the application.
      */
-    public HostedUiBuilder setStartAnimations(Context context, int enterResId, int exitResId) {
+    public CustomTabUiBuilder setStartAnimations(Context context, int enterResId, int exitResId) {
         mStartBundle =
                 ActivityOptions.makeCustomAnimation(context, enterResId, exitResId).toBundle();
         return this;
@@ -107,15 +110,15 @@ public class HostedUiBuilder {
      * @param enterResId Resource ID of the "enter" animation for the application.
      * @param exitResId Resource ID of the "exit" animation for the browser.
      */
-    public HostedUiBuilder setExitAnimations(Context context, int enterResId, int exitResId) {
+    public CustomTabUiBuilder setExitAnimations(Context context, int enterResId, int exitResId) {
         Bundle bundle =
                 ActivityOptions.makeCustomAnimation(context, enterResId, exitResId).toBundle();
-        mIntent.putExtra(EXTRA_HOSTED_EXIT_ANIMATION_BUNDLE, bundle);
+        mIntent.putExtra(EXTRA_CUSTOM_TABS_EXIT_ANIMATION_BUNDLE, bundle);
         return this;
     }
 
     Intent getIntent() {
-        mIntent.putParcelableArrayListExtra(EXTRA_HOSTED_MENU_ITEMS, mMenuItems);
+        mIntent.putParcelableArrayListExtra(EXTRA_CUSTOM_TABS_MENU_ITEMS, mMenuItems);
         return mIntent;
     }
 

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package org.chromium.hostedclient;
+package org.chromium.customtabsclient;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -22,15 +22,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
 /**
- * Example client activity for a Chrome hosted mode.
+ * Example client activity for a Chrome Custom Tab.
  */
 public class MainActivity extends Activity implements OnClickListener {
+    private static final String TAG = "CustomTabsClientExample";
     private EditText mEditText;
 
     @Override
@@ -49,27 +51,39 @@ public class MainActivity extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        HostedActivityManager hostedManager = HostedActivityManager.getInstance(this);
+        CustomTabActivityManager customTabManager = CustomTabActivityManager.getInstance(this);
         String url = mEditText.getText().toString();
         int viewId = v.getId();
 
+        customTabManager.setNavigationCallback(new CustomTabActivityManager.NavigationCallback() {
+            @Override
+            public void onUserNavigationStarted(String url, Bundle extras) {
+                Log.w(TAG, "onUserNavigationStarted: url = " + url);
+            }
+
+            @Override
+            public void onUserNavigationFinished(String url, Bundle extras) {
+                Log.w(TAG, "onUserNavigationFinished: url = " + url);
+            }
+        });
+
         if (viewId == R.id.warmup_button) {
-            hostedManager.bindService();
-            hostedManager.warmup();
+            customTabManager.bindService();
+            customTabManager.warmup();
         } else if (viewId == R.id.may_launch_button) {
-            hostedManager.mayLaunchUrl(url, null);
+            customTabManager.mayLaunchUrl(url, null);
         } else if (viewId == R.id.button) {
-            HostedUiBuilder uiBuilder = new HostedUiBuilder();
+            CustomTabUiBuilder uiBuilder = new CustomTabUiBuilder();
             uiBuilder.setToolbarColor(Color.BLUE);
             prepareMenuItems(uiBuilder);
             prepareActionButton(uiBuilder);
             uiBuilder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
             uiBuilder.setExitAnimations(this, R.anim.slide_in_left, R.anim.slide_out_right);
-            hostedManager.loadUrl(url, uiBuilder);
+            customTabManager.loadUrl(url, uiBuilder);
         }
     }
 
-    private void prepareMenuItems(HostedUiBuilder uiBuilder) {
+    private void prepareMenuItems(CustomTabUiBuilder uiBuilder) {
         Intent menuIntent = new Intent();
         menuIntent.setClass(getApplicationContext(), this.getClass());
         // Optional animation configuration when the user clicks menu items.
@@ -80,7 +94,7 @@ public class MainActivity extends Activity implements OnClickListener {
         uiBuilder.addMenuItem("Menu entry 1", pi);
     }
 
-    private void prepareActionButton(HostedUiBuilder uiBuilder) {
+    private void prepareActionButton(CustomTabUiBuilder uiBuilder) {
         // An example intent that sends an email.
         Intent actionIntent = new Intent(Intent.ACTION_SEND);
         actionIntent.setType("*/*");
