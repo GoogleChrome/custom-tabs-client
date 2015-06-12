@@ -28,9 +28,6 @@ In particular, this covers:
     resources from the application
   * Providing a likely URL in advance to the browser, which may perform
     speculative work, speeding up page load time.
-* Lifecycle management: the browser prevents the application from being evicted
-  by the system while on top of it, by raising its importance to the
-  "foreground" level.
 
 These features can be accessed by appending extras to the `ACTION_VIEW` intent
 and connecting to a bound service in Chrome. Here we present the way this is
@@ -82,7 +79,8 @@ using a callback. The callback implements the interface of
 `CustomTabActivityManager.NavigationCallback`, that is:
 
 ```java
-void run(String url, Bundle extras);
+void onUserNavigationStarted(String url, Bundle extras);
+void onUserNavigationFinished(String url, Bundle extras);
 ```
 
 This callback must be set before binding to the service, that is:
@@ -137,24 +135,3 @@ customTabManager.loadUrl(url, uiBuilder);
 * If possible, advise Chrome about the likely target URL in advance, as the
   loading optimization can take time (requiring network traffic, for instance).
 
-## Lifecycle
-
-Chrome Custom Tabs were designed with two constraints regarding lifecycle
-management:
-
-1. When Chrome is in the background, it should not steal CPU and/or memory from
-   the application.
-2. When a custom tab is in the foreground, the application should not be evicted
-   by the Android framework.
-
-The first concern is addressed by giving the background service a lower CPU
-priority and eviction importance (using the `BIND_WAVE_PRIORITY` flag when
-binding to the background service); the second by having Chrome bind to a
-`Service` in the application to keep it alive. Such a dummy "KeepAlive" service
-is provided in the example application. This requires a modification to the
-`AndroidManifest.xml` file:
-
-```xml
-<service android:name="org.chromium.customtabsclient.KeepAliveService"
-    android:exported="true" />
-```
