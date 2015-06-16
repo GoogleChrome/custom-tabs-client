@@ -239,7 +239,11 @@ public class CustomTabActivityManager {
         mBindHasBeenCalled = false;
         mShouldRebind = false;
         mBindServiceFailed = false;
-        mContext.unbindService(mConnection);
+        synchronized (mLock) {
+            if (mServiceConnected) mContext.unbindService(mConnection);
+            mServiceConnected = false;
+            mConnectionService = null;
+        }
     }
 
     /**

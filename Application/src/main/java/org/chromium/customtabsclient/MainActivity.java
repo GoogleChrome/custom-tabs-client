@@ -53,6 +53,7 @@ public class MainActivity extends Activity implements OnClickListener {
     protected void onDestroy() {
         CustomTabActivityManager customTabManager = CustomTabActivityManager.getInstance(this);
         customTabManager.unbindService();
+        super.onDestroy();
     }
 
     @Override
