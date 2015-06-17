@@ -50,6 +50,12 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     @Override
+    protected void onDestroy() {
+        CustomTabActivityManager customTabManager = CustomTabActivityManager.getInstance(this);
+        customTabManager.unbindService();
+    }
+
+    @Override
     public void onClick(View v) {
         CustomTabActivityManager customTabManager = CustomTabActivityManager.getInstance(this);
         String url = mEditText.getText().toString();
