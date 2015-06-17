@@ -135,3 +135,10 @@ customTabManager.loadUrl(url, uiBuilder);
 * If possible, advise Chrome about the likely target URL in advance, as the
   loading optimization can take time (requiring network traffic, for instance).
 
+**Bugs**
+
+Issues and bugs related to these examples and the Chrome implementation of
+Custom Tabs are tracked in the Chromium Issue Tracker.
+[This template](https://code.google.com/p/chromium/issues/entry?summary=Issue%20Summary&comment=Application%20Version%20(from%20%22Chrome%20Settings%20%3E%20About%20Chrome%22):%20%0DAndroid%20Build%20Number%20(from%20%22Android%20Settings%20%3E%20About%20Phone/Tablet%22):%20%0DDevice:%20%0D%0DSteps%20to%20reproduce:%20%0D%0DObserved%20behavior:%20%0D%0DExpected%20behavior:%20%0D%0DFrequency:%20%0D%3Cnumber%20of%20times%20you%20were%20able%20to%20reproduce%3E%20%0D%0DAdditional%20comments:%20%0D&labels=OS-Android,Cr-UI-Browser-Mobile-CustomTabs)
+will notify relevant people faster than issues on GitHub, this is the preferred
+way to report.
