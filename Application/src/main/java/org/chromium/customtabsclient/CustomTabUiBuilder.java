@@ -40,6 +40,11 @@ public class CustomTabUiBuilder {
             "android.support.CUSTOM_TABS:menu_title";
     private static final String KEY_CUSTOM_TABS_PENDING_INTENT =
             "android.support.CUSTOM_TABS:pending_intent";
+    private static final String EXTRA_CUSTOM_TABS_TITLE_VISIBILITY_STATE =
+            "android.support.CUSTOM_TABS:title_visibility";
+
+    private static final int CUSTOM_TAB_NO_TITLE = 0;
+    private static final int CUSTOM_TAB_SHOW_PAGE_TITLE = 1;
 
     private final Intent mIntent;
     private Bundle mStartBundle;
@@ -60,6 +65,15 @@ public class CustomTabUiBuilder {
     public CustomTabUiBuilder setToolbarColor(int color) {
         mIntent.putExtra(EXTRA_CUSTOM_TABS_TOOLBAR_COLOR, color);
         return this;
+    }
+
+    /**
+     * Sets whether the title should be shown in the custom tab.
+     * @param showTitle Whether the title should be shown.
+     */
+    public void setShowTitle(boolean showTitle) {
+        int titleVisibilityState = showTitle ? CUSTOM_TAB_SHOW_PAGE_TITLE : CUSTOM_TAB_NO_TITLE;
+        mIntent.putExtra(EXTRA_CUSTOM_TABS_TITLE_VISIBILITY_STATE, titleVisibilityState);
     }
 
     /**

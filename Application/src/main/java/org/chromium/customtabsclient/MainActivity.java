@@ -82,6 +82,7 @@ public class MainActivity extends Activity implements OnClickListener {
         } else if (viewId == R.id.button) {
             CustomTabUiBuilder uiBuilder = new CustomTabUiBuilder();
             uiBuilder.setToolbarColor(Color.BLUE);
+            uiBuilder.setShowTitle(true);
             prepareMenuItems(uiBuilder);
             prepareActionButton(uiBuilder);
             uiBuilder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
