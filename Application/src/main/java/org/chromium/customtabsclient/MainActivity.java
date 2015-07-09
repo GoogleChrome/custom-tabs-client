@@ -22,6 +22,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsCallback;
+import android.support.customtabs.CustomTabsSession;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +36,7 @@ import android.widget.EditText;
 public class MainActivity extends Activity implements OnClickListener {
     private static final String TAG = "CustomTabsClientExample";
     private EditText mEditText;
+    private CustomTabsSession mCustomTabsSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,38 +50,42 @@ public class MainActivity extends Activity implements OnClickListener {
         warmupButton.setOnClickListener(this);
         mayLaunchButton.setOnClickListener(this);
         button.setOnClickListener(this);
+        // No service, disable the matching buttons.
+        if (!CustomTabActivityManager.getInstance().bindService(this)) {
+            warmupButton.setEnabled(false);
+            mayLaunchButton.setEnabled(false);
+        }
     }
 
-    @Override
-    protected void onDestroy() {
-        CustomTabActivityManager customTabManager = CustomTabActivityManager.getInstance(this);
-        customTabManager.unbindService();
-        super.onDestroy();
+    private CustomTabsSession getSession() {
+        if (mCustomTabsSession == null) {
+            mCustomTabsSession =
+                    CustomTabActivityManager.getInstance().newSession(new CustomTabsCallback() {
+                @Override
+                public void onUserNavigationStarted(String url, Bundle extras) {
+                    Log.w(TAG, "onUserNavigationStarted: url = " + url);
+                }
+
+                @Override
+                public void onUserNavigationFinished(String url, Bundle extras) {
+                    Log.w(TAG, "onUserNavigationFinished: url = " + url);
+                }
+            });
+        }
+        return mCustomTabsSession;
     }
 
     @Override
     public void onClick(View v) {
-        CustomTabActivityManager customTabManager = CustomTabActivityManager.getInstance(this);
+        CustomTabActivityManager customTabManager = CustomTabActivityManager.getInstance();
         String url = mEditText.getText().toString();
         int viewId = v.getId();
-
-        customTabManager.setNavigationCallback(new CustomTabActivityManager.NavigationCallback() {
-            @Override
-            public void onUserNavigationStarted(String url, Bundle extras) {
-                Log.w(TAG, "onUserNavigationStarted: url = " + url);
-            }
-
-            @Override
-            public void onUserNavigationFinished(String url, Bundle extras) {
-                Log.w(TAG, "onUserNavigationFinished: url = " + url);
-            }
-        });
+        CustomTabsSession session = getSession();
 
         if (viewId == R.id.warmup_button) {
-            customTabManager.bindService();
-            customTabManager.warmup();
+            CustomTabActivityManager.getInstance().warmup();
         } else if (viewId == R.id.may_launch_button) {
-            customTabManager.mayLaunchUrl(url, null);
+            session.mayLaunchUrl(url, null, null);
         } else if (viewId == R.id.button) {
             CustomTabUiBuilder uiBuilder = new CustomTabUiBuilder();
             uiBuilder.setToolbarColor(Color.BLUE);
@@ -87,7 +94,7 @@ public class MainActivity extends Activity implements OnClickListener {
             prepareActionButton(uiBuilder);
             uiBuilder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
             uiBuilder.setExitAnimations(this, R.anim.slide_in_left, R.anim.slide_out_right);
-            customTabManager.loadUrl(url, uiBuilder);
+            customTabManager.launchUrl(this, session, url, uiBuilder);
         }
     }
 

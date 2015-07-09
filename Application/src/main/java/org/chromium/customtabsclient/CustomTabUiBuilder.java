@@ -17,9 +17,9 @@ package org.chromium.customtabsclient;
 import android.app.ActivityOptions;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsIntent;
 
 import java.util.ArrayList;
 
@@ -27,35 +27,22 @@ import java.util.ArrayList;
  * Helper class to build the Custom Tab Activity UI.
  */
 public class CustomTabUiBuilder {
-    private static final String EXTRA_CUSTOM_TABS_EXIT_ANIMATION_BUNDLE =
-            "android.support.CUSTOM_TABS:exit_animation_bundle";
-    private static final String EXTRA_CUSTOM_TABS_TOOLBAR_COLOR =
-            "android.support.CUSTOM_TABS:toolbar_color";
-    private static final String EXTRA_CUSTOM_TABS_MENU_ITEMS =
-            "android.support.CUSTOM_TABS:menu_items";
-    private static final String EXTRA_CUSTOM_TABS_ACTION_BUTTON_BUNDLE =
-            "android.support.CUSTOM_TABS:action_button_bundle";
-    private static final String KEY_CUSTOM_TABS_ICON = "android.support.CUSTOM_TABS:icon";
-    private static final String KEY_CUSTOM_TABS_MENU_TITLE =
-            "android.support.CUSTOM_TABS:menu_title";
-    private static final String KEY_CUSTOM_TABS_PENDING_INTENT =
-            "android.support.CUSTOM_TABS:pending_intent";
-    private static final String EXTRA_CUSTOM_TABS_TITLE_VISIBILITY_STATE =
-            "android.support.CUSTOM_TABS:title_visibility";
+    // Flags that are not included in android support library yet.
+    public static final String EXTRA_TITLE_VISIBILITY_STATE =
+            "android.support.customtabs.extra.TITLE_VISIBILITY";
+    private static final int NO_TITLE = 0;
+    private static final int SHOW_PAGE_TITLE = 1;
 
-    private static final int CUSTOM_TAB_NO_TITLE = 0;
-    private static final int CUSTOM_TAB_SHOW_PAGE_TITLE = 1;
+    public static final String EXTRA_CLOSE_BUTTON_STYLE =
+            "android.support.customtabs.extra.CLOSE_BUTTON_STYLE";
+    public static final int CLOSE_BUTTON_CROSS = 0;
+    public static final int CLOSE_BUTTON_ARROW = 1;
 
-    private final Intent mIntent;
-    private Bundle mStartBundle;
-    private final ArrayList<Bundle> mMenuItems;
+    private final Bundle mExtras = new Bundle();
+    private Bundle mStartBundle = null;
+    private final ArrayList<Bundle> mMenuItems = new ArrayList<>();
 
-    public CustomTabUiBuilder() {
-        mIntent = new Intent();
-        mStartBundle = null;
-        mMenuItems = new ArrayList<Bundle>();
-        mIntent.setAction(Intent.ACTION_VIEW);
-    }
+    public CustomTabUiBuilder() {}
 
     /**
      * Sets the toolbar color.
@@ -63,17 +50,29 @@ public class CustomTabUiBuilder {
      * @param color The color.
      */
     public CustomTabUiBuilder setToolbarColor(int color) {
-        mIntent.putExtra(EXTRA_CUSTOM_TABS_TOOLBAR_COLOR, color);
+        mExtras.putInt(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, color);
         return this;
     }
 
     /**
      * Sets whether the title should be shown in the custom tab.
+     *
      * @param showTitle Whether the title should be shown.
      */
     public void setShowTitle(boolean showTitle) {
-        int titleVisibilityState = showTitle ? CUSTOM_TAB_SHOW_PAGE_TITLE : CUSTOM_TAB_NO_TITLE;
-        mIntent.putExtra(EXTRA_CUSTOM_TABS_TITLE_VISIBILITY_STATE, titleVisibilityState);
+        int titleVisibilityState = showTitle ? SHOW_PAGE_TITLE : NO_TITLE;
+        mExtras.putInt(EXTRA_TITLE_VISIBILITY_STATE, titleVisibilityState);
+    }
+
+    /**
+     * Sets the style of the close button on toolbar.
+     *
+     * @param style Either {@link #CLOSE_BUTTON_CROSS} or {@link #CLOSE_BUTTON_ARROW}
+     */
+    public void setCloseButtonStyle(int style) {
+        if (style == CLOSE_BUTTON_CROSS || style == CLOSE_BUTTON_ARROW) {
+            mExtras.putInt(EXTRA_CLOSE_BUTTON_STYLE, style);
+        }
     }
 
     /**
@@ -84,8 +83,8 @@ public class CustomTabUiBuilder {
      */
     public CustomTabUiBuilder addMenuItem(String label, PendingIntent pendingIntent) {
         Bundle bundle = new Bundle();
-        bundle.putString(KEY_CUSTOM_TABS_MENU_TITLE, label);
-        bundle.putParcelable(KEY_CUSTOM_TABS_PENDING_INTENT, pendingIntent);
+        bundle.putString(CustomTabsIntent.KEY_MENU_ITEM_TITLE, label);
+        bundle.putParcelable(CustomTabsIntent.KEY_PENDING_INTENT, pendingIntent);
         mMenuItems.add(bundle);
         return this;
     }
@@ -98,9 +97,9 @@ public class CustomTabUiBuilder {
      */
     public CustomTabUiBuilder setActionButton(Bitmap bitmap, PendingIntent pendingIntent) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable(KEY_CUSTOM_TABS_ICON, bitmap);
-        bundle.putParcelable(KEY_CUSTOM_TABS_PENDING_INTENT, pendingIntent);
-        mIntent.putExtra(EXTRA_CUSTOM_TABS_ACTION_BUTTON_BUNDLE, bundle);
+        bundle.putParcelable(CustomTabsIntent.KEY_ICON, bitmap);
+        bundle.putParcelable(CustomTabsIntent.KEY_PENDING_INTENT, pendingIntent);
+        mExtras.putBundle(CustomTabsIntent.EXTRA_ACTION_BUTTON_BUNDLE, bundle);
         return this;
     }
 
@@ -127,13 +126,15 @@ public class CustomTabUiBuilder {
     public CustomTabUiBuilder setExitAnimations(Context context, int enterResId, int exitResId) {
         Bundle bundle =
                 ActivityOptions.makeCustomAnimation(context, enterResId, exitResId).toBundle();
-        mIntent.putExtra(EXTRA_CUSTOM_TABS_EXIT_ANIMATION_BUNDLE, bundle);
+        mExtras.putBundle(CustomTabsIntent.EXTRA_EXIT_ANIMATION_BUNDLE, bundle);
         return this;
     }
 
-    Intent getIntent() {
-        mIntent.putParcelableArrayListExtra(EXTRA_CUSTOM_TABS_MENU_ITEMS, mMenuItems);
-        return mIntent;
+    Bundle getExtraBundle() {
+        if (!mMenuItems.isEmpty()) {
+            mExtras.putParcelableArrayList(CustomTabsIntent.EXTRA_MENU_ITEMS, mMenuItems);
+        }
+        return mExtras;
     }
 
     Bundle getStartBundle() {

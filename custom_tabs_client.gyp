@@ -24,30 +24,35 @@
         'run_findbugs': 0,
       },
       'dependencies': [
-        'chrome_custom_tabs_service_aidl',
-        'chrome_custom_tabs_callback_aidl',
+        'custom_tabs_support_lib',
       ],
       'includes': [ '../../../build/java_apk.gypi' ],
     },
     {
-      'target_name': "chrome_custom_tabs_callback_aidl",
+      'target_name': 'custom_tabs_support_lib',
       'type': 'none',
       'variables': {
-        'java_in_dir': 'Application/src/main/',
-        'java_in_dir_suffix': 'java/',
-        'aidl_interface_file': '<(java_in_dir)/aidl/org/chromium/chrome/browser/customtabs/ICustomTabsConnectionCallback.aidl',
+        'java_in_dir': 'customtabs/android/support/customtabs/',
+        'java_in_dir_suffix': '',
       },
-      'includes': [ '../../../build/java_aidl.gypi' ],
+      'dependencies': [
+        'chrome_custom_tabs_service_aidl',
+      ],
+      'includes': [ '../../../build/java.gypi' ],
     },
     {
       'target_name': "chrome_custom_tabs_service_aidl",
       'type': 'none',
       'variables': {
-        'java_in_dir': 'Application/src/main/',
-        'java_in_dir_suffix': 'java/',
-        'aidl_interface_file': '<(java_in_dir)/aidl/org/chromium/chrome/browser/customtabs/ICustomTabsConnectionService.aidl',
+        'java_in_dir': 'customtabs/android/support/customtabs/',
+        'java_in_dir_suffix': '',
+        'aidl_interface_file': '<(java_in_dir)/common.aidl',
       },
+      'sources': [
+        '<(java_in_dir)/ICustomTabsCallback.aidl',
+        '<(java_in_dir)/ICustomTabsService.aidl',
+      ],
       'includes': [ '../../../build/java_aidl.gypi' ],
-    }
+    },
   ],
 }

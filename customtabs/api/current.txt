@@ -1,0 +1,33 @@
+package android.support.customtabs {
+  public class CustomTabsCallback {
+    method public void onUserNavigationStarted(String, android.os.Bundle);
+    method public void onUserNavigationFinished(String, android.os.Bundle);
+  }
+
+  public class CustomTabsIntent {
+    field public static final String EXTRA_SESSION = "android.support.customtabs.extra.SESSION";
+    field public static final String EXTRA_TOOLBAR_COLOR = "android.support.customtabs.extra.TOOLBAR_COLOR";
+    field public static final String EXTRA_ACTION_BUTTON_BUNDLE = "android.support.customtabs.extra.ACTION_BUTTON_BUNDLE";
+    field public static final String KEY_ICON = "android.support.customtabs.customaction.ICON";
+    field public static final String KEY_PENDING_INTENT = "android.support.customtabs.customaction.PENDING_INTENT";
+    field public static final String EXTRA_MENU_ITEMS = "android.support.customtabs.extra.MENU_ITEMS";
+    field public static final String KEY_MENU_ITEM_TITLE = "android.support.customtabs.customaction.MENU_ITEM_TITLE";
+    field public static final String EXTRA_EXIT_ANIMATION_BUNDLE = "android.support.customtabs.extra.EXIT_ANIMATION_BUNDLE";
+  }
+
+  public abstract class CustomTabsService exrends android.app.Service {
+    field public static final String ACTION_CUSTOM_TABS_CONNECTION = "android.support.customtabs.action.CustomTabsService";
+    field public static final String KEY_URL = "android.support.customtabs.otherurls.URL";
+    method public abstract boolean warmup(long);
+    method public abstract boolean newSession(android.support.customtabs.ICustomTabsCallback);
+    method abstract boolean mayLaunchUrl(android.support.customtabs.ICustomTabsCallback, android.net.Uri, android.os.Bundle, List<android.os.Bundle>);
+  }
+
+  public class CustomTabsSession {
+    method public static boolean bindService(android.content.Context, String, android.content.ServiceConnection);
+    method public static android.support.customtabs.CustomTabsSession newSession(android.support.customtabs.ICustomTabsService, final android.support.customtabs.CustomTabsCallback);
+    method public boolean warmup(int);
+    method public boolean mayLaunchUrl(android.support.customtabs.ICustomTabsCallback, android.net.Uri, android.os.Bundle, List<android.os.Bundle>);
+    method public android.content.Intent getIntentForSession(String);
+  }
+}
