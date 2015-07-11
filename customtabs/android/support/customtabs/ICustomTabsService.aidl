@@ -17,6 +17,7 @@
 package android.support.customtabs;
 
 import android.os.Bundle;
+import android.net.Uri;
 import android.support.customtabs.ICustomTabsCallback;
 
 import java.util.List;
@@ -27,6 +28,6 @@ import java.util.List;
 interface ICustomTabsService {
     boolean warmup(long flags) = 1;
     boolean newSession(in ICustomTabsCallback callback) = 2;
-    boolean mayLaunchUrl(in ICustomTabsCallback callback, String url,
+    boolean mayLaunchUrl(in ICustomTabsCallback callback, in Uri url,
             in Bundle extras, in List<Bundle> otherLikelyBundles) = 3;
 }

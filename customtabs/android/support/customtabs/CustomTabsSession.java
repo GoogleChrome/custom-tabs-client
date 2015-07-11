@@ -25,6 +25,7 @@ import android.os.DeadObjectException;
 import android.os.IBinder;
 import android.os.IBinder.DeathRecipient;
 import android.os.RemoteException;
+import android.net.Uri;
 import android.support.customtabs.ICustomTabsCallback;
 import android.support.customtabs.ICustomTabsService;
 import android.util.Log;
@@ -78,12 +79,12 @@ public class CustomTabsSession {
             ICustomTabsService service, final CustomTabsCallback callback) {
         ICustomTabsCallback.Stub wrapper = new ICustomTabsCallback.Stub() {
             @Override
-            public void onUserNavigationStarted(String url, Bundle extras) {
+            public void onUserNavigationStarted(Uri url, Bundle extras) {
                 if (callback != null) callback.onUserNavigationStarted(url, extras);
             }
 
             @Override
-            public void onUserNavigationFinished(String url, Bundle extras) {
+            public void onUserNavigationFinished(Uri url, Bundle extras) {
                 if (callback != null) callback.onUserNavigationFinished(url, extras);
             }
         };
@@ -115,7 +116,7 @@ public class CustomTabsSession {
      *                           likelihood order. Each Bundle has to provide a url.
      * @return                   Whether the transaction was completed succesfully.
      */
-    public boolean mayLaunchUrl(String url, Bundle extras, List<Bundle> otherLikelyBundles) {
+    public boolean mayLaunchUrl(Uri url, Bundle extras, List<Bundle> otherLikelyBundles) {
         try {
             return mService.mayLaunchUrl(mCallback, url, extras, otherLikelyBundles);
         } catch (RemoteException e) {

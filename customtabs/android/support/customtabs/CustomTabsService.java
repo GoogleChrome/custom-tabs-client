@@ -23,6 +23,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.net.Uri;
 import android.support.customtabs.ICustomTabsCallback;
 import android.support.customtabs.ICustomTabsService;
 
@@ -63,7 +64,7 @@ import java.util.List;
          }
 
          @Override
-         public boolean mayLaunchUrl(ICustomTabsCallback callback, String url,
+         public boolean mayLaunchUrl(ICustomTabsCallback callback, Uri url,
                          Bundle extras, List<Bundle> otherLikelyBundles) {
              return CustomTabsService.this.mayLaunchUrl(callback, url, extras, otherLikelyBundles);
          }
@@ -112,6 +113,6 @@ import java.util.List;
       *     likelihood order. Each Bundle has to provide a url.
       * @return Whether the call was successful.
       */
-     public abstract boolean mayLaunchUrl(ICustomTabsCallback callback, String url,
+     public abstract boolean mayLaunchUrl(ICustomTabsCallback callback, Uri url,
              Bundle extras, List<Bundle> otherLikelyBundles);
 }

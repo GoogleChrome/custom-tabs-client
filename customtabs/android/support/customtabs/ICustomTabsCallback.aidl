@@ -16,6 +16,7 @@
 
 package android.support.customtabs;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 /**
@@ -23,6 +24,6 @@ import android.os.Bundle;
  * @hide
  */
 oneway interface ICustomTabsCallback {
-    void onUserNavigationStarted(String url, in Bundle extras) = 1;
-    void onUserNavigationFinished(String url, in Bundle extras) = 2;
+    void onUserNavigationStarted(in Uri url, in Bundle extras) = 1;
+    void onUserNavigationFinished(in Uri url, in Bundle extras) = 2;
 }

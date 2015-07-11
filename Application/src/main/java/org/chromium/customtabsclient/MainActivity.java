@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.customtabs.CustomTabsCallback;
 import android.support.customtabs.CustomTabsSession;
@@ -62,13 +63,13 @@ public class MainActivity extends Activity implements OnClickListener {
             mCustomTabsSession =
                     CustomTabActivityManager.getInstance().newSession(new CustomTabsCallback() {
                 @Override
-                public void onUserNavigationStarted(String url, Bundle extras) {
-                    Log.w(TAG, "onUserNavigationStarted: url = " + url);
+                public void onUserNavigationStarted(Uri url, Bundle extras) {
+                    Log.w(TAG, "onUserNavigationStarted: url = " + url.toString());
                 }
 
                 @Override
-                public void onUserNavigationFinished(String url, Bundle extras) {
-                    Log.w(TAG, "onUserNavigationFinished: url = " + url);
+                public void onUserNavigationFinished(Uri url, Bundle extras) {
+                    Log.w(TAG, "onUserNavigationFinished: url = " + url.toString());
                 }
             });
         }
@@ -85,7 +86,7 @@ public class MainActivity extends Activity implements OnClickListener {
         if (viewId == R.id.warmup_button) {
             CustomTabActivityManager.getInstance().warmup();
         } else if (viewId == R.id.may_launch_button) {
-            session.mayLaunchUrl(url, null, null);
+            session.mayLaunchUrl(Uri.parse(url), null, null);
         } else if (viewId == R.id.button) {
             CustomTabUiBuilder uiBuilder = new CustomTabUiBuilder();
             uiBuilder.setToolbarColor(Color.BLUE);

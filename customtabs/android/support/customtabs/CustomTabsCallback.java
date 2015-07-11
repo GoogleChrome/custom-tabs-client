@@ -16,6 +16,7 @@
 
 package android.support.customtabs;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 /**
@@ -28,7 +29,7 @@ public class CustomTabsCallback {
      * @param url URL the user has navigated to.
      * @param extras Reserved for future use.
      */
-    public void onUserNavigationStarted(String url, Bundle extras) {}
+    public void onUserNavigationStarted(Uri url, Bundle extras) {}
 
     /**
      * To be called when a page navigation finishes.
@@ -36,5 +37,5 @@ public class CustomTabsCallback {
      * @param url URL the user has navigated to.
      * @param extras Reserved for future use.
      */
-    public void onUserNavigationFinished(String url, Bundle extras) {}
+    public void onUserNavigationFinished(Uri url, Bundle extras) {}
 }
