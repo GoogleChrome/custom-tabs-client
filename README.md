@@ -1,11 +1,13 @@
-# Chrome Custom Tabs - Example and Usage
+# Custom Tabs - Example and Usage
 
 ## Summary
 
-This presents an example application using Chrome Custom Tabs, and a possible
-usage of both the intent and the background service APIs. It covers UI
-customization, callback setup, pre-warming and pre-fetching, and lifecycle
-management.
+This presents an example application using Custom Tabs, and a possible usage of
+both the intent and the background service APIs. It covers UI customization,
+callback setup, pre-warming and pre-fetching, and lifecycle management. Here we
+assume that Chrome's implementation of Custom Tabs is used. Note that this
+feature is in no way specific to Chrome, but slight differences may exist with
+other implementations.
 
 ## Introduction
 
@@ -14,6 +16,8 @@ with a Chrome `Activity` on Android, to make it a part of the application
 experience, while retaining the full functionality and performance of a complete
 web browser.
 
+### Overview
+
 In particular, this covers:
 
 * UI customization:
@@ -21,31 +25,43 @@ In particular, this covers:
   * Action button
   * Custom menu items
   * Custom in/out animations
-* Navigation awareness: the browser delivers a callback to the application upon
-  an external navigation.
+* Navigation awareness: the browser delivers callbacks to the application for
+  navigations in the Custom Tab.
 * Performance optimizations:
-  * Pre-warming of the Browser in the background, while avoiding stealing
-    resources from the application
+  * Pre-warming of the Browser in the background, without stealing resources
+    from the application
   * Providing a likely URL in advance to the browser, which may perform
     speculative work, speeding up page load time.
 
-These features can be accessed by appending extras to the `ACTION_VIEW` intent
-and connecting to a bound service in Chrome. Here we present the way this is
-handled in the example client application. Feel free to re-use the provided
-classes in this sample, namely:
+These features are enabled through two mechanisms:
 
-* `CustomTabUiBuilder`: Builds the intent extras used to customize the Custom Tab
-  UI.
-* `CustomTabActivityManager`: Handles the connection with the background service,
-  the load time optimizations and the "KeepAlive" service.
-* `KeepAliveService`: Empty remote service used by Chrome to keep the
-  application alive.
+* Adding extras to the `ACTION_VIEW` intent sent to the browser.
+* Connecting to a bound service in the target browser.
+
+### Code Organization
+
+The code in this repository falls into two parts:
+
+* `Application/`: Example application code, in the package
+  `org.chromium.customtabsclient`. Feel free to re-use the classes within this
+  directory, which are only provided as a convenience. In particular,
+  `CustomTabUibuilder` and `CustomTabActivityManager` can be re-used. This code
+  is not required to take advantage of Custom Tabs.
+* `customtabs/`: Code within this directory is in the package
+  `android.support.customtabs`. This contains code that one needs to use Custom
+  Tabs, regardless of the target browser. We encourage you to copy this code
+  as-is in your own projects, without modifications.
+
+**Compatibility Note:** This version of the example application requires API
+  level 18 (Android 4.3). We expect a forthcoming revision to require API level
+  16 (Android 4.1), like Chrome.
 
 ## UI Customization
 
-UI customization is handled by the `CustomTabUiBuilder` class. An instance of this
-class has to be provided to `CustomTabActivityManager.loadUrl()` to load a URL in a
-custom tab.
+UI customization is done through extras added to the `ACTION_VIEW` intent sent
+to the browser. One can use the convenience builder class
+`CustomTabUiBuilder`. An instance of this class has to be provided to
+`CustomTabActivityManager.launchUrl()` to load a URL in a Custom Tab.
 
 **Example:**
 ```java
@@ -55,7 +71,7 @@ uiBuilder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left)
 // vice versa
 uiBuilder.setExitAnimations(this, R.anim.slide_in_left, R.anim.slide_out_right);
 
-customTabManager.loadUrl(url, uiBuilder);
+customTabManager.launchUrl(this, session, url, uiBuilder);
 ```
 
 In this example, no UI customization is done, aside from the animations and the
@@ -63,32 +79,35 @@ toolbar color. The general usage is:
 
 1. Create an instance of `CustomTabUiBuilder`
 2. Build the UI using the methods of `CustomTabUiBuilder`
-3. Provide this instance to `CustomTabActivityManager.loadUrl()`
+3. Provide this instance to `CustomTabActivityManager.launchUrl()`
 
 The communication between the custom tab activity and the application is done
-via pending intents. For each interaction leading back to the application
-(through menu items), a
+via pending intents. For each interaction leading back to the application (menu
+items and action button), a
 [`PendingIntent`](http://developer.android.com/reference/android/app/PendingIntent.html)
-must be provided, and will be delivered upon activation of the UI element.
+must be provided, and will be delivered upon activation of the corresponding UI
+element.
 
 ## Navigation
 
-After a URL has been loaded inside a custom tab activity, the application can
-receive a notification when the user navigates to another location. This is done
-using a callback. The callback implements the interface of
-`CustomTabActivityManager.NavigationCallback`, that is:
+The hosting application can elect to get notifications about navigations in a
+Custom Tab. This is done using a callback extending
+`android.support.customtabs.CustomTabsCallback`, that is:
 
 ```java
-void onUserNavigationStarted(String url, Bundle extras);
-void onUserNavigationFinished(String url, Bundle extras);
+void onUserNavigationStarted(Uri url, Bundle extras);
+void onUserNavigationFinished(Uri url, Bundle extras);
 ```
 
-This callback must be set before binding to the service, that is:
+This callback is set when a `CustomTabsSession` object is created, through
+`CustomTabsSession.newSession()`. It thus has to be set:
 
-* Before calling `CustomTabActivityManager.bindService()`
-* Before calling `CustomTabActivityManager.loadUrl()`
+* After binding to the background service
+* Before launching a URL in a custom tab
 
-It can only be set **once**.
+The methods are analogous to `WebViewClient.onPageStarted()` and
+`WebViewClient.onPageFinished()`, respectively (see
+[WebViewClient](http://developer.android.com/reference/android/webkit/WebViewClient.html)).
 
 ## Optimization
 
@@ -101,31 +120,46 @@ The application can communicate its intention to the browser, that is:
 * Indicating a likely navigation to a given URL
 
 In both cases, communication with the browser is done through a bound background
-service. This binding is done by `CustomTabActivityManager.bindService()`. This
-**must** be called before the other methods discussed in this section.
+service. This binding is done by
+`CustomTabClient.bindCustomTabsService()`. After the service is connected, the
+client has access to a `CustomTabsClient` object, valid until the service gets
+disconnected. This client can be used in these two cases:
 
-* **Warmup:** Warms up the browser to make navigation faster. This is expected
+* **Warmup**: Warms up the browser to make navigation faster. This is expected
   to create some CPU and IO activity, and to have a duration comparable to a
   normal Chrome startup. Once started, Chrome will not use additional
-  resources. To warm up Chrome, use `CustomTabActivityManager.warmup()`.
-* **May Launch URL:** Indicates that a given URL may be loaded in the
-  future. Chrome may perform speculative work to speed up page load time. The
-  application must call `CustomTabActivityManager.warmup()` first.
+  resources. This is triggered by `CustomTabsClient.warmup()`.
+* **Hint about a likely future navigation:** Indicates that a given URL may be
+  loaded in the future. Chrome may perform speculative work to speed up page
+  load time. The application must call `CustomTabsClient.warmup()` first. This
+  is triggered by `CustomTabsSession.mayLaunchUrl()`.
 
 **Example:**
 ```java
-// It is preferable to call this once the main activity has been shown.
-// These calls are non-blocking and can be issued from the UI thread
-// or any other thread. However, CustomTabActivityManager is not threadsafe.
-CustomTabActivityManager customTabManager = CustomTabActivityManager.getInstance(activity);
-customTabManager.bindService();
-customTabManager.warmup();
+// Binds to the service.
+CustomTabsClient.bindCustomTabsService(context, packageName, new CustomTabsServiceConnection() {
+    @Override
+    public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
+        // mClient is now valid.
+        mClient = client;
+    }
 
-// This URL is likely to be loaded. Tell the browser about it.
-customTabManager.mayLaunchUrl(url, null);
+    @Override
+    public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
+        // mClient is no longer valid. This also invalidates sessions.
+        mClient = null;
+    }
+});
 
-// Show the custom tab.
-customTabManager.loadUrl(url, uiBuilder);
+// With a valid mClient.
+mClient.warmup(0);
+
+// With a valid mClient.
+CustomTabsSession session = mClient.newSession(new CustomTabsCallback());
+session.mayLaunchUrl("https://www.google.com", null, null);
+
+// Shows the Custom Tab
+CustomTabManager.launchUrl(context, session, "https://www.google.com", uiBuilder);
 ```
 
 **Tips**
