@@ -33,12 +33,22 @@
         android:layout_height="5dp" />
 
     <Button
+        android:id="@+id/connect_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:textAllCaps="false"
+        android:text="@string/connect_button_text"
+        android:enabled="true" />
+
+    <Button
         android:id="@+id/warmup_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
         android:textAllCaps="false"
-        android:text="@string/warmup_button_text" />
+        android:text="@string/warmup_button_text"
+        android:enabled="false" />
 
     <Button
         android:id="@+id/may_launch_button"
@@ -46,13 +56,15 @@
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
         android:textAllCaps="false"
-        android:text="@string/may_launch_button_text" />
+        android:text="@string/may_launch_button_text"
+        android:enabled="false" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/launch_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
         android:textAllCaps="false"
-        android:text="@string/button_text" />
+        android:text="@string/launch_button_text"
+        android:enabled="false" />
 </LinearLayout>

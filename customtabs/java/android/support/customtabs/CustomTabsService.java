@@ -17,16 +17,12 @@
 package android.support.customtabs;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.IBinder.DeathRecipient;
 import android.os.RemoteException;
-import android.net.Uri;
-import android.support.customtabs.ICustomTabsCallback;
-import android.support.customtabs.ICustomTabsService;
-
 
 import java.util.List;
 
@@ -44,8 +40,9 @@ import java.util.List;
              "android.support.customtabs.action.CustomTabsService";
 
      /**
-     * For {@link CustomTabsService#mayLaunchUrl(long, String, Bundle, List)} calls that wants to
-     * specify more than one url, this key can be used with {@link Bundle#putString(String, String)}
+     * For {@link CustomTabsService#mayLaunchUrl(long, Uri, Bundle, List)} calls that wants to
+     * specify more than one url, this key can be used with
+     * {@link Bundle#putParcelable(String, android.os.Parcelable)}
      * to insert a new url to each bundle inside list of bundles.
       */
      public static final String KEY_URL =
@@ -60,13 +57,25 @@ import java.util.List;
 
          @Override
          public boolean newSession(ICustomTabsCallback callback) {
-             return CustomTabsService.this.newSession(callback);
+             final CustomTabsSessionToken sessionToken = new CustomTabsSessionToken(callback);
+             try {
+                 callback.asBinder().linkToDeath(new IBinder.DeathRecipient() {
+                     @Override
+                     public void binderDied() {
+                         cleanUpSession(sessionToken);
+                     }
+                 }, 0);
+             } catch (RemoteException e) {
+                 return false;
+             }
+             return CustomTabsService.this.newSession(sessionToken);
          }
 
          @Override
          public boolean mayLaunchUrl(ICustomTabsCallback callback, Uri url,
                          Bundle extras, List<Bundle> otherLikelyBundles) {
-             return CustomTabsService.this.mayLaunchUrl(callback, url, extras, otherLikelyBundles);
+             return CustomTabsService.this.mayLaunchUrl(
+                     new CustomTabsSessionToken(callback), url, extras, otherLikelyBundles);
          }
      };
 
@@ -76,43 +85,51 @@ import java.util.List;
      }
 
      /**
+      * Called when the client side {@link IBinder} for this {@link CustomTabsSessionToken} is dead.
+      * @param sessionToken The session token for which the {@link DeathRecipient} call has been
+      *                     received.
+      * @return Whether the clean up was successful.
+      */
+     protected abstract boolean cleanUpSession(CustomTabsSessionToken sessionToken);
+
+     /**
       * Warms up the browser process asynchronously.
       *
       * @param flags Reserved for future use.
-      * @return      Whether warm up was or had already been completed successfully. Multiple successful
+      * @return      Whether warmup was/had been completed successfully. Multiple successful
       *              calls will return true.
       */
-     public abstract boolean warmup(long flags);
+     protected abstract boolean warmup(long flags);
 
      /**
       * Creates a new session through an ICustomTabsService with the optional callback. This session
       * can be used to associate any related communication through the service with an intent and
       * then later with a Custom Tab. The client can then send later service calls or intents to
       * through same session-intent-Custom Tab association.
-      * @param callback Callback to be triggered on an external navigation. Can not be null.
-      *                 Multiple calls with the same callback returns false, since a new session
-      *                 object can not be created with the same {@link IBinder}.
-      * @return         Whether a new session was successfully created.
+      * @param sessionToken Session token to be used as a unique identifier. This also has access
+      *                     to the {@link CustomTabsCallback} passed from the client side through
+      *                     {@link CustomTabsSessionToken#getCallback()}.
+      * @return             Whether a new session was successfully created.
       */
-     public abstract boolean newSession(ICustomTabsCallback callback);
+     protected abstract boolean newSession(CustomTabsSessionToken sessionToken);
 
      /**
       * Tells the browser of a likely future navigation to a URL.
       *
-      * The method {@link warmup} has to be called beforehand.
+      * The method {@link CustomTabsService#warmup(long)} has to be called beforehand.
       * The most likely URL has to be specified explicitly. Optionally, a list of
       * other likely URLs can be provided. They are treated as less likely than
       * the first one, and have to be sorted in decreasing priority order. These
       * additional URLs may be ignored.
       * All previous calls to this method will be deprioritized.
       *
-      * @param binder As passed to {@link newSession}. Can not be null.
-      * @param url Most likely URL.
-      * @param extras Reserved for future use.
+      * @param sessionToken       The unique identifier for the session. Can not be null.
+      * @param url                Most likely URL.
+      * @param extras             Reserved for future use.
       * @param otherLikelyBundles Other likely destinations, sorted in decreasing
-      *     likelihood order. Each Bundle has to provide a url.
-      * @return Whether the call was successful.
+      *                           likelihood order. Each Bundle has to provide a url.
+      * @return                   Whether the call was successful.
       */
-     public abstract boolean mayLaunchUrl(ICustomTabsCallback callback, Uri url,
+     protected abstract boolean mayLaunchUrl(CustomTabsSessionToken sessionToken, Uri url,
              Bundle extras, List<Bundle> otherLikelyBundles);
 }

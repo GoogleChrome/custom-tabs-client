@@ -87,24 +87,16 @@ public class CustomTabsIntent {
             "android.support.customtabs.extra.EXIT_ANIMATION_BUNDLE";
 
     /**
-     * Convenience method to create a VIEW intent for a given session and package.
-     * @param session     {@link CustomTabsSession} to associate the intent with. If this is null, the
-     *                    intent returned won't be related with any session, but will still be
-     *                    a valid Custom Tab intent.
+     * Convenience method to create a VIEW intent without a session for the given package.
      * @param packageName The package name to set in the intent.
      * @param data        The data {@link Uri} to be used in the intent.
      * @return            The intent with the given package, data and the right session extra.
      */
-    public static Intent getViewIntent(CustomTabsSession session, String packageName, Uri data) {
+    public static Intent getViewIntentWithNoSession(String packageName, Uri data) {
         Intent intent = new Intent(Intent.ACTION_VIEW, data);
         intent.setPackage(packageName);
-        Bundle extras;
-        if (session == null) {
-            extras = new Bundle();
-            extras.putBinder(EXTRA_SESSION, null);
-        } else {
-            extras = session.getBundleWithSession();
-        }
+        Bundle extras = new Bundle();
+        extras.putBinder(EXTRA_SESSION, null);
         intent.putExtras(extras);
         return intent;
     }

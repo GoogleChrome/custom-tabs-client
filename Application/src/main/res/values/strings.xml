@@ -18,5 +18,6 @@
     <string name="url_hint">Please type the url here.</string>
     <string name="warmup_button_text">Warmup Chrome</string>
     <string name="may_launch_button_text">May Launch URL</string>
-    <string name="button_text">Launch URL in custom Chrome tab</string>
+    <string name="launch_button_text">Launch URL in a Chrome Custon Tab</string>
+    <string name="connect_button_text">Connect to the service</string>
 </resources>

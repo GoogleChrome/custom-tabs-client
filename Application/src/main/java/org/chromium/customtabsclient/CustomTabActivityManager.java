@@ -15,33 +15,23 @@
 package org.chromium.customtabsclient;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
-import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.os.Bundle;
-import android.os.IBinder;
-import android.os.RemoteException;
 import android.support.customtabs.CustomTabsCallback;
-import android.support.customtabs.CustomTabsIntent;
+import android.support.customtabs.CustomTabsService;
 import android.support.customtabs.CustomTabsSession;
-import android.support.customtabs.ICustomTabsService;
 import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
- * Handles the connection with the warmup service.
+ * Handles the Browser choice and intent creation for Custom Tabs.
  *
  * The class instance must be accessed from one thread at a time.
  */
@@ -57,7 +47,6 @@ public class CustomTabActivityManager {
     private static final Object sConstructionLock = new Object();
     private static CustomTabActivityManager sInstance;
 
-    private ICustomTabsService mService;
     private String mPackageNameToUse;
 
     private CustomTabActivityManager() {}
@@ -77,65 +66,16 @@ public class CustomTabActivityManager {
     }
 
     /**
-     * Binds to the service.
-     *
-     * @return true for success.
-     */
-    public boolean bindService(Activity context) {
-        if (mService != null) return true;
-        if (mPackageNameToUse == null) mPackageNameToUse = getPackageNameToUse(context);
-        if (mPackageNameToUse == null) return false;
-        Intent intent = CustomTabsSession.getServiceIntent(mPackageNameToUse, null);
-        try {
-            return context.bindService(intent, new ServiceConnection() {
-                @Override
-                public void onServiceConnected(ComponentName name, IBinder service) {
-                    mService = ICustomTabsService.Stub.asInterface(service);
-                }
-
-                @Override
-                public void onServiceDisconnected(ComponentName name) {
-                    mService = null;
-                }
-            }, Context.BIND_AUTO_CREATE | Context.BIND_WAIVE_PRIORITY);
-        } catch (SecurityException e) {
-            return false;
-        }
-    }
-
-    public CustomTabsSession newSession(CustomTabsCallback callback) {
-        if (mService == null) return null;
-        return CustomTabsSession.newSession(mService, callback);
-    }
-
-    /**
-     * Warms up the Browser.
-     *
-     * This require the service to be bound.
-     *
-     * @return true for success.
-     */
-    public boolean warmup() {
-        if (mService == null) return false;
-        try {
-            return mService.warmup(0);
-        } catch (RemoteException e) {
-            return false;
-        }
-    }
-
-    /**
-     * Launches the CustomTabs activity with a given URL.
+     * Launches a CustomTabs activity with a given URL.
      *
      * @param context Activity context used to launch the CustomTabs activity.
-     * @param session As returned by {@link CustomTabActivityManager#newSession(CustomTabsCallback)}
+     * @param session As returned by {@link CustomTabsClient#newSession(CustomTabsCallback)}
      * @param url URL to load in the CustomTabs activity
      * @param uiBuilder UI customizations
      */
-    public void launchUrl(
+    public static void launchUrl(
             Activity context, CustomTabsSession session, String url, CustomTabUiBuilder uiBuilder) {
-        if (mPackageNameToUse == null) mPackageNameToUse = getPackageNameToUse(context);
-        Intent intent = CustomTabsIntent.getViewIntent(session, mPackageNameToUse, Uri.parse(url));
+        Intent intent = session.getViewIntent(Uri.parse(url));
         intent.putExtras(uiBuilder.getExtraBundle());
         Intent keepAliveIntent = new Intent().setClassName(
                 context.getPackageName(), KeepAliveService.class.getCanonicalName());
@@ -144,15 +84,17 @@ public class CustomTabActivityManager {
     }
 
     /**
-     * Goes through all apps that supports CATEGORY_CUSTOM_TABS in a service and VIEW intents. Picks
+     * Goes through all apps that handle VIEW intents and have a warmup service. Picks
      * the one chosen by the user if there is one, otherwise makes a best effort to return a
      * valid package name.
+     *
      * @param context {@link Context} to use for accessing {@link PackageManager}.
      * @return The package name recommended to use for connecting to custom tabs related components.
      */
-    private String getPackageNameToUse(Context context) {
-        PackageManager pm = context.getPackageManager();
+    public String getPackageNameToUse(Context context) {
+        if (mPackageNameToUse != null) return mPackageNameToUse;
 
+        PackageManager pm = context.getPackageManager();
         // Get default VIEW intent handler.
         Intent activityIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com"));
         ResolveInfo defaultViewHandlerInfo = pm.resolveActivity(activityIntent, 0);
@@ -163,11 +105,11 @@ public class CustomTabActivityManager {
 
         // Get all apps that can handle VIEW intents.
         List<ResolveInfo> resolvedActivityList = pm.queryIntentActivities(activityIntent, 0);
-        Set<String> resolvedActivityPackageList = new HashSet<>();
         List<String> packagesSupportingCustomTabs = new ArrayList<>();
         for (ResolveInfo info : resolvedActivityList) {
-            Intent serviceIntent =
-                    CustomTabsSession.getServiceIntent(info.activityInfo.packageName, null);
+            Intent serviceIntent = new Intent();
+            serviceIntent.setAction(CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION);
+            serviceIntent.setPackage(info.activityInfo.packageName);
             if (pm.resolveService(serviceIntent, 0) != null) {
                 packagesSupportingCustomTabs.add(info.activityInfo.packageName);
             }
@@ -175,18 +117,24 @@ public class CustomTabActivityManager {
 
         // Now packagesSupportingCustomTabs contains all apps that can handle both VIEW intents
         // and service calls.
-        if (packagesSupportingCustomTabs.isEmpty()) return null;
-        if (packagesSupportingCustomTabs.size() == 1) return packagesSupportingCustomTabs.get(0);
-        if (!TextUtils.isEmpty(defaultViewHandlerPackageName)
+        if (packagesSupportingCustomTabs.isEmpty()) {
+            mPackageNameToUse = null;
+        } else if (packagesSupportingCustomTabs.size() == 1) {
+            mPackageNameToUse = packagesSupportingCustomTabs.get(0);
+        } else if (!TextUtils.isEmpty(defaultViewHandlerPackageName)
                 && !hasSpecializedHandlerIntents(context, activityIntent)
                 && packagesSupportingCustomTabs.contains(defaultViewHandlerPackageName)) {
-            return defaultViewHandlerPackageName;
+            mPackageNameToUse = defaultViewHandlerPackageName;
+        } else if (packagesSupportingCustomTabs.contains(STABLE_PACKAGE)) {
+            mPackageNameToUse = STABLE_PACKAGE;
+        } else if (packagesSupportingCustomTabs.contains(BETA_PACKAGE)) {
+            mPackageNameToUse = BETA_PACKAGE;
+        } else if (packagesSupportingCustomTabs.contains(DEV_PACKAGE)) {
+            mPackageNameToUse = DEV_PACKAGE;
+        } else if (packagesSupportingCustomTabs.contains(LOCAL_PACKAGE)) {
+            mPackageNameToUse = LOCAL_PACKAGE;
         }
-        if (packagesSupportingCustomTabs.contains(STABLE_PACKAGE)) return STABLE_PACKAGE;
-        if (packagesSupportingCustomTabs.contains(BETA_PACKAGE)) return BETA_PACKAGE;
-        if (packagesSupportingCustomTabs.contains(DEV_PACKAGE)) return DEV_PACKAGE;
-        if (packagesSupportingCustomTabs.contains(LOCAL_PACKAGE)) return LOCAL_PACKAGE;
-        return null;
+        return mPackageNameToUse;
     }
 
     /**
