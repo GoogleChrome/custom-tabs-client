@@ -32,7 +32,7 @@
       'target_name': 'custom_tabs_support_lib',
       'type': 'none',
       'variables': {
-        'java_in_dir': 'customtabs/android/support/customtabs/',
+        'java_in_dir': 'customtabs/java/android/support/customtabs/',
         'java_in_dir_suffix': '',
       },
       'dependencies': [
@@ -44,9 +44,10 @@
       'target_name': "chrome_custom_tabs_service_aidl",
       'type': 'none',
       'variables': {
-        'java_in_dir': 'customtabs/android/support/customtabs/',
+        'java_in_dir': 'customtabs/java/android/support/customtabs/',
         'java_in_dir_suffix': '',
-        'aidl_interface_file': '<(java_in_dir)/common.aidl',
+        # The filename should not end with ".aidl", as it upsets gradle.
+        'aidl_interface_file': '<(java_in_dir)/common.aidl.txt',
       },
       'sources': [
         '<(java_in_dir)/ICustomTabsCallback.aidl',
