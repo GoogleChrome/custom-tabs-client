@@ -38,6 +38,9 @@ public class CustomTabUiBuilder {
     public static final int CLOSE_BUTTON_CROSS = 0;
     public static final int CLOSE_BUTTON_ARROW = 1;
 
+    public static final String EXTRA_TINT_ACTION_BUTTON =
+            "android.support.customtabs.extra.TINT_ACTION_BUTTON";
+
     private final Bundle mExtras = new Bundle();
     private Bundle mStartBundle = null;
     private final ArrayList<Bundle> mMenuItems = new ArrayList<>();
@@ -101,6 +104,13 @@ public class CustomTabUiBuilder {
         bundle.putParcelable(CustomTabsIntent.KEY_PENDING_INTENT, pendingIntent);
         mExtras.putBundle(CustomTabsIntent.EXTRA_ACTION_BUTTON_BUNDLE, bundle);
         return this;
+    }
+
+    /**
+     * Sets whether the custom action button should be tinted.
+     */
+    public void setActionButtonShouldTint(boolean shouldTint) {
+        mExtras.putBoolean(EXTRA_TINT_ACTION_BUTTON, shouldTint);
     }
 
     /**
