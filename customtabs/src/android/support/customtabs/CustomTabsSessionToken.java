@@ -37,18 +37,9 @@ public class CustomTabsSessionToken {
         mCallback = new CustomTabsCallback() {
 
             @Override
-            public void onUserNavigationStarted(Uri url, Bundle extras) {
+            public void onNavigationEvent(int navigationEvent, Bundle extras) {
                 try {
-                    mCallbackBinder.onUserNavigationStarted(url, extras);
-                } catch (RemoteException e) {
-                    Log.e(TAG, "RemoteException during ICustomTabsCallback transaction");
-                }
-            }
-
-            @Override
-            public void onUserNavigationFinished(Uri url, Bundle extras) {
-                try {
-                    mCallbackBinder.onUserNavigationFinished(url, extras);
+                    mCallbackBinder.onNavigationEvent(navigationEvent, extras);
                 } catch (RemoteException e) {
                     Log.e(TAG, "RemoteException during ICustomTabsCallback transaction");
                 }

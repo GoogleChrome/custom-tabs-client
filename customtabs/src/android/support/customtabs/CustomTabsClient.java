@@ -31,7 +31,7 @@ import java.util.List;
  * Class to communicate with a {@link CustomTabsService} and create
  * {@link CustomTabsSession} from it.
  */
-public class CustomTabsClient{
+public class CustomTabsClient {
     private final ICustomTabsService mService;
     private final ComponentName mServiceComponentName;
 
@@ -88,13 +88,8 @@ public class CustomTabsClient{
     public CustomTabsSession newSession(final CustomTabsCallback callback) {
         ICustomTabsCallback.Stub wrapper = new ICustomTabsCallback.Stub() {
             @Override
-            public void onUserNavigationStarted(Uri url, Bundle extras) {
-                if (callback != null) callback.onUserNavigationStarted(url, extras);
-            }
-
-            @Override
-            public void onUserNavigationFinished(Uri url, Bundle extras) {
-                if (callback != null) callback.onUserNavigationFinished(url, extras);
+            public void onNavigationEvent(int navigationEvent, Bundle extras) {
+                if (callback != null) callback.onNavigationEvent(navigationEvent, extras);
             }
         };
 

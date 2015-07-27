@@ -16,14 +16,15 @@
 
 package android.support.customtabs;
 
-import android.os.Bundle;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.customtabs.ICustomTabsCallback;
 
 import java.util.List;
 
 /**
  * Interface to a CustomTabsService.
+ * @hide
  */
 interface ICustomTabsService {
     boolean warmup(long flags) = 1;

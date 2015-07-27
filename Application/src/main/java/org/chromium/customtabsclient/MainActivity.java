@@ -71,13 +71,8 @@ public class MainActivity extends Activity implements OnClickListener {
         } else if (mCustomTabsSession == null) {
             mCustomTabsSession = mClient.newSession(new CustomTabsCallback() {
                 @Override
-                public void onUserNavigationStarted(Uri url, Bundle extras) {
-                    Log.w(TAG, "onUserNavigationStarted: url = " + url.toString());
-                }
-
-                @Override
-                public void onUserNavigationFinished(Uri url, Bundle extras) {
-                    Log.w(TAG, "onUserNavigationFinished: url = " + url.toString());
+                public void onNavigationEvent(int navigationEvent, Bundle extras) {
+                    Log.w(TAG, "onNavigationEvent: Code = " + navigationEvent);
                 }
             });
         }

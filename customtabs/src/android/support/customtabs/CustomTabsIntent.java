@@ -23,7 +23,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Constants and utilities that will be used for low level control on customizing the UI and
@@ -96,8 +101,32 @@ public class CustomTabsIntent {
         Intent intent = new Intent(Intent.ACTION_VIEW, data);
         intent.setPackage(packageName);
         Bundle extras = new Bundle();
-        extras.putBinder(EXTRA_SESSION, null);
+        if (!safePutBinder(extras, EXTRA_SESSION, null)) return null;
         intent.putExtras(extras);
         return intent;
+    }
+
+    /**
+     * A convenience method to handle putting an {@link IBinder} inside a {@link Bundle} for all
+     * Android version.
+     * @param bundle The bundle to insert the {@link IBinder}.
+     * @param key    The key to use while putting the {@link IBinder}.
+     * @param binder The {@link IBinder} to put.
+     * @return       Whether the operation was successful.
+     */
+    static boolean safePutBinder(Bundle bundle, String key, IBinder binder) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                bundle.putBinder(key, binder);
+            } else {
+                Method putBinderMethod =
+                        Bundle.class.getMethod("putIBinder", String.class, IBinder.class);
+                putBinderMethod.invoke(bundle, key, binder);
+            }
+        } catch (InvocationTargetException | IllegalAccessException
+                | IllegalArgumentException | NoSuchMethodException e) {
+            return false;
+        }
+        return true;
     }
 }

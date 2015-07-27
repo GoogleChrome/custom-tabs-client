@@ -16,14 +16,27 @@
 
 package android.support.customtabs;
 
-import android.net.Uri;
 import android.os.Bundle;
 
 /**
- * Interface to a CustomTabsCallback.
- * @hide
+ * A callback class for custom tabs client to get messages regarding events in their custom tabs.
  */
-oneway interface ICustomTabsCallback {
-    void onUserNavigationStarted(in Uri url, in Bundle extras) = 1;
-    void onUserNavigationFinished(in Uri url, in Bundle extras) = 2;
+public class CustomTabsCallback {
+    /**
+     * Sent when the tab has started loading a page.
+     */
+    public static final int NAVIGATION_STARTED = 1;
+
+    /**
+     * Sent when the tab has finished loading a page.
+     */
+    public static final int NAVIGATION_FINISHED = 2;
+
+    /**
+     * To be called when a navigation event happens.
+     *
+     * @param navigationEvent The code corresponding to the navigation event.
+     * @param extras Reserved for future use.
+     */
+    public void onNavigationEvent(int navigationEvent, Bundle extras) {}
 }

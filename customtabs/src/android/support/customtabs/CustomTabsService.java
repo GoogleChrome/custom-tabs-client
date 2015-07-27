@@ -23,8 +23,11 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.IBinder.DeathRecipient;
 import android.os.RemoteException;
+import android.util.ArrayMap;
 
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * Abstract service class for implementing Custom Tabs related functionality. The service should
@@ -48,6 +51,8 @@ import java.util.List;
      public static final String KEY_URL =
              "android.support.customtabs.otherurls.URL";
 
+     private Map<IBinder, DeathRecipient> mDeathRecipientMap = new ArrayMap<>();
+
      private ICustomTabsService.Stub mBinder = new ICustomTabsService.Stub() {
 
          @Override
@@ -59,16 +64,20 @@ import java.util.List;
          public boolean newSession(ICustomTabsCallback callback) {
              final CustomTabsSessionToken sessionToken = new CustomTabsSessionToken(callback);
              try {
-                 callback.asBinder().linkToDeath(new IBinder.DeathRecipient() {
+                 DeathRecipient deathRecipient = new IBinder.DeathRecipient() {
                      @Override
                      public void binderDied() {
                          cleanUpSession(sessionToken);
                      }
-                 }, 0);
+                 };
+                 synchronized (mDeathRecipientMap) {
+                     callback.asBinder().linkToDeath(deathRecipient, 0);
+                     mDeathRecipientMap.put(callback.asBinder(), deathRecipient);
+                 }
+                 return CustomTabsService.this.newSession(sessionToken);
              } catch (RemoteException e) {
                  return false;
              }
-             return CustomTabsService.this.newSession(sessionToken);
          }
 
          @Override
@@ -86,11 +95,26 @@ import java.util.List;
 
      /**
       * Called when the client side {@link IBinder} for this {@link CustomTabsSessionToken} is dead.
+      * Can also be used to clean up {@link DeathRecipient} instances allocated for the given token.
       * @param sessionToken The session token for which the {@link DeathRecipient} call has been
       *                     received.
-      * @return Whether the clean up was successful.
+      * @return Whether the clean up was successful. Multiple calls with two tokens holdings the
+      *         same binder will return false.
       */
-     protected abstract boolean cleanUpSession(CustomTabsSessionToken sessionToken);
+     protected boolean cleanUpSession(CustomTabsSessionToken sessionToken) {
+         try {
+             synchronized (mDeathRecipientMap) {
+                IBinder binder = sessionToken.getCallbackBinder();
+                DeathRecipient deathRecipient =
+                        mDeathRecipientMap.get(binder);
+                binder.unlinkToDeath(deathRecipient, 0);
+                mDeathRecipientMap.remove(binder);
+            }
+         } catch (NoSuchElementException e) {
+             return false;
+         }
+         return true;
+     }
 
      /**
       * Warms up the browser process asynchronously.

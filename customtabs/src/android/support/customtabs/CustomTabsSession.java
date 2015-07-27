@@ -16,17 +16,15 @@
 
 package android.support.customtabs;
 
-import android.app.Service;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.IBinder.DeathRecipient;
 import android.os.RemoteException;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -82,7 +80,10 @@ public class CustomTabsSession {
         Intent intent = new Intent(Intent.ACTION_VIEW, data);
         intent.setPackage(mComponentName.getPackageName());
         Bundle extras = new Bundle();
-        extras.putBinder(CustomTabsIntent.EXTRA_SESSION, mCallback.asBinder());
+        if (!CustomTabsIntent.safePutBinder(
+                extras, CustomTabsIntent.EXTRA_SESSION, mCallback.asBinder())) {
+            return null;
+        }
         intent.putExtras(extras);
         return intent;
     }
