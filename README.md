@@ -45,41 +45,39 @@ The code in this repository falls into two parts:
 * `Application/`: Example application code, in the package
   `org.chromium.customtabsclient`. Feel free to re-use the classes within this
   directory, which are only provided as a convenience. In particular,
-  `CustomTabUibuilder` and `CustomTabActivityManager` can be re-used. This code
-  is not required to take advantage of Custom Tabs.
+  `CustomTabsHelper` can be re-used. This code is not required to use Custom
+  Tabs.
 * `customtabs/`: Code within this directory is in the package
   `android.support.customtabs`. This contains code that one needs to use Custom
   Tabs, regardless of the target browser. We encourage you to copy this code
   as-is in your own projects, without modifications.
 
-**Compatibility Note:** This version of the example application requires API
-  level 18 (Android 4.3). We expect a forthcoming revision to require API level
-  16 (Android 4.1), like Chrome.
-
 ## UI Customization
 
-UI customization is done through extras added to the `ACTION_VIEW` intent sent
-to the browser. One can use the convenience builder class
-`CustomTabUiBuilder`. An instance of this class has to be provided to
-`CustomTabActivityManager.launchUrl()` to load a URL in a Custom Tab.
+UI customization is done through the methods exposed by
+`CustomTabsIntent.Builder`.
 
 **Example:**
 ```java
-CustomTabUiBuilder uiBuilder = new CustomTabUiBuilder().setToolbarColor(Color.BLUE);
+CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+builder.setSession(session);
+builder.setToolbarColor(Color.BLUE);
 // Application exit animation, Chrome enter animation.
-uiBuilder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
+builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
 // vice versa
-uiBuilder.setExitAnimations(this, R.anim.slide_in_left, R.anim.slide_out_right);
+builder.setExitAnimations(this, R.anim.slide_in_left, R.anim.slide_out_right);
 
-customTabManager.launchUrl(this, session, url, uiBuilder);
+CustomTabsIntent customTabsIntent = builder.build();
+customTabsIntent.launchUrl(this, packageName, url);
 ```
 
 In this example, no UI customization is done, aside from the animations and the
 toolbar color. The general usage is:
 
-1. Create an instance of `CustomTabUiBuilder`
-2. Build the UI using the methods of `CustomTabUiBuilder`
-3. Provide this instance to `CustomTabActivityManager.launchUrl()`
+1. Create an instance of `CustomTabsIntent.Builder`
+2. Build the UI using the methods of `CustomTabsIntent.Builder`
+3. Call `CustomTabsIntent.Builder.build()`
+4. Call `CustomTabsIntent.launchUrl()`
 
 The communication between the custom tab activity and the application is done
 via pending intents. For each interaction leading back to the application (menu
@@ -95,8 +93,7 @@ Custom Tab. This is done using a callback extending
 `android.support.customtabs.CustomTabsCallback`, that is:
 
 ```java
-void onUserNavigationStarted(Uri url, Bundle extras);
-void onUserNavigationFinished(Uri url, Bundle extras);
+void onNavigationEvent(int navigationEvent, Bundle extras);
 ```
 
 This callback is set when a `CustomTabsSession` object is created, through
@@ -105,7 +102,7 @@ This callback is set when a `CustomTabsSession` object is created, through
 * After binding to the background service
 * Before launching a URL in a custom tab
 
-The methods are analogous to `WebViewClient.onPageStarted()` and
+The two events are analogous to `WebViewClient.onPageStarted()` and
 `WebViewClient.onPageFinished()`, respectively (see
 [WebViewClient](http://developer.android.com/reference/android/webkit/WebViewClient.html)).
 
@@ -159,7 +156,7 @@ CustomTabsSession session = mClient.newSession(new CustomTabsCallback());
 session.mayLaunchUrl("https://www.google.com", null, null);
 
 // Shows the Custom Tab
-CustomTabManager.launchUrl(context, session, "https://www.google.com", uiBuilder);
+builder.build().launchUrl(context, packageName, Uri.parse("https://www.google.com"));
 ```
 
 **Tips**

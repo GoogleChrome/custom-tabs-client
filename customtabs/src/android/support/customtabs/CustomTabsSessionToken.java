@@ -53,15 +53,15 @@ public class CustomTabsSessionToken {
     }
 
     @Override
+    public int hashCode() {
+        return getCallbackBinder().hashCode();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (!(o instanceof CustomTabsSessionToken)) return false;
         CustomTabsSessionToken token = (CustomTabsSessionToken) o;
         return token.getCallbackBinder().equals(mCallbackBinder.asBinder());
-    }
-
-    @Override
-    public int hashCode() {
-        return getCallbackBinder().hashCode();
     }
 
     /**

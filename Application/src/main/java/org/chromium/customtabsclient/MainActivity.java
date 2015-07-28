@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.customtabs.CustomTabsCallback;
 import android.support.customtabs.CustomTabsClient;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.customtabs.CustomTabsSession;
 import android.util.Log;
@@ -86,7 +87,7 @@ public class MainActivity extends Activity implements OnClickListener {
         final View warmupButton = findViewById(R.id.warmup_button);
         final View mayLaunchButton = findViewById(R.id.may_launch_button);
         final View launchButton = findViewById(R.id.launch_button);
-        String packageName = CustomTabActivityManager.getInstance().getPackageNameToUse(this);
+        String packageName = CustomTabsHelper.getPackageNameToUse(this);
         if (packageName == null) return;
         mConnection = new CustomTabsServiceConnection() {
             @Override
@@ -124,7 +125,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        CustomTabActivityManager customTabManager = CustomTabActivityManager.getInstance();
         String url = mEditText.getText().toString();
         int viewId = v.getId();
 
@@ -140,20 +140,21 @@ public class MainActivity extends Activity implements OnClickListener {
             if (mClient != null) success = session.mayLaunchUrl(Uri.parse(url), null, null);
             if (!success) findViewById(R.id.may_launch_button).setEnabled(false);
         } else if (viewId == R.id.launch_button) {
-            CustomTabsSession session = getSession();
-            CustomTabUiBuilder uiBuilder = new CustomTabUiBuilder();
-            uiBuilder.setToolbarColor(Color.BLUE);
-            uiBuilder.setShowTitle(true);
-            uiBuilder.setCloseButtonStyle(CustomTabUiBuilder.CLOSE_BUTTON_ARROW);
-            prepareMenuItems(uiBuilder);
-            prepareActionButton(uiBuilder);
-            uiBuilder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
-            uiBuilder.setExitAnimations(this, R.anim.slide_in_left, R.anim.slide_out_right);
-            customTabManager.launchUrl(this, session, url, uiBuilder);
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder(getSession());
+            builder.setToolbarColor(Color.BLUE).setShowTitle(true);
+            prepareMenuItems(builder);
+            prepareActionButton(builder);
+            builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
+            builder.setExitAnimations(this, R.anim.slide_in_left, R.anim.slide_out_right);
+            builder.setCloseButtonIcon(
+                    BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back));
+            CustomTabsIntent customTabsIntent = builder.build();
+            CustomTabsHelper.addKeepAliveExtra(this, customTabsIntent.intent);
+            customTabsIntent.launchUrl(this, Uri.parse(url));
         }
     }
 
-    private void prepareMenuItems(CustomTabUiBuilder uiBuilder) {
+    private void prepareMenuItems(CustomTabsIntent.Builder builder) {
         Intent menuIntent = new Intent();
         menuIntent.setClass(getApplicationContext(), this.getClass());
         // Optional animation configuration when the user clicks menu items.
@@ -161,10 +162,10 @@ public class MainActivity extends Activity implements OnClickListener {
                 android.R.anim.slide_out_right).toBundle();
         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, menuIntent, 0,
                 menuBundle);
-        uiBuilder.addMenuItem("Menu entry 1", pi);
+        builder.addMenuItem("Menu entry 1", pi);
     }
 
-    private void prepareActionButton(CustomTabUiBuilder uiBuilder) {
+    private void prepareActionButton(CustomTabsIntent.Builder builder) {
         // An example intent that sends an email.
         Intent actionIntent = new Intent(Intent.ACTION_SEND);
         actionIntent.setType("*/*");
@@ -172,6 +173,6 @@ public class MainActivity extends Activity implements OnClickListener {
         actionIntent.putExtra(Intent.EXTRA_SUBJECT, "example");
         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, actionIntent, 0);
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-        uiBuilder.setActionButton(icon, pi);
+        builder.setActionButton(icon, pi);
     }
 }

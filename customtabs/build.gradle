@@ -1,5 +1,9 @@
 apply plugin: 'android-library'
 
+dependencies {
+    compile "com.android.support:support-annotations:22.2.0+"
+}
+
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
@@ -10,7 +14,10 @@ android {
         main.aidl.srcDirs = ['src']
         main.res.srcDir 'res'
         main.assets.srcDir 'assets'
-        main.resources.srcDir 'resources'
+        main.resources.srcDir 'java'
+
+        androidTest.setRoot('tests')
+        androidTest.java.srcDir('tests/src/')
     }
 
     compileOptions {
