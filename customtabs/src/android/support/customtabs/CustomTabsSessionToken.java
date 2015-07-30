@@ -59,6 +59,11 @@ public class CustomTabsSessionToken {
         return token.getCallbackBinder().equals(mCallbackBinder.asBinder());
     }
 
+    @Override
+    public int hashCode() {
+        return getCallbackBinder().hashCode();
+    }
+
     /**
      * @return {@link CustomTabsCallback} corresponding to this session if there was any non-null
      *         callbacks passed by the client.
