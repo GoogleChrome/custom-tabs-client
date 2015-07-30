@@ -42,6 +42,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private EditText mEditText;
     private CustomTabsSession mCustomTabsSession;
     private CustomTabsClient mClient;
+    private CustomTabsServiceConnection mConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +62,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
     @Override
     protected void onDestroy() {
+        unbindCustomTabsService();
         super.onDestroy();
-        // TODO: Unbind from the service here. This is not exposed by CustomTabsClient.
     }
 
     private CustomTabsSession getSession() {
@@ -87,27 +88,38 @@ public class MainActivity extends Activity implements OnClickListener {
         final View launchButton = findViewById(R.id.launch_button);
         String packageName = CustomTabActivityManager.getInstance().getPackageNameToUse(this);
         if (packageName == null) return;
-        boolean ok = CustomTabsClient.bindCustomTabsService(
-                this, packageName, new CustomTabsServiceConnection() {
-                    @Override
-                    public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
-                        connectButton.setEnabled(false);
-                        warmupButton.setEnabled(true);
-                        mayLaunchButton.setEnabled(true);
-                        launchButton.setEnabled(true);
-                        mClient = client;
-                    }
+        mConnection = new CustomTabsServiceConnection() {
+            @Override
+            public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
+                connectButton.setEnabled(false);
+                warmupButton.setEnabled(true);
+                mayLaunchButton.setEnabled(true);
+                launchButton.setEnabled(true);
+                mClient = client;
+            }
 
-                    @Override
-                    public void onServiceDisconnected(ComponentName name) {
-                        connectButton.setEnabled(true);
-                        warmupButton.setEnabled(false);
-                        mayLaunchButton.setEnabled(false);
-                        launchButton.setEnabled(false);
-                        mClient = null;
-                    }
-                });
-        if (ok) connectButton.setEnabled(false);
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                connectButton.setEnabled(true);
+                warmupButton.setEnabled(false);
+                mayLaunchButton.setEnabled(false);
+                launchButton.setEnabled(false);
+                mClient = null;
+            }
+        };
+        boolean ok = CustomTabsClient.bindCustomTabsService(this, packageName, mConnection);
+        if (ok) {
+            connectButton.setEnabled(false);
+        } else {
+            mConnection = null;
+        }
+    }
+
+    private void unbindCustomTabsService() {
+        if (mConnection == null) return;
+        unbindService(mConnection);
+        mClient = null;
+        mCustomTabsSession = null;
     }
 
     @Override
