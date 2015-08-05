@@ -1,1 +1,1 @@
-include ':Application', ":customtabs"
+include ':Application', ':demos', ':shared', ":customtabs"

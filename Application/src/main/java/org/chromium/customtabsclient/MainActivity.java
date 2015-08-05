@@ -39,6 +39,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import org.chromium.customtabsclient.shared.CustomTabsHelper;
+
 /**
  * Example client activity for a Chrome Custom Tanb.
  */
