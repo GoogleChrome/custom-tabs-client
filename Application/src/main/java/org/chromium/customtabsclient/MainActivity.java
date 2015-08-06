@@ -29,11 +29,15 @@ import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.customtabs.CustomTabsSession;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 /**
  * Example client activity for a Chrome Custom Tanb.
@@ -44,6 +48,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private CustomTabsSession mCustomTabsSession;
     private CustomTabsClient mClient;
     private CustomTabsServiceConnection mConnection;
+    private String mPackageNameToBind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +59,29 @@ public class MainActivity extends Activity implements OnClickListener {
         Button warmupButton = (Button) findViewById(R.id.warmup_button);
         Button mayLaunchButton = (Button) findViewById(R.id.may_launch_button);
         Button launchButton = (Button) findViewById(R.id.launch_button);
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
         mEditText.requestFocus();
         connectButton.setOnClickListener(this);
         warmupButton.setOnClickListener(this);
         mayLaunchButton.setOnClickListener(this);
         launchButton.setOnClickListener(this);
+
+        spinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
+                CustomTabsHelper.getPackages()));
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (TextUtils.isEmpty(parent.getItemAtPosition(position).toString())) {
+                    onNothingSelected(parent);
+                }
+                mPackageNameToBind = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mPackageNameToBind = null;
+            }
+        });
     }
 
     @Override
@@ -83,12 +106,14 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private void bindCustomTabsService() {
         if (mClient != null) return;
+        if (TextUtils.isEmpty(mPackageNameToBind)) {
+            mPackageNameToBind = CustomTabsHelper.getPackageNameToUse(this);
+            if (mPackageNameToBind == null) return;
+        }
         final View connectButton = findViewById(R.id.connect_button);
         final View warmupButton = findViewById(R.id.warmup_button);
         final View mayLaunchButton = findViewById(R.id.may_launch_button);
         final View launchButton = findViewById(R.id.launch_button);
-        String packageName = CustomTabsHelper.getPackageNameToUse(this);
-        if (packageName == null) return;
         mConnection = new CustomTabsServiceConnection() {
             @Override
             public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
@@ -108,7 +133,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 mClient = null;
             }
         };
-        boolean ok = CustomTabsClient.bindCustomTabsService(this, packageName, mConnection);
+        boolean ok = CustomTabsClient.bindCustomTabsService(this, mPackageNameToBind, mConnection);
         if (ok) {
             connectButton.setEnabled(false);
         } else {
