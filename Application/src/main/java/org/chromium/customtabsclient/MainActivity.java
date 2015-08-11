@@ -173,6 +173,6 @@ public class MainActivity extends Activity implements OnClickListener {
         actionIntent.putExtra(Intent.EXTRA_SUBJECT, "example");
         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, actionIntent, 0);
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-        builder.setActionButton(icon, pi);
+        builder.setActionButton(icon, "send email", pi);
     }
 }
