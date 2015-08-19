@@ -60,12 +60,6 @@ public final class CustomTabsIntent {
             "android.support.customtabs.extra.TOOLBAR_COLOR";
 
     /**
-     * Boolean extra that enables the url bar to hide as the user scrolls down the page
-     */
-    public static final String EXTRA_ENABLE_URLBAR_HIDING =
-            "android.support.customtabs.extra.ENABLE_URLBAR_HIDING";
-
-    /**
      * Extra bitmap that specifies the icon of the back button on the toolbar. If the client chooses
      * not to customize it, a default close button will be used.
      */
@@ -206,14 +200,6 @@ public final class CustomTabsIntent {
          */
         public Builder setToolbarColor(@ColorInt int color) {
             mIntent.putExtra(EXTRA_TOOLBAR_COLOR, color);
-            return this;
-        }
-
-        /**
-         * Enables the url bar to hide as the user scrolls down on the page.
-         */
-        public Builder enableUrlBarHiding() {
-            mIntent.putExtra(EXTRA_ENABLE_URLBAR_HIDING, true);
             return this;
         }
 
