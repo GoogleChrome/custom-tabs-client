@@ -20,7 +20,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.support.customtabs.CustomTabsService;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -38,6 +37,8 @@ public class CustomTabsHelper {
     static final String LOCAL_PACKAGE = "com.google.android.apps.chrome";
     private static final String EXTRA_CUSTOM_TABS_KEEP_ALIVE =
             "android.support.customtabs.extra.KEEP_ALIVE";
+    private static final String ACTION_CUSTOM_TABS_CONNECTION =
+            "android.support.customtabs.action.CustomTabsService";
 
     private static String sPackageNameToUse;
 
@@ -76,7 +77,7 @@ public class CustomTabsHelper {
         List<String> packagesSupportingCustomTabs = new ArrayList<>();
         for (ResolveInfo info : resolvedActivityList) {
             Intent serviceIntent = new Intent();
-            serviceIntent.setAction(CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION);
+            serviceIntent.setAction(ACTION_CUSTOM_TABS_CONNECTION);
             serviceIntent.setPackage(info.activityInfo.packageName);
             if (pm.resolveService(serviceIntent, 0) != null) {
                 packagesSupportingCustomTabs.add(info.activityInfo.packageName);

@@ -40,17 +40,22 @@ These features are enabled through two mechanisms:
 
 ### Code Organization
 
-The code in this repository falls into two parts:
+The code in this repository is organised in four parts:
 
-* `Application/`: Example application code, in the package
-  `org.chromium.customtabsclient`. Feel free to re-use the classes within this
-  directory, which are only provided as a convenience. In particular,
-  `CustomTabsHelper` can be re-used. This code is not required to use Custom
-  Tabs.
+* `shared/`: Shared code between the `Application` and `demos` modules. Feel free to
+  re-use the classes within this directory, which are only provided as a convenience.
+  In particular,`CustomTabsHelper` can be re-used. This code is not required to use Custom Tabs.
+* `demos/`: This module contains sample implementations for Chrome Custom Tabs using the Android
+  Support Library. Feel free to re-use the classes withing this module.
 * `customtabs/`: Code within this directory is in the package
-  `android.support.customtabs`. This contains code that one needs to use Custom
-  Tabs, regardless of the target browser. We encourage you to copy this code
-  as-is in your own projects, without modifications.
+  `android.support.customtabs`. This contains code analog to the Android Support library, but with
+   the latest version of Chrome Custom Tabs, enabling features that may still not be available on
+   the Android Support Library. API is subject to changes and this code should only be used if you
+   want to test the latest features. It is recommended to copy the code as-is to your project and
+   remove the Android Support Library for Chrome Custom Tabs from the `build.gradle` file.
+* `Application/`: Example application code, in the package
+  `org.chromium.customtabsclient`. This code uses the latest version of the Chrome Custom Tabs,
+   contained in the module `customtabs`.
 
 ## UI Customization
 
