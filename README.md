@@ -59,8 +59,7 @@ UI customization is done through the methods exposed by
 
 **Example:**
 ```java
-CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-builder.setSession(session);
+CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder(session);
 builder.setToolbarColor(Color.BLUE);
 // Application exit animation, Chrome enter animation.
 builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
