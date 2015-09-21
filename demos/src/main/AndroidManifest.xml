@@ -71,6 +71,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.chromium.customtabsdemos.MainActivity" />
         </activity>
+        <receiver android:name=".ShareBroadcastReceiver" />
     </application>
 
 </manifest>

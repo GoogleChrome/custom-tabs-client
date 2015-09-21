@@ -16,8 +16,6 @@
 <resources>
     <string name="app_name">Custom Tabs Demos</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
     <string name="action_create_notification">Create Notification</string>
     <string name="title_activity_notification_parent">Notification Demo</string>
     <string name="title_activity_webview">WebviewActivity</string>
@@ -34,8 +32,6 @@
 
     <string name="label_toobar_color">Toolbar Color:</string>
     <string name="default_toolbar_color">#980e03</string>
-    <string name="sample_email">example@example.com</string>
-    <string name="sample_subject"></string>
     <string name="menu_item_title">Sample Menu Item</string>
     <string name="label_may_launch_url">May Launch URL</string>
 

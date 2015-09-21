@@ -115,7 +115,7 @@ public class CustomUIActivity extends AppCompatActivity implements View.OnClickL
             intentBuilder.setCloseButtonIcon(
                     BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back));
         }
-
+        
         intentBuilder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
         intentBuilder.setExitAnimations(this, android.R.anim.slide_in_left,
                 android.R.anim.slide_out_right);
@@ -125,10 +125,8 @@ public class CustomUIActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private PendingIntent createPendingIntent() {
-        Intent actionIntent = new Intent(Intent.ACTION_SEND);
-        actionIntent.setType("*/*");
-        actionIntent.putExtra(Intent.EXTRA_EMAIL, getString(R.string.sample_email));
-        actionIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.sample_subject));
-        return  PendingIntent.getActivity(getApplicationContext(), 0, actionIntent, 0);
+        Intent actionIntent = new Intent(
+                this.getApplicationContext(), ShareBroadcastReceiver.class);
+        return PendingIntent.getBroadcast(getApplicationContext(), 0, actionIntent, 0);
     }
 }
