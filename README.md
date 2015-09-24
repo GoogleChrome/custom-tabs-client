@@ -158,7 +158,7 @@ mClient.warmup(0);
 
 // With a valid mClient.
 CustomTabsSession session = mClient.newSession(new CustomTabsCallback());
-session.mayLaunchUrl("https://www.google.com", null, null);
+session.mayLaunchUrl(Uri.parse("https://www.google.com"), null, null);
 
 // Shows the Custom Tab
 builder.build().launchUrl(context, packageName, Uri.parse("https://www.google.com"));
