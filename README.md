@@ -147,7 +147,7 @@ CustomTabsClient.bindCustomTabsService(context, packageName, new CustomTabsServi
     }
 
     @Override
-    public void onServiceDisconnected(ComponentName name, CustomTabsClient client) {
+    public void onServiceDisconnected(ComponentName name) {
         // mClient is no longer valid. This also invalidates sessions.
         mClient = null;
     }
@@ -158,7 +158,7 @@ mClient.warmup(0);
 
 // With a valid mClient.
 CustomTabsSession session = mClient.newSession(new CustomTabsCallback());
-session.mayLaunchUrl("https://www.google.com", null, null);
+session.mayLaunchUrl(Uri.parse("https://www.google.com"), null, null);
 
 // Shows the Custom Tab
 builder.build().launchUrl(context, packageName, Uri.parse("https://www.google.com"));
