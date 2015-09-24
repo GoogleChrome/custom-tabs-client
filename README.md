@@ -147,7 +147,7 @@ CustomTabsClient.bindCustomTabsService(context, packageName, new CustomTabsServi
     }
 
     @Override
-    public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
+    public void onServiceDisconnected(ComponentName name, CustomTabsClient client) {
         // mClient is no longer valid. This also invalidates sessions.
         mClient = null;
     }
