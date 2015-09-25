@@ -115,7 +115,7 @@ public class CustomUIActivity extends AppCompatActivity implements View.OnClickL
             intentBuilder.setCloseButtonIcon(
                     BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back));
         }
-        
+
         intentBuilder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
         intentBuilder.setExitAnimations(this, android.R.anim.slide_in_left,
                 android.R.anim.slide_out_right);
