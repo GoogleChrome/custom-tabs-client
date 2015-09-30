@@ -1,3 +1,4 @@
+# Contributing to the Custom Tabs Examples
 Want to contribute? Great! First, read this page (including the small print at the end).
 
 ### Before you contribute
@@ -17,7 +18,10 @@ frustration later on.
 
 ### Code reviews
 All submissions, including submissions by project members, require review. We
-use http://codereview.chromium.org for this purpose.
+use http://codereview.chromium.org for this purpose. The process will be very
+similar to the one used in the [Catapult
+Project](https://github.com/catapult-project/catapult/blob/master/CONTRIBUTING.md).
+More details soon.
 
 ### The small print
 Contributions made by corporations are covered by a different agreement than
