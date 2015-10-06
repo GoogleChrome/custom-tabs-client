@@ -54,6 +54,7 @@
             android:id="@+id/custom_toolbar_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:hint="@string/default_toolbar_color"
             android:text="@string/default_toolbar_color"/>
 
