@@ -39,6 +39,7 @@ public class CustomUIActivity extends AppCompatActivity implements View.OnClickL
     private CheckBox mAddMenusCheckbox;
     private CheckBox mShowTitleCheckBox;
     private CheckBox mCustomBackButtonCheckBox;
+    private CheckBox mAutoHideAppBarCheckbox;
     private CustomTabActivityHelper mCustomTabActivityHelper;
 
     @Override
@@ -55,6 +56,7 @@ public class CustomUIActivity extends AppCompatActivity implements View.OnClickL
         mAddMenusCheckbox = (CheckBox) findViewById(R.id.custom_add_menus);
         mShowTitleCheckBox = (CheckBox) findViewById(R.id.show_title);
         mCustomBackButtonCheckBox = (CheckBox) findViewById(R.id.custom_back_button);
+        mAutoHideAppBarCheckbox = (CheckBox) findViewById(R.id.auto_hide_checkbox);
     }
 
     @Override
@@ -110,6 +112,10 @@ public class CustomUIActivity extends AppCompatActivity implements View.OnClickL
         }
 
         intentBuilder.setShowTitle(mShowTitleCheckBox.isChecked());
+
+        if (mAutoHideAppBarCheckbox.isChecked()) {
+            intentBuilder.enableUrlBarHiding();
+        }
 
         if (mCustomBackButtonCheckBox.isChecked()) {
             intentBuilder.setCloseButtonIcon(

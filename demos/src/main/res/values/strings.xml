@@ -62,4 +62,5 @@
     </string>
     <string name="label_custom_back_button">Custom back button</string>
     <string name="label_show_title">Show title</string>
+    <string name="label_auto_hide_appbar">Auto-hide AppBar</string>
 </resources>
