@@ -17,23 +17,21 @@
 package android.support.customtabs;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.AnimRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.BundleCompat;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
@@ -137,7 +135,7 @@ public final class CustomTabsIntent {
             "android.support.customtabs.customaction.MENU_ITEM_TITLE";
 
     /**
-     * Bundle constructed out of {@link ActivityOptions} that will be running when the
+     * Bundle constructed out of {@link ActivityOptionsCompat} that will be running when the
      * {@link Activity} that holds the custom tab gets finished. A similar ActivityOptions
      * for creation should be constructed and given to the startActivity() call that
      * launches the custom tab.
@@ -162,11 +160,7 @@ public final class CustomTabsIntent {
      */
     public void launchUrl(Activity context, Uri url) {
         intent.setData(url);
-        if (startAnimationBundle != null){
-            context.startActivity(intent, startAnimationBundle);
-        } else {
-            context.startActivity(intent);
-        }
+        ActivityCompat.startActivity(context, intent, startAnimationBundle);
     }
 
     private CustomTabsIntent(Intent intent, Bundle startAnimationBundle) {
@@ -202,7 +196,8 @@ public final class CustomTabsIntent {
         public Builder(@Nullable CustomTabsSession session) {
             if (session != null) mIntent.setPackage(session.getComponentName().getPackageName());
             Bundle bundle = new Bundle();
-            safePutBinder(bundle, EXTRA_SESSION, session == null ? null : session.getBinder());
+            BundleCompat.putBinder(
+                    bundle, EXTRA_SESSION, session == null ? null : session.getBinder());
             mIntent.putExtras(bundle);
         }
 
@@ -297,8 +292,8 @@ public final class CustomTabsIntent {
          */
         public Builder setStartAnimations(
                 @NonNull Context context, @AnimRes int enterResId, @AnimRes int exitResId) {
-            mStartAnimationBundle =
-                    ActivityOptions.makeCustomAnimation(context, enterResId, exitResId).toBundle();
+            mStartAnimationBundle = ActivityOptionsCompat.makeCustomAnimation(
+                    context, enterResId, exitResId).toBundle();
             return this;
         }
 
@@ -311,8 +306,8 @@ public final class CustomTabsIntent {
          */
         public Builder setExitAnimations(
                 @NonNull Context context, @AnimRes int enterResId, @AnimRes int exitResId) {
-            Bundle bundle =
-                    ActivityOptions.makeCustomAnimation(context, enterResId, exitResId).toBundle();
+            Bundle bundle = ActivityOptionsCompat.makeCustomAnimation(
+                    context, enterResId, exitResId).toBundle();
             mIntent.putExtra(EXTRA_EXIT_ANIMATION_BUNDLE, bundle);
             return this;
         }
@@ -326,33 +321,6 @@ public final class CustomTabsIntent {
                 mIntent.putParcelableArrayListExtra(CustomTabsIntent.EXTRA_MENU_ITEMS, mMenuItems);
             }
             return new CustomTabsIntent(mIntent, mStartAnimationBundle);
-        }
-
-        /**
-         * A convenience method to handle putting an {@link IBinder} inside a {@link Bundle} for all
-         * Android version.
-         * @param bundle The bundle to insert the {@link IBinder}.
-         * @param key    The key to use while putting the {@link IBinder}.
-         * @param binder The {@link IBinder} to put.
-         * @return       Whether the operation was successful.
-         */
-        private boolean safePutBinder(Bundle bundle, String key, IBinder binder) {
-            try {
-                // {@link Bundle#putBinder} exists since JB MR2, but we have
-                // {@link Bundle#putIBinder} which is the same method since the dawn of time. Use
-                // reflection when necessary to call it.
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                    bundle.putBinder(key, binder);
-                } else {
-                    Method putBinderMethod =
-                            Bundle.class.getMethod("putIBinder", String.class, IBinder.class);
-                    putBinderMethod.invoke(bundle, key, binder);
-                }
-            } catch (InvocationTargetException | IllegalAccessException
-                    | IllegalArgumentException | NoSuchMethodException e) {
-                return false;
-            }
-            return true;
         }
     }
 }
