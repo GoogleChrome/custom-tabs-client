@@ -1,0 +1,5 @@
+# This file is used by 'git cl' to get repository specific information.
+CODE_REVIEW_SERVER: codereview.chromium.org
+#CC_LIST:
+VIEW_VC: https://github.com/GoogleChrome/custom-tabs-client/commit/
+PROJECT: custom-tabs-client

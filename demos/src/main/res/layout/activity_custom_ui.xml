@@ -54,6 +54,7 @@
             android:id="@+id/custom_toolbar_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:hint="@string/default_toolbar_color"
             android:text="@string/default_toolbar_color"/>
 
@@ -131,6 +132,25 @@
 
         <CheckBox
             android:id="@+id/custom_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/view_vertical_margin"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="@dimen/abc_text_size_medium_material"
+            android:text="@string/label_auto_hide_appbar"/>
+
+        <CheckBox
+            android:id="@+id/auto_hide_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

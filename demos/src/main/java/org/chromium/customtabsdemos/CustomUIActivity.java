@@ -39,6 +39,7 @@ public class CustomUIActivity extends AppCompatActivity implements View.OnClickL
     private CheckBox mAddMenusCheckbox;
     private CheckBox mShowTitleCheckBox;
     private CheckBox mCustomBackButtonCheckBox;
+    private CheckBox mAutoHideAppBarCheckbox;
     private CustomTabActivityHelper mCustomTabActivityHelper;
 
     @Override
@@ -55,6 +56,7 @@ public class CustomUIActivity extends AppCompatActivity implements View.OnClickL
         mAddMenusCheckbox = (CheckBox) findViewById(R.id.custom_add_menus);
         mShowTitleCheckBox = (CheckBox) findViewById(R.id.show_title);
         mCustomBackButtonCheckBox = (CheckBox) findViewById(R.id.custom_back_button);
+        mAutoHideAppBarCheckbox = (CheckBox) findViewById(R.id.auto_hide_checkbox);
     }
 
     @Override
@@ -111,6 +113,10 @@ public class CustomUIActivity extends AppCompatActivity implements View.OnClickL
 
         intentBuilder.setShowTitle(mShowTitleCheckBox.isChecked());
 
+        if (mAutoHideAppBarCheckbox.isChecked()) {
+            intentBuilder.enableUrlBarHiding();
+        }
+
         if (mCustomBackButtonCheckBox.isChecked()) {
             intentBuilder.setCloseButtonIcon(
                     BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back));
@@ -125,10 +131,8 @@ public class CustomUIActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private PendingIntent createPendingIntent() {
-        Intent actionIntent = new Intent(Intent.ACTION_SEND);
-        actionIntent.setType("*/*");
-        actionIntent.putExtra(Intent.EXTRA_EMAIL, getString(R.string.sample_email));
-        actionIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.sample_subject));
-        return  PendingIntent.getActivity(getApplicationContext(), 0, actionIntent, 0);
+        Intent actionIntent = new Intent(
+                this.getApplicationContext(), ShareBroadcastReceiver.class);
+        return PendingIntent.getBroadcast(getApplicationContext(), 0, actionIntent, 0);
     }
 }

@@ -23,7 +23,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.IBinder.DeathRecipient;
 import android.os.RemoteException;
-import android.util.ArrayMap;
+import android.support.v4.util.ArrayMap;
 
 import java.util.List;
 import java.util.Map;
@@ -89,6 +89,12 @@ import java.util.NoSuchElementException;
          @Override
          public Bundle extraCommand(String commandName, Bundle args) {
              return CustomTabsService.this.extraCommand(commandName, args);
+         }
+
+         @Override
+         public boolean updateVisuals(ICustomTabsCallback callback, Bundle bundle) {
+             return CustomTabsService.this.updateVisuals(
+                     new CustomTabsSessionToken(callback), bundle);
          }
      };
 
@@ -176,4 +182,15 @@ import java.util.NoSuchElementException;
       * @return The result {@link Bundle}, or null.
       */
      protected abstract Bundle extraCommand(String commandName, Bundle args);
+
+    /**
+     * Updates the visuals of custom tabs for the given session. Will only succeed if the given
+     * session matches the currently active one.
+     * @param sessionToken The currently active session that the custom tab belongs to.
+     * @param bundle       The action button configuration bundle. This bundle should be constructed
+     *                     with the same structure in {@link CustomTabsIntent.Builder}.
+     * @return Whether the operation was successful.
+     */
+     protected abstract boolean updateVisuals(CustomTabsSessionToken sessionToken,
+             Bundle bundle);
  }

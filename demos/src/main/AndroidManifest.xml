@@ -23,7 +23,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".DemoListActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,43 +34,44 @@
         <activity
             android:name=".NotificationParentActivity"
             android:label="@string/title_activity_notification_parent"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".DemoListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.chromium.customtabsdemos.MainActivity" />
+                android:value=".DemoListActivity" />
         </activity>
         <activity
             android:name=".WebviewActivity"
             android:label="@string/title_activity_webview"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".DemoListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.chromium.customtabsdemos.MainActivity" />
+                android:value=".DemoListActivity" />
         </activity>
         <activity
             android:name=".SimpleCustomTabActivity"
             android:label="@string/title_activity_simple_chrome_tab"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".DemoListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.chromium.customtabsdemos.MainActivity" />
+                android:value=".DemoListActivity" />
         </activity>
         <activity
             android:name=".CustomUIActivity"
             android:label="@string/title_activity_customized_chrome_tab"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".DemoListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.chromium.customtabsdemos.MainActivity" />
+                android:value=".DemoListActivity" />
         </activity>
         <activity
             android:name=".ServiceConnectionActivity"
             android:label="@string/title_activity_service_connection"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".DemoListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.chromium.customtabsdemos.MainActivity" />
+                android:value=".DemoListActivity" />
         </activity>
+        <receiver android:name=".ShareBroadcastReceiver" />
     </application>
 
 </manifest>

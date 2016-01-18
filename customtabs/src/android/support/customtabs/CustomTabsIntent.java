@@ -17,23 +17,21 @@
 package android.support.customtabs;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.AnimRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.BundleCompat;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
@@ -89,9 +87,13 @@ public final class CustomTabsIntent {
     public static final int SHOW_PAGE_TITLE = 1;
 
     /**
-     * Bundle used for adding a custom action button to the custom tab toolbar. The client should
-     * provide a description, an icon {@link Bitmap} and a {@link PendingIntent} for the button.
-     * All three keys must be present.
+     * Bundle used for adding custom action buttons to the custom tab. The client should provide a
+     * unique id, an icon {@link Bitmap} and a {@link PendingIntent} for each button.
+     * <p>
+     * The data associated with this extra can be either a bundle or an {@link ArrayList} of
+     * bundles. If an {@link ArrayList} is given, only the bundle with the id of
+     * {@link #TOOLBAR_ACTION_BUTTON_ID} will be displayed on toolbar; the rest will be put on a
+     * bottom bar.
      */
     public static final String EXTRA_ACTION_BUTTON_BUNDLE =
             "android.support.customtabs.extra.ACTION_BUTTON_BUNDLE";
@@ -137,13 +139,24 @@ public final class CustomTabsIntent {
             "android.support.customtabs.customaction.MENU_ITEM_TITLE";
 
     /**
-     * Bundle constructed out of {@link ActivityOptions} that will be running when the
+     * Bundle constructed out of {@link ActivityOptionsCompat} that will be running when the
      * {@link Activity} that holds the custom tab gets finished. A similar ActivityOptions
      * for creation should be constructed and given to the startActivity() call that
      * launches the custom tab.
      */
     public static final String EXTRA_EXIT_ANIMATION_BUNDLE =
             "android.support.customtabs.extra.EXIT_ANIMATION_BUNDLE";
+
+    /**
+     * Key that specifies the unique id for an action button. To make a button to show on the
+     * toolbar, use {@link #TOOLBAR_ACTION_BUTTON_ID} as its id.
+     */
+    public static final String KEY_ID = "android.support.customtabs.customaction.ID";
+
+    /**
+     * The id allocated to the custom action button that is shown on the toolbar.
+     */
+    public static final int TOOLBAR_ACTION_BUTTON_ID = 0;
 
     /**
      * An {@link Intent} used to start the Custom Tabs Activity.
@@ -162,11 +175,7 @@ public final class CustomTabsIntent {
      */
     public void launchUrl(Activity context, Uri url) {
         intent.setData(url);
-        if (startAnimationBundle != null){
-            context.startActivity(intent, startAnimationBundle);
-        } else {
-            context.startActivity(intent);
-        }
+        ActivityCompat.startActivity(context, intent, startAnimationBundle);
     }
 
     private CustomTabsIntent(Intent intent, Bundle startAnimationBundle) {
@@ -181,6 +190,7 @@ public final class CustomTabsIntent {
         private final Intent mIntent = new Intent(Intent.ACTION_VIEW);
         private ArrayList<Bundle> mMenuItems = null;
         private Bundle mStartAnimationBundle = null;
+        private ArrayList<Bundle> mActionButtons = null;
 
         /**
          * Creates a {@link CustomTabsIntent.Builder} object associated with no
@@ -202,7 +212,8 @@ public final class CustomTabsIntent {
         public Builder(@Nullable CustomTabsSession session) {
             if (session != null) mIntent.setPackage(session.getComponentName().getPackageName());
             Bundle bundle = new Bundle();
-            safePutBinder(bundle, EXTRA_SESSION, session == null ? null : session.getBinder());
+            BundleCompat.putBinder(
+                    bundle, EXTRA_SESSION, session == null ? null : session.getBinder());
             mIntent.putExtras(bundle);
         }
 
@@ -261,7 +272,7 @@ public final class CustomTabsIntent {
         }
 
         /**
-         * Set the action button.
+         * Sets the action button on toolbar.
          *
          * @param icon The icon.
          * @param description The description for the button. To be used for accessibility.
@@ -270,11 +281,7 @@ public final class CustomTabsIntent {
          */
         public Builder setActionButton(@NonNull Bitmap icon, @NonNull String description,
                 @NonNull PendingIntent pendingIntent, boolean shouldTint) {
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(KEY_ICON, icon);
-            bundle.putString(KEY_DESCRIPTION, description);
-            bundle.putParcelable(KEY_PENDING_INTENT, pendingIntent);
-            mIntent.putExtra(EXTRA_ACTION_BUTTON_BUNDLE, bundle);
+            addActionButton(TOOLBAR_ACTION_BUTTON_ID, icon, description, pendingIntent);
             mIntent.putExtra(EXTRA_TINT_ACTION_BUTTON, shouldTint);
             return this;
         }
@@ -289,6 +296,28 @@ public final class CustomTabsIntent {
         }
 
         /**
+         * Adds an action button to the custom tab. Multiple buttons can be added via this method.
+         * If the given id equals {@link #TOOLBAR_ACTION_BUTTON_ID}, the button will be placed on
+         * the toolbar; if the bitmap is too wide, it will be put to the bottom bar instead. If
+         * the id is not {@link #TOOLBAR_ACTION_BUTTON_ID}, it will be directly put on bottom bar.
+         * @param id The unique id of the action button.
+         * @param icon The icon.
+         * @param description The description for the button. To be used for accessibility.
+         * @param pendingIntent The pending intent delivered when the button is clicked.
+         */
+        public Builder addActionButton(int id, @NonNull Bitmap icon, @NonNull String description,
+                                        PendingIntent pendingIntent) {
+            if (mActionButtons == null) mActionButtons = new ArrayList<>();
+            Bundle bundle = new Bundle();
+            bundle.putInt(KEY_ID, id);
+            bundle.putParcelable(KEY_ICON, icon);
+            bundle.putString(KEY_DESCRIPTION, description);
+            bundle.putParcelable(KEY_PENDING_INTENT, pendingIntent);
+            mActionButtons.add(bundle);
+            return this;
+        }
+
+        /**
          * Sets the start animations,
          *
          * @param context Application context.
@@ -297,8 +326,8 @@ public final class CustomTabsIntent {
          */
         public Builder setStartAnimations(
                 @NonNull Context context, @AnimRes int enterResId, @AnimRes int exitResId) {
-            mStartAnimationBundle =
-                    ActivityOptions.makeCustomAnimation(context, enterResId, exitResId).toBundle();
+            mStartAnimationBundle = ActivityOptionsCompat.makeCustomAnimation(
+                    context, enterResId, exitResId).toBundle();
             return this;
         }
 
@@ -311,8 +340,8 @@ public final class CustomTabsIntent {
          */
         public Builder setExitAnimations(
                 @NonNull Context context, @AnimRes int enterResId, @AnimRes int exitResId) {
-            Bundle bundle =
-                    ActivityOptions.makeCustomAnimation(context, enterResId, exitResId).toBundle();
+            Bundle bundle = ActivityOptionsCompat.makeCustomAnimation(
+                    context, enterResId, exitResId).toBundle();
             mIntent.putExtra(EXTRA_EXIT_ANIMATION_BUNDLE, bundle);
             return this;
         }
@@ -325,34 +354,10 @@ public final class CustomTabsIntent {
             if (mMenuItems != null) {
                 mIntent.putParcelableArrayListExtra(CustomTabsIntent.EXTRA_MENU_ITEMS, mMenuItems);
             }
-            return new CustomTabsIntent(mIntent, mStartAnimationBundle);
-        }
-
-        /**
-         * A convenience method to handle putting an {@link IBinder} inside a {@link Bundle} for all
-         * Android version.
-         * @param bundle The bundle to insert the {@link IBinder}.
-         * @param key    The key to use while putting the {@link IBinder}.
-         * @param binder The {@link IBinder} to put.
-         * @return       Whether the operation was successful.
-         */
-        private boolean safePutBinder(Bundle bundle, String key, IBinder binder) {
-            try {
-                // {@link Bundle#putBinder} exists since JB MR2, but we have
-                // {@link Bundle#putIBinder} which is the same method since the dawn of time. Use
-                // reflection when necessary to call it.
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                    bundle.putBinder(key, binder);
-                } else {
-                    Method putBinderMethod =
-                            Bundle.class.getMethod("putIBinder", String.class, IBinder.class);
-                    putBinderMethod.invoke(bundle, key, binder);
-                }
-            } catch (InvocationTargetException | IllegalAccessException
-                    | IllegalArgumentException | NoSuchMethodException e) {
-                return false;
+            if (mActionButtons != null) {
+                mIntent.putParcelableArrayListExtra(EXTRA_ACTION_BUTTON_BUNDLE, mActionButtons);
             }
-            return true;
+            return new CustomTabsIntent(mIntent, mStartAnimationBundle);
         }
     }
 }
