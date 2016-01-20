@@ -87,16 +87,20 @@ public final class CustomTabsIntent {
     public static final int SHOW_PAGE_TITLE = 1;
 
     /**
-     * Bundle used for adding custom action buttons to the custom tab. The client should provide a
-     * unique id, an icon {@link Bitmap} and a {@link PendingIntent} for each button.
-     * <p>
-     * The data associated with this extra can be either a bundle or an {@link ArrayList} of
-     * bundles. If an {@link ArrayList} is given, only the bundle with the id of
-     * {@link #TOOLBAR_ACTION_BUTTON_ID} will be displayed on toolbar; the rest will be put on a
-     * bottom bar.
+     * Bundle used for adding a custom action button to the custom tab toolbar. The client should
+     * provide a description, an icon {@link Bitmap} and a {@link PendingIntent} for the button.
+     * All three keys must be present.
      */
     public static final String EXTRA_ACTION_BUTTON_BUNDLE =
             "android.support.customtabs.extra.ACTION_BUTTON_BUNDLE";
+
+    /**
+     * List<Bundle> used for adding items to the top and bottom action bars. The client should
+     * provide an ID, a description, an icon {@link Bitmap} for each item. They may also provide a
+     * {@link PendingIntent} if the item is a button.
+     */
+    public static final String EXTRA_ACTION_BAR_ITEMS =
+            "android.support.customtabs.extra.ACTION_BAR_ITEMS";
 
     /**
      * Key that specifies the {@link Bitmap} to be used as the image source for the action button.
@@ -148,15 +152,26 @@ public final class CustomTabsIntent {
             "android.support.customtabs.extra.EXIT_ANIMATION_BUNDLE";
 
     /**
-     * Key that specifies the unique id for an action button. To make a button to show on the
-     * toolbar, use {@link #TOOLBAR_ACTION_BUTTON_ID} as its id.
+     * Boolean extra that specifies whether a default share button will be shown in the menu.
+     */
+    public static final String EXTRA_DEFAULT_SHARE_MENU_ITEM =
+            "android.support.customtabs.extra.SHARE_MENU_ITEM";
+
+    /**
+     * Key that specifies the unique ID for an action button. To make a button to show on the
+     * toolbar, use {@link #TOOLBAR_ACTION_BUTTON_ID} as its ID.
      */
     public static final String KEY_ID = "android.support.customtabs.customaction.ID";
 
     /**
-     * The id allocated to the custom action button that is shown on the toolbar.
+     * The ID allocated to the custom action button that is shown on the toolbar.
      */
     public static final int TOOLBAR_ACTION_BUTTON_ID = 0;
+
+    /**
+     * The maximum allowed number of action bar items.
+     */
+    private static final int MAX_ACTION_BAR_ITEMS = 5;
 
     /**
      * An {@link Intent} used to start the Custom Tabs Activity.
@@ -272,22 +287,43 @@ public final class CustomTabsIntent {
         }
 
         /**
-         * Sets the action button on toolbar.
+         * Adds a default share item to the menu.
+         */
+        public Builder addDefaultShareMenuItem() {
+            mIntent.putExtra(EXTRA_DEFAULT_SHARE_MENU_ITEM, true);
+            return this;
+        }
+
+        /**
+         * Set the action button  that is displayed in the Toolbar.
+         * <p>
+         * This is equivalent to calling
+         * {@link CustomTabsIntent.Builder#addActionBarItem(int, Bitmap, String, PendingIntent)}
+         * with {@link #TOOLBAR_ACTION_BUTTON_ID} as id.
          *
          * @param icon The icon.
          * @param description The description for the button. To be used for accessibility.
          * @param pendingIntent pending intent delivered when the button is clicked.
          * @param shouldTint Whether the action button should be tinted.
+         *
+         * @see CustomTabsIntent.Builder#addActionBarItem(int, Bitmap, String, PendingIntent)
          */
         public Builder setActionButton(@NonNull Bitmap icon, @NonNull String description,
                 @NonNull PendingIntent pendingIntent, boolean shouldTint) {
-            addActionButton(TOOLBAR_ACTION_BUTTON_ID, icon, description, pendingIntent);
+            Bundle bundle = new Bundle();
+            bundle.putInt(KEY_ID, TOOLBAR_ACTION_BUTTON_ID);
+            bundle.putParcelable(KEY_ICON, icon);
+            bundle.putString(KEY_DESCRIPTION, description);
+            bundle.putParcelable(KEY_PENDING_INTENT, pendingIntent);
+            mIntent.putExtra(EXTRA_ACTION_BUTTON_BUNDLE, bundle);
             mIntent.putExtra(EXTRA_TINT_ACTION_BUTTON, shouldTint);
             return this;
         }
 
         /**
-         * See {@link CustomTabsIntent.Builder#setActionButton(
+         * Sets the action button that is displayed in the Toolbar with default tinting behavior.
+         *
+         * @see {@link CustomTabsIntent.Builder#setActionButton(
          * Bitmap, String, PendingIntent, boolean)}
          */
         public Builder setActionButton(@NonNull Bitmap icon, @NonNull String description,
@@ -300,14 +336,25 @@ public final class CustomTabsIntent {
          * If the given id equals {@link #TOOLBAR_ACTION_BUTTON_ID}, the button will be placed on
          * the toolbar; if the bitmap is too wide, it will be put to the bottom bar instead. If
          * the id is not {@link #TOOLBAR_ACTION_BUTTON_ID}, it will be directly put on bottom bar.
-         * @param id The unique id of the action button.
+         * The maximum number of allowed action bar items is 5. Throws an
+         * {@link IllegalStateException} when that number is exceeded.
+         *
+         * @param id The unique id of the action button. This should be non-negative.
          * @param icon The icon.
          * @param description The description for the button. To be used for accessibility.
          * @param pendingIntent The pending intent delivered when the button is clicked.
+         *
+         * @see CustomTabsIntent#getMaxActionBarItems().
          */
-        public Builder addActionButton(int id, @NonNull Bitmap icon, @NonNull String description,
-                                        PendingIntent pendingIntent) {
-            if (mActionButtons == null) mActionButtons = new ArrayList<>();
+        public Builder addActionBarItem(int id, @NonNull Bitmap icon, @NonNull String description,
+                PendingIntent pendingIntent) throws IllegalStateException {
+            if (mActionButtons == null) {
+                mActionButtons = new ArrayList<>();
+            }
+            if (mActionButtons.size() >= MAX_ACTION_BAR_ITEMS) {
+                throw new IllegalStateException(
+                        "Exceeded maximum action bar item count of " + MAX_ACTION_BAR_ITEMS);
+            }
             Bundle bundle = new Bundle();
             bundle.putInt(KEY_ID, id);
             bundle.putParcelable(KEY_ICON, icon);
@@ -355,9 +402,16 @@ public final class CustomTabsIntent {
                 mIntent.putParcelableArrayListExtra(CustomTabsIntent.EXTRA_MENU_ITEMS, mMenuItems);
             }
             if (mActionButtons != null) {
-                mIntent.putParcelableArrayListExtra(EXTRA_ACTION_BUTTON_BUNDLE, mActionButtons);
+                mIntent.putParcelableArrayListExtra(EXTRA_ACTION_BAR_ITEMS, mActionButtons);
             }
             return new CustomTabsIntent(mIntent, mStartAnimationBundle);
         }
+    }
+
+    /**
+     * @return The maximum number of allowed action bar items.
+     */
+    public static int getMaxActionBarItems() {
+        return MAX_ACTION_BAR_ITEMS;
     }
 }
