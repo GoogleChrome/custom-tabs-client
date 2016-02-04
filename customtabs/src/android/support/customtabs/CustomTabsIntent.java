@@ -31,6 +31,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.BundleCompat;
+import android.view.View;
+import android.widget.RemoteViews;
 
 import java.util.ArrayList;
 
@@ -163,6 +165,44 @@ public final class CustomTabsIntent {
      */
     public static final String EXTRA_DEFAULT_SHARE_MENU_ITEM =
             "android.support.customtabs.extra.SHARE_MENU_ITEM";
+
+    /**
+     * Extra that specifies the {@link RemoteViews} showing on the secondary toolbar. If this extra
+     * is set, the other secondary toolbar configurations will be overriden. The height of the
+     * {@link RemoteViews} should not exceed 56dp.
+     */
+    public static final String EXTRA_REMOTEVIEWS =
+            "android.support.customtabs.extra.EXTRA_REMOTEVIEWS";
+
+    /**
+     * Extra that specifies an array of {@link View} ids. When these {@link View}s are clicked, a
+     * {@link PendingIntent} will be sent, carrying the current url of the custom tab.
+     * <p>
+     * Note Custom Tabs will override the default onClick behavior of the listed {@link View}s. If
+     * you do not care about the current url, you can safely ignore this extra and use
+     * {@link RemoteViews#setOnClickPendingIntent(int, PendingIntent)} instead.
+     */
+    public static final String EXTRA_REMOTEVIEWS_VIEW_IDS =
+            "android.support.customtabs.extra.EXTRA_REMOTEVIEWS_VIEW_IDS";
+
+    /**
+     * Extra that specifies the {@link PendingIntent} to be sent when the user clicks on the
+     * {@link View}s that is listed by {@link #EXTRA_REMOTEVIEWS_CLICKED_ID}.
+     * <p>
+     * Note when this {@link PendingIntent} is triggered, it will have the current url as data
+     * field, also the id of the clicked {@link View}, specified by
+     * {@link #EXTRA_REMOTEVIEWS_CLICKED_ID}.
+     */
+    public static final String EXTRA_REMOTEVIEWS_PENDINGINTENT =
+            "android.support.customtabs.extra.EXTRA_REMOTEVIEWS_PENDINGINTENT";
+
+    /**
+     * Extra that specifies which {@link View} has been clicked. This extra will be put to the
+     * {@link PendingIntent} sent from Custom Tabs when a view in the {@link RemoteViews} is clicked
+     */
+    public static final String EXTRA_REMOTEVIEWS_CLICKED_ID =
+            "android.support.customtabs.extra.EXTRA_REMOTEVIEWS_CLICKED_ID";
+
 
     /**
      * Key that specifies the unique ID for an action button. To make a button to show on the
@@ -302,7 +342,7 @@ public final class CustomTabsIntent {
         }
 
         /**
-         * Set the action button  that is displayed in the Toolbar.
+         * Sets the action button that is displayed in the Toolbar.
          * <p>
          * This is equivalent to calling
          * {@link CustomTabsIntent.Builder#addToolbarItem(int, Bitmap, String, PendingIntent)}
@@ -354,6 +394,7 @@ public final class CustomTabsIntent {
          *
          * @see CustomTabsIntent#getMaxToolbarItems().
          */
+        @Deprecated
         public Builder addToolbarItem(int id, @NonNull Bitmap icon, @NonNull String description,
                 PendingIntent pendingIntent) throws IllegalStateException {
             if (mActionButtons == null) {
@@ -376,13 +417,32 @@ public final class CustomTabsIntent {
          * Sets the color of the secondary toolbar.
          * @param color The color for the secondary toolbar.
          */
+        @Deprecated
         public Builder setSecondaryToolbarColor(@ColorInt int color) {
             mIntent.putExtra(EXTRA_SECONDARY_TOOLBAR_COLOR, color);
             return this;
         }
 
         /**
-         * Sets the start animations,
+         * Sets the custom secondary toolbar in a custom tab.
+         * @param remoteViews   The {@link RemoteViews} that will be shown on the secondary toolbar.
+         * @param clickableIDs  The ids of clickable views. The onClick event of these views will be
+         *                      handled by custom tabs.
+         * @param pendingIntent The {@link PendingIntent} that will be sent when the user clicks on
+         *                      one of the {@link View}s in clickableIDs. When the
+         *                      {@link PendingIntent} is sent, it will have the current url as its
+         *                      intent data.
+         */
+        public Builder setSecondaryToolbar(RemoteViews remoteViews, int[] clickableIDs,
+                                           PendingIntent pendingIntent) {
+            mIntent.putExtra(EXTRA_REMOTEVIEWS, remoteViews);
+            mIntent.putExtra(EXTRA_REMOTEVIEWS_VIEW_IDS, clickableIDs);
+            mIntent.putExtra(EXTRA_REMOTEVIEWS_PENDINGINTENT, pendingIntent);
+            return this;
+        }
+
+        /**
+         * Sets the start animations.
          *
          * @param context Application context.
          * @param enterResId Resource ID of the "enter" animation for the browser.
@@ -396,7 +456,7 @@ public final class CustomTabsIntent {
         }
 
         /**
-         * Sets the exit animations,
+         * Sets the exit animations.
          *
          * @param context Application context.
          * @param enterResId Resource ID of the "enter" animation for the application.
