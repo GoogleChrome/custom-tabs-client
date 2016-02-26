@@ -28,7 +28,7 @@
     <string name="label_start_custom_tab">Open Custom Tab</string>
     <string name="label_add_menus">Add Menus</string>
     <string name="label_add_action_button">Add Action Button</string>
-    <string name="label_action_share">Share</string>
+    <string name="label_action">Perform Action</string>
 
     <string name="label_toobar_color">Toolbar Color:</string>
     <string name="default_toolbar_color">#980e03</string>
@@ -63,4 +63,11 @@
     <string name="label_custom_back_button">Custom back button</string>
     <string name="label_show_title">Show title</string>
     <string name="label_auto_hide_appbar">Auto-hide AppBar</string>
+    <string name="label_add_default_share">Add default share</string>
+    <string name="label_toobar_secondary_color">Secondary Toolbar Color</string>
+    <string name="label_add_toolbar_item">Add toolbar item</string>
+    <string name="action_button_toast_text">Action Button Clicked with URL: %s</string>
+    <string name="menu_item_toast_text">Menu Item Clicked with URL: %s</string>
+    <string name="toolbar_toast_text">Toolbar Clicked with URL: %s</string>
+    <string name="unknown_toast_text">Unknown Action Clicked with URL: %s</string>
 </resources>
