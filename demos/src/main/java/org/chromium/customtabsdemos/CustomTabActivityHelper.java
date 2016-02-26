@@ -15,10 +15,8 @@
 package org.chromium.customtabsdemos;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
@@ -28,7 +26,6 @@ import org.chromium.customtabsclient.shared.CustomTabsHelper;
 import org.chromium.customtabsclient.shared.ServiceConnection;
 import org.chromium.customtabsclient.shared.ServiceConnectionCallback;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**

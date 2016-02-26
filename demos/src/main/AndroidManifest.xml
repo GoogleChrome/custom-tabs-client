@@ -71,7 +71,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DemoListActivity" />
         </activity>
-        <receiver android:name=".ShareBroadcastReceiver" />
+        <receiver android:name=".ActionBroadcastReceiver" />
     </application>
 
 </manifest>
