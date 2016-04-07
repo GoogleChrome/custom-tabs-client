@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.customtabs.CustomTabsCallback;
@@ -47,6 +48,7 @@ import org.chromium.customtabsclient.shared.ServiceConnectionCallback;
  */
 public class MainActivity extends Activity implements OnClickListener, ServiceConnectionCallback {
     private static final String TAG = "CustomTabsClientExample";
+    private static final String TOOLBAR_COLOR = "#ef6c00";
 
     private EditText mEditText;
     private CustomTabsSession mCustomTabsSession;
@@ -57,6 +59,7 @@ public class MainActivity extends Activity implements OnClickListener, ServiceCo
     private Button mWarmupButton;
     private Button mMayLaunchButton;
     private Button mLaunchButton;
+    private MediaPlayer mMediaPlayer;
 
     private static class NavigationCallback extends CustomTabsCallback {
         @Override
@@ -80,6 +83,7 @@ public class MainActivity extends Activity implements OnClickListener, ServiceCo
         mWarmupButton.setOnClickListener(this);
         mMayLaunchButton.setOnClickListener(this);
         mLaunchButton.setOnClickListener(this);
+        mMediaPlayer = MediaPlayer.create(this, R.raw.let_it_go);
 
         spinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 CustomTabsHelper.getPackages()));
@@ -110,6 +114,7 @@ public class MainActivity extends Activity implements OnClickListener, ServiceCo
             mCustomTabsSession = null;
         } else if (mCustomTabsSession == null) {
             mCustomTabsSession = mClient.newSession(new NavigationCallback());
+            SessionHelper.setCurrentSession(mCustomTabsSession);
         }
         return mCustomTabsSession;
     }
@@ -154,9 +159,10 @@ public class MainActivity extends Activity implements OnClickListener, ServiceCo
             if (!success) mMayLaunchButton.setEnabled(false);
         } else if (viewId == R.id.launch_button) {
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder(getSession());
-            builder.setToolbarColor(Color.BLUE).setShowTitle(true);
+            builder.setToolbarColor(Color.parseColor(TOOLBAR_COLOR)).setShowTitle(true);
             prepareMenuItems(builder);
             prepareActionButton(builder);
+            prepareBottombar(builder);
             builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
             builder.setExitAnimations(this, R.anim.slide_in_left, R.anim.slide_out_right);
             builder.setCloseButtonIcon(
@@ -184,9 +190,15 @@ public class MainActivity extends Activity implements OnClickListener, ServiceCo
         actionIntent.setType("*/*");
         actionIntent.putExtra(Intent.EXTRA_EMAIL, "example@example.com");
         actionIntent.putExtra(Intent.EXTRA_SUBJECT, "example");
-        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, actionIntent, 0);
-        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-        builder.setActionButton(icon, "send email", pi);
+        PendingIntent pi = PendingIntent.getActivity(this, 0, actionIntent, 0);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_share);
+        builder.setActionButton(icon, "send email", pi, true);
+    }
+
+    private void prepareBottombar(CustomTabsIntent.Builder builder) {
+        BottomBarManager.setMediaPlayer(mMediaPlayer);
+        builder.setSecondaryToolbar(BottomBarManager.createRemoteViews(this, true),
+                BottomBarManager.getClickableIDs(), BottomBarManager.getOnClickPendingIntent(this));
     }
 
     @Override
