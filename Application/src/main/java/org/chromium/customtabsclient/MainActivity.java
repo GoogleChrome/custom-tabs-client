@@ -83,7 +83,7 @@ public class MainActivity extends Activity implements OnClickListener, ServiceCo
         mWarmupButton.setOnClickListener(this);
         mMayLaunchButton.setOnClickListener(this);
         mLaunchButton.setOnClickListener(this);
-        mMediaPlayer = MediaPlayer.create(this, R.raw.let_it_go);
+        mMediaPlayer = MediaPlayer.create(this, R.raw.amazing_grace);
 
         spinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 CustomTabsHelper.getPackages()));
