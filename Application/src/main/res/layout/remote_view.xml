@@ -10,6 +10,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="4dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/cover"/>
     <LinearLayout
         android:layout_width="0dp"
@@ -20,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Let It Go"
+            android:text="Amazing Grace 2011"
             android:paddingTop="2dp"
             android:textSize="16sp"
             android:textColor="@android:color/black"/>
@@ -29,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="2dp"
-            android:text="Idina Menzel"
+            android:text="Kevin MacLeod"
             android:textSize="12sp"
             android:textColor="#666666"/>
     </LinearLayout>
