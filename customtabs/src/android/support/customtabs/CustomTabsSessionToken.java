@@ -32,6 +32,19 @@ public class CustomTabsSessionToken {
     private final ICustomTabsCallback mCallbackBinder;
     private final CustomTabsCallback mCallback;
 
+    private static class DummyCallback extends ICustomTabsCallback.Stub {
+        @Override
+        public void onNavigationEvent(int navigationEvent, Bundle extras) {}
+
+        @Override
+        public void extraCallback(String callbackName, Bundle args) {}
+
+        @Override
+        public IBinder asBinder() {
+            return this;
+        }
+    }
+
     /**
      * Obtain a {@link CustomTabsSessionToken} from an intent. See {@link CustomTabsIntent.Builder}
      * for ways to generate an intent for custom tabs.
@@ -44,6 +57,16 @@ public class CustomTabsSessionToken {
         IBinder binder = BundleCompat.getBinder(b, CustomTabsIntent.EXTRA_SESSION);
         if (binder == null) return null;
         return new CustomTabsSessionToken(ICustomTabsCallback.Stub.asInterface(binder));
+    }
+
+    /**
+     * Provides browsers a way to generate a dummy {@link CustomTabsSessionToken} for testing
+     * purposes.
+     *
+     * @return A dummy token with no functionality.
+     */
+    public static CustomTabsSessionToken createDummySessionTokenForTesting() {
+        return new CustomTabsSessionToken(new DummyCallback());
     }
 
     /**@hide*/
