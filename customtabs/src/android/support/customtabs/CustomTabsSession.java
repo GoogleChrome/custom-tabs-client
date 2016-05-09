@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
+import android.support.customtabs.CustomTabsSessionToken.DummyCallback;
 import android.widget.RemoteViews;
 
 import java.util.List;
@@ -37,6 +38,16 @@ public final class CustomTabsSession {
     private final ICustomTabsService mService;
     private final ICustomTabsCallback mCallback;
     private final ComponentName mComponentName;
+
+    /**
+     * Provides browsers a way to generate a dummy {@link CustomTabsSession} for testing
+     * purposes.
+     *
+     * @return A dummy session with no functionality.
+     */
+    public static CustomTabsSession createDummySessionForTesting() {
+        return new CustomTabsSession(null, new DummyCallback(), null);
+    }
 
     /* package */ CustomTabsSession(
             ICustomTabsService service, ICustomTabsCallback callback, ComponentName componentName) {

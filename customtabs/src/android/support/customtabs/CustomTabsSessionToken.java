@@ -32,7 +32,7 @@ public class CustomTabsSessionToken {
     private final ICustomTabsCallback mCallbackBinder;
     private final CustomTabsCallback mCallback;
 
-    private static class DummyCallback extends ICustomTabsCallback.Stub {
+    /* package */ static class DummyCallback extends ICustomTabsCallback.Stub {
         @Override
         public void onNavigationEvent(int navigationEvent, Bundle extras) {}
 
