@@ -197,7 +197,7 @@ public class MainActivity extends Activity implements OnClickListener, ServiceCo
 
     private void prepareBottombar(CustomTabsIntent.Builder builder) {
         BottomBarManager.setMediaPlayer(mMediaPlayer);
-        builder.setSecondaryToolbar(BottomBarManager.createRemoteViews(this, true),
+        builder.setSecondaryToolbarViews(BottomBarManager.createRemoteViews(this, true),
                 BottomBarManager.getClickableIDs(), BottomBarManager.getOnClickPendingIntent(this));
     }
 
