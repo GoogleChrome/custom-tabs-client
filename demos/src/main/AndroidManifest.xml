@@ -15,7 +15,12 @@
      limitations under the License.
 -->
 <manifest package="org.chromium.customtabsdemos"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        tools:overrideLibrary="android.support.v4"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <application

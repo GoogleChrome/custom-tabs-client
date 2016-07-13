@@ -14,7 +14,12 @@
      limitations under the License.
 -->
 <manifest package="android.support.customtabs"
-    >
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        tools:overrideLibrary="android.support.v4"/>
 
     <application/>
 </manifest>

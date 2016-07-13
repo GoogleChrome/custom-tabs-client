@@ -20,9 +20,4 @@ android {
         androidTest.setRoot('tests')
         androidTest.java.srcDir('tests/src/')
     }
-
-//    compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_8
-//        targetCompatibility JavaVersion.VERSION_1_8
-//    }
 }
