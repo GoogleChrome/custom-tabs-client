@@ -46,6 +46,18 @@ import java.util.ArrayList;
 public final class CustomTabsIntent {
 
     /**
+     * Indicates that the user explicitly opted out of Custom Tabs in the calling application.
+     * <p>
+     * If an application provides a mechanism for users to opt out of Custom Tabs, this extra should
+     * be provided to ensure the browser does not attempt to trigger any Custom Tab-like experiences
+     * as a result of the VIEW intent.
+     * <p>
+     * If this extra is present, all Custom Tabs customizations will be ignored.
+     */
+    public static final String EXTRA_USER_OPT_OUT_FROM_CUSTOM_TABS =
+            "android.support.customtabs.extra.user_opt_out";
+
+    /**
      * Extra used to match the session. This has to be included in the intent to open in
      * a custom tab. This is the same IBinder that gets passed to ICustomTabsService#newSession.
      * Null if there is no need to match any service side sessions with the intent.
