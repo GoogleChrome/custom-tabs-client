@@ -82,6 +82,15 @@ public class CustomTabsSessionToken {
                     Log.e(TAG, "RemoteException during ICustomTabsCallback transaction");
                 }
             }
+
+            @Override
+            public void extraCallback(String callbackName, Bundle args) {
+                try {
+                    mCallbackBinder.extraCallback(callbackName, args);
+                } catch (RemoteException e) {
+                    Log.e(TAG, "RemoteException during ICustomTabsCallback transaction");
+                }
+            }
         };
     }
 
