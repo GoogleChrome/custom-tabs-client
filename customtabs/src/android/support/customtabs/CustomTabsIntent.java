@@ -49,12 +49,13 @@ public final class CustomTabsIntent {
      * Indicates that the user explicitly opted out of Custom Tabs in the calling application.
      * <p>
      * If an application provides a mechanism for users to opt out of Custom Tabs, this extra should
-     * be provided to ensure the browser does not attempt to trigger any Custom Tab-like experiences
-     * as a result of the VIEW intent.
+     * be provided with {@link Intent#FLAG_ACTIVITY_NEW_TASK} to ensure the browser does not attempt
+     * to trigger any Custom Tab-like experiences as a result of the VIEW intent.
      * <p>
-     * If this extra is present, all Custom Tabs customizations will be ignored.
+     * If this extra is present with {@link Intent#FLAG_ACTIVITY_NEW_TASK}, all Custom Tabs
+     * customizations will be ignored.
      */
-    public static final String EXTRA_USER_OPT_OUT_FROM_CUSTOM_TABS =
+    private static final String EXTRA_USER_OPT_OUT_FROM_CUSTOM_TABS =
             "android.support.customtabs.extra.user_opt_out";
 
     /**
@@ -219,6 +220,11 @@ public final class CustomTabsIntent {
     public static final String EXTRA_REMOTEVIEWS_CLICKED_ID =
             "android.support.customtabs.extra.EXTRA_REMOTEVIEWS_CLICKED_ID";
 
+    /**
+     * Extra that specifies whether Instant Apps is enabled.
+     */
+    public static final String EXTRA_ENABLE_INSTANT_APPS =
+            "android.support.customtabs.extra.EXTRA_ENABLE_INSTANT_APPS";
 
     /**
      * Key that specifies the unique ID for an action button. To make a button to show on the
@@ -269,6 +275,7 @@ public final class CustomTabsIntent {
         private ArrayList<Bundle> mMenuItems = null;
         private Bundle mStartAnimationBundle = null;
         private ArrayList<Bundle> mActionButtons = null;
+        private boolean mInstantAppsEnabled = true;
 
         /**
          * Creates a {@link CustomTabsIntent.Builder} object associated with no
@@ -464,6 +471,16 @@ public final class CustomTabsIntent {
         }
 
         /**
+         * Sets whether Instant Apps is enabled for this Custom Tab.
+
+         * @param enabled Whether Instant Apps should be enabled.
+         */
+        public Builder setInstantAppsEnabled(boolean enabled) {
+            mInstantAppsEnabled = enabled;
+            return this;
+        }
+
+        /**
          * Sets the start animations.
          *
          * @param context Application context.
@@ -503,6 +520,7 @@ public final class CustomTabsIntent {
             if (mActionButtons != null) {
                 mIntent.putParcelableArrayListExtra(EXTRA_TOOLBAR_ITEMS, mActionButtons);
             }
+            mIntent.putExtra(EXTRA_ENABLE_INSTANT_APPS, mInstantAppsEnabled);
             return new CustomTabsIntent(mIntent, mStartAnimationBundle);
         }
     }
@@ -514,5 +532,31 @@ public final class CustomTabsIntent {
      */
     public static int getMaxToolbarItems() {
         return MAX_TOOLBAR_ITEMS;
+    }
+
+    /**
+     * Adds the necessary flags and extras to signal any browser supporting custom tabs to use the
+     * browser UI at all times and avoid showing custom tab like UI. Calling this with an intent
+     * will override any custom tabs related customizations.
+     * @param intent The intent to modify for always showing browser UI.
+     * @return The same intent with the necessary flags and extras added.
+     */
+    public static Intent setAlwaysUseBrowserUI(Intent intent) {
+        if (intent == null) intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(EXTRA_USER_OPT_OUT_FROM_CUSTOM_TABS, true);
+        return intent;
+    }
+
+    /**
+     * Whether a browser receiving the given intent should always use browser UI and avoid using any
+     * custom tabs UI.
+     *
+     * @param intent The intent to check for the required flags and extras.
+     * @return Whether the browser UI should be used exclusively.
+     */
+    public static boolean shouldAlwaysUseBrowserUI(Intent intent) {
+        return intent.getBooleanExtra(EXTRA_USER_OPT_OUT_FROM_CUSTOM_TABS, false)
+                && (intent.getFlags() & Intent.FLAG_ACTIVITY_NEW_TASK) != 0;
     }
 }
