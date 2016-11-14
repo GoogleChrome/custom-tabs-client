@@ -24,8 +24,6 @@ import android.os.RemoteException;
 import android.support.v4.app.BundleCompat;
 import android.util.Log;
 
-import org.chromium.base.annotations.SuppressFBWarnings;
-
 /**
  * Wrapper class that can be used as a unique identifier for a session. Also contains an accessor
  * for the {@link CustomTabsCallback} for the session if there was any.
@@ -92,7 +90,6 @@ public class CustomTabsSessionToken {
                 }
             }
 
-            @SuppressFBWarnings("CHROMIUM_SYNCHRONIZED_METHOD")
             @Override
             public synchronized void onMessageChannelReady(Uri origin, Bundle extras) {
                 try {
@@ -102,7 +99,6 @@ public class CustomTabsSessionToken {
                 }
             }
 
-            @SuppressFBWarnings("CHROMIUM_SYNCHRONIZED_METHOD")
             @Override
             public synchronized void onPostMessage(String message, Bundle extras) {
                 try {

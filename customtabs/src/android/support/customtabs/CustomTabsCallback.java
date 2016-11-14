@@ -19,8 +19,6 @@ package android.support.customtabs;
 import android.net.Uri;
 import android.os.Bundle;
 
-import org.chromium.base.annotations.SuppressFBWarnings;
-
 /**
  * A callback class for custom tabs client to get messages regarding events in their custom tabs. In
  * the implementation, all callbacks are sent to the UI thread for the client.
@@ -73,7 +71,6 @@ public class CustomTabsCallback {
      *               from this {@link CustomTabsSession}.
      * @param extras Reserved for future use.
      */
-    @SuppressFBWarnings("CHROMIUM_SYNCHRONIZED_METHOD")
     public synchronized void onMessageChannelReady(Uri origin, Bundle extras) {}
 
     /**
@@ -85,7 +82,6 @@ public class CustomTabsCallback {
      * @param message The message sent.
      * @param extras Reserved for future use.
      */
-    @SuppressFBWarnings("CHROMIUM_SYNCHRONIZED_METHOD")
     public synchronized void onPostMessage(String message, Bundle extras) {}
 
     /**

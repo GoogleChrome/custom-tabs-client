@@ -28,8 +28,6 @@ import android.support.customtabs.CustomTabsService.Result;
 import android.support.customtabs.CustomTabsSessionToken.DummyCallback;
 import android.widget.RemoteViews;
 
-import org.chromium.base.annotations.SuppressFBWarnings;
-
 import java.util.List;
 
 /**
@@ -162,7 +160,6 @@ public final class CustomTabsSession {
     }
 
     @Result
-    @SuppressFBWarnings("CHROMIUM_SYNCHRONIZED_METHOD")
     public synchronized int postMessage(String message, Bundle extras) {
         try {
             return mService.postMessage(mCallback, message, extras);
