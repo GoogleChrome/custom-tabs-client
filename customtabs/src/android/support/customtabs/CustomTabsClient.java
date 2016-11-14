@@ -30,6 +30,8 @@ import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import org.chromium.base.annotations.SuppressFBWarnings;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -195,6 +197,7 @@ public class CustomTabsClient {
                 });
             }
 
+            @SuppressFBWarnings("CHROMIUM_SYNCHRONIZED_METHOD")
             @Override
             public synchronized void onMessageChannelReady(final Uri origin, final Bundle extras) {
                 if (callback == null) return;
@@ -206,6 +209,7 @@ public class CustomTabsClient {
                 });
             }
 
+            @SuppressFBWarnings("CHROMIUM_SYNCHRONIZED_METHOD")
             @Override
             public synchronized void onPostMessage(final String message, final Bundle extras) {
                 if (callback == null) return;
