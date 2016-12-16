@@ -33,13 +33,17 @@ import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.customtabs.CustomTabsSession;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.chromium.customtabsclient.shared.CustomTabsHelper;
 import org.chromium.customtabsclient.shared.ServiceConnection;
@@ -94,25 +98,47 @@ public class MainActivity extends Activity implements OnClickListener, ServiceCo
         PackageManager pm = getPackageManager();
         List<ResolveInfo> resolvedActivityList = pm.queryIntentActivities(
                 activityIntent, PackageManager.MATCH_ALL);
-        List<String> packagesSupportingCustomTabs = new ArrayList<>();
+        List<Pair<String, String>> packagesSupportingCustomTabs = new ArrayList<>();
         for (ResolveInfo info : resolvedActivityList) {
             Intent serviceIntent = new Intent();
             serviceIntent.setAction("android.support.customtabs.action.CustomTabsService");
             serviceIntent.setPackage(info.activityInfo.packageName);
             if (pm.resolveService(serviceIntent, 0) != null) {
-                packagesSupportingCustomTabs.add(info.activityInfo.packageName);
+                packagesSupportingCustomTabs.add(
+                        Pair.create(info.loadLabel(pm).toString(), info.activityInfo.packageName));
             }
         }
 
-        spinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
-                packagesSupportingCustomTabs));
+        final ArrayAdapter<Pair<String, String>> adapter = new ArrayAdapter<Pair<String, String>>(
+                this, 0, packagesSupportingCustomTabs) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = convertView;
+                if (view == null) {
+                    view = LayoutInflater.from(MainActivity.this).inflate(
+                            android.R.layout.simple_list_item_2, parent, false);
+                }
+                Pair<String, String> data = getItem(position);
+                ((TextView) view.findViewById(android.R.id.text1)).setText(data.first);
+                ((TextView) view.findViewById(android.R.id.text2)).setText(data.second);
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                return getView(position, convertView, parent);
+            }
+        };
+        spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (TextUtils.isEmpty(parent.getItemAtPosition(position).toString())) {
+                Pair<String, String> item = adapter.getItem(position);
+                if (TextUtils.isEmpty(item.second)) {
                     onNothingSelected(parent);
+                    return;
                 }
-                mPackageNameToBind = parent.getItemAtPosition(position).toString();
+                mPackageNameToBind = item.second;
             }
 
             @Override
