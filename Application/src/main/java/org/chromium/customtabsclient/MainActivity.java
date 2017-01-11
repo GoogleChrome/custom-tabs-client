@@ -15,6 +15,7 @@
 package org.chromium.customtabsclient;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.ActivityOptions;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -26,6 +27,8 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.customtabs.CustomTabsCallback;
 import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
@@ -69,6 +72,33 @@ public class MainActivity extends Activity implements OnClickListener, ServiceCo
     private Button mMayLaunchButton;
     private Button mLaunchButton;
     private MediaPlayer mMediaPlayer;
+
+    /**
+     * Once per second, asks the framework for the process importance, and logs any change.
+     */
+    private Runnable mLogImportance = new Runnable() {
+        private int mPreviousImportance = -1;
+        private boolean mPreviousServiceInUse = false;
+        private Handler mHandler = new Handler(Looper.getMainLooper());
+
+        @Override
+        public void run() {
+            ActivityManager.RunningAppProcessInfo state =
+                    new ActivityManager.RunningAppProcessInfo();
+            ActivityManager.getMyMemoryState(state);
+            int importance = state.importance;
+            boolean serviceInUse = state.importanceReasonCode
+                    == ActivityManager.RunningAppProcessInfo.REASON_SERVICE_IN_USE;
+            if (importance != mPreviousImportance || serviceInUse != mPreviousServiceInUse) {
+                mPreviousImportance = importance;
+                mPreviousServiceInUse = serviceInUse;
+                String message = "New importance = " + importance;
+                if (serviceInUse) message += " (Reason: Service in use)";
+                Log.w(TAG, message);
+            }
+            mHandler.postDelayed(this, 1000);
+        }
+    };
 
     private static class NavigationCallback extends CustomTabsCallback {
         @Override
@@ -146,6 +176,8 @@ public class MainActivity extends Activity implements OnClickListener, ServiceCo
                 mPackageNameToBind = null;
             }
         });
+
+        mLogImportance.run();
     }
 
     @Override
