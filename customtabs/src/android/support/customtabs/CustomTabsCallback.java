@@ -64,27 +64,6 @@ public class CustomTabsCallback {
     public void onNavigationEvent(int navigationEvent, Bundle extras) {}
 
     /**
-     * Sent when {@link CustomTabsSession} has requested a postMessage channel through
-     * {@link CustomTabsService#validatePostMessageOrigin(CustomTabsSessionToken)} and the channel
-     * is ready for sending and receiving messages on both ends.
-     * @param origin The web origin that has been validated and will be used in all messages coming
-     *               from this {@link CustomTabsSession}.
-     * @param extras Reserved for future use.
-     */
-    public synchronized void onMessageChannelReady(Uri origin, Bundle extras) {}
-
-    /**
-     * Sent when a tab controlled by this {@link CustomTabsSession} has sent a postMessage message.
-     * If postMessage() is called from a single thread, then the messages will be posted in the same
-     * order. When received on the client side, it is the client's responsibility to preserve the
-     * ordering further.
-     *
-     * @param message The message sent.
-     * @param extras Reserved for future use.
-     */
-    public synchronized void onPostMessage(String message, Bundle extras) {}
-
-    /**
      * Unsupported callbacks that may be provided by the implementation.
      *
      * <p>
@@ -99,4 +78,25 @@ public class CustomTabsCallback {
      * @param args Arguments for the calback
      */
     public void extraCallback(String callbackName, Bundle args) {}
+
+    /**
+     * Called when {@link CustomTabsSession} has requested a postMessage channel through
+     * {@link CustomTabsService#requestPostMessageChannel(
+     * CustomTabsSessionToken, android.content.ComponentName, Uri)} and the channel
+     * is ready for sending and receiving messages on both ends.
+     *
+     * @param extras Reserved for future use.
+     */
+    public void onMessageChannelReady(Bundle extras) {}
+
+    /**
+     * Called when a tab controlled by this {@link CustomTabsSession} has sent a postMessage message.
+     * If postMessage() is called from a single thread, then the messages will be posted in the
+     * same order. When received on the client side, it is the client's responsibility to preserve
+     * the ordering further.
+     *
+     * @param message The message sent.
+     * @param extras Reserved for future use.
+     */
+    public void onPostMessage(String message, Bundle extras) {}
 }

@@ -17,6 +17,7 @@
 package android.support.customtabs;
 
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -54,9 +55,17 @@ import java.util.NoSuchElementException;
      @IntDef({RESULT_SUCCESS, RESULT_FAILURE_DISALLOWED,
          RESULT_FAILURE_REMOTE_ERROR, RESULT_FAILURE_MESSAGING_ERROR})
      public @interface Result {}
+     /** Indicates that the postMessage request was accepted. */
      public static final int RESULT_SUCCESS = 0;
+     /** Indicates that the postMessage request was not allowed due to a bad argument or requesting
+      * at a disallowed time like when in background.
+      */
      public static final int RESULT_FAILURE_DISALLOWED = -1;
+     /** Indicates that the postMessage request has failed due to a {@link RemoteException} . */
      public static final int RESULT_FAILURE_REMOTE_ERROR = -2;
+     /** Indicates that the postMessage request has failed due to an internal error on the browser
+      * message channel.
+      */
      public static final int RESULT_FAILURE_MESSAGING_ERROR = -3;
 
      private final Map<IBinder, DeathRecipient> mDeathRecipientMap = new ArrayMap<>();
@@ -107,9 +116,10 @@ import java.util.NoSuchElementException;
          }
 
          @Override
-         public boolean validatePostMessageOrigin(ICustomTabsCallback callback) {
-             return CustomTabsService.this.validatePostMessageOrigin(
-                     new CustomTabsSessionToken(callback));
+         public boolean requestPostMessageChannel(ICustomTabsCallback callback,
+                 Uri postMessageOrigin) {
+             return CustomTabsService.this.requestPostMessageChannel(
+                     new CustomTabsSessionToken(callback), postMessageOrigin);
          }
 
          @Override
@@ -216,28 +226,32 @@ import java.util.NoSuchElementException;
              Bundle bundle);
 
      /**
-      * Sends a request to the implementation to validate and assign a postMessage origin for the
-      * related {@link CustomTabsSession}.
+      * Sends a request to create a two way postMessage channel between the client and the browser
+      * linked with the given {@link CustomTabsSession}.
       *
-      * <p>This also acts as a trigger to setup a postMessage communication channel.
       *
       * @param sessionToken The unique identifier for the session. Can not be null.
-      * @return Whether the implementation accepted the validation request. Note that returning true
+      * @param postMessageOrigin      A origin that the client is requesting to be identified as
+      *                               during the postMessage communication.
+      * @return Whether the implementation accepted the request. Note that returning true
       *         here doesn't mean an origin has already been assigned as the validation is
       *         asynchronous.
       */
-     protected abstract boolean validatePostMessageOrigin(CustomTabsSessionToken sessionToken);
+     protected abstract boolean requestPostMessageChannel(CustomTabsSessionToken sessionToken,
+             Uri postMessageOrigin);
 
      /**
-      * Sends a postMessage request using the origin that has been validated and communicated via
-      * {@link CustomTabsCallback#onMessageChannelReady(Uri, Bundle)}. Fails when called
-      * without a preceding
-      * {@link CustomTabsService#validatePostMessageOrigin(CustomTabsSessionToken)}.
+      * Sends a postMessage request using the origin communicated via
+      * {@link CustomTabsService#requestPostMessageChannel(
+      * CustomTabsSessionToken, Uri)}. Fails when called before
+      * {@link PostMessageServiceConnection#notifyMessageChannelReady(Bundle)} is received on the
+      * client side.
       *
       * @param sessionToken The unique identifier for the session. Can not be null.
       * @param message The message that is being sent.
       * @param extras Reserved for future use.
-      * @return An integer constant about the postMessage request result.
+      * @return An integer constant about the postMessage request result. Will return
+      *         {@link CustomTabsService#RESULT_SUCCESS} if successful.
       */
      @Result
      protected abstract int postMessage(

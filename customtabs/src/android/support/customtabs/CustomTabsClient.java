@@ -125,7 +125,7 @@ public class CustomTabsClient {
      * necessary.
      *
      * @param context     {@link Context} to use to connect to the remote service.
-     * @param packageName Package name of the target implamentation.
+     * @param packageName Package name of the target implementation.
      * @return Whether the binding was successful.
      */
     public static boolean connectAndInitialize(Context context, String packageName) {
@@ -196,28 +196,6 @@ public class CustomTabsClient {
             }
 
             @Override
-            public synchronized void onMessageChannelReady(final Uri origin, final Bundle extras) {
-                if (callback == null) return;
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onMessageChannelReady(origin, extras);
-                    }
-                });
-            }
-
-            @Override
-            public synchronized void onPostMessage(final String message, final Bundle extras) {
-                if (callback == null) return;
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onPostMessage(message, extras);
-                    }
-                });
-            }
-
-            @Override
             public void extraCallback(final String callbackName, final Bundle args)
                     throws RemoteException {
                 if (callback == null) return;
@@ -225,6 +203,30 @@ public class CustomTabsClient {
                     @Override
                     public void run() {
                         callback.extraCallback(callbackName, args);
+                    }
+                });
+            }
+
+            @Override
+            public void onMessageChannelReady(final Bundle extras)
+                    throws RemoteException {
+                if (callback == null) return;
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onMessageChannelReady(extras);
+                    }
+                });
+            }
+
+            @Override
+            public void onPostMessage(final String message, final Bundle extras)
+                    throws RemoteException {
+                if (callback == null) return;
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onPostMessage(message, extras);
                     }
                 });
             }
