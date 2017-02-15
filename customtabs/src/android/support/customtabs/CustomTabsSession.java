@@ -24,8 +24,10 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsService.Result;
 import android.support.customtabs.CustomTabsSessionToken.DummyCallback;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import java.util.List;
@@ -90,7 +92,7 @@ public final class CustomTabsSession {
      * @param icon          The new icon of the action button.
      * @param description   Content description of the action button.
      *
-     * @see {@link CustomTabsSession#setToolbarItem(int, Bitmap, String)}
+     * @see CustomTabsSession#setToolbarItem(int, Bitmap, String)
      */
     public boolean setActionButton(@NonNull Bitmap icon, @NonNull String description) {
         Bundle bundle = new Bundle();
@@ -109,13 +111,14 @@ public final class CustomTabsSession {
     /**
      * Updates the {@link RemoteViews} of the secondary toolbar in an existing custom tab session.
      * @param remoteViews   The updated {@link RemoteViews} that will be shown in secondary toolbar.
+     *                      If null, the current secondary toolbar will be dismissed.
      * @param clickableIDs  The ids of clickable views. The onClick event of these views will be
      *                      handled by custom tabs.
      * @param pendingIntent The {@link PendingIntent} that will be sent when the user clicks on one
      *                      of the {@link View}s in clickableIDs.
      */
-    public boolean setSecondaryToolbar(RemoteViews remoteViews, int[] clickableIDs,
-                                       PendingIntent pendingIntent) {
+    public boolean setSecondaryToolbarViews(@Nullable RemoteViews remoteViews,
+            @Nullable int[] clickableIDs, @Nullable PendingIntent pendingIntent) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(CustomTabsIntent.EXTRA_REMOTEVIEWS, remoteViews);
         bundle.putIntArray(CustomTabsIntent.EXTRA_REMOTEVIEWS_VIEW_IDS, clickableIDs);
@@ -123,7 +126,6 @@ public final class CustomTabsSession {
         try {
             return mService.updateVisuals(mCallback, bundle);
         } catch (RemoteException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -135,6 +137,8 @@ public final class CustomTabsSession {
      * @param icon          The new icon of the toolbar item.
      * @param description   Content description of the toolbar item.
      * @return              Whether the update succeeded.
+     * @deprecated Use
+     * CustomTabsSession#setSecondaryToolbarViews(RemoteViews, int[], PendingIntent)
      */
     @Deprecated
     public boolean setToolbarItem(int id, @NonNull Bitmap icon, @NonNull String description) {

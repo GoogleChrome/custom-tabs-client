@@ -28,6 +28,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class CustomTabsClient {
     /**
      * Returns the preferred package to use for Custom Tabs, preferring the default VIEW handler.
      *
-     * @see {@link #getPackageName(Context, List<String>, boolean)}.
+     * @see #getPackageName(Context, List<String>, boolean)
      */
     public static String getPackageName(Context context, @Nullable List<String> packages) {
         return getPackageName(context, packages, false);
@@ -182,7 +183,7 @@ public class CustomTabsClient {
      */
     public CustomTabsSession newSession(final CustomTabsCallback callback) {
         ICustomTabsCallback.Stub wrapper = new ICustomTabsCallback.Stub() {
-            final private Handler mHandler = new Handler(Looper.getMainLooper());
+            private Handler mHandler = new Handler(Looper.getMainLooper());
 
             @Override
             public void onNavigationEvent(final int navigationEvent, final Bundle extras) {

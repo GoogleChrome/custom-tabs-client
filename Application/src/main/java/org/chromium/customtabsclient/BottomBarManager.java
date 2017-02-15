@@ -48,12 +48,12 @@ public class BottomBarManager extends BroadcastReceiver {
                 if (isPlaying) player.pause();
                 else player.start();
                 // Update the play/stop icon to respect the current state.
-                session.setSecondaryToolbar(createRemoteViews(context, isPlaying), getClickableIDs(),
+                session.setSecondaryToolbarViews(createRemoteViews(context, isPlaying), getClickableIDs(),
                         getOnClickPendingIntent(context));
             }
         } else if (clickedId == R.id.cover) {
             // Clicking on the cover image will dismiss the bottom bar.
-            session.setSecondaryToolbar(null, null, null);
+            session.setSecondaryToolbarViews(null, null, null);
         }
     }
 

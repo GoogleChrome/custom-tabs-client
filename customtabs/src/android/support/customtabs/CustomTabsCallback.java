@@ -16,7 +16,6 @@
 
 package android.support.customtabs;
 
-import android.net.Uri;
 import android.os.Bundle;
 
 /**
@@ -82,7 +81,7 @@ public class CustomTabsCallback {
     /**
      * Called when {@link CustomTabsSession} has requested a postMessage channel through
      * {@link CustomTabsService#requestPostMessageChannel(
-     * CustomTabsSessionToken, android.content.ComponentName, Uri)} and the channel
+     * CustomTabsSessionToken, android.net.Uri)} and the channel
      * is ready for sending and receiving messages on both ends.
      *
      * @param extras Reserved for future use.
@@ -90,7 +89,7 @@ public class CustomTabsCallback {
     public void onMessageChannelReady(Bundle extras) {}
 
     /**
-     * Called when a tab controlled by this {@link CustomTabsSession} has sent a postMessage message.
+     * Called when a tab controlled by this {@link CustomTabsSession} has sent a postMessage.
      * If postMessage() is called from a single thread, then the messages will be posted in the
      * same order. When received on the client side, it is the client's responsibility to preserve
      * the ordering further.

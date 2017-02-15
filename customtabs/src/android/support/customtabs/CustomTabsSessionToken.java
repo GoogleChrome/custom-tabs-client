@@ -17,7 +17,6 @@
 package android.support.customtabs;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -76,7 +75,6 @@ public class CustomTabsSessionToken {
         return new CustomTabsSessionToken(new DummyCallback());
     }
 
-    /**@hide*/
     CustomTabsSessionToken(ICustomTabsCallback callbackBinder) {
         mCallbackBinder = callbackBinder;
         mCallback = new CustomTabsCallback() {
@@ -119,7 +117,6 @@ public class CustomTabsSessionToken {
         };
     }
 
-    /**@hide*/
     IBinder getCallbackBinder() {
         return mCallbackBinder.asBinder();
     }
