@@ -13,8 +13,13 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="android.support.customtabs">
-    <uses-sdk android:minSdkVersion="15"/>
-    <application />
+<manifest package="android.support.customtabs"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        tools:overrideLibrary="android.support.v4"/>
+
+    <application/>
 </manifest>

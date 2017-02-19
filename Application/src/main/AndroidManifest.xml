@@ -13,25 +13,26 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.chromium.customtabsclient"
-    android:versionCode="1"
-    android:versionName="1.0" >
+<manifest package="org.chromium.customtabsclient"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          android:versionCode="1"
+          android:versionName="1.0">
 
     <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="21" />
+        android:minSdkVersion="15"
+        tools:overrideLibrary="android.support.v4"/>
 
     <application
+        android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:allowBackup="false" >
+        android:label="@string/app_name">
         <activity
             android:name="org.chromium.customtabsclient.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <service
