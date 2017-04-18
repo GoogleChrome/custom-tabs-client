@@ -88,4 +88,17 @@
         android:textAllCaps="false"
         android:text="@string/launch_button_text"
         android:enabled="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:text="@string/browser_actions_hint" />
+
+    <TextView
+        android:id="@+id/url_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:clickable="false" />
 </LinearLayout>
