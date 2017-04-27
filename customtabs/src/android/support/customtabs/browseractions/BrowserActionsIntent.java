@@ -48,7 +48,7 @@ public class BrowserActionsIntent {
      * Extra that specifies {@link PendingIntent} indicating which Application sends the {@link
      * BrowserActionsIntent}.
      */
-    private final static String EXTRA_APP_ID = "android.support.customtabs.browseractions.APP_ID";
+    public final static String EXTRA_APP_ID = "android.support.customtabs.browseractions.APP_ID";
 
     /**
      * Indicates that the user explicitly opted out of Browser Actions in the calling application.
