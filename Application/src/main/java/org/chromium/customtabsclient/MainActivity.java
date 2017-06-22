@@ -61,11 +61,9 @@ import java.util.List;
 /**
  * Example client activity for using Chrome Custom Tabs.
  */
-public class MainActivity extends Activity
-        implements OnClickListener, ServiceConnectionCallback, OnLongClickListener {
+public class MainActivity extends Activity implements OnClickListener, ServiceConnectionCallback {
     private static final String TAG = "CustomTabsClientExample";
     private static final String TOOLBAR_COLOR = "#ef6c00";
-    private static final String URL_STRING = "https://www.google.com";
 
     private EditText mEditText;
     private CustomTabsSession mCustomTabsSession;
@@ -77,7 +75,7 @@ public class MainActivity extends Activity
     private Button mMayLaunchButton;
     private Button mLaunchButton;
     private MediaPlayer mMediaPlayer;
-    private TextView mUrlLinkText;
+    private Button mLaunchBrowserActionsButton;
 
     /**
      * Once per second, asks the framework for the process importance, and logs any change.
@@ -123,15 +121,14 @@ public class MainActivity extends Activity
         mMayLaunchButton = (Button) findViewById(R.id.may_launch_button);
         mLaunchButton = (Button) findViewById(R.id.launch_button);
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        mUrlLinkText = (TextView) findViewById(R.id.url_link);
+        mLaunchBrowserActionsButton = (Button) findViewById(R.id.launch_browser_actions_button);
         mEditText.requestFocus();
         mConnectButton.setOnClickListener(this);
         mWarmupButton.setOnClickListener(this);
         mMayLaunchButton.setOnClickListener(this);
         mLaunchButton.setOnClickListener(this);
         mMediaPlayer = MediaPlayer.create(this, R.raw.amazing_grace);
-        mUrlLinkText.setText(URL_STRING);
-        mUrlLinkText.setOnLongClickListener(this);
+        mLaunchBrowserActionsButton.setOnClickListener(this);
 
         Intent activityIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com"));
         PackageManager pm = getPackageManager();
@@ -256,6 +253,19 @@ public class MainActivity extends Activity
             CustomTabsIntent customTabsIntent = builder.build();
             CustomTabsHelper.addKeepAliveExtra(this, customTabsIntent.intent);
             customTabsIntent.launchUrl(this, Uri.parse(url));
+        } else if (viewId == R.id.launch_browser_actions_button) {
+            Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+            BrowserActionItem item =
+                    new BrowserActionItem("Open the link (without icon)", pendingIntent);
+            BrowserActionItem item2 =
+                    new BrowserActionItem("Open the link (with icon)", pendingIntent, icon);
+            ArrayList<BrowserActionItem> items = new ArrayList<>();
+            items.add(item);
+            items.add(item2);
+            BrowserActionsIntent.openBrowserAction(this, Uri.parse(url),
+                    BrowserActionsIntent.URL_TYPE_IMAGE, items);
         }
     }
 
@@ -303,22 +313,5 @@ public class MainActivity extends Activity
         mMayLaunchButton.setEnabled(false);
         mLaunchButton.setEnabled(false);
         mClient = null;
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_STRING));
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        BrowserActionItem item =
-                new BrowserActionItem("Open the link (without icon)", pendingIntent);
-        BrowserActionItem item2 =
-                new BrowserActionItem("Open the link (with icon)", pendingIntent, icon);
-        ArrayList<BrowserActionItem> items = new ArrayList<>();
-        items.add(item);
-        items.add(item2);
-        BrowserActionsIntent.openBrowserAction(this, Uri.parse(mUrlLinkText.getText().toString()),
-                BrowserActionsIntent.URL_TYPE_IMAGE, items);
-        return true;
     }
 }

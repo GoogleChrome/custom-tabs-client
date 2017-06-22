@@ -20,5 +20,5 @@
     <string name="may_launch_button_text">May Launch URL</string>
     <string name="launch_button_text">Launch URL in a Chrome Custom Tab</string>
     <string name="connect_button_text">Connect to the service</string>
-    <string name="browser_actions_hint">Launch Browser Actions by long press the url below:</string>
+    <string name="launch_browser_actions_button_text">Launch URL in Browser Actions Context Menu</string>
 </resources>
