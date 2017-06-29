@@ -13,88 +13,96 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:padding="5dp"
-    android:orientation="vertical" >
-
-    <EditText
-        android:id="@+id/edit"
-        android:padding="5dp"
-        android:layout_margin="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/url_hint"
-        android:inputType="textNoSuggestions"
-        android:text="https://www.google.com" />
-
+    android:layout_width="match_parent">
+    
     <LinearLayout
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:orientation="horizontal">
-
-        <TextView
+        android:padding="5dp"
+        android:orientation="vertical" >
+    
+        <EditText
+            android:id="@+id/edit"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/url_hint"
+            android:inputType="textNoSuggestions"
+            android:text="https://www.google.com" />
+    
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:orientation="horizontal">
+    
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:text="Package:"/>
+    
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner"
+                android:layout_margin="3dp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+    
+        <Button
+            android:id="@+id/connect_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:text="Package:"/>
-
-        <Spinner
-            android:layout_width="match_parent"
+            android:textAllCaps="false"
+            android:text="@string/connect_button_text"
+            android:enabled="true" />
+    
+        <Button
+            android:id="@+id/warmup_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner"
             android:layout_margin="3dp"
-            android:layout_gravity="center_horizontal" />
+            android:textAllCaps="false"
+            android:text="@string/warmup_button_text"
+            android:enabled="false" />
+    
+        <Button
+            android:id="@+id/may_launch_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:textAllCaps="false"
+            android:text="@string/may_launch_button_text"
+            android:enabled="false" />
+    
+        <Button
+            android:id="@+id/launch_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:textAllCaps="false"
+            android:text="@string/launch_button_text"
+            android:enabled="false" />
+    
+        <Button
+            android:id="@+id/launch_browser_actions_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:textAllCaps="false"
+            android:text="@string/launch_browser_actions_button_text" />
+    
     </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="5dp" />
-
-    <Button
-        android:id="@+id/connect_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:textAllCaps="false"
-        android:text="@string/connect_button_text"
-        android:enabled="true" />
-
-    <Button
-        android:id="@+id/warmup_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:textAllCaps="false"
-        android:text="@string/warmup_button_text"
-        android:enabled="false" />
-
-    <Button
-        android:id="@+id/may_launch_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:textAllCaps="false"
-        android:text="@string/may_launch_button_text"
-        android:enabled="false" />
-
-    <Button
-        android:id="@+id/launch_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:textAllCaps="false"
-        android:text="@string/launch_button_text"
-        android:enabled="false" />
-
-    <Button
-        android:id="@+id/launch_browser_actions_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:textAllCaps="false"
-        android:text="@string/launch_browser_actions_button_text" />
-
-</LinearLayout>
+    
+</ScrollView>
