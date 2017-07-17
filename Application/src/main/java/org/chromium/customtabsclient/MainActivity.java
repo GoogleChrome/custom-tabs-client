@@ -18,7 +18,10 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityOptions;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
@@ -50,6 +53,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.chromium.customtabsclient.shared.CustomTabsHelper;
 import org.chromium.customtabsclient.shared.ServiceConnection;
@@ -264,8 +268,11 @@ public class MainActivity extends Activity implements OnClickListener, ServiceCo
             ArrayList<BrowserActionItem> items = new ArrayList<>();
             items.add(item);
             items.add(item2);
-            BrowserActionsIntent.openBrowserAction(this, Uri.parse(url),
-                    BrowserActionsIntent.URL_TYPE_IMAGE, items);
+            Intent defaultIntent = new Intent();
+            defaultIntent.setClass(getApplicationContext(), BrowserActionsReceiver.class);
+            PendingIntent defaultAction = PendingIntent.getBroadcast(this, 0, defaultIntent, 0);
+            BrowserActionsIntent.openBrowserAction(
+                    this, Uri.parse(url), BrowserActionsIntent.URL_TYPE_NONE, items, defaultAction);
         }
     }
 

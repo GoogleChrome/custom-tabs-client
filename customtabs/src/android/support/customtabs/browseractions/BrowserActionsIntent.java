@@ -20,14 +20,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsSession;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -42,6 +45,7 @@ import java.util.List;
  * You are strongly encouraged to use {@link BrowserActionsIntent.Builder}.</p>
  */
 public class BrowserActionsIntent {
+    private final static String TAG = "BrowserActions";
     private final static String TEST_URL = "https://www.example.com";
 
     /**
@@ -84,6 +88,13 @@ public class BrowserActionsIntent {
             "android.support.customtabs.browseractions.extra.MENU_ITEMS";
 
     /**
+     * Extra that specifies the PendingIntent to be launched when a browser specified menu item is
+     * selected. The id of the chosen item will be notified through the data of its Intent.
+     */
+    public static final String EXTRA_SELECTED_ACTION_PENDING_INTENT =
+            "android.support.customtabs.browseractions.extra.SELECTED_ACTION_PENDING_INTENT";
+
+    /**
      * The maximum allowed number of custom items.
      */
     public static final int MAX_CUSTOM_ITEMS = 5;
@@ -103,9 +114,24 @@ public class BrowserActionsIntent {
     public static final int URL_TYPE_PLUGIN = 5;
 
     /**
+     * Defines the the ids of the browser specified menu items in Browser Actions.
+     * TODO(ltian): A long term solution need, since other providers might have customized menus.
+     */
+    @IntDef({ITEM_INVALID_ITEM, ITEM_OPEN_IN_NEW_TAB, ITEM_OPEN_IN_INCOGNITO, ITEM_DOWNLOAD,
+            ITEM_COPY, ITEM_SHARE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface BrowserActionsItemId {}
+    public static final int ITEM_INVALID_ITEM = -1;
+    public static final int ITEM_OPEN_IN_NEW_TAB = 0;
+    public static final int ITEM_OPEN_IN_INCOGNITO = 1;
+    public static final int ITEM_DOWNLOAD = 2;
+    public static final int ITEM_COPY = 3;
+    public static final int ITEM_SHARE = 4;
+
+    /**
      * An {@link Intent} used to start the Browser Actions Activity.
      */
-    private final Intent mIntent;
+    public final Intent mIntent;
 
     /**
      * Gets the Intent of {@link BrowserActionsIntent}.
@@ -129,6 +155,7 @@ public class BrowserActionsIntent {
         @BrowserActionsUrlType
         private int mType;
         private ArrayList<Bundle> mMenuItems = null;
+        private PendingIntent mOnItemSelectedPendingIntent = null;
 
         /**
          * Constructs a {@link BrowserActionsIntent.Builder} object associated with default setting
@@ -164,8 +191,23 @@ public class BrowserActionsIntent {
                         "Exceeded maximum toolbar item count of " + MAX_CUSTOM_ITEMS);
             }
             for (int i = 0; i < items.size(); i++) {
-                mMenuItems.add(getBundleFromItem(items.get(i)));
+                if (items.get(i).getTitle() == null) {
+                    throw new IllegalArgumentException("Custom item title is null");
+                } else if (items.get(i).getAction() == null) {
+                    throw new IllegalArgumentException("Custom item action is null");
+                } else {
+                    mMenuItems.add(getBundleFromItem(items.get(i)));
+                }
             }
+            return this;
+        }
+
+        /**
+         * Set the PendingIntent to be launched when a a browser specified menu item is selected.
+         * @param onItemSelectedPendingIntent The PendingIntent to be launched.
+         */
+        public Builder setOnItemSelectedAction(PendingIntent onItemSelectedPendingIntent) {
+            mOnItemSelectedPendingIntent = onItemSelectedPendingIntent;
             return this;
         }
 
@@ -192,62 +234,101 @@ public class BrowserActionsIntent {
             mIntent.putParcelableArrayListExtra(EXTRA_MENU_ITEMS, mMenuItems);
             PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, new Intent(), 0);
             mIntent.putExtra(EXTRA_APP_ID, pendingIntent);
+            mIntent.putExtra(EXTRA_SELECTED_ACTION_PENDING_INTENT, mOnItemSelectedPendingIntent);
             return new BrowserActionsIntent(mIntent);
         }
     }
 
     /**
-     * Open a Browser Actions menu with default settings.
-     * It first checks if any Browser Actions provider is available to create a context menu.
-     * If not, open a Browser Actions menu locally from support library.
+     * Construct a BrowserActionsIntent with default settings and launch it to open a Browser
+     * Actions menu.
      * @param context The context requesting for a Browser Actions menu.
      * @param uri The url for Browser Actions menu.
      */
     public static void openBrowserAction(Context context, Uri uri) {
-        if (hasBrowserActionsIntentHandler(context)) {
-            BrowserActionsIntent intent = new BrowserActionsIntent.Builder(context, uri).build();
-            ContextCompat.startActivity(context, intent.getIntent(), null);
-        } else {
-            openFallbackBrowserActionsMenu(
-                    context, uri, URL_TYPE_NONE, new ArrayList<BrowserActionItem>());
-        }
+        BrowserActionsIntent intent = new BrowserActionsIntent.Builder(context, uri).build();
+        launchIntent(context, intent.getIntent());
     }
 
     /**
-     * Open a Browser Actions menu with custom items.
-     * It first checks if any Browser Actions provider is available to create a context menu.
-     * If not, open a Browser Actions menu locally from support library.
+     * Construct a BrowserActionsIntent with custom settings and launch it to open a Browser Actions
+     * menu.
      * @param context The context requesting for a Browser Actions menu.
      * @param uri The url for Browser Actions menu.
      * @param type The type of the url for context menu to be opened.
      * @param items List of custom items to be added to Browser Actions menu.
+     * @param pendingIntent The PendingIntent to be launched when a browser specified menu item is
+     * selected. The browser will perform the PendingIntent so this should only go to a {@link
+     *        BroadcastReceiver}.
      */
-    public static void openBrowserAction(
-            Context context, Uri uri, int type, ArrayList<BrowserActionItem> items) {
-        if (hasBrowserActionsIntentHandler(context)) {
-            BrowserActionsIntent intent = new BrowserActionsIntent.Builder(context, uri)
-                                                      .setUrlType(type)
-                                                      .setCustomItems(items)
-                                                      .build();
-            ContextCompat.startActivity(context, intent.getIntent(), null);
-        } else {
-            openFallbackBrowserActionsMenu(context, uri, type, items);
-        }
+    public static void openBrowserAction(Context context, Uri uri, int type,
+            ArrayList<BrowserActionItem> items, PendingIntent pendingIntent) {
+        BrowserActionsIntent intent = new BrowserActionsIntent.Builder(context, uri)
+                                              .setUrlType(type)
+                                              .setCustomItems(items)
+                                              .setOnItemSelectedAction(pendingIntent)
+                                              .build();
+        launchIntent(context, intent.getIntent());
     }
 
     /**
-     * Check whether any Browser Actions provider is available to handle the {@link
+     * Launch an Intent to open a Browser Actions menu.
+     * It first checks if any Browser Actions provider is available to create the menu.
+     * If the default Browser supports Browser Actions, menu will be opened by the default Browser,
+     * otherwise show a intent picker.
+     * If not provider, a Browser Actions menu is opened locally from support library.
+     * @param context The context requesting for a Browser Actions menu.
+     * @param intent The {@link Intent} holds the setting for Browser Actions menu.
+     */
+    public static void launchIntent(Context context, Intent intent) {
+        List<ResolveInfo> handlers = getBrowserActionsIntentHandlers(context);
+        if (handlers == null || handlers.size() == 0) {
+            openFallbackBrowserActionsMenu(context, intent);
+            return;
+        } else if (handlers.size() == 1) {
+            intent.setPackage(handlers.get(0).activityInfo.packageName);
+        } else {
+            Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(TEST_URL));
+            PackageManager pm = context.getPackageManager();
+            ResolveInfo defaultHandler =
+                    pm.resolveActivity(viewIntent, PackageManager.MATCH_DEFAULT_ONLY);
+            if (defaultHandler != null) {
+                String defaultPackageName = defaultHandler.activityInfo.packageName;
+                for (int i = 0; i < handlers.size(); i++) {
+                    if (defaultPackageName.equals(handlers.get(i).activityInfo.packageName)) {
+                        intent.setPackage(defaultPackageName);
+                        break;
+                    }
+                }
+            }
+        }
+        ContextCompat.startActivity(context, intent, null);
+    }
+
+    /**
+     * Returns a list of Browser Actions providers available to handle the {@link
      * BrowserActionsIntent}.
      * @param context The context requesting for a Browser Actions menu.
-     * @return true If a Browser Actions provider is available handle the intent.
+     * @return List of Browser Actions providers available to handle the intent.
      */
-    private static boolean hasBrowserActionsIntentHandler(Context context) {
+    private static List<ResolveInfo> getBrowserActionsIntentHandlers(Context context) {
         Intent intent =
                 new Intent(BrowserActionsIntent.ACTION_BROWSER_ACTIONS_OPEN, Uri.parse(TEST_URL));
         PackageManager pm = context.getPackageManager();
-        List<ResolveInfo> resolveInfoList =
-                pm.queryIntentActivities(intent, PackageManager.MATCH_ALL);
-        return resolveInfoList.size() > 0 ? true : false;
+        return pm.queryIntentActivities(intent, PackageManager.MATCH_ALL);
+    }
+
+    private static void openFallbackBrowserActionsMenu(
+            Context context, BrowserActionsIntent browserActionsIntent) {
+        openFallbackBrowserActionsMenu(context, browserActionsIntent.getIntent());
+    }
+
+    private static void openFallbackBrowserActionsMenu(Context context, Intent intent) {
+        Uri uri = intent.getData();
+        int type = intent.getIntExtra(EXTRA_TYPE, URL_TYPE_NONE);
+        ArrayList<Bundle> bundles = intent.getParcelableArrayListExtra(EXTRA_MENU_ITEMS);
+        List<BrowserActionItem> items = bundles != null ? parseBrowserActionItems(bundles) : null;
+        openFallbackBrowserActionsMenu(context, uri, type, items);
     }
 
     /**
@@ -258,8 +339,37 @@ public class BrowserActionsIntent {
      * @param items List of custom items to add to Browser Actions menu.
      */
     private static void openFallbackBrowserActionsMenu(
-            Context context, Uri uri, int type, ArrayList<BrowserActionItem> items) {
+            Context context, Uri uri, int type, List<BrowserActionItem> items) {
         return;
+    }
+
+    /**
+     * Gets custom item list for browser action menu.
+     * @param bundles Data for custom items from {@link BrowserActionsIntent}.
+     * @return List of {@link BrowserActionItem}
+     */
+    public static List<BrowserActionItem> parseBrowserActionItems(ArrayList<Bundle> bundles) {
+        List<BrowserActionItem> mActions = new ArrayList<>();
+        for (int i = 0; i < bundles.size(); i++) {
+            Bundle bundle = bundles.get(i);
+            String title = bundle.getString(BrowserActionsIntent.KEY_TITLE);
+            PendingIntent action = bundle.getParcelable(BrowserActionsIntent.KEY_ACTION);
+            Bitmap icon = bundle.getParcelable(BrowserActionsIntent.KEY_ICON);
+            if (title != null && action != null) {
+                BrowserActionItem item = new BrowserActionItem(title, action);
+                if (icon != null) {
+                    item.setIcon(icon);
+                }
+                mActions.add(item);
+            } else if (title != null) {
+                throw new IllegalArgumentException("Missing action for item: " + i);
+            } else if (action != null) {
+                throw new IllegalArgumentException("Missing title for item: " + i);
+            } else {
+                throw new IllegalArgumentException("Missing title and action for item: " + i);
+            }
+        }
+        return mActions;
     }
 
     /**

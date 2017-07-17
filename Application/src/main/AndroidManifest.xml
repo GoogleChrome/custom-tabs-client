@@ -37,6 +37,7 @@
         <service
             android:name=".shared.KeepAliveService"
             android:exported="true"/>
+        <receiver android:name="org.chromium.customtabsclient.BrowserActionsReceiver"/>
         <receiver android:name=".BottomBarManager"/>
     </application>
 
