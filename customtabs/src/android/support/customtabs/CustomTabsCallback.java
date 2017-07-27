@@ -16,7 +16,9 @@
 
 package android.support.customtabs;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsService.Relation;
 
 /**
  * A callback class for custom tabs client to get messages regarding events in their custom tabs. In
@@ -98,4 +100,15 @@ public class CustomTabsCallback {
      * @param extras Reserved for future use.
      */
     public void onPostMessage(String message, Bundle extras) {}
+
+    /**
+     * Called when a relationship validation result is available.
+     *
+     * @param relation As in {@link CustomTabsSession#validateRelationship(int, Uri, Bundle)}
+     * @param requestedOrigin As in {@link CustomTabsSession#validateRelationship(int, Uri, Bundle)}
+     * @param result Whether the relation was validated.
+     * @param extras Reserved for future use.
+     */
+    public void onRelationshipValidationResult(@Relation int relation, Uri requestedOrigin,
+                                               boolean result, Bundle extras) {}
 }

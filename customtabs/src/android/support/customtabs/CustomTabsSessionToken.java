@@ -17,9 +17,11 @@
 package android.support.customtabs;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.support.customtabs.CustomTabsService.Relation;
 import android.support.v4.app.BundleCompat;
 import android.util.Log;
 
@@ -44,6 +46,10 @@ public class CustomTabsSessionToken {
 
         @Override
         public void onPostMessage(String message, Bundle extras) {}
+
+        @Override
+        public void onRelationshipValidationResult(int relation, Uri origin, boolean result,
+                                                   Bundle extras) {}
 
         @Override
         public IBinder asBinder() {
@@ -114,6 +120,17 @@ public class CustomTabsSessionToken {
                     Log.e(TAG, "RemoteException during ICustomTabsCallback transaction");
                 }
             }
+
+            @Override
+            public void onRelationshipValidationResult(@Relation int relation, Uri origin,
+                                                       boolean result, Bundle extras) {
+                try {
+                    mCallbackBinder.onRelationshipValidationResult(relation, origin, result, extras);
+                } catch (RemoteException e) {
+                    Log.e(TAG, "RemoteException during ICustomTabsCallback transaction");
+                }
+            }
+
         };
     }
 

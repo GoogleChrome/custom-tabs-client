@@ -1,13 +1,21 @@
 apply plugin: 'android-library'
 
 dependencies {
-    compile 'com.android.support:support-annotations:22.2.0+'
-    compile 'com.android.support:support-v4:25.0.1'
+    compile 'com.android.support:support-annotations:24.2.0+'
+    compile 'com.android.support:support-v4:25.3.1'
+
+    androidTestCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
 }
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '25.0.0'
+
+    defaultConfig {
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
 
     sourceSets {
         main.manifest.srcFile 'AndroidManifest.xml'
