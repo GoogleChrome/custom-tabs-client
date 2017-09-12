@@ -39,7 +39,7 @@ To get full benefits of the Custom Tabs APIs, it is recommended to use the
 The code in this repository is organised in four parts:
 
 * `demos/`: This module contains sample implementations for Chrome Custom Tabs using the Android
-  Support Library. Feel free to re-use the classes withing this module.
+  Support Library. Feel free to re-use the classes within this module.
 * `shared/`: Shared code between the `Application` and `demos` modules. Feel free to
   re-use the classes within this directory, which are only provided as a convenience.
   In particular,`CustomTabsHelper` can be re-used. This code is not required to use Custom Tabs.
