@@ -3,3 +3,4 @@
 4d4288efd7d780ff5a35b8cc13fa6ff0f62c06cc	chrome-commit-bot
 cria:project-chromium-committers        	cria/project-chromium-committers
 cria:project-chromium-tryjob-access     	cria/project-chromium-tryjob-access
+mdb:chrome-git-admins                   	mdb/chrome-git-admins
