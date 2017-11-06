@@ -26,13 +26,13 @@ organization's) name and contact info to the Chromium AUTHORS file.
 
 ## Contributing
 All submissions, including submissions by project members, require review. We
-use [Rietveld](http://codereview.chromium.org) instance for this purpose.
+use [Gerrit](http://chromium-review.googlesource.com) for this purpose.
 
 Install [depot_tools](https://www.chromium.org/developers/how-tos/install-depot-tools).
 
 Then checkout the repo.
 
-`git clone https://github.com/GoogleChrome/custom-tabs-client.git`
+`git clone https://chromium.googlesource.com/custom-tabs-client`
 
 You can then create a local branch, make and commit your change.
 
@@ -47,9 +47,9 @@ Once you're ready for a review do:
 
 `git cl upload`
 
-Once uploaded you can view the CL in Rietveld and request a review by clicking
+Once uploaded you can view the CL in Gerrit and request a review by clicking
 the 'publish & mail' link. The
-[OWNERS](https://github.com/GoogleChrome/custom-tabs-client/blob/master/OWNERS)
+[OWNERS](https://chromium.googlesource.com/custom-tabs-client/+/master/OWNERS)
 file suggests relevant reviewers, but does not have any real power, any Chromium
 committer has the power to approve the change.
 
@@ -69,38 +69,24 @@ git branch -D foo
 ## Contributing from a Chromium checkout
 
 If you already have this repo checked out as part of a Chromium checkout and want
-to edit it in place (instead of having a separate clone of the repository), it
-will require a little more Git skills.
-
-Add another remote:
-
-```
-git remote add github https://github.com/GoogleChrome/custom-tabs-client.git
-git fetch github
-```
-
-When branching, remember to branch from the right repo:
-
-```
-git checkout -b foo github/master
-```
+to edit it in place (instead of having a separate clone of the repository), you
+can use the exact same process as above.
 
 When doing `gclient sync` in the Chromium tree, remember to switch back to the
 local branch `master`.
 
 ## Updating Custom Tabs Examples in the Chromium tree (rolling DEPS)
 To get your commit to be tested as part of the Chromium tree in
-`src/third_party/custom_tabs_client`, find the git hash of your commit on the
-[mirror](https://chromium.googlesource.com/external/github.com/GoogleChrome/custom-tabs-client/).
-(Note: it may take a few minutes to be mirrored).
+`src/third_party/custom_tabs_client`, find the git hash of your landed commit
+in the [repo](https://chromium.googlesource.com/custom-tabs-client/+log/).
 
-Then edit Chrome's [src/DEPS]
-(https://code.google.com/p/chromium/codesearch#chromium/src/DEPS) file. Look for
-a line like:
+Then edit Chrome's
+[src/DEPS](https://chromium.googlesource.com/chromium/src/+/master/DEPS) file.
+Look for a line like:
 
 ```
 'src/third_party/custom_tabs_client/src':
-  Var('chromium_git') + '/external/github.com/GoogleChrome/custom-tabs-client.git' + '@' +
+  Var('chromium_git') + '/custom-tabs-client.git' + '@' +
     'bbbf71f41e79b0cfe21199220f495cbd0a3a4ffb',
 ```
 
