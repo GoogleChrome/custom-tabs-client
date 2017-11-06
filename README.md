@@ -8,7 +8,7 @@ performance of a complete web browser.
 ## Examples
 
 [Using Custom
-Tabs](https://github.com/GoogleChrome/custom-tabs-client/blob/master/Using.md)
+Tabs](https://chromium.googlesource.com/custom-tabs-client/+/master/Using.md)
 should be easy. This repository hosts examples and in-depth documentation. The
 examples are importable as projects into the Android Studio.
 
@@ -27,4 +27,4 @@ place, we prefer the Chromium issue tracker at the moment.
 ## Contributing
 
 We accept contributions to Custom Tabs examples and documentation. Please see
-[our contributor's guide](https://github.com/GoogleChrome/custom-tabs-client/blob/master/CONTRIBUTING.md).
+[our contributor's guide](https://chromium.googlesource.com/custom-tabs-client/+/master/CONTRIBUTING.md).
