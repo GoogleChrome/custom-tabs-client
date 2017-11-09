@@ -17,7 +17,7 @@
 package android.support.customtabs.browseractions;
 
 import android.app.PendingIntent;
-import android.graphics.Bitmap;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
 /**
@@ -27,18 +27,20 @@ import android.support.annotation.NonNull;
 public class BrowserActionItem {
     private final String mTitle;
     private final PendingIntent mAction;
-    private Bitmap mIcon;
+    @DrawableRes
+    private int mIconId;
 
     /**
      * Constructor for BrowserActionItem with icon, string and action provided.
-     * @param icon The icon shown for a custom item.
      * @param title The string shown for a custom item.
      * @param action The PendingIntent executed when a custom item is selected
+     * @param iconId The resource id of the icon shown for a custom item.
      */
-    public BrowserActionItem(@NonNull String title, @NonNull PendingIntent action, Bitmap icon) {
+    public BrowserActionItem(
+            @NonNull String title, @NonNull PendingIntent action, @DrawableRes int iconId) {
         mTitle = title;
         mAction = action;
-        mIcon = icon;
+        mIconId = iconId;
     }
 
     /**
@@ -47,33 +49,33 @@ public class BrowserActionItem {
      * @param action The string shown for a custom item.
      */
     public BrowserActionItem(@NonNull String title, @NonNull PendingIntent action) {
-        this(title, action, null);
+        this(title, action, 0);
     }
 
     /**
-     * Sets the icon of a custom item.
-     * @param icon The icon for a custom item.
+     * Sets the resource id of the icon of a custom item.
+     * @param icon The resource id of the icon for a custom item.
      */
-    public void setIcon(Bitmap icon) {
-        mIcon = icon;
+    public void setIconId(@DrawableRes int iconId) {
+        mIconId = iconId;
     }
 
     /**
-     * @return the icon of of a custom item.
+     * @return The resource id of the icon.
      */
-    public Bitmap getIcon() {
-        return mIcon;
+    public int getIconId() {
+        return mIconId;
     }
 
     /**
-     * @return the title of a custom item.
+     * @return The title of a custom item.
      */
     public String getTitle() {
         return mTitle;
     }
 
     /**
-     * @return the action of a custom item.
+     * @return The action of a custom item.
      */
     public PendingIntent getAction() {
         return mAction;

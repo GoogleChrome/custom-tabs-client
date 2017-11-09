@@ -24,11 +24,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
-import android.support.customtabs.CustomTabsClient;
-import android.support.customtabs.CustomTabsIntent;
-import android.support.customtabs.CustomTabsSession;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
@@ -52,47 +50,47 @@ public class BrowserActionsIntent {
      * Extra that specifies {@link PendingIntent} indicating which Application sends the {@link
      * BrowserActionsIntent}.
      */
-    public final static String EXTRA_APP_ID = "android.support.customtabs.browseractions.APP_ID";
+    public final static String EXTRA_APP_ID = "androidx.browser.browseractions.APP_ID";
 
     /**
      * Indicates that the user explicitly opted out of Browser Actions in the calling application.
      */
     public static final String ACTION_BROWSER_ACTIONS_OPEN =
-            "android.support.customtabs.browseractions.browser_action_open";
+            "androidx.browser.browseractions.browser_action_open";
 
     /**
-     * Extra bitmap that specifies the icon of a custom item shown in the Browser Actions menu.
+     * Extra resource id that specifies the icon of a custom item shown in the Browser Actions menu.
      */
-    public static final String KEY_ICON = "android.support.customtabs.browseractions.ICON";
+    public static final String KEY_ICON_ID = "androidx.browser.browseractions.ICON_ID";
 
     /**
      * Extra string that specifies the title of a custom item shown in the Browser Actions menu.
      */
-    public static final String KEY_TITLE = "android.support.customtabs.browseractions.TITLE";
+    public static final String KEY_TITLE = "androidx.browser.browseractions.TITLE";
 
     /**
      * Extra PendingIntent to be launched when a custom item is selected in the Browser Actions
      * menu.
      */
-    public static final String KEY_ACTION = "android.support.customtabs.browseractions.ACTION";
+    public static final String KEY_ACTION = "androidx.browser.browseractions.ACTION";
 
     /**
      * Extra that specifies {@link BrowserActionsUrlType} type of url for the Browser Actions menu.
      */
-    public static final String EXTRA_TYPE = "android.support.customtabs.browseractions.extra.TYPE";
+    public static final String EXTRA_TYPE = "androidx.browser.browseractions.extra.TYPE";
 
     /**
      * Extra that specifies List<Bundle> used for adding custom items to the Browser Actions menu.
      */
     public static final String EXTRA_MENU_ITEMS =
-            "android.support.customtabs.browseractions.extra.MENU_ITEMS";
+            "androidx.browser.browseractions.extra.MENU_ITEMS";
 
     /**
      * Extra that specifies the PendingIntent to be launched when a browser specified menu item is
      * selected. The id of the chosen item will be notified through the data of its Intent.
      */
     public static final String EXTRA_SELECTED_ACTION_PENDING_INTENT =
-            "android.support.customtabs.browseractions.extra.SELECTED_ACTION_PENDING_INTENT";
+            "androidx.browser.browseractions.extra.SELECTED_ACTION_PENDING_INTENT";
 
     /**
      * The maximum allowed number of custom items.
@@ -186,7 +184,7 @@ public class BrowserActionsIntent {
          * @param items The list of {@link BrowserActionItem} for custom items.
          */
         public Builder setCustomItems(ArrayList<BrowserActionItem> items) {
-            if (items.size() >= MAX_CUSTOM_ITEMS) {
+            if (items.size() > MAX_CUSTOM_ITEMS) {
                 throw new IllegalStateException(
                         "Exceeded maximum toolbar item count of " + MAX_CUSTOM_ITEMS);
             }
@@ -220,7 +218,7 @@ public class BrowserActionsIntent {
             Bundle bundle = new Bundle();
             bundle.putString(KEY_TITLE, item.getTitle());
             bundle.putParcelable(KEY_ACTION, item.getAction());
-            if (item.getIcon() != null) bundle.putParcelable(KEY_ICON, item.getIcon());
+            if (item.getIconId() != 0) bundle.putInt(KEY_ICON_ID, item.getIconId());
             return bundle;
         }
 
@@ -354,12 +352,11 @@ public class BrowserActionsIntent {
             Bundle bundle = bundles.get(i);
             String title = bundle.getString(BrowserActionsIntent.KEY_TITLE);
             PendingIntent action = bundle.getParcelable(BrowserActionsIntent.KEY_ACTION);
-            Bitmap icon = bundle.getParcelable(BrowserActionsIntent.KEY_ICON);
+            @DrawableRes
+            int iconId = bundle.getInt(BrowserActionsIntent.KEY_ICON_ID);
             if (title != null && action != null) {
                 BrowserActionItem item = new BrowserActionItem(title, action);
-                if (icon != null) {
-                    item.setIcon(icon);
-                }
+                if (iconId != 0) item.setIconId(iconId);
                 mActions.add(item);
             } else if (title != null) {
                 throw new IllegalArgumentException("Missing action for item: " + i);
