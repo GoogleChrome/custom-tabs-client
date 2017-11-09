@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.support.annotation.NonNull;
 import android.support.customtabs.CustomTabsService.Relation;
 import android.support.v4.app.BundleCompat;
 import android.util.Log;
@@ -34,7 +35,7 @@ public class CustomTabsSessionToken {
     private final ICustomTabsCallback mCallbackBinder;
     private final CustomTabsCallback mCallback;
 
-    /* package */ static class DummyCallback extends ICustomTabsCallback.Stub {
+    /* package */ static class MockCallback extends ICustomTabsCallback.Stub {
         @Override
         public void onNavigationEvent(int navigationEvent, Bundle extras) {}
 
@@ -48,8 +49,8 @@ public class CustomTabsSessionToken {
         public void onPostMessage(String message, Bundle extras) {}
 
         @Override
-        public void onRelationshipValidationResult(int relation, Uri origin, boolean result,
-                                                   Bundle extras) {}
+        public void onRelationshipValidationResult(@Relation int relation, Uri requestedOrigin,
+                boolean result, Bundle extras) {}
 
         @Override
         public IBinder asBinder() {
@@ -72,13 +73,14 @@ public class CustomTabsSessionToken {
     }
 
     /**
-     * Provides browsers a way to generate a dummy {@link CustomTabsSessionToken} for testing
+     * Provides browsers a way to generate a mock {@link CustomTabsSessionToken} for testing
      * purposes.
      *
-     * @return A dummy token with no functionality.
+     * @return A mock token with no functionality.
      */
-    public static CustomTabsSessionToken createDummySessionTokenForTesting() {
-        return new CustomTabsSessionToken(new DummyCallback());
+    @NonNull
+    public static CustomTabsSessionToken createMockSessionTokenForTesting() {
+        return new CustomTabsSessionToken(new MockCallback());
     }
 
     CustomTabsSessionToken(ICustomTabsCallback callbackBinder) {
@@ -125,7 +127,8 @@ public class CustomTabsSessionToken {
             public void onRelationshipValidationResult(@Relation int relation, Uri origin,
                                                        boolean result, Bundle extras) {
                 try {
-                    mCallbackBinder.onRelationshipValidationResult(relation, origin, result, extras);
+                    mCallbackBinder.onRelationshipValidationResult(
+                            relation, origin, result, extras);
                 } catch (RemoteException e) {
                     Log.e(TAG, "RemoteException during ICustomTabsCallback transaction");
                 }
