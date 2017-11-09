@@ -258,15 +258,14 @@ public class MainActivity extends Activity implements OnClickListener, ServiceCo
             CustomTabsHelper.addKeepAliveExtra(this, customTabsIntent.intent);
             customTabsIntent.launchUrl(this, Uri.parse(url));
         } else if (viewId == R.id.launch_browser_actions_button) {
-            Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-            BrowserActionItem item =
-                    new BrowserActionItem("Open the link (without icon)", pendingIntent);
-            BrowserActionItem item2 =
-                    new BrowserActionItem("Open the link (with icon)", pendingIntent, icon);
+            Intent openLinkIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            PendingIntent openLinkPendingIntent = PendingIntent.getActivity(this, 0, openLinkIntent, 0);
+            BrowserActionItem item1 = new BrowserActionItem(
+                    "Open the link (without icon)", openLinkPendingIntent, 0);
+            BrowserActionItem item2 = new BrowserActionItem(
+                    "Open the link (with icon)", openLinkPendingIntent, R.drawable.ic_launcher);
             ArrayList<BrowserActionItem> items = new ArrayList<>();
-            items.add(item);
+            items.add(item1);
             items.add(item2);
             Intent defaultIntent = new Intent();
             defaultIntent.setClass(getApplicationContext(), BrowserActionsReceiver.class);
