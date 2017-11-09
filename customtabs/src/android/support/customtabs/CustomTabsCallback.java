@@ -104,8 +104,11 @@ public class CustomTabsCallback {
     /**
      * Called when a relationship validation result is available.
      *
-     * @param relation As in {@link CustomTabsSession#validateRelationship(int, Uri, Bundle)}
-     * @param requestedOrigin As in {@link CustomTabsSession#validateRelationship(int, Uri, Bundle)}
+     * @param relation Relation for which the result is available. Value previously passed to
+     *                 {@link CustomTabsSession#validateRelationship(int, Uri, Bundle)}. Must be one
+     *                 of the {@code CustomTabsService#RELATION_* } constants.
+     * @param requestedOrigin Origin requested. Value previously passed to
+     *                        {@link CustomTabsSession#validateRelationship(int, Uri, Bundle)}.
      * @param result Whether the relation was validated.
      * @param extras Reserved for future use.
      */
