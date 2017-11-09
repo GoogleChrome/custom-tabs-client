@@ -24,6 +24,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.customtabs.CustomTabsClient;
@@ -61,9 +62,9 @@ public class BrowserActionsIntent {
             "android.support.customtabs.browseractions.browser_action_open";
 
     /**
-     * Extra bitmap that specifies the icon of a custom item shown in the Browser Actions menu.
+     * Extra resource id that specifies the icon of a custom item shown in the Browser Actions menu.
      */
-    public static final String KEY_ICON = "android.support.customtabs.browseractions.ICON";
+    public static final String KEY_ICON_ID = "android.support.customtabs.browseractions.ICON_ID";
 
     /**
      * Extra string that specifies the title of a custom item shown in the Browser Actions menu.
@@ -186,7 +187,7 @@ public class BrowserActionsIntent {
          * @param items The list of {@link BrowserActionItem} for custom items.
          */
         public Builder setCustomItems(ArrayList<BrowserActionItem> items) {
-            if (items.size() >= MAX_CUSTOM_ITEMS) {
+            if (items.size() > MAX_CUSTOM_ITEMS) {
                 throw new IllegalStateException(
                         "Exceeded maximum toolbar item count of " + MAX_CUSTOM_ITEMS);
             }
@@ -220,7 +221,7 @@ public class BrowserActionsIntent {
             Bundle bundle = new Bundle();
             bundle.putString(KEY_TITLE, item.getTitle());
             bundle.putParcelable(KEY_ACTION, item.getAction());
-            if (item.getIcon() != null) bundle.putParcelable(KEY_ICON, item.getIcon());
+            if (item.getIconId() != 0) bundle.putInt(KEY_ICON_ID, item.getIconId());
             return bundle;
         }
 
@@ -354,12 +355,11 @@ public class BrowserActionsIntent {
             Bundle bundle = bundles.get(i);
             String title = bundle.getString(BrowserActionsIntent.KEY_TITLE);
             PendingIntent action = bundle.getParcelable(BrowserActionsIntent.KEY_ACTION);
-            Bitmap icon = bundle.getParcelable(BrowserActionsIntent.KEY_ICON);
+            @DrawableRes
+            int iconId = bundle.getInt(BrowserActionsIntent.KEY_ICON_ID);
             if (title != null && action != null) {
                 BrowserActionItem item = new BrowserActionItem(title, action);
-                if (icon != null) {
-                    item.setIcon(icon);
-                }
+                if (iconId != 0) item.setIconId(iconId);
                 mActions.add(item);
             } else if (title != null) {
                 throw new IllegalArgumentException("Missing action for item: " + i);
