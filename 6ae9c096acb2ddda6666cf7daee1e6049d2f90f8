@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "353bda4b_8c2a64dc",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-11-09T20:00:43Z",
+      "side": 1,
+      "message": "s/the/The",
+      "range": {
+        "startLine": 64,
+        "startChar": 15,
+        "endLine": 64,
+        "endChar": 18
+      },
+      "revId": "6ae9c096acb2ddda6666cf7daee1e6049d2f90f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a0e1dd7_fba603e6",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-11-09T20:00:43Z",
+      "side": 1,
+      "message": "s/the/The",
+      "range": {
+        "startLine": 71,
+        "startChar": 19,
+        "endLine": 71,
+        "endChar": 24
+      },
+      "revId": "6ae9c096acb2ddda6666cf7daee1e6049d2f90f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35f4e5cb_d3f1223a",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-11-09T20:00:43Z",
+      "side": 1,
+      "message": "I think we can rename these to be using \"androidx.browser.browseractions\" as the namespace.\n\nSo this and all the ones below s/android.support.customtabs/androidx.browser",
+      "range": {
+        "startLine": 56,
+        "startChar": 63,
+        "endLine": 56,
+        "endChar": 73
+      },
+      "revId": "6ae9c096acb2ddda6666cf7daee1e6049d2f90f8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
