@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2014 The Chromium Authors. All rights reserved.
+     Use of this source code is governed by a BSD-style license that can be
+     found in the LICENSE file. -->
+
+<resources>
+    <color name="bg_grey_color">#BDBDBD</color>
+    <color name="default_bg_color">#F2F2F2</color>
+    <color name="default_text_color">#DD000000</color>
+    <color name="default_title_color">#646464</color>
+</resources>

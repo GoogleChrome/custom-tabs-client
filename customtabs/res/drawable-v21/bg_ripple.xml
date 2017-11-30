@@ -1,0 +1,4 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/bg_grey_color">
+    <item android:drawable="@drawable/bg_default" />
+</ripple>

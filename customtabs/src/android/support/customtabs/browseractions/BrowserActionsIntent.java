@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,7 +27,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -280,27 +278,29 @@ public class BrowserActionsIntent {
      */
     public static void launchIntent(Context context, Intent intent) {
         List<ResolveInfo> handlers = getBrowserActionsIntentHandlers(context);
-        if (handlers == null || handlers.size() == 0) {
-            openFallbackBrowserActionsMenu(context, intent);
-            return;
-        } else if (handlers.size() == 1) {
-            intent.setPackage(handlers.get(0).activityInfo.packageName);
-        } else {
-            Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(TEST_URL));
-            PackageManager pm = context.getPackageManager();
-            ResolveInfo defaultHandler =
-                    pm.resolveActivity(viewIntent, PackageManager.MATCH_DEFAULT_ONLY);
-            if (defaultHandler != null) {
-                String defaultPackageName = defaultHandler.activityInfo.packageName;
-                for (int i = 0; i < handlers.size(); i++) {
-                    if (defaultPackageName.equals(handlers.get(i).activityInfo.packageName)) {
-                        intent.setPackage(defaultPackageName);
-                        break;
+                if (handlers == null || handlers.size() == 0) {
+                    openFallbackBrowserActionsMenu(context, intent);
+                    return;
+                } else if (handlers.size() == 1) {
+                    intent.setPackage(handlers.get(0).activityInfo.packageName);
+                } else {
+                    Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(TEST_URL));
+                    PackageManager pm = context.getPackageManager();
+                    ResolveInfo defaultHandler =
+                            pm.resolveActivity(viewIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                    if (defaultHandler != null) {
+                        String defaultPackageName = defaultHandler.activityInfo.packageName;
+                        for (int i = 0; i < handlers.size(); i++) {
+                            if
+                            (defaultPackageName.equals(handlers.get(i).activityInfo.packageName))
+                            {
+                                intent.setPackage(defaultPackageName);
+                                break;
+                            }
+                        }
                     }
                 }
-            }
-        }
-        ContextCompat.startActivity(context, intent, null);
+                ContextCompat.startActivity(context, intent, null);
     }
 
     /**
@@ -334,11 +334,13 @@ public class BrowserActionsIntent {
      * @param context The context requesting for a Browser Actions menu.
      * @param uri The url for Browser Actions menu.
      * @param type The type of the url for context menu to be opened.
-     * @param items List of custom items to add to Browser Actions menu.
+     * @param menuItems List of custom items to add to Browser Actions menu.
      */
     private static void openFallbackBrowserActionsMenu(
-            Context context, Uri uri, int type, List<BrowserActionItem> items) {
-        return;
+            Context context, Uri uri, int type, List<BrowserActionItem> menuItems) {
+        BrowserActionsDefaultMenuUi menuUi =
+                new BrowserActionsDefaultMenuUi(context, uri, menuItems);
+        menuUi.displayMenu();
     }
 
     /**
