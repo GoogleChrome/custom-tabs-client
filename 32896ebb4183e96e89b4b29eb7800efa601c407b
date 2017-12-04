@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ec44ced_54f7e7d6",
+        "filename": "Application/src/main/res/values/styles.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-04T19:17:15Z",
+      "side": 1,
+      "message": "We can just set the theme to Theme.AppCompat.Light if we are not adding any modifications.",
+      "range": {
+        "startLine": 7,
+        "startChar": 42,
+        "endLine": 7,
+        "endChar": 51
+      },
+      "revId": "32896ebb4183e96e89b4b29eb7800efa601c407b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c00e25b5_d03a1aa0",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-04T19:17:15Z",
+      "side": 1,
+      "message": "I would structure the assignments for these like the one above as well.",
+      "range": {
+        "startLine": 55,
+        "startChar": 13,
+        "endLine": 55,
+        "endChar": 29
+      },
+      "revId": "32896ebb4183e96e89b4b29eb7800efa601c407b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68fa5ee0_cce7ab77",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuDialog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-04T19:17:15Z",
+      "side": 1,
+      "message": "you can use AnimatorListenerAdaptor which avoids the need to override all four below. You can just override the one you want.",
+      "range": {
+        "startLine": 67,
+        "startChar": 33,
+        "endLine": 67,
+        "endChar": 49
+      },
+      "revId": "32896ebb4183e96e89b4b29eb7800efa601c407b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "258077f0_44eb4bb6",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuUi.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-04T19:17:15Z",
+      "side": 1,
+      "message": "s/backup/fallback",
+      "range": {
+        "startLine": 18,
+        "startChar": 21,
+        "endLine": 18,
+        "endChar": 27
+      },
+      "revId": "32896ebb4183e96e89b4b29eb7800efa601c407b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c02dbff2_9a38f3fd",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuUi.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-04T19:17:15Z",
+      "side": 1,
+      "message": "s/Fail/Failed",
+      "range": {
+        "startLine": 84,
+        "startChar": 24,
+        "endLine": 84,
+        "endChar": 28
+      },
+      "revId": "32896ebb4183e96e89b4b29eb7800efa601c407b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
