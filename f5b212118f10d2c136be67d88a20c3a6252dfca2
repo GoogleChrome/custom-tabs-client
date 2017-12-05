@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42b76f07_d2c33205",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/CustomTabActivityHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-05T17:59:10Z",
+      "side": 1,
+      "message": "Didn\u0027t realize that this is a separate new class. Actually if you read my comment on the Activity first, I think we should rename this to SessionHelper and make it a singleton and bind to the service with Application Context.",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 36
+      },
+      "revId": "f5b212118f10d2c136be67d88a20c3a6252dfca2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5919a6a1_a84f46fd",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-05T17:59:10Z",
+      "side": 1,
+      "message": "You should be able to set this on connect right? Oh, is this because the default/suggest custom tab provider may not support twa?",
+      "range": {
+        "startLine": 57,
+        "startChar": 32,
+        "endLine": 57,
+        "endChar": 42
+      },
+      "revId": "f5b212118f10d2c136be67d88a20c3a6252dfca2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c3e002f_a7402e6d",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-05T17:59:10Z",
+      "side": 1,
+      "message": "We will probably need a version check here and use NEW_TASK for L-",
+      "range": {
+        "startLine": 62,
+        "startChar": 48,
+        "endLine": 62,
+        "endChar": 74
+      },
+      "revId": "f5b212118f10d2c136be67d88a20c3a6252dfca2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2857499c_8730cc38",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-05T17:59:10Z",
+      "side": 1,
+      "message": "I don\u0027t think you should unbind from the service actually. Finish and remove task is needed, but you can give the application context as the context to bind to the service in the first place and then keep the application bound to the service, just in case we want to do more things. Here in your current implementation, you will lose the session, but for now that is not a big deal I would say. If we wanted to do more things with the session, I think a next version implementation should avoid the Activity-Session tie-in and use an app level session helper.",
+      "range": {
+        "startLine": 73,
+        "startChar": 16,
+        "endLine": 73,
+        "endChar": 40
+      },
+      "revId": "f5b212118f10d2c136be67d88a20c3a6252dfca2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
