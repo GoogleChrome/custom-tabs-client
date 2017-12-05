@@ -7,5 +7,6 @@
 /build
 Application/build
 customtabs/build
+svgomg/release
 /captures
 *.iml
