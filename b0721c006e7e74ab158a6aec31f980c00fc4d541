@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba987a33_1151f527",
+        "filename": "Application/src/main/java/org/chromium/customtabsclient/MainActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2017-12-06T01:19:08Z",
+      "side": 1,
+      "message": "why the need for appcompat activity?",
+      "range": {
+        "startLine": 69,
+        "startChar": 16,
+        "endLine": 69,
+        "endChar": 33
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "075ba26f_480c7ba4",
+        "filename": "customtabs/res/layout/browser_actions_context_menu_page.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2017-12-06T01:19:08Z",
+      "side": 1,
+      "message": "I do wonder if we want these (background color, width, font colors, etc...) to be configurable by the embedding app, but I guess we would have to consider whether we should support theming of the browser action menu itself.  I guess no need for that right now and we might never want to support a themed browser action menu from Chrome either.  We can cross that bridge if we need to.",
+      "range": {
+        "startLine": 14,
+        "startChar": 31,
+        "endLine": 14,
+        "endChar": 42
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7a2c1e3_ee84183a",
+        "filename": "customtabs/res/layout/browser_actions_context_menu_page.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2017-12-06T01:19:08Z",
+      "side": 1,
+      "message": "do these colors need to be in some appcompat naming scheme?  These are pretty generic and could likely conflict with other activity names?",
+      "range": {
+        "startLine": 28,
+        "startChar": 34,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d42789c_72a13871",
+        "filename": "customtabs/res/layout/browser_actions_context_menu_page.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2017-12-06T01:19:08Z",
+      "side": 1,
+      "message": "should this be in colors.xml?",
+      "range": {
+        "startLine": 32,
+        "startChar": 29,
+        "endLine": 32,
+        "endChar": 37
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a93daf4b_3533e5c5",
+        "filename": "customtabs/res/values/colors.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2017-12-06T01:19:08Z",
+      "side": 1,
+      "message": "2017",
+      "range": {
+        "startLine": 2,
+        "startChar": 15,
+        "endLine": 2,
+        "endChar": 19
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f84b3f8_85d2e0f0",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2017-12-06T01:19:08Z",
+      "side": 1,
+      "message": "copyright?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e84bc24_415d4908",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2017-12-06T01:19:08Z",
+      "side": 1,
+      "message": "copyright (are they not needed in support library code)?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b264afe_eb72eca3",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2017-12-06T01:19:08Z",
+      "side": 1,
+      "message": "can theme be annotated with anything (@ResId or something)?",
+      "range": {
+        "startLine": 24,
+        "startChar": 65,
+        "endLine": 24,
+        "endChar": 70
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc53e25a_ece1c5e3",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2017-12-06T01:19:08Z",
+      "side": 1,
+      "message": "don\u0027t context menus normally have a window background?  Does this disable the dimming in the background or is this about the dialog background (i.e. the dropdshadow\u0027d white box)?",
+      "range": {
+        "startLine": 32,
+        "startChar": 42,
+        "endLine": 32,
+        "endChar": 43
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d64a6ac_a5f26614",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuUi.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2017-12-06T01:19:08Z",
+      "side": 1,
+      "message": "I\u0027d have javadoc on this to describe what the Uri means at least.",
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4cb4977_a356ba07",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuUi.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2017-12-06T01:19:08Z",
+      "side": 1,
+      "message": "why specify the theme in the dialog constructor when we just hardcode it here?  Should we just hardcode this in the dialog constructor?",
+      "range": {
+        "startLine": 43,
+        "startChar": 47,
+        "endLine": 43,
+        "endChar": 52
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
