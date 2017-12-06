@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e1c851f2_59af1e0e",
+        "filename": "Application/src/main/java/org/chromium/customtabsclient/MainActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-06T23:26:04Z",
+      "side": 1,
+      "message": "Just because we use AppCompat theme for fallback dialog, I feel it is better to be consistent. And the Android Activity\u0027s Theme.Light shows an orange style ripple effect which looks a little wired. Also I find by default Android Studio by default uses AppCompatActivity, so I am assuming Android prefers it than Activity?",
+      "parentUuid": "ba987a33_1151f527",
+      "range": {
+        "startLine": 69,
+        "startChar": 16,
+        "endLine": 69,
+        "endChar": 33
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "075ba26f_480c7ba4",
         "filename": "customtabs/res/layout/browser_actions_context_menu_page.xml",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8feb0c9_95aa57ec",
+        "filename": "customtabs/res/layout/browser_actions_context_menu_page.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-06T23:26:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "075ba26f_480c7ba4",
+      "range": {
+        "startLine": 14,
+        "startChar": 31,
+        "endLine": 14,
+        "endChar": 42
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "806f99de_4ec1278c",
+        "filename": "customtabs/res/layout/browser_actions_context_menu_page.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-06T23:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7a2c1e3_ee84183a",
+      "range": {
+        "startLine": 28,
+        "startChar": 34,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d42789c_72a13871",
         "filename": "customtabs/res/layout/browser_actions_context_menu_page.xml",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4abeae1_b72138d1",
+        "filename": "customtabs/res/layout/browser_actions_context_menu_page.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-06T23:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d42789c_72a13871",
+      "range": {
+        "startLine": 32,
+        "startChar": 29,
+        "endLine": 32,
+        "endChar": 37
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1611e85f_99a127af",
+        "filename": "customtabs/res/values/colors.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-06T23:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a93daf4b_3533e5c5",
+      "range": {
+        "startLine": 2,
+        "startChar": 15,
+        "endLine": 2,
+        "endChar": 19
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f84b3f8_85d2e0f0",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5c16d3b_927e4ceb",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-06T23:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f84b3f8_85d2e0f0",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "ba75d904_d6acb5b0",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-06T23:26:04Z",
+      "side": 1,
+      "message": "Sorry I forgot to add it to all newly added classes.",
+      "parentUuid": "2e84bc24_415d4908",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b264afe_eb72eca3",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuDialog.java",
         "patchSetId": 3
@@ -183,6 +351,30 @@
       "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9afba278_fe767225",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-06T23:26:04Z",
+      "side": 1,
+      "message": "New update hardcode theme here so no need to have theme as a param.\n\nBut also check Android annotation here: https://developer.android.com/reference/android/support/annotation/package-summary.html and wondering is @StyleRes the right annotation to use? There isn\u0027t an annotation specific for theme.",
+      "parentUuid": "8b264afe_eb72eca3",
+      "range": {
+        "startLine": 24,
+        "startChar": 65,
+        "endLine": 24,
+        "endChar": 70
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "25862545_4feace01",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-06T23:26:04Z",
+      "side": 1,
+      "message": "If we don\u0027t set this, the dialog dismiss will leave a white rectangle in background when it plays the dismiss animation. The white rectangle will disappear when animation finishes.",
+      "parentUuid": "dc53e25a_ece1c5e3",
+      "range": {
+        "startLine": 32,
+        "startChar": 42,
+        "endLine": 32,
+        "endChar": 43
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d64a6ac_a5f26614",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuUi.java",
         "patchSetId": 3
@@ -223,6 +439,24 @@
       "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7b84fde_0f93e2c7",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuUi.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-06T23:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d64a6ac_a5f26614",
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -246,6 +480,30 @@
       "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c7eef1f_bdfffe04",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuUi.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-06T23:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4cb4977_a356ba07",
+      "range": {
+        "startLine": 43,
+        "startChar": 47,
+        "endLine": 43,
+        "endChar": 52
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
