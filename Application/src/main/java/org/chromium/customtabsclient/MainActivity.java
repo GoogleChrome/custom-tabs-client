@@ -14,7 +14,6 @@
 
 package org.chromium.customtabsclient;
 
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityOptions;
 import android.app.PendingIntent;
@@ -38,6 +37,7 @@ import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.browseractions.BrowserActionsIntent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.customtabs.browseractions.BrowserActionItem;
 import android.text.TextUtils;
 import android.util.Log;
@@ -65,7 +65,8 @@ import java.util.List;
 /**
  * Example client activity for using Chrome Custom Tabs.
  */
-public class MainActivity extends Activity implements OnClickListener, ServiceConnectionCallback {
+public class MainActivity
+        extends AppCompatActivity implements OnClickListener, ServiceConnectionCallback {
     private static final String TAG = "CustomTabsClientExample";
     private static final String TOOLBAR_COLOR = "#ef6c00";
 
