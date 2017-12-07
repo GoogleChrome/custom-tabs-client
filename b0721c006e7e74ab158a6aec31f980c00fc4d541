@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "57d18fd1_356aaa85",
+        "filename": "Application/src/main/java/org/chromium/customtabsclient/MainActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2017-12-07T05:42:58Z",
+      "side": 1,
+      "message": "Android itself wouldn\u0027t, but it might imply that the dialog theme doesn\u0027t behave nicely if it isn\u0027t an AppCompat activity.  I don\u0027t know if that is really a problem within the AppCompat project, but might be something to further consider as a api limitation (i.e. we might want to enforce the calling app is an appcompat one to ensure the theme doesn\u0027t go crazy...likely a question for the appcompat folk though)",
+      "parentUuid": "e1c851f2_59af1e0e",
+      "range": {
+        "startLine": 69,
+        "startChar": 16,
+        "endLine": 69,
+        "endChar": 33
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "075ba26f_480c7ba4",
         "filename": "customtabs/res/layout/browser_actions_context_menu_page.xml",
         "patchSetId": 3
@@ -366,6 +390,30 @@
       "side": 1,
       "message": "New update hardcode theme here so no need to have theme as a param.\n\nBut also check Android annotation here: https://developer.android.com/reference/android/support/annotation/package-summary.html and wondering is @StyleRes the right annotation to use? There isn\u0027t an annotation specific for theme.",
       "parentUuid": "8b264afe_eb72eca3",
+      "range": {
+        "startLine": 24,
+        "startChar": 65,
+        "endLine": 24,
+        "endChar": 70
+      },
+      "revId": "b0721c006e7e74ab158a6aec31f980c00fc4d541",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d45c0349_c6883ce2",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuDialog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2017-12-07T05:42:58Z",
+      "side": 1,
+      "message": "StyleRes sounds right...don\u0027t know for sure though",
+      "parentUuid": "9afba278_fe767225",
       "range": {
         "startLine": 24,
         "startChar": 65,
