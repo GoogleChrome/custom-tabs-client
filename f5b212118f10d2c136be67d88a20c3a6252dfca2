@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d0b45fc3_56e44786",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/CustomTabActivityHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1131219
+      },
+      "writtenOn": "2017-12-07T14:24:09Z",
+      "side": 1,
+      "message": "The older CustomTabs demos use this class. I\u0027ve reworked it to be more TWA specific. As a bonus, much of the tasks that need to be executed when opening a TWA (warmup, creating a session, validating origin) are now encapsulated here, making the LaunchActivity simpler.",
+      "parentUuid": "42b76f07_d2c33205",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 36
+      },
+      "revId": "f5b212118f10d2c136be67d88a20c3a6252dfca2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5919a6a1_a84f46fd",
         "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "f5b212118f10d2c136be67d88a20c3a6252dfca2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55dba9ac_d0cf7d8c",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1131219
+      },
+      "writtenOn": "2017-12-07T14:24:09Z",
+      "side": 1,
+      "message": "I\u0027ve moved this to the SessionHelper. It\u0027s now deciding which package to use (using CustomTabsClient.getPackage()) when the service is bound, and ensure the same package is being used to launch the Intent.",
+      "parentUuid": "5919a6a1_a84f46fd",
+      "range": {
+        "startLine": 57,
+        "startChar": 32,
+        "endLine": 57,
+        "endChar": 42
+      },
+      "revId": "f5b212118f10d2c136be67d88a20c3a6252dfca2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "07a04481_15d185af",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1131219
+      },
+      "writtenOn": "2017-12-07T14:24:09Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "1c3e002f_a7402e6d",
+      "range": {
+        "startLine": 62,
+        "startChar": 48,
+        "endLine": 62,
+        "endChar": 74
+      },
+      "revId": "f5b212118f10d2c136be67d88a20c3a6252dfca2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2857499c_8730cc38",
         "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "f5b212118f10d2c136be67d88a20c3a6252dfca2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "706e46f9_31aba613",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1131219
+      },
+      "writtenOn": "2017-12-07T14:24:09Z",
+      "side": 1,
+      "message": "Moved to bind agains the app context. I\u0027m ensuring this happens by doing context.getApplicationContext in the helper. The SessionHelper is a Singleton now, as well.",
+      "parentUuid": "2857499c_8730cc38",
+      "range": {
+        "startLine": 73,
+        "startChar": 16,
+        "endLine": 73,
+        "endChar": 40
+      },
+      "revId": "f5b212118f10d2c136be67d88a20c3a6252dfca2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
