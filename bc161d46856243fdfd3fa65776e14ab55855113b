@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50560adc_113885f3",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-07T18:31:10Z",
+      "side": 1,
+      "message": "Let\u0027s not cash this here, since the singleton will be around during app lifetime and caching will pose garbage collection challenges for the Activity. We can keep calling getInstance(). or keep local references in individual calls.",
+      "range": {
+        "startLine": 36,
+        "startChar": 28,
+        "endLine": 36,
+        "endChar": 44
+      },
+      "revId": "bc161d46856243fdfd3fa65776e14ab55855113b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fbe6856_dcf0fb01",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-07T18:31:10Z",
+      "side": 1,
+      "message": "We can probably move all this to the SessionHelper as well and just call SessionHelper.openTwa from onTwaSessionReady()",
+      "range": {
+        "startLine": 44,
+        "startChar": 42,
+        "endLine": 44,
+        "endChar": 43
+      },
+      "revId": "bc161d46856243fdfd3fa65776e14ab55855113b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00590231_7e9c59f0",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-07T18:31:10Z",
+      "side": 1,
+      "message": "no empty line",
+      "range": {
+        "startLine": 57,
+        "startChar": 11,
+        "endLine": 57,
+        "endChar": 15
+      },
+      "revId": "bc161d46856243fdfd3fa65776e14ab55855113b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea366223_e6346b7d",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-07T18:31:10Z",
+      "side": 1,
+      "message": "setTwaSessionCallback(null) either here or onDestroy() for the Activity.",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 27
+      },
+      "revId": "bc161d46856243fdfd3fa65776e14ab55855113b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cba07f6_dba2150c",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaSessionHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-07T18:31:10Z",
+      "side": 1,
+      "message": "nice touch! :)",
+      "range": {
+        "startLine": 168,
+        "startChar": 26,
+        "endLine": 168,
+        "endChar": 50
+      },
+      "revId": "bc161d46856243fdfd3fa65776e14ab55855113b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc0a4ce6_573fe479",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaSessionHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-07T18:31:10Z",
+      "side": 1,
+      "message": "javadoc for this as well",
+      "range": {
+        "startLine": 222,
+        "startChar": 13,
+        "endLine": 222,
+        "endChar": 24
+      },
+      "revId": "bc161d46856243fdfd3fa65776e14ab55855113b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
