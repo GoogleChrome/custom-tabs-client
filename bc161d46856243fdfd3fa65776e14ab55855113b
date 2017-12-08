@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "08da5f99_3bcc6ff5",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1131219
+      },
+      "writtenOn": "2017-12-08T10:01:35Z",
+      "side": 1,
+      "message": "I think we need to expose setStartAnimations / setExitAnimations. \n\nIn this sample, it\u0027s not really useful, as it\u0027s just wrapping the PWA and launching it. But in the case where a developer is opening a PWA from an Activity that has content, they may want to change those.\n\nWe could create overloaded versions of openTwa(), but exposing the CustomTabsIntent.Builder seems more future proof?",
+      "parentUuid": "1fbe6856_dcf0fb01",
+      "range": {
+        "startLine": 44,
+        "startChar": 42,
+        "endLine": 44,
+        "endChar": 43
+      },
+      "revId": "bc161d46856243fdfd3fa65776e14ab55855113b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00590231_7e9c59f0",
         "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
         "patchSetId": 5
@@ -117,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "7c19b6d5_ec76fa1a",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaSessionHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1131219
+      },
+      "writtenOn": "2017-12-08T10:01:35Z",
+      "side": 1,
+      "message": ":)",
+      "parentUuid": "2cba07f6_dba2150c",
+      "range": {
+        "startLine": 168,
+        "startChar": 26,
+        "endLine": 168,
+        "endChar": 50
+      },
+      "revId": "bc161d46856243fdfd3fa65776e14ab55855113b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc0a4ce6_573fe479",
         "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaSessionHelper.java",
         "patchSetId": 5
@@ -137,6 +185,30 @@
       "revId": "bc161d46856243fdfd3fa65776e14ab55855113b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1837a599_4c2e1d61",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaSessionHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1131219
+      },
+      "writtenOn": "2017-12-08T10:01:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc0a4ce6_573fe479",
+      "range": {
+        "startLine": 222,
+        "startChar": 13,
+        "endLine": 222,
+        "endChar": 24
+      },
+      "revId": "bc161d46856243fdfd3fa65776e14ab55855113b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
