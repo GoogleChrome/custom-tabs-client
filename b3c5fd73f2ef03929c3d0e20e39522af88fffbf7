@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "582785fd_48730324",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-20T20:00:16Z",
+      "side": 1,
+      "message": "Why would the client give both for a single item?",
+      "range": {
+        "startLine": 43,
+        "startChar": 41,
+        "endLine": 43,
+        "endChar": 48
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "243fc561_7994cca1",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-20T20:00:16Z",
+      "side": 1,
+      "message": "mOriginalUri",
+      "range": {
+        "startLine": 40,
+        "startChar": 26,
+        "endLine": 40,
+        "endChar": 37
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e09df8ea_127db923",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-20T20:00:16Z",
+      "side": 1,
+      "message": "I think there should be another helper probably in BrowserActionsItem, given the bitmap uses the fileprovider to call this method. It is not clear from reading BrowserActionsItem that you need to use this class to generate the uri.",
+      "range": {
+        "startLine": 113,
+        "startChar": 34,
+        "endLine": 113,
+        "endChar": 41
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27446a71_b049e9ab",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-20T20:00:16Z",
+      "side": 1,
+      "message": "if (fileUri \u003d\u003d null) return null; here for better readibility",
+      "range": {
+        "startLine": 146,
+        "startChar": 22,
+        "endLine": 146,
+        "endChar": 32
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08d53f34_d70c4df1",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-20T20:00:16Z",
+      "side": 1,
+      "message": "Should we cache the resolver instead of Context here?",
+      "range": {
+        "startLine": 26,
+        "startChar": 19,
+        "endLine": 26,
+        "endChar": 26
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3b7fae0_cb99f09d",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-20T20:00:16Z",
+      "side": 1,
+      "message": "rename to descriptor",
+      "range": {
+        "startLine": 33,
+        "startChar": 33,
+        "endLine": 33,
+        "endChar": 36
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "158a1e1b_b64ded82",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-20T20:00:16Z",
+      "side": 1,
+      "message": "I guess we don\u0027t need to qualify Uri?",
+      "range": {
+        "startLine": 34,
+        "startChar": 57,
+        "endLine": 34,
+        "endChar": 60
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18dfe352_bd7838c3",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-20T20:00:16Z",
+      "side": 1,
+      "message": "fileDescriptor",
+      "range": {
+        "startLine": 36,
+        "startChar": 31,
+        "endLine": 36,
+        "endChar": 32
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a75631de_adff3cec",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-20T20:00:16Z",
+      "side": 1,
+      "message": "s/Fail/Failed",
+      "range": {
+        "startLine": 39,
+        "startChar": 37,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a50571ac_fdd2f118",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2017-12-20T20:00:16Z",
+      "side": 1,
+      "message": "bitmap",
+      "range": {
+        "startLine": 45,
+        "startChar": 40,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
