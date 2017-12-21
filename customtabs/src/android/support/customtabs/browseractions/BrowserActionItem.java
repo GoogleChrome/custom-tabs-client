@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2017 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ public class BrowserActionItem {
     private final String mTitle;
     private final PendingIntent mAction;
     @DrawableRes
-    private int mIconId;
+    private final int mIconId;
 
     /**
      * Constructor for BrowserActionItem with icon, string and action provided.
@@ -50,14 +50,6 @@ public class BrowserActionItem {
      */
     public BrowserActionItem(@NonNull String title, @NonNull PendingIntent action) {
         this(title, action, 0);
-    }
-
-    /**
-     * Sets the resource id of the icon of a custom item.
-     * @param icon The resource id of the icon for a custom item.
-     */
-    public void setIconId(@DrawableRes int iconId) {
-        mIconId = iconId;
     }
 
     /**
