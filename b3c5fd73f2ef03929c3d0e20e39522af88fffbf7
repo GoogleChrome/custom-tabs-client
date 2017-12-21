@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "25cd7f25_149bc672",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-21T00:09:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "582785fd_48730324",
+      "range": {
+        "startLine": 43,
+        "startChar": 41,
+        "endLine": 43,
+        "endChar": 48
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "243fc561_7994cca1",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "df77a5bc_594b5f81",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-21T00:09:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "243fc561_7994cca1",
+      "range": {
+        "startLine": 40,
+        "startChar": 26,
+        "endLine": 40,
+        "endChar": 37
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e09df8ea_127db923",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2017-12-20T20:00:16Z",
       "side": 1,
       "message": "I think there should be another helper probably in BrowserActionsItem, given the bitmap uses the fileprovider to call this method. It is not clear from reading BrowserActionsItem that you need to use this class to generate the uri.",
+      "range": {
+        "startLine": 113,
+        "startChar": 34,
+        "endLine": 113,
+        "endChar": 41
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48d9706a_381b9070",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-21T00:09:14Z",
+      "side": 1,
+      "message": "I feel directly passing Bitmap into constructor is a little wired because the getter still return uri. Also it not only need a Bitmap but also need a context, string for name, int for version and List\u003cResolveInfo\u003e which seems adding too many params? \n\nI add a note in the comment of constructor that the uri should be returned from this function, does it sound enough?",
+      "parentUuid": "e09df8ea_127db923",
       "range": {
         "startLine": 113,
         "startChar": 34,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "7302e5a3_35d78a46",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-21T00:09:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27446a71_b049e9ab",
+      "range": {
+        "startLine": 146,
+        "startChar": 22,
+        "endLine": 146,
+        "endChar": 32
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08d53f34_d70c4df1",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
         "patchSetId": 1
@@ -114,6 +210,30 @@
       "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae9a9f69_a6af243e",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-21T00:09:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08d53f34_d70c4df1",
+      "range": {
+        "startLine": 26,
+        "startChar": 19,
+        "endLine": 26,
+        "endChar": 26
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "03445d71_21fd5cbb",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-21T00:09:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3b7fae0_cb99f09d",
+      "range": {
+        "startLine": 33,
+        "startChar": 33,
+        "endLine": 33,
+        "endChar": 36
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "158a1e1b_b64ded82",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
         "patchSetId": 1
@@ -160,6 +304,30 @@
       "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce5126c4_91066e64",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-21T00:09:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "158a1e1b_b64ded82",
+      "range": {
+        "startLine": 34,
+        "startChar": 57,
+        "endLine": 34,
+        "endChar": 60
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "0400c87a_c2f06ef2",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-21T00:09:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18dfe352_bd7838c3",
+      "range": {
+        "startLine": 36,
+        "startChar": 31,
+        "endLine": 36,
+        "endChar": 32
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a75631de_adff3cec",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
         "patchSetId": 1
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "89c66373_bc44e084",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-21T00:09:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a75631de_adff3cec",
+      "range": {
+        "startLine": 39,
+        "startChar": 37,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a50571ac_fdd2f118",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
         "patchSetId": 1
@@ -229,6 +445,30 @@
       "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b240af02_12792612",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2017-12-21T00:09:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a50571ac_fdd2f118",
+      "range": {
+        "startLine": 45,
+        "startChar": 40,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "b3c5fd73f2ef03929c3d0e20e39522af88fffbf7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
