@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2017 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,13 +26,17 @@ import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 /**
  * Class holding the {@link Intent} and start bundle for a Browser Actions Activity.
  *
@@ -41,14 +45,15 @@ import java.util.List;
  * You are strongly encouraged to use {@link BrowserActionsIntent.Builder}.</p>
  */
 public class BrowserActionsIntent {
-    private final static String TAG = "BrowserActions";
-    private final static String TEST_URL = "https://www.example.com";
+    private static final String TAG = "BrowserActions";
+    // Used to verify that an URL intent handler exists.
+    private static final String TEST_URL = "https://www.example.com";
 
     /**
      * Extra that specifies {@link PendingIntent} indicating which Application sends the {@link
      * BrowserActionsIntent}.
      */
-    public final static String EXTRA_APP_ID = "androidx.browser.browseractions.APP_ID";
+    public static final String EXTRA_APP_ID = "androidx.browser.browseractions.APP_ID";
 
     /**
      * Indicates that the user explicitly opted out of Browser Actions in the calling application.
@@ -73,7 +78,7 @@ public class BrowserActionsIntent {
     public static final String KEY_ACTION = "androidx.browser.browseractions.ACTION";
 
     /**
-     * Extra that specifies {@link BrowserActionsUrlType} type of url for the Browser Actions menu.
+     * Extra that specifies the type of url for the Browser Actions menu.
      */
     public static final String EXTRA_TYPE = "androidx.browser.browseractions.extra.TYPE";
 
@@ -98,6 +103,8 @@ public class BrowserActionsIntent {
     /**
      * Defines the types of url for Browser Actions menu.
      */
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({URL_TYPE_NONE, URL_TYPE_IMAGE, URL_TYPE_VIDEO, URL_TYPE_AUDIO, URL_TYPE_FILE,
             URL_TYPE_PLUGIN})
     @Retention(RetentionPolicy.SOURCE)
@@ -113,6 +120,8 @@ public class BrowserActionsIntent {
      * Defines the the ids of the browser specified menu items in Browser Actions.
      * TODO(ltian): A long term solution need, since other providers might have customized menus.
      */
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
     @IntDef({ITEM_INVALID_ITEM, ITEM_OPEN_IN_NEW_TAB, ITEM_OPEN_IN_INCOGNITO, ITEM_DOWNLOAD,
             ITEM_COPY, ITEM_SHARE})
     @Retention(RetentionPolicy.SOURCE)
@@ -127,13 +136,13 @@ public class BrowserActionsIntent {
     /**
      * An {@link Intent} used to start the Browser Actions Activity.
      */
-    public final Intent mIntent;
+    @NonNull private final Intent mIntent;
 
     /**
      * Gets the Intent of {@link BrowserActionsIntent}.
      * @return the Intent of {@link BrowserActionsIntent}.
      */
-    public Intent getIntent() {
+    @NonNull public Intent getIntent() {
         return mIntent;
     }
 
@@ -168,7 +177,7 @@ public class BrowserActionsIntent {
 
         /**
          * Sets the type of Browser Actions context menu.
-         * @param type {@link BrowserActionsUrlType}.
+         * @param type The type of url.
          */
         public Builder setUrlType(@BrowserActionsUrlType int type) {
             mType = type;
@@ -177,7 +186,7 @@ public class BrowserActionsIntent {
 
         /**
          * Sets the custom items list.
-         * Only maximum {@link BrowserActionsIntent.MAX_CUSTOM_ITEMS} custom items are allowed,
+         * Only maximum MAX_CUSTOM_ITEMS custom items are allowed,
          * otherwise throws an {@link IllegalStateException}.
          * @param items The list of {@link BrowserActionItem} for custom items.
          */
@@ -187,15 +196,25 @@ public class BrowserActionsIntent {
                         "Exceeded maximum toolbar item count of " + MAX_CUSTOM_ITEMS);
             }
             for (int i = 0; i < items.size(); i++) {
-                if (items.get(i).getTitle() == null) {
-                    throw new IllegalArgumentException("Custom item title is null");
-                } else if (items.get(i).getAction() == null) {
-                    throw new IllegalArgumentException("Custom item action is null");
+                if (TextUtils.isEmpty(items.get(i).getTitle())
+                        || items.get(i).getAction() == null) {
+                    throw new IllegalArgumentException(
+                            "Custom item should contain a non-empty title and non-null intent.");
                 } else {
                     mMenuItems.add(getBundleFromItem(items.get(i)));
                 }
             }
             return this;
+        }
+
+        /**
+         * Sets the custom items list.
+         * Only maximum MAX_CUSTOM_ITEMS custom items are allowed,
+         * otherwise throws an {@link IllegalStateException}.
+         * @param items The varargs of {@link BrowserActionItem} for custom items.
+         */
+        public Builder setCustomItems(BrowserActionItem... items) {
+            return setCustomItems(new ArrayList<BrowserActionItem>(Arrays.asList(items)));
         }
 
         /**
@@ -230,7 +249,10 @@ public class BrowserActionsIntent {
             mIntent.putParcelableArrayListExtra(EXTRA_MENU_ITEMS, mMenuItems);
             PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, new Intent(), 0);
             mIntent.putExtra(EXTRA_APP_ID, pendingIntent);
-            mIntent.putExtra(EXTRA_SELECTED_ACTION_PENDING_INTENT, mOnItemSelectedPendingIntent);
+            if (mOnItemSelectedPendingIntent != null) {
+                mIntent.putExtra(
+                        EXTRA_SELECTED_ACTION_PENDING_INTENT, mOnItemSelectedPendingIntent);
+            }
             return new BrowserActionsIntent(mIntent);
         }
     }
@@ -254,8 +276,7 @@ public class BrowserActionsIntent {
      * @param type The type of the url for context menu to be opened.
      * @param items List of custom items to be added to Browser Actions menu.
      * @param pendingIntent The PendingIntent to be launched when a browser specified menu item is
-     * selected. The browser will perform the PendingIntent so this should only go to a {@link
-     *        BroadcastReceiver}.
+     * selected.
      */
     public static void openBrowserAction(Context context, Uri uri, int type,
             ArrayList<BrowserActionItem> items, PendingIntent pendingIntent) {
@@ -314,11 +335,6 @@ public class BrowserActionsIntent {
         return pm.queryIntentActivities(intent, PackageManager.MATCH_ALL);
     }
 
-    private static void openFallbackBrowserActionsMenu(
-            Context context, BrowserActionsIntent browserActionsIntent) {
-        openFallbackBrowserActionsMenu(context, browserActionsIntent.getIntent());
-    }
-
     private static void openFallbackBrowserActionsMenu(Context context, Intent intent) {
         Uri uri = intent.getData();
         int type = intent.getIntExtra(EXTRA_TYPE, URL_TYPE_NONE);
@@ -354,16 +370,12 @@ public class BrowserActionsIntent {
             PendingIntent action = bundle.getParcelable(BrowserActionsIntent.KEY_ACTION);
             @DrawableRes
             int iconId = bundle.getInt(BrowserActionsIntent.KEY_ICON_ID);
-            if (title != null && action != null) {
-                BrowserActionItem item = new BrowserActionItem(title, action);
-                if (iconId != 0) item.setIconId(iconId);
-                mActions.add(item);
-            } else if (title != null) {
-                throw new IllegalArgumentException("Missing action for item: " + i);
-            } else if (action != null) {
-                throw new IllegalArgumentException("Missing title for item: " + i);
+            if (TextUtils.isEmpty(title) || action == null) {
+                throw new IllegalArgumentException(
+                        "Custom item should contain a non-empty title and non-null intent.");
             } else {
-                throw new IllegalArgumentException("Missing title and action for item: " + i);
+                BrowserActionItem item = new BrowserActionItem(title, action, iconId);
+                mActions.add(item);
             }
         }
         return mActions;
