@@ -2,6 +2,8 @@ package android.support.customtabs.browseractions;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The class to pass images asynchronously between different applications.
@@ -32,6 +35,54 @@ public class BrowserServiceFileProvider extends FileProvider {
     private static final Map<Uri, Uri> URI_MAP = new HashMap<>();
     private static final Map<Uri, List<ResolveInfo>> RESOLVE_INFO_MAP = new HashMap<>();
     private static final Map<Uri, Object> URI_LOCK_MAP = new HashMap<>();
+    private static Object sFileCleanupLock = new Object();
+
+    private static final String LAST_CLEANUP_TIME_KEY = "last_cleanup_time";
+
+    private static class FileCleanupTask extends AsyncTask<Void, Void, Void> {
+        private final Context mContext;
+
+        public FileCleanupTask(Context context) {
+            super();
+            mContext = context;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            SharedPreferences pref = mContext.getSharedPreferences(mContext.getPackageName() + AUTHORITY_SUFFIX, Context.MODE_PRIVATE);
+            if (shouldCleanupFile(pref)) {
+                synchronized (sFileCleanupLock) {
+                    File path = new File(mContext.getFilesDir(), FILE_SUB_DIR);
+                    if (!path.exists()) return null;
+                    File[] files = path.listFiles();
+                    long retentionDate = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(7);
+                    for(File file : files) {
+                        String extension = getExtension(file);
+                        if (extension == null || !extension.equals(FILE_EXTENSION)) continue;
+                        long lastModified = file.lastModified();
+                        if (lastModified < retentionDate)
+                            file.delete();
+                    }
+                    Editor editor = pref.edit();
+                    editor.putLong(LAST_CLEANUP_TIME_KEY, System.currentTimeMillis());
+                    editor.apply();
+                }
+            }
+            return null;
+        }
+
+        private String getExtension(File file) {
+            String filename = file.getName();
+            if (!filename.contains(".")) return null;
+            return filename.substring(filename.lastIndexOf('.'));
+        }
+
+        private boolean shouldCleanupFile(SharedPreferences pref) {
+            long lastCleanup = pref.getLong(LAST_CLEANUP_TIME_KEY, 0l);
+            long oneWeekMillis = TimeUnit.DAYS.toMillis(7);
+            return System.currentTimeMillis() > lastCleanup + oneWeekMillis;
+        }
+    }
 
     private static class FileSaveTask extends AsyncTask<String, Void, Uri> {
         private final Context mContext;
@@ -76,6 +127,7 @@ public class BrowserServiceFileProvider extends FileProvider {
                     lock.notify();
                 }
             }
+            new FileCleanupTask(mContext).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
         private boolean saveFile(File savedFile) {
@@ -92,9 +144,13 @@ public class BrowserServiceFileProvider extends FileProvider {
 
         private File getFile() {
             File path = new File(mContext.getFilesDir(), FILE_SUB_DIR);
-            if (!path.exists()) path.mkdir();
-            File img = new File(path, mFilename + FILE_EXTENSION);
-            if (!img.exists() && !saveFile(img)) return null;
+            File img;
+            synchronized (sFileCleanupLock) {
+                if (!path.exists()) path.mkdir();
+                img = new File(path, mFilename + FILE_EXTENSION);
+                if (!img.exists() && !saveFile(img)) return null;
+                img.setLastModified(System.currentTimeMillis());
+            }
             return img;
         }
     }
