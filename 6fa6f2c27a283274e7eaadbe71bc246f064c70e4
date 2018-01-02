@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb99a769_e1814836",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-02T19:16:10Z",
+      "side": 1,
+      "message": "With these static maps, we are relying on both applications running at the same time.  I think that is an OK expectation for browser actions, but potentially not for CustomTabs if we want to reuse this.\n\nFrom my original doc:\nhttps://docs.google.com/document/d/1KH4WkCF_J2LNwCnBhdpr3J7fC3nQWrTdMjV9fekfBZ4/edit#heading\u003dh.68q6cf5svsyg\n\n\"\"\"\nProvider can not rely on any in memory state\nThere is no guarantee that the owning applications process is alive when Chrome will be reading this state.\n\nSerialize any state to disk to allow deferred consumption.\n\"\"\"\n\nI think you should investigate all options that would allow you to not need these.",
+      "revId": "6fa6f2c27a283274e7eaadbe71bc246f064c70e4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
