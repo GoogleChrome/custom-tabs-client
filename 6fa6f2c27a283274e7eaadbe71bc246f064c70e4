@@ -16,6 +16,24 @@
       "revId": "6fa6f2c27a283274e7eaadbe71bc246f064c70e4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0de03fbb_af41922e",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-03T00:26:40Z",
+      "side": 1,
+      "message": "Update the code that unifies fake uri and real uri. Then maintain a set to track files in progress of serialization and a map between uri and lock. So the file request will not rely on the status of owning app.",
+      "parentUuid": "fb99a769_e1814836",
+      "revId": "6fa6f2c27a283274e7eaadbe71bc246f064c70e4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
