@@ -26,6 +26,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +38,8 @@ import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.browseractions.BrowserActionsIntent;
+import android.support.customtabs.browseractions.BrowserServiceFileProvider;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.customtabs.browseractions.BrowserActionItem;
 import android.text.TextUtils;
@@ -59,6 +62,9 @@ import org.chromium.customtabsclient.shared.CustomTabsHelper;
 import org.chromium.customtabsclient.shared.ServiceConnection;
 import org.chromium.customtabsclient.shared.ServiceConnectionCallback;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -261,13 +267,21 @@ public class MainActivity
         } else if (viewId == R.id.launch_browser_actions_button) {
             Intent openLinkIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             PendingIntent openLinkPendingIntent = PendingIntent.getActivity(this, 0, openLinkIntent, 0);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+            Uri uri = BrowserServiceFileProvider.generateUri(this, bitmap, "ic_launcher", 1,
+                    BrowserActionsIntent.getBrowserActionsIntentHandlers(this));
+
             BrowserActionItem item1 = new BrowserActionItem(
                     "Open the link (without icon)", openLinkPendingIntent, 0);
-            BrowserActionItem item2 = new BrowserActionItem(
-                    "Open the link (with icon)", openLinkPendingIntent, R.drawable.ic_launcher);
+            BrowserActionItem item2 =
+                    new BrowserActionItem("Open the link (with icon from resouce)",
+                            openLinkPendingIntent, R.drawable.ic_launcher);
+            BrowserActionItem item3 = new BrowserActionItem(
+                    "Open the link (with icon from file provider)", openLinkPendingIntent, uri);
             ArrayList<BrowserActionItem> items = new ArrayList<>();
             items.add(item1);
             items.add(item2);
+            items.add(item3);
             Intent defaultIntent = new Intent();
             defaultIntent.setClass(getApplicationContext(), BrowserActionsReceiver.class);
             PendingIntent defaultAction = PendingIntent.getBroadcast(this, 0, defaultIntent, 0);

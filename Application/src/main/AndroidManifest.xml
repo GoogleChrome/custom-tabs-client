@@ -42,5 +42,14 @@
             android:name="org.chromium.customtabsclient.BrowserActionsReceiver"
             android:exported="true"/>
         <receiver android:name=".BottomBarManager"/>
+        <provider
+            android:name="android.support.customtabs.browseractions.BrowserServiceFileProvider"
+            android:authorities="org.chromium.customtabsclient.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
     </application>
 </manifest>
