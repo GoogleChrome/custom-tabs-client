@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4fa406f_b8970e86",
+        "filename": "Application/src/main/AndroidManifest.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-01-04T21:26:12Z",
+      "side": 1,
+      "message": "I am assuming this bit will change when we have the separate module, but do we need both of the provider definitions you currently have in this patch? They seem to have different authorities.",
+      "range": {
+        "startLine": 46,
+        "startChar": 33,
+        "endLine": 46,
+        "endChar": 34
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7aee357_71d1cf83",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-01-04T21:26:12Z",
+      "side": 1,
+      "message": "@NonNull here as well",
+      "range": {
+        "startLine": 56,
+        "startChar": 83,
+        "endLine": 56,
+        "endChar": 86
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "198fa36b_c9d61ffe",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-01-04T21:26:12Z",
+      "side": 1,
+      "message": "Looking at the way we are constructing these in BrowserActionItem, I wonder if we actually need this constructor. Should we make the Uri in above a Nullable and keep it at two constructors? If we are not even using this then maybe it\u0027s superfluous?",
+      "range": {
+        "startLine": 67,
+        "startChar": 29,
+        "endLine": 67,
+        "endChar": 30
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "593a96c8_facb5d5b",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-01-04T21:26:12Z",
+      "side": 1,
+      "message": "use brackets here for if else even if it is single line each.",
+      "range": {
+        "startLine": 383,
+        "startChar": 32,
+        "endLine": 383,
+        "endChar": 0
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "875177fd_d8cc1238",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-01-04T21:26:12Z",
+      "side": 1,
+      "message": "A bit more guidance around how the client is supposed to use this class is needed here. (Just pointing to generateUri should be sufficient)",
+      "range": {
+        "startLine": 25,
+        "startChar": 43,
+        "endLine": 25,
+        "endChar": 50
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cedc86c1_1de4c6a9",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-01-04T21:26:12Z",
+      "side": 1,
+      "message": "if we are only using the package name out of the resolve info, should we just take the package name? That might actually be easier to get in general for the callers of this API.",
+      "range": {
+        "startLine": 102,
+        "startChar": 30,
+        "endLine": 102,
+        "endChar": 42
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b86126b3_3a32bf97",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-01-04T21:26:12Z",
+      "side": 1,
+      "message": "we can return null above, since this doesn\u0027t modify the uri",
+      "range": {
+        "startLine": 134,
+        "startChar": 23,
+        "endLine": 134,
+        "endChar": 27
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce887465_532c4325",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-01-04T21:26:12Z",
+      "side": 1,
+      "message": "Since we are not really \"getting\" the fileUri here anymore, should we call this blockUntilFileReady()?",
+      "range": {
+        "startLine": 138,
+        "startChar": 16,
+        "endLine": 138,
+        "endChar": 26
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3661a0e7_8866b19b",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-01-04T21:26:12Z",
+      "side": 1,
+      "message": "I am a bit confused by this comment. This is a provider side class. It looks as if we are telling the provider to call generateUri with a Bitmap (but the Bitmap is supposed to be owned by the client). So we should clarify and remove the implementation details out of the javadoc (since devs will use this figure out how to use the class.)\n\nOn a more nitpicky note, any mentions of BrowserServiceFileProvider in this class will break the dependency graph we are hoping to build and make BrowserServices depend on the FileProvider component.",
+      "range": {
+        "startLine": 19,
+        "startChar": 7,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53a3af53_63c46369",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-01-04T21:26:12Z",
+      "side": 1,
+      "message": "To use this class :",
+      "range": {
+        "startLine": 21,
+        "startChar": 25,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "115310d8_81467a19",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-01-04T21:26:12Z",
+      "side": 1,
+      "message": "since we are caching the resolver, we can now only take Resolver as param rather than Context.",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7543334d_0bedf8c9",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-01-04T21:26:12Z",
+      "side": 1,
+      "message": "is this needed?",
+      "range": {
+        "startLine": 36,
+        "startChar": 14,
+        "endLine": 36,
+        "endChar": 26
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5f1ea6c_2f99ae3e",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-01-04T21:26:12Z",
+      "side": 1,
+      "message": "lets make either just this or these two (and hence the class) abstract",
+      "range": {
+        "startLine": 62,
+        "startChar": 14,
+        "endLine": 62,
+        "endChar": 18
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
