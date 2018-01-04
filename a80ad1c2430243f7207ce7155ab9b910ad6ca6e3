@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "3731712f_36529ecd",
+        "filename": "Application/src/main/res/xml/filepaths.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-04T22:24:35Z",
+      "side": 1,
+      "message": "this seems overly generic to me.  I think we should target a directory that will not conflict with other app directories.",
+      "range": {
+        "startLine": 2,
+        "startChar": 22,
+        "endLine": 2,
+        "endChar": 28
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c7aee357_71d1cf83",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
         "patchSetId": 5
@@ -94,6 +117,23 @@
     },
     {
       "key": {
+        "uuid": "202af135_eafd2036",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-04T22:24:35Z",
+      "side": 1,
+      "message": "2018 copyright",
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "875177fd_d8cc1238",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 5
@@ -117,6 +157,92 @@
     },
     {
       "key": {
+        "uuid": "b21033e1_b7851fc6",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-04T22:24:35Z",
+      "side": 1,
+      "message": "same comment, let\u0027s make this less generic",
+      "range": {
+        "startLine": 29,
+        "startChar": 53,
+        "endLine": 29,
+        "endChar": 65
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c329794d_5dce18db",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-04T22:24:35Z",
+      "side": 1,
+      "message": "I\u0027d be curious from the support library team whether they\u0027d want these to be configurable by apps, but I guess that can always be added as needed.",
+      "range": {
+        "startLine": 32,
+        "startChar": 53,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2255b688_b4fbab46",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-04T22:24:35Z",
+      "side": 1,
+      "message": "mutable sets/hashmaps always look weird to me like this.  I\u0027d recommend making them non-final and do the sFileInSerialization naming.  I expect ones like this to be immutable.",
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2854ae2_44ddb661",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-04T22:24:35Z",
+      "side": 1,
+      "message": "nit, but I would align the second line \"The {@link Context} ...\" above.  Same for elsewhere.",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 22
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cedc86c1_1de4c6a9",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 5
@@ -133,6 +259,75 @@
         "startChar": 30,
         "endLine": 102,
         "endChar": 42
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f55ff14d_8544d325",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-04T22:24:35Z",
+      "side": 1,
+      "message": "I thought you granted permissions at the intent level.  Something like:\n\nhttps://cs.chromium.org/chromium/src/chrome/android/java/src/org/chromium/chrome/browser/share/ShareHelper.java?q\u003dGRANT_READ\u0026sq\u003dpackage:chromium\u0026l\u003d612\n\nThis is granting read uri permissions to more apps than needed, and it would be best to only provide this to a single app that uses this.\n\nIs the problem that we\u0027re not calling setData w/ the URI so that doesn\u0027t work?  I\u0027d love if Android had a solution for passing multiple URIs in a bundle that are granted permission, but I think you\u0027d need to reach out to them to discuss.",
+      "range": {
+        "startLine": 107,
+        "startChar": 27,
+        "endLine": 107,
+        "endChar": 57
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72fd4dff_c22caeea",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-04T22:24:35Z",
+      "side": 1,
+      "message": "One thing to keep in mind is that you can actually exhaust the threads in the thread pool and this will crash.  I wonder if we should allow an Executor to be passed in (as a separate API).  We might also want to consider capping the max number of executables we run at any given point to some smallish number (say 5?).",
+      "range": {
+        "startLine": 111,
+        "startChar": 49,
+        "endLine": 111,
+        "endChar": 69
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b0a01d0_33709d9f",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-04T22:24:35Z",
+      "side": 1,
+      "message": "FileProvider.getUriForFile does a fair bit more.  Is it because it parses the filepaths.xml and other things where this does not?  Would be good to double check all the logic there to make sure we\u0027re not doing anything we shouldn\u0027t and exposing data that isn\u0027t allowed.",
+      "range": {
+        "startLine": 115,
+        "startChar": 23,
+        "endLine": 115,
+        "endChar": 34
       },
       "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
@@ -179,6 +374,29 @@
         "startChar": 16,
         "endLine": 138,
         "endChar": 26
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1af43be_0137a72d",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-04T22:24:35Z",
+      "side": 1,
+      "message": "should this happen in the event of an InterruptedException?",
+      "range": {
+        "startLine": 149,
+        "startChar": 25,
+        "endLine": 149,
+        "endChar": 31
       },
       "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
