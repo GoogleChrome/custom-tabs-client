@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5ef64f6c_668179d9",
+        "filename": "Application/src/main/AndroidManifest.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "So I think the only thing to identify the provider is the android:authorities, so later if it is in a separate model, it should be something like android:authorities \u003d\"${package_name}.imageprovider\". So then each app imports the module would has its won provider. The android:name would still be \"android.support.customtabs.browseractions.BrowserServiceFileProvider\". This makes sure that when calling ContentResolver.openFileDescriptor, it calls the openFile() in BrowserServiceFileProvider.java not FileProvider.java.",
+      "parentUuid": "a4fa406f_b8970e86",
+      "range": {
+        "startLine": 46,
+        "startChar": 33,
+        "endLine": 46,
+        "endChar": 34
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3731712f_36529ecd",
         "filename": "Application/src/main/res/xml/filepaths.xml",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58179098_3c3a7c74",
+        "filename": "Application/src/main/res/xml/filepaths.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3731712f_36529ecd",
+      "range": {
+        "startLine": 2,
+        "startChar": 22,
+        "endLine": 2,
+        "endChar": 28
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3df7ad99_924b9959",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7aee357_71d1cf83",
+      "range": {
+        "startLine": 56,
+        "startChar": 83,
+        "endLine": 56,
+        "endChar": 86
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "198fa36b_c9d61ffe",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2018-01-04T21:26:12Z",
       "side": 1,
       "message": "Looking at the way we are constructing these in BrowserActionItem, I wonder if we actually need this constructor. Should we make the Uri in above a Nullable and keep it at two constructors? If we are not even using this then maybe it\u0027s superfluous?",
+      "range": {
+        "startLine": 67,
+        "startChar": 29,
+        "endLine": 67,
+        "endChar": 30
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6ebd5e1_88ea07d2",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "So the reason I have 3 constructors is there are 3 cases to construct a custom item: 1) without custom icon, 2) with a custom icon provided by resource id; 3) with a custom icon provided by a bitmap through our fileprovider. I feel if we only have those two constructors, it could make users feel the custom icon is obliged?",
+      "parentUuid": "198fa36b_c9d61ffe",
       "range": {
         "startLine": 67,
         "startChar": 29,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "35cc7906_4951a8ad",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "593a96c8_facb5d5b",
+      "range": {
+        "startLine": 383,
+        "startChar": 32,
+        "endLine": 383,
+        "endChar": 0
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "202af135_eafd2036",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 5
@@ -131,6 +251,24 @@
       "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f0ae7bc_54ee27e9",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "202af135_eafd2036",
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "fb411b16_061d914c",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "875177fd_d8cc1238",
+      "range": {
+        "startLine": 25,
+        "startChar": 43,
+        "endLine": 25,
+        "endChar": 50
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b21033e1_b7851fc6",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 5
@@ -177,6 +339,30 @@
       "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff60d603_1a36b250",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b21033e1_b7851fc6",
+      "range": {
+        "startLine": 29,
+        "startChar": 53,
+        "endLine": 29,
+        "endChar": 65
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "7ccad160_0c814662",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c329794d_5dce18db",
+      "range": {
+        "startLine": 32,
+        "startChar": 53,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2255b688_b4fbab46",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 5
@@ -217,6 +427,24 @@
       "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a38415d_eca01e45",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2255b688_b4fbab46",
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -243,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "4e0c1966_c5995d4f",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2854ae2_44ddb661",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 22
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cedc86c1_1de4c6a9",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 5
@@ -266,6 +518,30 @@
     },
     {
       "key": {
+        "uuid": "317d7a71_2c65fe50",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cedc86c1_1de4c6a9",
+      "range": {
+        "startLine": 102,
+        "startChar": 30,
+        "endLine": 102,
+        "endChar": 42
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f55ff14d_8544d325",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 5
@@ -277,6 +553,30 @@
       "writtenOn": "2018-01-04T22:24:35Z",
       "side": 1,
       "message": "I thought you granted permissions at the intent level.  Something like:\n\nhttps://cs.chromium.org/chromium/src/chrome/android/java/src/org/chromium/chrome/browser/share/ShareHelper.java?q\u003dGRANT_READ\u0026sq\u003dpackage:chromium\u0026l\u003d612\n\nThis is granting read uri permissions to more apps than needed, and it would be best to only provide this to a single app that uses this.\n\nIs the problem that we\u0027re not calling setData w/ the URI so that doesn\u0027t work?  I\u0027d love if Android had a solution for passing multiple URIs in a bundle that are granted permission, but I think you\u0027d need to reach out to them to discuss.",
+      "range": {
+        "startLine": 107,
+        "startChar": 27,
+        "endLine": 107,
+        "endChar": 57
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86d09149_71d08139",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Yes, AFAIK Android will grant two types of uri data in an Intent: 1) setData for single uri and 2) setClipData for multiple uris like here: https://stackoverflow.com/questions/35623421/share-multiple-uri-to-email-whatsapp. We could use the second options but that means we should accumulate all uris together in clipdata instead of allow each bound with a custom data entity (like BrowserActionsItem). And for CCT, it has images for multiple parts (bottom bar, toolbar and etc), if we use clipData, that means we need to hardcode the sequence of uris in clipdata?\n\nAnother reason is those two way grant permission through intent, if we do in that way, we need to have more apis to deal with accumulating all uris to clipdata and populate them into intent, I feel this create more effort for developers.",
+      "parentUuid": "f55ff14d_8544d325",
       "range": {
         "startLine": 107,
         "startChar": 27,
@@ -312,6 +612,30 @@
     },
     {
       "key": {
+        "uuid": "2a92d97e_27db9e18",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "\u003e One thing to keep in mind is that you can actually exhaust the threads in the thread pool and this will crash.  I wonder if we should allow an Executor to be passed in (as a separate API).  We might also want to consider capping the max number of executables we run at any given point to some smallish number (say 5?).\n\nIf we need our own Executor, it is better to have it as a static field and directly initialized in this class, so this could reduce the effort for developer? \n\nAlso I am wondering does Chrome has something similar that caps the max number of executor? I am assuming it should use ExecutorService? But I don\u0027t see any reference about how to use AsyncTask on ExecutorService.\n\nAlso looks like the THREAD_POOL_EXECUTOR has the number of executor limitation here: https://cs.corp.google.com/piper///depot/google3/third_party/java_src/j2objc/jre_emul/android/frameworks/base/core/java/android/os/AsyncTask.java?rcl\u003d146278073\u0026l\u003d181. Does it not enough to prevent running out of thread pool?",
+      "parentUuid": "72fd4dff_c22caeea",
+      "range": {
+        "startLine": 111,
+        "startChar": 49,
+        "endLine": 111,
+        "endChar": 69
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0b0a01d0_33709d9f",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 5
@@ -323,6 +647,30 @@
       "writtenOn": "2018-01-04T22:24:35Z",
       "side": 1,
       "message": "FileProvider.getUriForFile does a fair bit more.  Is it because it parses the filepaths.xml and other things where this does not?  Would be good to double check all the logic there to make sure we\u0027re not doing anything we shouldn\u0027t and exposing data that isn\u0027t allowed.",
+      "range": {
+        "startLine": 115,
+        "startChar": 23,
+        "endLine": 115,
+        "endChar": 34
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e78cecd_40e1473c",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "FileProvider.getUriForFile would load the filepaths.xml to map the name of sub directory with the uri prefix. Then it gets getCanonicalPath of file and check whether the path match the name of sub directory and if so, generate the uri with corresponding prefix. So it automatically makes sure the file saved path is consistent with setting in filepaths.xml.\n\nFor us here, we just manually make sure they are consistent. This skips loading the filepaths.xml but it should be fine because every time FileProvider tries to get info from it, it first check whether file has been loaded, and if not, it load the file first: https://cs.corp.google.com/aosp-jb/frameworks/support/v4/java/android/support/v4/content/FileProvider.java?rcl\u003debe553393fdbc38d1abb9382cfa7076dc6aae973\u0026l\u003d213.",
+      "parentUuid": "0b0a01d0_33709d9f",
       "range": {
         "startLine": 115,
         "startChar": 23,
@@ -358,6 +706,30 @@
     },
     {
       "key": {
+        "uuid": "8bf58e8d_ab5b147d",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Ops, I guess this is not needed anymore.",
+      "parentUuid": "b86126b3_3a32bf97",
+      "range": {
+        "startLine": 134,
+        "startChar": 23,
+        "endLine": 134,
+        "endChar": 27
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ce887465_532c4325",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 5
@@ -378,6 +750,30 @@
       "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc1ece2a_f4724186",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce887465_532c4325",
+      "range": {
+        "startLine": 138,
+        "startChar": 16,
+        "endLine": 138,
+        "endChar": 26
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -404,6 +800,30 @@
     },
     {
       "key": {
+        "uuid": "3087efe7_1df0719f",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1af43be_0137a72d",
+      "range": {
+        "startLine": 149,
+        "startChar": 25,
+        "endLine": 149,
+        "endChar": 31
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3661a0e7_8866b19b",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
         "patchSetId": 5
@@ -424,6 +844,30 @@
       "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d5fbd00_07029065",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3661a0e7_8866b19b",
+      "range": {
+        "startLine": 19,
+        "startChar": 7,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -450,6 +894,30 @@
     },
     {
       "key": {
+        "uuid": "e2707275_04c26ef7",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53a3af53_63c46369",
+      "range": {
+        "startLine": 21,
+        "startChar": 25,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "115310d8_81467a19",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
         "patchSetId": 5
@@ -470,6 +938,30 @@
       "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80052c34_0e84ae97",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "115310d8_81467a19",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -496,6 +988,30 @@
     },
     {
       "key": {
+        "uuid": "ef7ff9f8_f0370f7b",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7543334d_0bedf8c9",
+      "range": {
+        "startLine": 36,
+        "startChar": 14,
+        "endLine": 36,
+        "endChar": 26
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5f1ea6c_2f99ae3e",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
         "patchSetId": 5
@@ -516,6 +1032,30 @@
       "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5fb784f_e197148b",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-05T01:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5f1ea6c_2f99ae3e",
+      "range": {
+        "startLine": 62,
+        "startChar": 14,
+        "endLine": 62,
+        "endChar": 18
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
