@@ -67,6 +67,12 @@ public class BrowserActionsIntent {
     public static final String KEY_ICON_ID = "androidx.browser.browseractions.ICON_ID";
 
     /**
+     * Extra {@link Uri} that specifies location of file for the icon of a custom item shown in the
+     * Browser Actions menu.
+     */
+    public static final String KEY_ICON_URI = "androidx.browser.browseractions.ICON_URI";
+
+    /**
      * Extra string that specifies the title of a custom item shown in the Browser Actions menu.
      */
     public static final String KEY_TITLE = "androidx.browser.browseractions.TITLE";
@@ -236,6 +242,7 @@ public class BrowserActionsIntent {
             bundle.putString(KEY_TITLE, item.getTitle());
             bundle.putParcelable(KEY_ACTION, item.getAction());
             if (item.getIconId() != 0) bundle.putInt(KEY_ICON_ID, item.getIconId());
+            if (item.getIconUri() != null) bundle.putParcelable(KEY_ICON_URI, item.getIconUri());
             return bundle;
         }
 
@@ -328,7 +335,7 @@ public class BrowserActionsIntent {
      * @param context The context requesting for a Browser Actions menu.
      * @return List of Browser Actions providers available to handle the intent.
      */
-    private static List<ResolveInfo> getBrowserActionsIntentHandlers(Context context) {
+    public static List<ResolveInfo> getBrowserActionsIntentHandlers(Context context) {
         Intent intent =
                 new Intent(BrowserActionsIntent.ACTION_BROWSER_ACTIONS_OPEN, Uri.parse(TEST_URL));
         PackageManager pm = context.getPackageManager();
@@ -366,16 +373,22 @@ public class BrowserActionsIntent {
         List<BrowserActionItem> mActions = new ArrayList<>();
         for (int i = 0; i < bundles.size(); i++) {
             Bundle bundle = bundles.get(i);
-            String title = bundle.getString(BrowserActionsIntent.KEY_TITLE);
-            PendingIntent action = bundle.getParcelable(BrowserActionsIntent.KEY_ACTION);
+            String title = bundle.getString(KEY_TITLE);
+            PendingIntent action = bundle.getParcelable(KEY_ACTION);
             @DrawableRes
-            int iconId = bundle.getInt(BrowserActionsIntent.KEY_ICON_ID);
-            if (TextUtils.isEmpty(title) || action == null) {
+            int iconId = bundle.getInt(KEY_ICON_ID);
+            Uri iconUri = bundle.getParcelable(KEY_ICON_URI);
+            if (!TextUtils.isEmpty(title) && action != null) {
+                BrowserActionItem item;
+                if (iconId != 0) {
+                    item = new BrowserActionItem(title, action, iconId);
+                } else {
+                    item = new BrowserActionItem(title, action, iconUri);
+                }
+                mActions.add(item);
+            } else {
                 throw new IllegalArgumentException(
                         "Custom item should contain a non-empty title and non-null intent.");
-            } else {
-                BrowserActionItem item = new BrowserActionItem(title, action, iconId);
-                mActions.add(item);
             }
         }
         return mActions;
