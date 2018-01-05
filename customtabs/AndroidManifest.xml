@@ -18,8 +18,8 @@
     <uses-sdk android:minSdkVersion="16"/>
     <application>
         <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="android.support.customtabs.fileprovider"
+            android:name="android.support.customtabs.browseractions.BrowserServiceFileProvider"
+            android:authorities="{{ applicationId }}.image_provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
