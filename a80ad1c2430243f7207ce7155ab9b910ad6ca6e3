@@ -824,6 +824,30 @@
     },
     {
       "key": {
+        "uuid": "0cf80c85_aae68be9",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-08T22:58:00Z",
+      "side": 1,
+      "message": "I was thinking that it shouldn\u0027t happen in the event of an InterruptedException.  We could conceivably try to wait an X number of times before failing.  I think if we fail here, we actually don\u0027t want the file provider to start reading the file, we actually want to have it return null as if the file didn\u0027t exist.",
+      "parentUuid": "3087efe7_1df0719f",
+      "range": {
+        "startLine": 149,
+        "startChar": 25,
+        "endLine": 149,
+        "endChar": 31
+      },
+      "revId": "a80ad1c2430243f7207ce7155ab9b910ad6ca6e3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3661a0e7_8866b19b",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceImageReadTask.java",
         "patchSetId": 5
