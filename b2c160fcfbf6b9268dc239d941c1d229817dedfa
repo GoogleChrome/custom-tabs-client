@@ -187,6 +187,30 @@
       "revId": "b2c160fcfbf6b9268dc239d941c1d229817dedfa",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a1933d4_8721de43",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-09T22:42:52Z",
+      "side": 1,
+      "message": "But what is preventing simultaneous reads, writes of the sUriLockMap?  How are you sure that you\u0027re not adding the lock after the call above calls .contains and it returns false?",
+      "parentUuid": "9f81f5b2_37fda163",
+      "range": {
+        "startLine": 172,
+        "startChar": 12,
+        "endLine": 172,
+        "endChar": 23
+      },
+      "revId": "b2c160fcfbf6b9268dc239d941c1d229817dedfa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
