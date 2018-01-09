@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "63468cce_68f63669",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-09T19:29:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57518566_50801e9a",
+      "range": {
+        "startLine": 214,
+        "startChar": 52,
+        "endLine": 214,
+        "endChar": 62
+      },
+      "revId": "b2c160fcfbf6b9268dc239d941c1d229817dedfa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f257b70_736cde83",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "b2c160fcfbf6b9268dc239d941c1d229817dedfa",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aafe81ec_39620c31",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-09T19:29:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f257b70_736cde83",
+      "range": {
+        "startLine": 121,
+        "startChar": 22,
+        "endLine": 121,
+        "endChar": 33
+      },
+      "revId": "b2c160fcfbf6b9268dc239d941c1d229817dedfa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c8166339_b8ce0596",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-09T19:29:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9532660c_dcd1c534",
+      "range": {
+        "startLine": 170,
+        "startChar": 12,
+        "endLine": 170,
+        "endChar": 32
+      },
+      "revId": "b2c160fcfbf6b9268dc239d941c1d229817dedfa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2637bfba_b396f890",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2018-01-08T22:58:00Z",
       "side": 1,
       "message": "what thread does this run on?  I thought this usually wasn\u0027t on the UI thread, but the above lock interaction happens in onPostExecute, which is on the UI thread.",
+      "range": {
+        "startLine": 172,
+        "startChar": 12,
+        "endLine": 172,
+        "endChar": 23
+      },
+      "revId": "b2c160fcfbf6b9268dc239d941c1d229817dedfa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f81f5b2_37fda163",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-09T19:29:22Z",
+      "side": 1,
+      "message": "This should be run on worker thread. It is called by openFile() which is called by ContentResolver.openFileDescriptor(). And that function is called by our ReadTask class in doInBackground. The UI thread interaction is only to check whether there is a lock and if so, notify to release it.",
+      "parentUuid": "2637bfba_b396f890",
       "range": {
         "startLine": 172,
         "startChar": 12,
