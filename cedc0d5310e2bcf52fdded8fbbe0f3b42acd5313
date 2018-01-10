@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a22c143_81e9bb18",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-10T23:15:43Z",
+      "side": 1,
+      "message": "take a look at the GuardedBy annotation to further make this explicit (and hopefully prevent regressions if app compat runs error prone)",
+      "range": {
+        "startLine": 56,
+        "startChar": 28,
+        "endLine": 56,
+        "endChar": 48
+      },
+      "revId": "cedc0d5310e2bcf52fdded8fbbe0f3b42acd5313",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "233407ee_89b5dff4",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-10T23:15:43Z",
+      "side": 1,
+      "message": "To me, this looks like it would still have a potential race condition.\n\nBy the time we wait on lock, it seems like the insert code above could have called notify on it.\n\nThe above insert code could have evaluated it\u0027s entire onPostExecute block between the synchronized block immediately above this and the try.\n\nI wonder if we could using the counting logic of a Semaphore here to help or another option (rather gross though) would be to wait on the sLockMapLock and then do that in a loop until your condition is met.",
+      "range": {
+        "startLine": 182,
+        "startChar": 17,
+        "endLine": 182,
+        "endChar": 21
+      },
+      "revId": "cedc0d5310e2bcf52fdded8fbbe0f3b42acd5313",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
