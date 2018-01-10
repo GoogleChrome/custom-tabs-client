@@ -211,6 +211,30 @@
       "revId": "b2c160fcfbf6b9268dc239d941c1d229817dedfa",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb448d8a_a19386a2",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-10T00:32:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a1933d4_8721de43",
+      "range": {
+        "startLine": 172,
+        "startChar": 12,
+        "endLine": 172,
+        "endChar": 23
+      },
+      "revId": "b2c160fcfbf6b9268dc239d941c1d229817dedfa",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
