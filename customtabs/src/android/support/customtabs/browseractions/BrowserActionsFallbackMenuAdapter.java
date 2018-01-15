@@ -18,6 +18,7 @@ package android.support.customtabs.browseractions;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.customtabs.R;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;

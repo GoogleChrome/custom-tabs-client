@@ -64,7 +64,7 @@ public class BrowserActionsFallbackMenuDialog extends Dialog {
         startAnimation(false);
     }
 
-    private void startAnimation(boolean isEnterAnimation) {
+    private void startAnimation(final boolean isEnterAnimation) {
         float from = isEnterAnimation ? 0f : 1f;
         float to = isEnterAnimation ? 1f : 0f;
         long duration = isEnterAnimation ? ENTER_ANIMATION_DURATION_MS : EXIT_ANIMATION_DURATION_MS;

@@ -17,6 +17,7 @@
 package android.support.customtabs.browseractions;
 
 import android.content.Context;
+import android.support.customtabs.R;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 

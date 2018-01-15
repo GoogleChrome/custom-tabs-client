@@ -20,6 +20,7 @@ import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
 import android.content.Context;
 import android.net.Uri;
+import android.support.customtabs.R;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -69,7 +70,7 @@ public class BrowserActionsFallbackMenuUi implements AdapterView.OnItemClickList
         BrowserActionsFallbackMenuView menuView =
                 (BrowserActionsFallbackMenuView) view.findViewById(R.id.browser_actions_menu_view);
 
-        TextView urlTextView = (TextView) view.findViewById(R.id.browser_actions_header_text);
+        final TextView urlTextView = (TextView) view.findViewById(R.id.browser_actions_header_text);
         urlTextView.setText(mUri.toString());
         urlTextView.setOnClickListener(new View.OnClickListener() {
             @Override
