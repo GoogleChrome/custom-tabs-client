@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e73b7a90_8b5b39f1",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-17T23:20:33Z",
+      "side": 1,
+      "message": "Another potentially nefarious case, but what happens if two callers query at the same time?  Would that dead lock the first adder of the sempahore as it would be overridden?\n\nI wonder if we used something like:\nhttps://developer.android.com/reference/java/util/concurrent/Semaphore.html#getQueueLength()\nor\nhttps://developer.android.com/reference/java/util/concurrent/Semaphore.html#hasQueuedThreads()\n\nTo do a bigger release of permits.  We could conceptually just call release with MAX_INT above and handle that case if we expected that to never happen (and we\u0027d never rewrite the semaphore here).\n\nAnother thing to investigate is whether this would be better:\nhttps://developer.android.com/reference/java/util/concurrent/locks/ReentrantReadWriteLock.html\n\nDoes that give better control conceptually of this?  Haven\u0027t done any investigation and I think we could likely avoid it by doing the larger calls of release(...) but it would be good to investigate that quickly as another foundational component of the concurrent library in java.",
+      "revId": "be509f0d90b9f48b65779cec5b524fb28be89ea0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
