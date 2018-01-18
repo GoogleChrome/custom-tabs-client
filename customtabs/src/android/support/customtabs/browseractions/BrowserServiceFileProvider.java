@@ -202,7 +202,7 @@ public class BrowserServiceFileProvider extends FileProvider {
         try {
             semaphore.acquire();
         } catch (InterruptedException e) {
-            Log.e(TAG, "Interrupt waiting for file: :" + fileUri.toString());
+            Log.e(TAG, "Interrupt waiting for file: " + fileUri.toString());
         } finally {
             synchronized (sLockMapLock) {
                 sUriLockMap.remove(fileUri);
