@@ -16,6 +16,24 @@
       "revId": "be509f0d90b9f48b65779cec5b524fb28be89ea0",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0c7d837_f22afa7b",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-18T01:33:10Z",
+      "side": 1,
+      "message": "ReentrantReadWriteLock seems has no way to block until write is finished and Semaphore#getQueueLength() does not work because acquire is out the synchronized block.\n\nI use negative permit number to indicate how many threads are waiting and when write finishes, flip the permit number to positive so all waiting threads can access.\n\nAnother options is release enough MAX_INT.",
+      "parentUuid": "e73b7a90_8b5b39f1",
+      "revId": "be509f0d90b9f48b65779cec5b524fb28be89ea0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
