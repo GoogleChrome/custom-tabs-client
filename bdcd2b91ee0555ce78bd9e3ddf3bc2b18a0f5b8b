@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "794a0583_34ca4a3a",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-19T00:20:26Z",
+      "side": 1,
+      "message": "I wouldn\u0027t take any params and just pass our values to the constructor always (0, true)",
+      "range": {
+        "startLine": 65,
+        "startChar": 34,
+        "endLine": 65,
+        "endChar": 37
+      },
+      "revId": "bdcd2b91ee0555ce78bd9e3ddf3bc2b18a0f5b8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20e65a81_acb3cb50",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-19T00:20:26Z",
+      "side": 1,
+      "message": "I think I\u0027d be tempted to make this api clearer for the rest of the class.\n\nI would have methods like:\n\nnotifyAllBlockingFiles() {\n    release(-2 * availablePermits());\n}\n\nincrementBlockingFileCount() {\n    reducePermits(1);\n}\n\nI think it would make it easier to read like that.",
+      "revId": "bdcd2b91ee0555ce78bd9e3ddf3bc2b18a0f5b8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3404d5a_d4e88540",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-19T00:20:26Z",
+      "side": 1,
+      "message": "I\u0027m not sure I trust availablePermits more than getQueueLength.  I suspect they\u0027re both racey based on the comments being similar.\n\navaialblePermits mentions being \"This method is typically used for debugging and testing purposes.\"\n\nAlthough it doesn\u0027t have the scarier comment of getQueueLength \"The value is only an estimate because the number of threads may change dynamically while this method traverses internal data structures. This method is designed for use in monitoring system state, not for synchronization control.\"\n\nOh...that being said, we are inside the map lock below so we\u0027d expect the increment/decrement to be complete by here.  Ok, so maybe this is just fine.",
+      "range": {
+        "startLine": 101,
+        "startChar": 43,
+        "endLine": 101,
+        "endChar": 59
+      },
+      "revId": "bdcd2b91ee0555ce78bd9e3ddf3bc2b18a0f5b8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40ec09db_37f800d6",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-01-19T00:20:26Z",
+      "side": 1,
+      "message": "shouldn\u0027t this go into the top if block?  Don\u0027t we want to leave this at 0 when creating it initially.\n\nI think based on reading further that this is explicitly needed here so nvm.",
+      "range": {
+        "startLine": 200,
+        "startChar": 22,
+        "endLine": 200,
+        "endChar": 35
+      },
+      "revId": "bdcd2b91ee0555ce78bd9e3ddf3bc2b18a0f5b8b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
