@@ -1,0 +1,301 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5225acf2_98598b66",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "I\u0027m not sure a semaphore is the right way to go here.\n\nCould you instead use a CountDownLatch? You\u0027d initialize it with new CountDownLatch(1) in the constructor, and then an arbitrary number of threads can wait for the task to finish. You could rename this class slightly to better represent the underlying structure, maybe something like UriAccessLatch?",
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b32fdf5b_d2ddf584",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "super(1) if you use CountDownLatch?",
+      "range": {
+        "startLine": 66,
+        "startChar": 18,
+        "endLine": 66,
+        "endChar": 25
+      },
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ec2057e_c86fb502",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "Remove this method? It just calls super.",
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d97f215f_be7819b9",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "Maybe just invoke countDown() here?",
+      "range": {
+        "startLine": 75,
+        "startChar": 20,
+        "endLine": 75,
+        "endChar": 43
+      },
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32ce0c0a_caa4c644",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this if you use a CountDownLatch.",
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d021fff_a27bc5f1",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "Delete this line?",
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b4b4e1f_42afc37e",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "Optional: saveFileBlocking",
+      "range": {
+        "startLine": 116,
+        "startChar": 24,
+        "endLine": 116,
+        "endChar": 32
+      },
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "555c85cb_1e6fa2f5",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "Optional: saveFileIfNeededBlocking",
+      "range": {
+        "startLine": 128,
+        "startChar": 21,
+        "endLine": 128,
+        "endChar": 37
+      },
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dea4764_2ed5c659",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "So, this is inherently unsafe if you call generateUri(...) with the same name and version, but not the same bitmap, since the Bitmap is not part of the URI or filename. Is that intentional?",
+      "range": {
+        "startLine": 132,
+        "startChar": 12,
+        "endLine": 132,
+        "endChar": 45
+      },
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bde2a596_a853a2a1",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to be a strict guarantee with your API right now.",
+      "range": {
+        "startLine": 143,
+        "startChar": 47,
+        "endLine": 144,
+        "endChar": 30
+      },
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4af58f16_5803f547",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "Do you want to check the return value here to see if this process had already started? Or is it intentional that an arbitrary of the files get saved in case name and version are the same?",
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd8f5d5b_20bb973a",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this in the world of using CountDownLatch.",
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd708082_de684e5f",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "Here you\u0027d invoke latch.await();.",
+      "range": {
+        "startLine": 211,
+        "startChar": 12,
+        "endLine": 211,
+        "endChar": 29
+      },
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc3af1bb_5c1b4d3d",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "Nit: Maybe add a comment here that this will happen N times, depending on how many threads are waiting, but that it\u0027s OK to do this operation many times?",
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60c677cc_55d85d9f",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-19T02:33:19Z",
+      "side": 1,
+      "message": "Conceptually, if you kick this process off again from the generateUri(...) with the same input data, except bitmap, at the exact time as the await() call above has finished for the previous call, but before we get to remove it from the map, and then in addition someone at the exact same time queries or tries to open the file, we might try to wait for the current latch instead of creating a new one, even though it will be removed while the new background task is running. I\u0027m not sure if that\u0027s something you\u0027d want to worry about? It seems far-fetched.",
+      "revId": "e0dfc9300a014e6323b3f3637cd19ff57520fa11",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
