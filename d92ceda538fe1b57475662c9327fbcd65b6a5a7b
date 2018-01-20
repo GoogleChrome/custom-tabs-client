@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02a8634a_7f76408f",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-20T00:20:53Z",
+      "side": 1,
+      "message": "No-one reads the result of this. You already log an error. Do you need to return a boolean here?",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 97,
+        "endChar": 40
+      },
+      "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7cc8ee4_cbc5a1ab",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-20T00:20:53Z",
+      "side": 1,
+      "message": "See comment on previous patch set about a far fetched scenario, but technically, I think it might be better to at least use AtomicFile here on SDK 22+, to ensure that you\u0027ll get a fully written file in case the edge case happens.\n\nSee https://developer.android.com/reference/android/support/v4/util/AtomicFile.html for details.",
+      "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "494f7591_a03f4518",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-20T00:20:53Z",
+      "side": 1,
+      "message": "Do you want to continue this pattern to ensure some of the other methods are not invoked on the main thread? For example openFile(...) and query(...) doesn\u0027t seem like great candidates for invoking from the main thread?",
+      "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b99ae8a_1867431c",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-20T00:20:53Z",
+      "side": 1,
+      "message": "If InterruptedException is thrown on the thread, do you still want to try to invoke super.openFile(...) or super.query(...)? I\u0027m not sure what else you\u0027d do though. The documentation for FileProvider says it returns a cursor, but it also refers to ContentProvider.query(...) which allows returning |null| from a query.\n\nFor openFile(...) it says it returns a new ParcelFileDescriptor, but it\u0027s allowed to throw FileNotFoundException.\n\nAgain, I\u0027m not sure what the best course of action here. I guess as long as you document it, whatever you choose is fine?",
+      "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5761511_41f66c60",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-20T00:20:53Z",
+      "side": 1,
+      "message": "Nit: Remove the second \":\" here?",
+      "range": {
+        "startLine": 196,
+        "startChar": 52,
+        "endLine": 196,
+        "endChar": 53
+      },
+      "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
