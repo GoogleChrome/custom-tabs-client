@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3ed9fb77_671f2ee0",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-22T19:43:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02a8634a_7f76408f",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 97,
+        "endChar": 40
+      },
+      "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7cc8ee4_cbc5a1ab",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 13
@@ -39,6 +63,24 @@
       "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "756292e0_f426ab2c",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-22T19:43:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7cc8ee4_cbc5a1ab",
+      "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "8174dbc4_de9ebf96",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-22T19:43:21Z",
+      "side": 1,
+      "message": "Yes, openFile(...) and query(...) should not be run on main thread. I didn\u0027t add the annotation originally because they are the override functions so I am assuming the FileProvider class had done this. But double check the class and it seems FileProvider does not, so add the @WorkerThread annotation to guard them invoked on the main thread.",
+      "parentUuid": "494f7591_a03f4518",
+      "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3b99ae8a_1867431c",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 13
@@ -70,6 +130,24 @@
       "writtenOn": "2018-01-20T00:20:53Z",
       "side": 1,
       "message": "If InterruptedException is thrown on the thread, do you still want to try to invoke super.openFile(...) or super.query(...)? I\u0027m not sure what else you\u0027d do though. The documentation for FileProvider says it returns a cursor, but it also refers to ContentProvider.query(...) which allows returning |null| from a query.\n\nFor openFile(...) it says it returns a new ParcelFileDescriptor, but it\u0027s allowed to throw FileNotFoundException.\n\nAgain, I\u0027m not sure what the best course of action here. I guess as long as you document it, whatever you choose is fine?",
+      "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5e09e26_aa40c700",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-22T19:43:21Z",
+      "side": 1,
+      "message": "I guess you are right, if await() is interrupted, literally we should not call super functions. (though I am not sure what could cause await() being interrupted). For query(...), maybe it is better to directly return null; for openFile(...), we can directly throw FileNotFoundException?",
+      "parentUuid": "3b99ae8a_1867431c",
       "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -96,6 +174,30 @@
       "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c3b52b6_cb936a23",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-22T19:43:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5761511_41f66c60",
+      "range": {
+        "startLine": 196,
+        "startChar": 52,
+        "endLine": 196,
+        "endChar": 53
+      },
+      "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
