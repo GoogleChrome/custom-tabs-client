@@ -119,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "a5d3e953_4a85d8dc",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-23T21:42:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8174dbc4_de9ebf96",
+      "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b99ae8a_1867431c",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 13
@@ -151,6 +169,24 @@
       "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40329d85_d6569664",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-23T21:42:16Z",
+      "side": 1,
+      "message": "Yeah, I don\u0027t know what\u0027s expected here really, but this looks reasonable to me as long as callers are OK with that exception and returning null.",
+      "parentUuid": "d5e09e26_aa40c700",
+      "revId": "d92ceda538fe1b57475662c9327fbcd65b6a5a7b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {

@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba7f0855_721c7d7f",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-23T21:42:16Z",
+      "side": 1,
+      "message": "Nit: Could you add a comment describing this field and how it\u0027s used?",
+      "revId": "003e55a4fc9017f0025f9fdc87d923af5d7cfa8c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc2e6a43_066241d2",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-23T21:42:16Z",
+      "side": 1,
+      "message": "Optional: \"sFilesInSer...\"?",
+      "range": {
+        "startLine": 62,
+        "startChar": 28,
+        "endLine": 62,
+        "endChar": 48
+      },
+      "revId": "003e55a4fc9017f0025f9fdc87d923af5d7cfa8c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53153c69_2795f614",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002237
+      },
+      "writtenOn": "2018-01-23T21:42:16Z",
+      "side": 1,
+      "message": "Nit: Could you add a comment describing this field and how it\u0027s used?",
+      "revId": "003e55a4fc9017f0025f9fdc87d923af5d7cfa8c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
