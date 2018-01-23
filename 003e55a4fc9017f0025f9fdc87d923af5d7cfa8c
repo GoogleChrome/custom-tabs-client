@@ -42,6 +42,48 @@
     },
     {
       "key": {
+        "uuid": "20f3bb35_7837b42a",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-23T23:35:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc2e6a43_066241d2",
+      "range": {
+        "startLine": 62,
+        "startChar": 28,
+        "endLine": 62,
+        "endChar": 48
+      },
+      "revId": "003e55a4fc9017f0025f9fdc87d923af5d7cfa8c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb5d91d2_4b228737",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-23T23:35:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba7f0855_721c7d7f",
+      "revId": "003e55a4fc9017f0025f9fdc87d923af5d7cfa8c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53153c69_2795f614",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 14
@@ -56,6 +98,24 @@
       "revId": "003e55a4fc9017f0025f9fdc87d923af5d7cfa8c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ef52bf8_03f0b490",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-01-23T23:35:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53153c69_2795f614",
+      "revId": "003e55a4fc9017f0025f9fdc87d923af5d7cfa8c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
