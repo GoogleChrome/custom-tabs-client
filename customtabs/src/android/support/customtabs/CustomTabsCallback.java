@@ -76,7 +76,7 @@ public class CustomTabsCallback {
      * purposes.
      *
      * @param callbackName Name of the extra callback.
-     * @param args Arguments for the calback
+     * @param args Arguments for the callback
      */
     public void extraCallback(String callbackName, Bundle args) {}
 
