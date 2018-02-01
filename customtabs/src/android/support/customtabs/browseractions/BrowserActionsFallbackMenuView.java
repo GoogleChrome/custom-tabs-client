@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright (C) 2017 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,13 @@
 
 package android.support.customtabs.browseractions;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
-
 import android.content.Context;
-import android.support.annotation.RestrictTo;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
 /**
  * The class responsible for deciding the size of Browser Actions context menu.
  */
-/** @hide */
-@RestrictTo(LIBRARY_GROUP)
 public class BrowserActionsFallbackMenuView extends LinearLayout {
     private final int mBrowserActionsMenuMinPaddingPx;
     private final int mBrowserActionsMenuMaxWidthPx;

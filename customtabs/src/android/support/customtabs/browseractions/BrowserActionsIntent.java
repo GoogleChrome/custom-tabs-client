@@ -27,7 +27,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
-import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
@@ -156,15 +155,6 @@ public class BrowserActionsIntent {
     private BrowserActionsIntent(@NonNull Intent intent) {
         this.mIntent = intent;
     }
-
-    /** @hide */
-    @VisibleForTesting
-    @RestrictTo(LIBRARY_GROUP)
-    interface BrowserActionsFallDialogListener {
-        void onDialogShown();
-    }
-
-    private static BrowserActionsFallDialogListener sDialogListenter;
 
     /**
      * Builder class for opening a Browser Actions context menu.
@@ -322,13 +312,6 @@ public class BrowserActionsIntent {
      */
     public static void launchIntent(Context context, Intent intent) {
         List<ResolveInfo> handlers = getBrowserActionsIntentHandlers(context);
-        launchIntent(context, intent, handlers);
-    }
-
-    /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
-    @VisibleForTesting
-    static void launchIntent(Context context, Intent intent, List<ResolveInfo> handlers) {
         if (handlers == null || handlers.size() == 0) {
             openFallbackBrowserActionsMenu(context, intent);
             return;
@@ -373,13 +356,6 @@ public class BrowserActionsIntent {
         openFallbackBrowserActionsMenu(context, uri, type, items);
     }
 
-    /** @hide */
-    @RestrictTo(LIBRARY_GROUP)
-    @VisibleForTesting
-    static void setDialogShownListenter(BrowserActionsFallDialogListener dialogListener) {
-        sDialogListenter = dialogListener;
-    }
-
     /**
      * Open a Browser Actions menu from support library.
      * @param context The context requesting for a Browser Actions menu.
@@ -392,9 +368,6 @@ public class BrowserActionsIntent {
         BrowserActionsFallbackMenuUi menuUi =
                 new BrowserActionsFallbackMenuUi(context, uri, menuItems);
         menuUi.displayMenu();
-        if (sDialogListenter != null) {
-            sDialogListenter.onDialogShown();
-        }
     }
 
     /**
