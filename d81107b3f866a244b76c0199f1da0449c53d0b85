@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "70e0bd5b_32918263",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-02-06T21:53:40Z",
+      "side": 1,
+      "message": "That was based on my suggestion.   My thinking was that if we fail to clean up files, we should attempt to do it again to avoid an app directory from being polluted with junk.\n\nMaybe a better compromise would be move the cleanup timestamp forward a \"bit\", but not defer the next cleanup attempt for a week?  Maybe we should allow another cleanup in an hour?  Maybe a day?",
+      "parentUuid": "9e9292c4_cea6d299",
+      "range": {
+        "startLine": 111,
+        "startChar": 17,
+        "endLine": 111,
+        "endChar": 0
+      },
+      "revId": "d81107b3f866a244b76c0199f1da0449c53d0b85",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c248371d_b32dace1",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 3
