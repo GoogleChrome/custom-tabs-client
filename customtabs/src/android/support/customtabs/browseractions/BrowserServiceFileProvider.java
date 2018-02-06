@@ -19,6 +19,9 @@ import android.content.ClipData;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -43,6 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The class to pass images asynchronously between different applications.
@@ -58,6 +62,7 @@ public class BrowserServiceFileProvider extends FileProvider {
     private static final String FILE_SUB_DIR_NAME = "image_provider_images/";
     private static final String FILE_EXTENSION = ".png";
     private static final String CLIP_DATA_LABEL = "image_provider_uris";
+    private static final String LAST_CLEANUP_TIME_KEY = "last_cleanup_time";
 
     // A Set tracks the urls whose images are in serialization.
     @GuardedBy("sLatchMapLock")
@@ -71,6 +76,58 @@ public class BrowserServiceFileProvider extends FileProvider {
     @GuardedBy("sLatchMapLock")
     private static Map<Uri, CountDownLatch> sUriLatchMap = new HashMap<>();
     private static Object sLatchMapLock = new Object();
+    private static Object sFileCleanupLock = new Object();
+
+    private static class FileCleanupTask extends AsyncTask<Void, Void, Void> {
+        private final WeakReference<Context> mContextRef;
+        private static final long IMAGE_RETENTION_DURATION = TimeUnit.DAYS.toMillis(7);
+        private static final long CLEANUP_REQUIRED_TIME_SPAN = TimeUnit.DAYS.toMillis(7);
+
+        public FileCleanupTask(WeakReference<Context> contextRef) {
+            super();
+            mContextRef = contextRef;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Context context = mContextRef.get();
+            if (context == null) return null;
+            SharedPreferences pref = context.getSharedPreferences(
+                    context.getPackageName() + AUTHORITY_SUFFIX, Context.MODE_PRIVATE);
+            if (!shouldCleanupFile(pref)) return null;
+            synchronized (sFileCleanupLock) {
+                boolean shouldLogCleanup = true;
+                File path = new File(context.getFilesDir(), FILE_SUB_DIR);
+                if (!path.exists()) return null;
+                File[] files = path.listFiles();
+                long retentionDate = System.currentTimeMillis() - IMAGE_RETENTION_DURATION;
+                for (File file : files) {
+                    if (!isImageFile(file)) continue;
+                    long lastModified = file.lastModified();
+                    if (lastModified < retentionDate && !file.delete()) {
+                        Log.e(TAG, "Fail to delete image: " + file.getAbsoluteFile());
+                        shouldLogCleanup = false;
+                    }
+                }
+                if (shouldLogCleanup) {
+                    Editor editor = pref.edit();
+                    editor.putLong(LAST_CLEANUP_TIME_KEY, System.currentTimeMillis());
+                    editor.apply();
+                }
+            }
+            return null;
+        }
+
+        private boolean isImageFile(File file) {
+            String filename = file.getName();
+            return filename.endsWith("." + FILE_EXTENSION);
+        }
+
+        private boolean shouldCleanupFile(SharedPreferences pref) {
+            long lastCleanup = pref.getLong(LAST_CLEANUP_TIME_KEY, System.currentTimeMillis());
+            return System.currentTimeMillis() > lastCleanup + CLEANUP_REQUIRED_TIME_SPAN;
+        }
+    }
 
     private static class FileSaveTask extends AsyncTask<String, Void, Void> {
         private final WeakReference<Context> mContextRef;
@@ -103,6 +160,7 @@ public class BrowserServiceFileProvider extends FileProvider {
                 sFilesInSerialization.remove(mFileUri);
                 sUriLatchMap.remove(mFileUri);
             }
+            new FileCleanupTask(mContextRef).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
         private void saveFileBlocking(File img) {
@@ -132,9 +190,12 @@ public class BrowserServiceFileProvider extends FileProvider {
         private void saveFileIfNeededBlocking() {
             if (mContextRef.get() == null) return;
             File path = new File(mContextRef.get().getFilesDir(), FILE_SUB_DIR);
-            if (!path.exists()) path.mkdir();
-            File img = new File(path, mFilename + FILE_EXTENSION);
-            if (!img.exists()) saveFileBlocking(img);
+            synchronized (sFileCleanupLock) {
+                if (!path.exists()) path.mkdir();
+                File img = new File(path, mFilename + FILE_EXTENSION);
+                if (!img.exists()) saveFileBlocking(img);
+                img.setLastModified(System.currentTimeMillis());
+            }
         }
     }
 
