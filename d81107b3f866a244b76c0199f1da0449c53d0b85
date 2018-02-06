@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "911b2a93_9b6ada4e",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-06T23:45:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a25e317e_782270af",
+      "range": {
+        "startLine": 109,
+        "startChar": 24,
+        "endLine": 109,
+        "endChar": 40
+      },
+      "revId": "d81107b3f866a244b76c0199f1da0449c53d0b85",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e9292c4_cea6d299",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 3
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "a74870fe_4a605bdb",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-06T23:45:35Z",
+      "side": 1,
+      "message": "So should we have a way that if some images fail to delete, we half the CLEANUP_REQUIRED_TIME_SPAN?",
+      "parentUuid": "70e0bd5b_32918263",
+      "range": {
+        "startLine": 111,
+        "startChar": 17,
+        "endLine": 111,
+        "endChar": 0
+      },
+      "revId": "d81107b3f866a244b76c0199f1da0449c53d0b85",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c248371d_b32dace1",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 3
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "c2ba4e64_7dc7eccc",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-06T23:45:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c248371d_b32dace1",
+      "range": {
+        "startLine": 126,
+        "startChar": 24,
+        "endLine": 126,
+        "endChar": 41
+      },
+      "revId": "d81107b3f866a244b76c0199f1da0449c53d0b85",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "855a9b79_29bc5e4c",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 3
@@ -106,6 +178,30 @@
       "writtenOn": "2018-02-06T20:39:23Z",
       "side": 1,
       "message": "should this use SERIAL_EXECUTOR instead of the thread pool, since we don\u0027t want multiples of this executing independently. That would also avoid the Lock you are using above I think?",
+      "range": {
+        "startLine": 163,
+        "startChar": 63,
+        "endLine": 163,
+        "endChar": 72
+      },
+      "revId": "d81107b3f866a244b76c0199f1da0449c53d0b85",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "385616d2_ca6d55cd",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-06T23:45:35Z",
+      "side": 1,
+      "message": "Yea, the SERIAL_EXECUTOR is better idea, but we might still need to lock, another reason for the lock is try to not do the clean up when some image is in progress of saving.",
+      "parentUuid": "855a9b79_29bc5e4c",
       "range": {
         "startLine": 163,
         "startChar": 63,
