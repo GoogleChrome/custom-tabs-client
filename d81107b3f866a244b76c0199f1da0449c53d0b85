@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "18aa9c7f_4b8759c0",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-02-07T16:51:30Z",
+      "side": 1,
+      "message": "My vote is to start with a day and see if that ever causes us issue.  It still isn\u0027t \"that\" frequent to be obnoxious to apps IMO.",
+      "parentUuid": "4062c684_1d80b9c2",
+      "range": {
+        "startLine": 111,
+        "startChar": 17,
+        "endLine": 111,
+        "endChar": 0
+      },
+      "revId": "d81107b3f866a244b76c0199f1da0449c53d0b85",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c248371d_b32dace1",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
         "patchSetId": 3
