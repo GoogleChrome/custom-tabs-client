@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6ff31c0_6f9ad2b6",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-02-07T21:22:13Z",
+      "side": 1,
+      "message": "I wouldn\u0027t do it this way.  If the app dies, it will still attempt to delete these in less than a day.\n\nI would just set the LAST_CLEANUP_TIME_KEY \u003d System.currentTimeMillis() - DAYS.toMillis(7) + DAYS.toMillis(1).\n\nBasically, we want to push the last successful cleanup a bit into the future to prevent immediate re-running of this if this code is killed and then recalled 5 minutes later.",
+      "range": {
+        "startLine": 110,
+        "startChar": 51,
+        "endLine": 110,
+        "endChar": 59
+      },
+      "revId": "4e528fd4596ed5fced24ab62d5b3ac45d7a3fe80",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
