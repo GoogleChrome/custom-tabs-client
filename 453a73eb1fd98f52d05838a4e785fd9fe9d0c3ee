@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c9d2046_3b8fd945",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-02-08T00:15:34Z",
+      "side": 1,
+      "message": "let\u0027s change this to be\nallFilesDeletedSuccessfully",
+      "range": {
+        "startLine": 109,
+        "startChar": 24,
+        "endLine": 109,
+        "endChar": 50
+      },
+      "revId": "453a73eb1fd98f52d05838a4e785fd9fe9d0c3ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1438eee_1d255bee",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-02-08T00:15:34Z",
+      "side": 1,
+      "message": "I would split this out into multiple lines.  This is a bit too hard to read.\n\nif (allFilesDeletedSuccessfully) {\n    lastCleanUpTime \u003d System.currentTimeMillis();\n} else {\n    lastCleanUpTime \u003d System.currentTimeMillis() - CLEANUP_REQUIRED_TIME_SPAN + \u003cNEW_CONSTANT for DELETION_FAILED_REATTEMPT_DURATION\u003e;\n}\n\nLet\u0027s reuse the other constant and add a new one that we can tweak.",
+      "range": {
+        "startLine": 113,
+        "startChar": 39,
+        "endLine": 113,
+        "endChar": 65
+      },
+      "revId": "453a73eb1fd98f52d05838a4e785fd9fe9d0c3ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
