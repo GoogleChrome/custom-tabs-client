@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6de5d1dc_c3e56e78",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-02-08T22:38:46Z",
+      "side": 1,
+      "message": "space here",
+      "range": {
+        "startLine": 111,
+        "startChar": 15,
+        "endLine": 111,
+        "endChar": 20
+      },
+      "revId": "84dd8c031bb521db8a9bcd94a1dcedfd88f0dfdf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9764aff_9b686669",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-02-08T22:38:46Z",
+      "side": 1,
+      "message": "space here",
+      "range": {
+        "startLine": 115,
+        "startChar": 9,
+        "endLine": 115,
+        "endChar": 0
+      },
+      "revId": "84dd8c031bb521db8a9bcd94a1dcedfd88f0dfdf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42a7bd4f_f5f4314d",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-02-08T22:38:46Z",
+      "side": 1,
+      "message": "space below",
+      "range": {
+        "startLine": 117,
+        "startChar": 8,
+        "endLine": 117,
+        "endChar": 17
+      },
+      "revId": "84dd8c031bb521db8a9bcd94a1dcedfd88f0dfdf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
