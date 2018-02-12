@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "e3adcca9_2e9fa61f",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-02-12T12:36:32Z",
+      "side": 1,
+      "message": "Same comments as the other CL.  Just pull out the title to a final variable and use it in the inner class instead of defining a new class.\n\nUse TextUtils.equals instead.",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 33
+      },
+      "revId": "84dd8c031bb521db8a9bcd94a1dcedfd88f0dfdf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c45cf937_ada19773",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-02-12T12:36:32Z",
+      "side": 1,
+      "message": "Do we really need this method (in the base class)?  Seems like we could just call these methods before calling execute on the async task.",
+      "range": {
+        "startLine": 97,
+        "startChar": 39,
+        "endLine": 97,
+        "endChar": 63
+      },
+      "revId": "84dd8c031bb521db8a9bcd94a1dcedfd88f0dfdf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6de5d1dc_c3e56e78",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
         "patchSetId": 2
