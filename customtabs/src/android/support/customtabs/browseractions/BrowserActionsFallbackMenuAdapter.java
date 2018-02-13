@@ -17,8 +17,11 @@
 package android.support.customtabs.browseractions;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.support.v4.content.res.ResourcesCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,13 +75,32 @@ class BrowserActionsFallbackMenuAdapter extends BaseAdapter {
             viewHolder = (ViewHolderItem) convertView.getTag();
         }
 
-        viewHolder.mText.setText(menuItem.getTitle());
+        final String titleText = menuItem.getTitle();
+        viewHolder.mText.setText(titleText);
         if (menuItem.getIconId() != 0) {
             Drawable drawable = ResourcesCompat.getDrawable(
                     mContext.getResources(), menuItem.getIconId(), null);
             viewHolder.mIcon.setImageDrawable(drawable);
+        } else if (menuItem.getIconUri() != null) {
+            BrowserServiceImageReadTask task =
+                    new BrowserServiceImageReadTask(mContext.getContentResolver()) {
+                        @Override
+                        protected void onBitmapFileReady(Bitmap bitmap) {
+                            // ViewHolder has been reused by other item.
+                            if (!TextUtils.equals(titleText, viewHolder.mText.getText())) return;
+                            if (bitmap != null) {
+                                viewHolder.mIcon.setVisibility(View.VISIBLE);
+                                viewHolder.mIcon.setImageBitmap(bitmap);
+                            } else {
+                                viewHolder.mIcon.setVisibility(View.INVISIBLE);
+                                viewHolder.mIcon.setImageBitmap(null);
+                            }
+                        }
+                    };
+            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, menuItem.getIconUri());
         } else {
-            viewHolder.mIcon.setImageDrawable(null);
+            viewHolder.mIcon.setImageBitmap(null);
+            viewHolder.mIcon.setVisibility(View.INVISIBLE);
         }
         return convertView;
     }
