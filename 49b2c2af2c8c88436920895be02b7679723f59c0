@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a03fc718_16d249da",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-02-13T09:40:49Z",
+      "side": 1,
+      "message": "you don\u0027t need this variable.  You can access titleText from when this is constructed later in the future.",
+      "range": {
+        "startLine": 87,
+        "startChar": 30,
+        "endLine": 87,
+        "endChar": 36
+      },
+      "revId": "49b2c2af2c8c88436920895be02b7679723f59c0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
