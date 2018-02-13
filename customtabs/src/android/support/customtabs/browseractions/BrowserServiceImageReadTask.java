@@ -45,11 +45,6 @@ public abstract class BrowserServiceImageReadTask extends AsyncTask<Uri, Void, B
     }
 
     @Override
-    protected final void onPreExecute() {
-        handlePreLoadingFallback();
-    }
-
-    @Override
     protected Bitmap doInBackground(Uri... params) {
         try {
             ParcelFileDescriptor descriptor = mResolver.openFileDescriptor(params[0], "r");
@@ -72,9 +67,4 @@ public abstract class BrowserServiceImageReadTask extends AsyncTask<Uri, Void, B
      * @param bitmap The bitmap corresponds to the given uri.
      */
     protected abstract void onBitmapFileReady(Bitmap bitmap);
-
-    /**
-     * Called before bitmap image is ready to provide a fallback plan for the UI.
-     */
-    protected abstract void handlePreLoadingFallback();
 }
