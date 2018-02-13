@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1fa5c83c_5616da4b",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-13T00:20:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3adcca9_2e9fa61f",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 33
+      },
+      "revId": "84dd8c031bb521db8a9bcd94a1dcedfd88f0dfdf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c45cf937_ada19773",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "84dd8c031bb521db8a9bcd94a1dcedfd88f0dfdf",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ae0c47a_ae46c208",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-13T00:20:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c45cf937_ada19773",
+      "range": {
+        "startLine": 97,
+        "startChar": 39,
+        "endLine": 97,
+        "endChar": 63
+      },
+      "revId": "84dd8c031bb521db8a9bcd94a1dcedfd88f0dfdf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "762e696b_076663af",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-13T00:20:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6de5d1dc_c3e56e78",
+      "range": {
+        "startLine": 111,
+        "startChar": 15,
+        "endLine": 111,
+        "endChar": 20
+      },
+      "revId": "84dd8c031bb521db8a9bcd94a1dcedfd88f0dfdf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9764aff_9b686669",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "974d3aae_805a31a8",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-13T00:20:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9764aff_9b686669",
+      "range": {
+        "startLine": 115,
+        "startChar": 9,
+        "endLine": 115,
+        "endChar": 0
+      },
+      "revId": "84dd8c031bb521db8a9bcd94a1dcedfd88f0dfdf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42a7bd4f_f5f4314d",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "84dd8c031bb521db8a9bcd94a1dcedfd88f0dfdf",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1eb5dc0a_daebbb88",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-13T00:20:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a7bd4f_f5f4314d",
+      "range": {
+        "startLine": 117,
+        "startChar": 8,
+        "endLine": 117,
+        "endChar": 17
+      },
+      "revId": "84dd8c031bb521db8a9bcd94a1dcedfd88f0dfdf",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
