@@ -22,6 +22,30 @@
       "revId": "911f9f6ebb9ddb6d65d2dbbddabe402b1b10d8a6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48a7b3e4_4cda1d16",
+        "filename": "customtabs/res/layout/browser_actions_context_menu_row.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-20T22:44:55Z",
+      "side": 0,
+      "message": "Sorry, this change should be on a separate CL, will revert it.",
+      "parentUuid": "f1ced01b_9d4f1f9c",
+      "range": {
+        "startLine": 20,
+        "startChar": 45,
+        "endLine": 20,
+        "endChar": 0
+      },
+      "revId": "911f9f6ebb9ddb6d65d2dbbddabe402b1b10d8a6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }

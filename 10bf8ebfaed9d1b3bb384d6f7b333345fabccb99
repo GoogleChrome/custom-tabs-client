@@ -22,6 +22,30 @@
       "revId": "10bf8ebfaed9d1b3bb384d6f7b333345fabccb99",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fb5ad99_b376fb46",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserServiceFileProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-20T22:44:55Z",
+      "side": 1,
+      "message": "Because 0 is added when we construct the ClipData on the line above.",
+      "parentUuid": "2696de77_78079e93",
+      "range": {
+        "startLine": 256,
+        "startChar": 20,
+        "endLine": 256,
+        "endChar": 21
+      },
+      "revId": "10bf8ebfaed9d1b3bb384d6f7b333345fabccb99",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
