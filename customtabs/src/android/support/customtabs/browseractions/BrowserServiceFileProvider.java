@@ -249,10 +249,11 @@ public class BrowserServiceFileProvider extends FileProvider {
      * @param context The context requests to grant the permission.
      */
     public static void grantReadPermission(Intent intent, List<Uri> uris, Context context) {
+        if (uris == null || uris.size() == 0) return;
         ContentResolver resolver = context.getContentResolver();
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         ClipData clipData = ClipData.newUri(resolver, CLIP_DATA_LABEL, uris.get(0));
-        for (int i = 0; i < uris.size(); i++) {
+        for (int i = 1; i < uris.size(); i++) {
             clipData.addItem(new ClipData.Item(uris.get(i)));
         }
         intent.setClipData(clipData);
