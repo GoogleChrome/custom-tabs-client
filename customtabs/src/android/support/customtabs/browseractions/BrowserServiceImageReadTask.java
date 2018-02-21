@@ -24,7 +24,7 @@ import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
 import java.io.FileDescriptor;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * The {@link AsyncTask} handles:
@@ -50,8 +50,10 @@ public abstract class BrowserServiceImageReadTask extends AsyncTask<Uri, Void, B
             ParcelFileDescriptor descriptor = mResolver.openFileDescriptor(params[0], "r");
             if (descriptor == null) return null;
             FileDescriptor fileDescriptor = descriptor.getFileDescriptor();
-            return BitmapFactory.decodeFileDescriptor(fileDescriptor);
-        } catch (FileNotFoundException e) {
+            Bitmap bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+            descriptor.close();
+            return bitmap;
+        } catch (IOException e) {
             Log.e(TAG, "Failed to read bitmap", e);
         }
         return null;
