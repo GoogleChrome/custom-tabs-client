@@ -51,7 +51,8 @@ class BrowserActionsFallbackMenuUi implements AdapterView.OnItemClickListener {
 
     private final Context mContext;
     private final Uri mUri;
-    private final List<BrowserActionItem> mMenuItems;
+    private final List<BrowserActionsFallbackMenuItem> mMenuItems;
+    private final BrowserActionsFallbackMenuDelegate mDelegate;
 
     private BrowserActionsFallMenuUiListener mMenuUiListener;
 
@@ -63,10 +64,11 @@ class BrowserActionsFallbackMenuUi implements AdapterView.OnItemClickListener {
      * @param menuItems The custom menu items shown in the menu.
      */
     BrowserActionsFallbackMenuUi(
-            Context context, Uri uri, List<BrowserActionItem> menuItems) {
+            Context context, Uri uri, List<BrowserActionsFallbackMenuItem> menuItems) {
         mContext = context;
         mUri = uri;
         mMenuItems = menuItems;
+        mDelegate = new BrowserActionsFallbackMenuDelegate(context, uri);
     }
 
     /** @hide */
@@ -125,12 +127,25 @@ class BrowserActionsFallbackMenuUi implements AdapterView.OnItemClickListener {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        PendingIntent action = mMenuItems.get(position).getAction();
-        try {
-            action.send();
+        if (mMenuItems.get(position).getMenuItemType()
+                == BrowserActionsFallbackMenuItem.ITEM_TYPE_CUSTOM) {
+            PendingIntent action = mMenuItems.get(position).getAction();
+            try {
+                action.send();
+                mBrowserActionsDialog.dismiss();
+            } catch (CanceledException e) {
+                Log.e(TAG, "Failed to send custom item action", e);
+            }
+        } else {
+            int menuId = mMenuItems.get(position).getMenuId();
+            if (menuId == R.id.fallback_menu_item_open_in_browser) {
+                mDelegate.onOpenInBrowser();
+            } else if (menuId == R.id.fallback_menu_item_copy_link) {
+                mDelegate.onSaveToClipboard();
+            } else if (menuId == R.id.fallback_menu_item_share_link) {
+                mDelegate.onLinkShared();
+            }
             mBrowserActionsDialog.dismiss();
-        } catch (CanceledException e) {
-            Log.e(TAG, "Failed to send custom item action", e);
         }
     }
 }

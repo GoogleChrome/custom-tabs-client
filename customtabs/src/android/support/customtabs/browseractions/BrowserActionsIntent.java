@@ -140,6 +140,19 @@ public class BrowserActionsIntent {
     public static final int ITEM_COPY = 3;
     public static final int ITEM_SHARE = 4;
 
+    private static final List<Integer> CUSTOM_FALLBACK_MENU_ID_GROUP =
+            Arrays.asList(R.id.custom_fallback_menu_item_one, R.id.custom_fallback_menu_item_two,
+                    R.id.custom_fallback_menu_item_three, R.id.custom_fallback_menu_item_four,
+                    R.id.custom_fallback_menu_item_five);
+
+    private static final List<Integer> PEDEFINED_FALLBACK_MENU_ID_GROUP =
+            Arrays.asList(R.id.fallback_menu_item_open_in_browser,
+                    R.id.fallback_menu_item_copy_link, R.id.fallback_menu_item_share_link);
+
+    private static final List<Integer> PEDEFINED_FALLBACK_MENU_TITLE_RES_GROUP =
+            Arrays.asList(R.string.fallback_menu_item_open_in_browser,
+                    R.string.fallback_menu_item_copy_link, R.string.fallback_menu_item_share_link);
+
     /**
      * An {@link Intent} used to start the Browser Actions Activity.
      */
@@ -370,7 +383,24 @@ public class BrowserActionsIntent {
         int type = intent.getIntExtra(EXTRA_TYPE, URL_TYPE_NONE);
         ArrayList<Bundle> bundles = intent.getParcelableArrayListExtra(EXTRA_MENU_ITEMS);
         List<BrowserActionItem> items = bundles != null ? parseBrowserActionItems(bundles) : null;
-        openFallbackBrowserActionsMenu(context, uri, type, items);
+        List<BrowserActionsFallbackMenuItem> fallbackItems =
+                buildFallbackMenuItemList(context, items);
+        openFallbackBrowserActionsMenu(context, uri, type, fallbackItems);
+    }
+
+    private static List<BrowserActionsFallbackMenuItem> buildFallbackMenuItemList(
+            Context context, List<BrowserActionItem> items) {
+        List<BrowserActionsFallbackMenuItem> fallbackMenuItems = new ArrayList<>();
+        for (int i = 0; i < PEDEFINED_FALLBACK_MENU_ID_GROUP.size(); i++) {
+            String title = context.getString(PEDEFINED_FALLBACK_MENU_TITLE_RES_GROUP.get(i));
+            fallbackMenuItems.add(new BrowserActionsFallbackMenuItem(
+                    PEDEFINED_FALLBACK_MENU_ID_GROUP.get(i), title));
+        }
+        for (int i = 0; i < items.size(); i++) {
+            fallbackMenuItems.add(new BrowserActionsFallbackMenuItem(
+                    CUSTOM_FALLBACK_MENU_ID_GROUP.get(i), items.get(i)));
+        }
+        return fallbackMenuItems;
     }
 
     /** @hide */
@@ -385,10 +415,10 @@ public class BrowserActionsIntent {
      * @param context The context requesting for a Browser Actions menu.
      * @param uri The url for Browser Actions menu.
      * @param type The type of the url for context menu to be opened.
-     * @param menuItems List of custom items to add to Browser Actions menu.
+     * @param menuItems List of {@link BrowserActionsFallbackMenuItem} to add to the fallback menu.
      */
     private static void openFallbackBrowserActionsMenu(
-            Context context, Uri uri, int type, List<BrowserActionItem> menuItems) {
+            Context context, Uri uri, int type, List<BrowserActionsFallbackMenuItem> menuItems) {
         BrowserActionsFallbackMenuUi menuUi =
                 new BrowserActionsFallbackMenuUi(context, uri, menuItems);
         menuUi.displayMenu();

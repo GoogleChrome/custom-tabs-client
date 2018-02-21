@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Copyright 2018 The Chromium Authors. All rights reserved.
+
+     Use of this source code is governed by a BSD-style license that can be
+     found in the LICENSE file.
+-->
+
+<resources>
+
+    <!-- Menu item IDs for Browser Action fallback menu -->
+    <item type="id" name="fallback_menu_item_open_in_browser" />
+    <item type="id" name="fallback_menu_item_copy_link" />
+    <item type="id" name="fallback_menu_item_share_link" />
+    <item type="id" name="custom_fallback_menu_item_one" />
+    <item type="id" name="custom_fallback_menu_item_two" />
+    <item type="id" name="custom_fallback_menu_item_three" />
+    <item type="id" name="custom_fallback_menu_item_four" />
+    <item type="id" name="custom_fallback_menu_item_five" />
+
+</resources>
