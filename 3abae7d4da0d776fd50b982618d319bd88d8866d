@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "59c98765_c5b1e73e",
+        "filename": "customtabs/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-22T01:30:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fd54fb3_4e6b5723",
+      "range": {
+        "startLine": 2,
+        "startChar": 26,
+        "endLine": 2,
+        "endChar": 27
+      },
+      "revId": "3abae7d4da0d776fd50b982618d319bd88d8866d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da8e4deb_72541433",
         "filename": "customtabs/res/values/strings.xml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-22T00:03:36Z",
       "side": 1,
       "message": "what happens to strings in the support library?  Is it the responsibility of every app to translate these?  Are we supposed to translate these and provide them for apps?",
+      "range": {
+        "startLine": 17,
+        "startChar": 5,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "3abae7d4da0d776fd50b982618d319bd88d8866d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9519eaa3_e6d3e53e",
+        "filename": "customtabs/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-22T01:30:47Z",
+      "side": 1,
+      "message": "I guess the support lib would translate these strings when it releases. Because otherwise there is no way to app themselves to know which strings they need to translate? But I will double check with support lib team about it.",
+      "parentUuid": "da8e4deb_72541433",
       "range": {
         "startLine": 17,
         "startChar": 5,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ea2a5fed_97ee811a",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuItem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-22T01:30:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1c12bd7_32f6af2e",
+      "range": {
+        "startLine": 63,
+        "startChar": 11,
+        "endLine": 63,
+        "endChar": 41
+      },
+      "revId": "3abae7d4da0d776fd50b982618d319bd88d8866d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ccf83fd_5b449dfe",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuUi.java",
         "patchSetId": 1
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "c93b840e_8187f497",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuUi.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-22T01:30:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ccf83fd_5b449dfe",
+      "revId": "3abae7d4da0d776fd50b982618d319bd88d8866d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a8c1888_41d4a65b",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsIntent.java",
         "patchSetId": 1
@@ -102,6 +192,24 @@
       "revId": "3abae7d4da0d776fd50b982618d319bd88d8866d",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faeca221_c98a20a0",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-22T01:30:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a8c1888_41d4a65b",
+      "revId": "3abae7d4da0d776fd50b982618d319bd88d8866d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
