@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9b4a0e84_dc0f6c48",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-22T20:16:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ad82d02c_9f1b5374",
+      "range": {
+        "startLine": 11,
+        "startChar": 3,
+        "endLine": 11,
+        "endChar": 88
+      },
+      "revId": "28f9403636ef12520a45256316a7319b6506008e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8916dc17_0e3a6968",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuItem.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-22T18:11:33Z",
       "side": 1,
       "message": "why not add the runnable thing to the Menu Item class? We can still make it so that it is hidden from the client or provider for their own menu item building (make things package protected?), but that would avoid the two menu item class types that have to be converted to each other.\n\nSo we add the Runnable Action to BrowserActionsMenuItem and pass only items of that type. That way all the list handling operations will be easier.",
+      "range": {
+        "startLine": 13,
+        "startChar": 13,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "28f9403636ef12520a45256316a7319b6506008e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93eddd36_5ff3d5cf",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-22T20:16:41Z",
+      "side": 1,
+      "message": "The reason I make it as a separate class is I don\u0027t want to get the developer confused about this runnable which is not needed by them. But I think that make them package protected is a better way to handle this.",
+      "parentUuid": "8916dc17_0e3a6968",
       "range": {
         "startLine": 13,
         "startChar": 13,

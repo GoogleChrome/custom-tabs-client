@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "214bfb89_09c493fb",
+        "filename": "customtabs/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-22T20:16:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e7d70a49_a8a1d39a",
+      "range": {
+        "startLine": 17,
+        "startChar": 5,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "3abae7d4da0d776fd50b982618d319bd88d8866d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1c12bd7_32f6af2e",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuItem.java",
         "patchSetId": 1
