@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad82d02c_9f1b5374",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuItem.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-02-22T10:41:23Z",
+      "side": 1,
+      "message": "Nit: I don\u0027t find that description very informative :) Maybe \"Holds information about a single menu item that is shown in the Browser Actions fallback dialog\"?",
+      "range": {
+        "startLine": 11,
+        "startChar": 3,
+        "endLine": 11,
+        "endChar": 88
+      },
+      "revId": "28f9403636ef12520a45256316a7319b6506008e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

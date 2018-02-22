@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e7d70a49_a8a1d39a",
+        "filename": "customtabs/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-02-22T10:41:23Z",
+      "side": 1,
+      "message": "Yeah, I think these get updated by the translation elves similarly to how that happens for Chrome – see e.g. https://android.googlesource.com/platform/frameworks/support/+/a9c838fe3b3d34b098344d7a5a3dccdc2242db90.",
+      "parentUuid": "9519eaa3_e6d3e53e",
+      "range": {
+        "startLine": 17,
+        "startChar": 5,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "3abae7d4da0d776fd50b982618d319bd88d8866d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a1c12bd7_32f6af2e",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuItem.java",
         "patchSetId": 1
