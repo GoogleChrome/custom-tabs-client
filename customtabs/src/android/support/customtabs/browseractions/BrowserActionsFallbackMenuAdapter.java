@@ -38,7 +38,8 @@ class BrowserActionsFallbackMenuAdapter extends BaseAdapter {
     private final List<BrowserActionItem> mMenuItems;
     private final Context mContext;
 
-    BrowserActionsFallbackMenuAdapter(List<BrowserActionItem> menuItems, Context context) {
+    BrowserActionsFallbackMenuAdapter(
+            List<BrowserActionItem> menuItems, Context context) {
         mMenuItems = menuItems;
         mContext = context;
     }
