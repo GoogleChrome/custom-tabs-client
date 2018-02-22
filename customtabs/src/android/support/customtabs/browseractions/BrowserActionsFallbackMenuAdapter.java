@@ -35,10 +35,11 @@ import java.util.List;
  * The adapter to display the icon and title of custom Browser Actions item.
  */
 class BrowserActionsFallbackMenuAdapter extends BaseAdapter {
-    private final List<BrowserActionItem> mMenuItems;
+    private final List<BrowserActionsFallbackMenuItem> mMenuItems;
     private final Context mContext;
 
-    BrowserActionsFallbackMenuAdapter(List<BrowserActionItem> menuItems, Context context) {
+    BrowserActionsFallbackMenuAdapter(
+            List<BrowserActionsFallbackMenuItem> menuItems, Context context) {
         mMenuItems = menuItems;
         mContext = context;
     }
@@ -60,7 +61,7 @@ class BrowserActionsFallbackMenuAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final BrowserActionItem menuItem = mMenuItems.get(position);
+        final BrowserActionsFallbackMenuItem menuItem = mMenuItems.get(position);
         ViewHolderItem viewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(

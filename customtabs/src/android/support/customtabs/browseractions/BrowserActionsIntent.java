@@ -385,7 +385,7 @@ public class BrowserActionsIntent {
      * @param context The context requesting for a Browser Actions menu.
      * @param uri The url for Browser Actions menu.
      * @param type The type of the url for context menu to be opened.
-     * @param menuItems List of custom items to add to Browser Actions menu.
+     * @param menuItems List of {@link BrowserActionItem} to add to the fallback menu.
      */
     private static void openFallbackBrowserActionsMenu(
             Context context, Uri uri, int type, List<BrowserActionItem> menuItems) {
