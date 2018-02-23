@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f4364a22_ea4c25a7",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-23T22:52:35Z",
+      "side": 1,
+      "message": "Is @RestrictTo(LIBRARY_GROUP) needed for this case?",
+      "parentUuid": "279ee5f0_32a86aa1",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 21
+      },
+      "revId": "b8ca94143cb40897cf38992ce29ccc217f08c791",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2763ab80_56192c94",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
         "patchSetId": 4
