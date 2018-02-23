@@ -31,6 +31,7 @@ public class BrowserActionItem {
     @DrawableRes
     private int mIconId;
     private Uri mIconUri;
+    private Runnable mRunnableAction;
 
     /**
      * Constructor for BrowserActionItem with icon from resources.
@@ -58,6 +59,18 @@ public class BrowserActionItem {
         mTitle = title;
         mAction = action;
         mIconUri = iconUri;
+    }
+
+    /**
+     * Constructs a predefined fallback menu item with a Runnable action. The item will have no
+     * icon and no custom PendingIntent action.
+     * @param title The title of the menu item.
+     * @param action The {@link Runnable} action to be executed when user choose the item.
+     */
+    BrowserActionItem(@NonNull String title, @NonNull Runnable action) {
+        mTitle = title;
+        mAction = null;
+        mRunnableAction = action;
     }
 
     /**
@@ -95,5 +108,12 @@ public class BrowserActionItem {
      */
     public Uri getIconUri() {
         return mIconUri;
+    }
+
+    /**
+     * @return The {@link Runnable} action of a predefined fallback menu item.
+     */
+    Runnable getRunnableAction() {
+        return mRunnableAction;
     }
 }
