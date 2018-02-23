@@ -17,16 +17,12 @@ package org.chromium.customtabsclient;
 import android.app.ActivityManager;
 import android.app.ActivityOptions;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,7 +35,6 @@ import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.browseractions.BrowserActionsIntent;
 import android.support.customtabs.browseractions.BrowserServiceFileProvider;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.customtabs.browseractions.BrowserActionItem;
 import android.text.TextUtils;
@@ -48,7 +43,6 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -56,15 +50,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.chromium.customtabsclient.shared.CustomTabsHelper;
 import org.chromium.customtabsclient.shared.ServiceConnection;
 import org.chromium.customtabsclient.shared.ServiceConnectionCallback;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +63,8 @@ import java.util.List;
  */
 public class MainActivity
         extends AppCompatActivity implements OnClickListener, ServiceConnectionCallback {
+    private static final String KEY_SERVICE_CONNECTED = "MainActivity.isServiceConnected";
+    private static final String KEY_MAYLAUNCHURL_CALLED = "MainActivity.isMayLaunchUrlCalled";
     private static final String TAG = "CustomTabsClientExample";
     private static final String TOOLBAR_COLOR = "#ef6c00";
 
@@ -87,6 +79,8 @@ public class MainActivity
     private Button mLaunchButton;
     private MediaPlayer mMediaPlayer;
     private Button mLaunchBrowserActionsButton;
+
+    private boolean mMayLaunchUrlCalled = false;
 
     /**
      * Once per second, asks the framework for the process importance, and logs any change.
@@ -195,6 +189,15 @@ public class MainActivity
         });
 
         mLogImportance.run();
+
+        // Recover state after an orientation change.
+        if (savedInstanceState != null) {
+            if (savedInstanceState.getBoolean(KEY_SERVICE_CONNECTED, false)) {
+                bindCustomTabsService();
+            }
+            mMayLaunchUrlCalled =
+                    savedInstanceState.getBoolean(KEY_SERVICE_CONNECTED, false);
+        }
     }
 
     @Override
@@ -207,10 +210,24 @@ public class MainActivity
         if (mClient == null) {
             mCustomTabsSession = null;
         } else if (mCustomTabsSession == null) {
-            mCustomTabsSession = mClient.newSession(new NavigationCallback());
-            SessionHelper.setCurrentSession(mCustomTabsSession);
+            // Try to re-use previous session.
+            mCustomTabsSession = SessionHelper.getCurrentSession();
+            if (mCustomTabsSession == null) {
+                mCustomTabsSession = mClient.newSession(new NavigationCallback());
+                SessionHelper.setCurrentSession(mCustomTabsSession);
+            }
         }
         return mCustomTabsSession;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // Save if the service is connected.
+        outState.putBoolean(KEY_SERVICE_CONNECTED, mConnection != null);
+
+        // Save if mayLaunchUrl has been called.
+        outState.putBoolean(KEY_MAYLAUNCHURL_CALLED, mMayLaunchUrlCalled);
+        super.onSaveInstanceState(outState);
     }
 
     private void bindCustomTabsService() {
@@ -235,6 +252,15 @@ public class MainActivity
         mCustomTabsSession = null;
     }
 
+    private void mayLaunchUrl(String url) {
+        mMayLaunchUrlCalled = true;
+        CustomTabsSession session = getSession();
+        boolean success = false;
+        if (mClient != null) success =
+                session.mayLaunchUrl(Uri.parse(url), null, null);
+        if (!success) mMayLaunchButton.setEnabled(false);
+    }
+
     @Override
     public void onClick(View v) {
         String url = mEditText.getText().toString();
@@ -247,10 +273,7 @@ public class MainActivity
             if (mClient != null) success = mClient.warmup(0);
             if (!success) mWarmupButton.setEnabled(false);
         } else if (viewId == R.id.may_launch_button) {
-            CustomTabsSession session = getSession();
-            boolean success = false;
-            if (mClient != null) success = session.mayLaunchUrl(Uri.parse(url), null, null);
-            if (!success) mMayLaunchButton.setEnabled(false);
+            mayLaunchUrl(url);
         } else if (viewId == R.id.launch_button) {
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder(getSession());
             builder.setToolbarColor(Color.parseColor(TOOLBAR_COLOR)).setShowTitle(true);
@@ -324,6 +347,12 @@ public class MainActivity
         mWarmupButton.setEnabled(true);
         mMayLaunchButton.setEnabled(true);
         mLaunchButton.setEnabled(true);
+
+        // Ensure we are calling mayLaunchUrl after an orientation change.
+        if (mMayLaunchUrlCalled) {
+            String url = mEditText.getText().toString();
+            mayLaunchUrl(url);
+        }
     }
 
     @Override
