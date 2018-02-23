@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc144aa6_9297b156",
+        "filename": "customtabs/res/layout/browser_actions_context_menu_row.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-02-23T01:00:06Z",
+      "side": 1,
+      "message": "why is the xml using chromium and the java code android\u0027s open source license?",
+      "range": {
+        "startLine": 2,
+        "startChar": 5,
+        "endLine": 2,
+        "endChar": 14
+      },
+      "revId": "205779212929db13cb742c521ce784c40e32b662",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bafbfa57_a1e73d64",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-02-23T01:00:06Z",
+      "side": 1,
+      "message": "blank line above",
+      "range": {
+        "startLine": 75,
+        "startChar": 6,
+        "endLine": 75,
+        "endChar": 7
+      },
+      "revId": "205779212929db13cb742c521ce784c40e32b662",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f51c85e5_2cfbddbb",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1116043
+      },
+      "writtenOn": "2018-02-23T01:00:06Z",
+      "side": 1,
+      "message": "undo?",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 16
+      },
+      "revId": "205779212929db13cb742c521ce784c40e32b662",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
