@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9de8ead4_bd450a1a",
+        "filename": "customtabs/res/layout/browser_actions_context_menu_row.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-23T19:55:51Z",
+      "side": 1,
+      "message": "Change all resources in this library to use Android open source license.",
+      "parentUuid": "bc144aa6_9297b156",
+      "range": {
+        "startLine": 2,
+        "startChar": 5,
+        "endLine": 2,
+        "endChar": 14
+      },
+      "revId": "205779212929db13cb742c521ce784c40e32b662",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bafbfa57_a1e73d64",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4d54c0e0_c6554981",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionItem.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-23T19:55:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bafbfa57_a1e73d64",
+      "range": {
+        "startLine": 75,
+        "startChar": 6,
+        "endLine": 75,
+        "endChar": 7
+      },
+      "revId": "205779212929db13cb742c521ce784c40e32b662",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f51c85e5_2cfbddbb",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "205779212929db13cb742c521ce784c40e32b662",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0be482b7_6dfc509a",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsFallbackMenuAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-02-23T19:55:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f51c85e5_2cfbddbb",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 16
+      },
+      "revId": "205779212929db13cb742c521ce784c40e32b662",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
