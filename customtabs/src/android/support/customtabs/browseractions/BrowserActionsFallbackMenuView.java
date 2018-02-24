@@ -20,6 +20,7 @@ import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 import android.content.Context;
 import android.support.annotation.RestrictTo;
+import android.support.customtabs.R;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
