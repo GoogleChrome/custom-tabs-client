@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
+import android.support.customtabs.R;
 import android.support.v4.widget.TextViewCompat;
 import android.text.TextUtils;
 import android.util.Log;
