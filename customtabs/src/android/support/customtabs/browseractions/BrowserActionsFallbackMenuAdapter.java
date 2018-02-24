@@ -20,6 +20,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.support.customtabs.R;
 import android.support.v4.content.res.ResourcesCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -61,7 +62,7 @@ class BrowserActionsFallbackMenuAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final BrowserActionItem menuItem = mMenuItems.get(position);
-        ViewHolderItem viewHolder;
+        final ViewHolderItem viewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(
                     R.layout.browser_actions_context_menu_row, null);
