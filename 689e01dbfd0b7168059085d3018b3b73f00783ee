@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa87bb3d_7a471308",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-02-25T20:07:49Z",
+      "side": 1,
+      "message": "Nit: Use the imperative mood for the commit message, i.e. \"Fix […]\".",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 7
+      },
+      "revId": "689e01dbfd0b7168059085d3018b3b73f00783ee",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
