@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "547aa30c_63b11a5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-02-26T00:53:13Z",
+      "side": 1,
+      "message": "Similar to my comments on CL:935602, please use a first line of the commit message in an imperative mood. https://chris.beams.io/posts/git-commit has a good description of how to write a commit message.\n\nIn this particular case, could you explain in a bit more detail what the underlying issue is? I\u0027m a bit surprised if this means the code didn\u0027t compile at all…",
+      "revId": "918d9f4d2e7c591f0a5a3017533a474d043128da",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
