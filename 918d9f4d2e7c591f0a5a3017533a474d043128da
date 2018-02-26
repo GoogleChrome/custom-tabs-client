@@ -16,6 +16,24 @@
       "revId": "918d9f4d2e7c591f0a5a3017533a474d043128da",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6acaa586_f548acc8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1267317
+      },
+      "writtenOn": "2018-02-26T01:49:27Z",
+      "side": 1,
+      "message": "I cloned this repository into the root directory of my Android application project and added \":custom-tabs-client:customtabs\" and \":custom-tabs-client:shared\" to settings.gradle.\nAnd I tried to build this project using Gradle, but it failed.\n(See https://github.com/massongit/git-push-hackathon/tree/develop/massongit)",
+      "parentUuid": "547aa30c_63b11a5a",
+      "revId": "918d9f4d2e7c591f0a5a3017533a474d043128da",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
