@@ -20,6 +20,9 @@ import android.app.PendingIntent;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
+
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * A wrapper class holding custom item of Browser Actions menu.
@@ -31,6 +34,7 @@ public class BrowserActionItem {
     @DrawableRes
     private int mIconId;
     private Uri mIconUri;
+    private Runnable mRunnableAction;
 
     /**
      * Constructor for BrowserActionItem with icon from resources.
@@ -53,11 +57,25 @@ public class BrowserActionItem {
      * generated from {@link BrowserServiceFileProvider.generateUri(Context, Bitmap, String,
      * int, List<ResolveInfo>)}.
      */
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
     public BrowserActionItem(
             @NonNull String title, @NonNull PendingIntent action, @NonNull Uri iconUri) {
         mTitle = title;
         mAction = action;
         mIconUri = iconUri;
+    }
+
+    /**
+     * Constructs a predefined fallback menu item with a Runnable action. The item will have no
+     * icon and no custom PendingIntent action.
+     * @param title The title of the menu item.
+     * @param action The {@link Runnable} action to be executed when user choose the item.
+     */
+    BrowserActionItem(@NonNull String title, @NonNull Runnable action) {
+        mTitle = title;
+        mAction = null;
+        mRunnableAction = action;
     }
 
     /**
@@ -95,5 +113,14 @@ public class BrowserActionItem {
      */
     public Uri getIconUri() {
         return mIconUri;
+    }
+
+    /**
+     * @return The {@link Runnable} action of a predefined fallback menu item.
+     */
+    /** @hide */
+    @RestrictTo(LIBRARY_GROUP)
+    Runnable getRunnableAction() {
+        return mRunnableAction;
     }
 }
