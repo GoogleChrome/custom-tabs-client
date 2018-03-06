@@ -1,0 +1,267 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f616e890_c2151f57",
+        "filename": "customtabs/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-06T16:38:42Z",
+      "side": 1,
+      "message": "remove blank line?",
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce3eef44_e467f7db",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/ITrustedWebActivityService.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-06T16:38:42Z",
+      "side": 1,
+      "message": "Hm, ICustomTabsService actually doesn\u0027t have any documentation here.",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 15
+      },
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d88c5022_be1cdc49",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-06T16:38:42Z",
+      "side": 1,
+      "message": "These methods are going to be called on a background thread. That might be okay, but we should be very careful then. Or we just pass them to the UI thread to handle.",
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cacda354_a2a59560",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-06T16:38:42Z",
+      "side": 1,
+      "message": "Maybe split these into individual checks?",
+      "range": {
+        "startLine": 44,
+        "startChar": 16,
+        "endLine": 45,
+        "endChar": 84
+      },
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa5282a4_d7bb75f3",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-06T16:38:42Z",
+      "side": 1,
+      "message": "I don\u0027t know how well Java assertions are supported in non-Chrome code (ART doesn\u0027t directly support them, for example). I think this just has to be a full-blown check. Or we just rely on the fact that we will crash anyway below if the notification manager is null?",
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34092bb0_cce201ac",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-06T16:38:42Z",
+      "side": 1,
+      "message": "I thought we have a channel ID in the notification?",
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee02f33d_52bf5e9e",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-06T16:38:42Z",
+      "side": 1,
+      "message": "Nit: Flip the arguments? No need for Yoda-speech, there is.",
+      "range": {
+        "startLine": 98,
+        "startChar": 16,
+        "endLine": 98,
+        "endChar": 54
+      },
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ddaa4c5_4b2d6952",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-06T16:38:42Z",
+      "side": 1,
+      "message": "I would try not to have this dependency. If we do need shared code e.g. for these constants, it could live in a separate class that both depend on.",
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fe6ec89_4c7ee005",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-06T16:38:42Z",
+      "side": 1,
+      "message": "Yeah, maybe this needs a Callback\u003cBoolean\u003e to handle the result asynchronously or so...",
+      "range": {
+        "startLine": 106,
+        "startChar": 42,
+        "endLine": 106,
+        "endChar": 61
+      },
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c624620c_0ee2ea50",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-06T16:38:42Z",
+      "side": 1,
+      "message": "The Connection could handle this internally, no?",
+      "range": {
+        "startLine": 147,
+        "startChar": 49,
+        "endLine": 154,
+        "endChar": 13
+      },
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2139e304_7e6ce7e4",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-06T16:38:42Z",
+      "side": 1,
+      "message": "`else` is not necessary if the previous branch returns.",
+      "range": {
+        "startLine": 173,
+        "startChar": 20,
+        "endLine": 173,
+        "endChar": 28
+      },
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "290f52dc_8aa0b3ac",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-06T16:38:42Z",
+      "side": 1,
+      "message": "Tiny nit: \"SecurityException while binding\" reads easier.",
+      "range": {
+        "startLine": 178,
+        "startChar": 32,
+        "endLine": 178,
+        "endChar": 47
+      },
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c84f385_cba5ee97",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-06T16:38:42Z",
+      "side": 1,
+      "message": "I guess you could move this check to the beginning.",
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
