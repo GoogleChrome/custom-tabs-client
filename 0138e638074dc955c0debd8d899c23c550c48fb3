@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "983988fc_586c3f8b",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-07T11:58:48Z",
+      "side": 1,
+      "message": "Maybe make it an InvalidStateException?",
+      "range": {
+        "startLine": 124,
+        "startChar": 19,
+        "endLine": 124,
+        "endChar": 34
+      },
+      "revId": "0138e638074dc955c0debd8d899c23c550c48fb3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92d62f53_3b23a574",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-07T11:58:48Z",
+      "side": 1,
+      "message": "Nit: \"[...], or false if [...]\"",
+      "range": {
+        "startLine": 100,
+        "startChar": 58,
+        "endLine": 100,
+        "endChar": 70
+      },
+      "revId": "0138e638074dc955c0debd8d899c23c550c48fb3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "690a8d84_108bef06",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-07T11:58:48Z",
+      "side": 1,
+      "message": "Tiny nit: This class is a structured object and *not* a bundle (it felt weird to me initially to see code that creates this from a Bundle) -- maybe ...Args?",
+      "range": {
+        "startLine": 18,
+        "startChar": 42,
+        "endLine": 18,
+        "endChar": 48
+      },
+      "revId": "0138e638074dc955c0debd8d899c23c550c48fb3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81ba9614_051cacd4",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-07T11:58:48Z",
+      "side": 1,
+      "message": "I would maybe make this a factory method fromBundle() that forwards to the constructor.",
+      "range": {
+        "startLine": 32,
+        "startChar": 15,
+        "endLine": 32,
+        "endChar": 39
+      },
+      "revId": "0138e638074dc955c0debd8d899c23c550c48fb3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7aabad18_8661cbe1",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-07T11:58:48Z",
+      "side": 1,
+      "message": "IllegalArgumentException is an unchecked exception, so you don\u0027t need to declare it.",
+      "range": {
+        "startLine": 89,
+        "startChar": 43,
+        "endLine": 89,
+        "endChar": 74
+      },
+      "revId": "0138e638074dc955c0debd8d899c23c550c48fb3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

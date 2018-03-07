@@ -218,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "3544544a_d3532af8",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-07T11:58:48Z",
+      "side": 1,
+      "message": "\u003e No, we have the channel *name*.\n\nBut there is https://developer.android.com/reference/android/app/Notification.html#getChannelId(), no?\n\n\u003e We want the provider to pass the name because that\u0027s user visible, while the id isn\u0027t. If they pass both channel name and id and we use them, we may get messy situations where a misbehaving provider uses the same name with multiple ids or vice versa.\n\u003e \n\u003e What we could do is to get the provider to provide both the channel name and the channel id, and use the name only when creating the channel (discarding it all other times). WDYT?\n\nYes, modulo my comment above for getting the channel ID, I would do that.\n\n\u003e \n\u003e WebApks just use defaults [1].\n\u003e \n\u003e [1] https://cs.chromium.org/chromium/src/chrome/android/webapk/shell_apk/src/org/chromium/webapk/shell_apk/WebApkServiceImplWrapper.java?l\u003d153",
+      "parentUuid": "e419d461_b71c6179",
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee02f33d_52bf5e9e",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
         "patchSetId": 1
