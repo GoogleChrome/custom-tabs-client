@@ -43,7 +43,7 @@ import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
  *
  * <p>
  * <strong>Note:</strong> The constants below are public for the browser implementation's benefit.
- * You are strongly encouraged to use {@link BrowserActionsIntent.Builder}.</p>
+ * You are strongly encouraged to use {@link BrowserActionsIntent.Builder}.
  */
 public class BrowserActionsIntent {
     private static final String TAG = "BrowserActions";
@@ -53,6 +53,10 @@ public class BrowserActionsIntent {
     /**
      * Extra that specifies {@link PendingIntent} indicating which Application sends the {@link
      * BrowserActionsIntent}.
+     * <p>
+     * <strong>Note:</strong> The PendingIntent is self-reported and untrusted, sending application
+     * can modify it to use PendingIntent from other apps. This would return the package name from
+     * the app who creates the PendintIntent.
      */
     public static final String EXTRA_APP_ID = "androidx.browser.browseractions.APP_ID";
 
@@ -429,11 +433,15 @@ public class BrowserActionsIntent {
 
     /**
      * Get the package name of the creator application.
+     * <p>
+     * <strong> Note:</strong> This is self-reported and could be untrusted. Intent sender can
+     * modify it to return the package name from a different application.
+     *
      * @param intent The {@link BrowserActionsIntent}.
      * @return The creator package name.
      */
     @SuppressWarnings("deprecation")
-    public static String getCreatorPackageName(Intent intent) {
+    public static String getUntrustedCreatorPackageName(Intent intent) {
         PendingIntent pendingIntent = intent.getParcelableExtra(BrowserActionsIntent.EXTRA_APP_ID);
         if (pendingIntent != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
