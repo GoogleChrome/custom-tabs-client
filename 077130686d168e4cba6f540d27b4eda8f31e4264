@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d5c45fff_3cb9e172",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-03-09T19:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd578e90_02da3cde",
+      "revId": "077130686d168e4cba6f540d27b4eda8f31e4264",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eeab751d_a01980b3",
         "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsIntent.java",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "077130686d168e4cba6f540d27b4eda8f31e4264",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b6f360d_163f4c63",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1233200
+      },
+      "writtenOn": "2018-03-09T19:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eeab751d_a01980b3",
+      "revId": "077130686d168e4cba6f540d27b4eda8f31e4264",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
