@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd578e90_02da3cde",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-09T10:00:16Z",
+      "side": 1,
+      "message": "Nit: Javadoc HTML is \"HTML\" in quotes -- just separate paragraphs using \u003cp\u003e with no closing tags.",
+      "revId": "077130686d168e4cba6f540d27b4eda8f31e4264",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeab751d_a01980b3",
+        "filename": "customtabs/src/android/support/customtabs/browseractions/BrowserActionsIntent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-09T10:00:16Z",
+      "side": 1,
+      "message": "No closing paragraph here.",
+      "revId": "077130686d168e4cba6f540d27b4eda8f31e4264",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
