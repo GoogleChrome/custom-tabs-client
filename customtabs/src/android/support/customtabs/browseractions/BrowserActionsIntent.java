@@ -15,6 +15,8 @@
  */
 package android.support.customtabs.browseractions;
 
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -36,8 +38,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 /**
  * Class holding the {@link Intent} and start bundle for a Browser Actions Activity.
  *
@@ -143,7 +143,7 @@ public class BrowserActionsIntent {
     /**
      * An {@link Intent} used to start the Browser Actions Activity.
      */
-    @NonNull private final Intent mIntent;
+    @NonNull public final Intent mIntent;
 
     /**
      * Gets the Intent of {@link BrowserActionsIntent}.
