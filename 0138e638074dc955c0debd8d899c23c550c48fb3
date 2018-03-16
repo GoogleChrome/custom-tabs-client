@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "82a3b935_7d9ed07d",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-16T15:26:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "983988fc_586c3f8b",
+      "range": {
+        "startLine": 124,
+        "startChar": 19,
+        "endLine": 124,
+        "endChar": 34
+      },
+      "revId": "0138e638074dc955c0debd8d899c23c550c48fb3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92d62f53_3b23a574",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "0138e638074dc955c0debd8d899c23c550c48fb3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "222518b0_fb52b652",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-16T15:26:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92d62f53_3b23a574",
+      "range": {
+        "startLine": 100,
+        "startChar": 58,
+        "endLine": 100,
+        "endChar": 70
+      },
+      "revId": "0138e638074dc955c0debd8d899c23c550c48fb3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ede8315f_f6456555",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-16T15:26:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "690a8d84_108bef06",
+      "range": {
+        "startLine": 18,
+        "startChar": 42,
+        "endLine": 18,
+        "endChar": 48
+      },
+      "revId": "0138e638074dc955c0debd8d899c23c550c48fb3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81ba9614_051cacd4",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceWrapper.java",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "4043ae36_2a3a32e5",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-16T15:26:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81ba9614_051cacd4",
+      "range": {
+        "startLine": 32,
+        "startChar": 15,
+        "endLine": 32,
+        "endChar": 39
+      },
+      "revId": "0138e638074dc955c0debd8d899c23c550c48fb3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aabad18_8661cbe1",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceWrapper.java",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "0138e638074dc955c0debd8d899c23c550c48fb3",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8967e8b_31fec46c",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-16T15:26:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7aabad18_8661cbe1",
+      "range": {
+        "startLine": 89,
+        "startChar": 43,
+        "endLine": 89,
+        "endChar": 74
+      },
+      "revId": "0138e638074dc955c0debd8d899c23c550c48fb3",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
