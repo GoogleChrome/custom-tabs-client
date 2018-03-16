@@ -236,6 +236,24 @@
     },
     {
       "key": {
+        "uuid": "ec93dcfd_99f85b39",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-16T16:20:25Z",
+      "side": 1,
+      "message": "\u003e \u003e No, we have the channel *name*.\n\u003e \n\u003e But there is https://developer.android.com/reference/android/app/Notification.html#getChannelId(), no?\n\n^^^ :)",
+      "parentUuid": "3544544a_d3532af8",
+      "revId": "ae731729e5dafbfcef098c803c4b10583b9be951",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee02f33d_52bf5e9e",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
         "patchSetId": 1

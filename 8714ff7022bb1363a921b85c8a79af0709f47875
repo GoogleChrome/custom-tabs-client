@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdfd1f04_195faac9",
+        "filename": "Application/src/main/AndroidManifest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-16T16:20:25Z",
+      "side": 1,
+      "message": "Apparently you\u0027re not supposed to have metadata at the application level. Could you move that to the Activity (or the Service)?",
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28cabe02_aeabf20e",
+        "filename": "Application/src/main/AndroidManifest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-16T16:20:25Z",
+      "side": 1,
+      "message": "Hum, this is not actually going to pass verification, right? :-/",
+      "range": {
+        "startLine": 47,
+        "startChar": 36,
+        "endLine": 47,
+        "endChar": 51
+      },
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57bb25af_159e7a98",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-16T16:20:25Z",
+      "side": 1,
+      "message": "And you are sure the Binder thread by default has a StrictMode policy that doesn\u0027t allow disk reads?",
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88594d4c_1b75e5c2",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-16T16:20:25Z",
+      "side": 1,
+      "message": "Nit: space before the colon.",
+      "range": {
+        "startLine": 85,
+        "startChar": 25,
+        "endLine": 85,
+        "endChar": 26
+      },
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73b9699c_4210647f",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-16T16:20:25Z",
+      "side": 1,
+      "message": "Wait, if |provider| is null, you are going to get a NullPointerException on the next line.",
+      "range": {
+        "startLine": 176,
+        "startChar": 22,
+        "endLine": 176,
+        "endChar": 37
+      },
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "048a96fd_0c5695ba",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-16T16:20:25Z",
+      "side": 1,
+      "message": "Oh, you use volatile because of the double-checked lock pattern below? I would use lazy holder initialization instead.",
+      "range": {
+        "startLine": 81,
+        "startChar": 19,
+        "endLine": 81,
+        "endChar": 28
+      },
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "021a7b1a_b9fc1231",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-16T16:20:25Z",
+      "side": 1,
+      "message": "This is Intent.ACTION_VIEW.",
+      "range": {
+        "startLine": 207,
+        "startChar": 40,
+        "endLine": 207,
+        "endChar": 68
+      },
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b21fcbda_4aebbef5",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-16T16:20:25Z",
+      "side": 1,
+      "message": "Break this line?",
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
