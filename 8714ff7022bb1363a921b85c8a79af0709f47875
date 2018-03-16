@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "c478a960_3c964fb9",
+        "filename": "Application/src/main/AndroidManifest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-16T17:04:01Z",
+      "side": 1,
+      "message": "No, however as we\u0027re explicitly registering it now, we don\u0027t actually check. That will change in the future when I add the automatic registration on Custom Tabs verification.",
+      "parentUuid": "28cabe02_aeabf20e",
+      "range": {
+        "startLine": 47,
+        "startChar": 36,
+        "endLine": 47,
+        "endChar": 51
+      },
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "57bb25af_159e7a98",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
         "patchSetId": 4
@@ -53,6 +77,24 @@
       "writtenOn": "2018-03-16T16:20:25Z",
       "side": 1,
       "message": "And you are sure the Binder thread by default has a StrictMode policy that doesn\u0027t allow disk reads?",
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e506f139_cf72ce58",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-16T17:04:01Z",
+      "side": 1,
+      "message": "Yeah, I was getting crashes here while testing. It\u0027s definitely not the UI thread, but they have strict mode enabled.",
+      "parentUuid": "57bb25af_159e7a98",
       "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -116,6 +158,30 @@
       "writtenOn": "2018-03-16T16:20:25Z",
       "side": 1,
       "message": "Oh, you use volatile because of the double-checked lock pattern below? I would use lazy holder initialization instead.",
+      "range": {
+        "startLine": 81,
+        "startChar": 19,
+        "endLine": 81,
+        "endChar": 28
+      },
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe4b02c3_ddf92e34",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-16T17:04:01Z",
+      "side": 1,
+      "message": "Can I use the lazy holder initialization pattern with something more complicated than just\nThing thing \u003d new Thing()?\n\nHere I\u0027ve got to call something on the context provided.",
+      "parentUuid": "048a96fd_0c5695ba",
       "range": {
         "startLine": 81,
         "startChar": 19,
