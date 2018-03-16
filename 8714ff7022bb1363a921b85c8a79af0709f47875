@@ -101,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "8fa49b1e_d1407eaa",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-16T17:27:55Z",
+      "side": 1,
+      "message": "Oh wait, strict mode is propagated across Binder calls (and conversely strict mode violations should get propagated back to the caller), so is it possible that this was called from a thread on the *client* that happened to have strict mode on?",
+      "parentUuid": "e506f139_cf72ce58",
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88594d4c_1b75e5c2",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
         "patchSetId": 4
@@ -182,6 +200,30 @@
       "side": 1,
       "message": "Can I use the lazy holder initialization pattern with something more complicated than just\nThing thing \u003d new Thing()?\n\nHere I\u0027ve got to call something on the context provided.",
       "parentUuid": "048a96fd_0c5695ba",
+      "range": {
+        "startLine": 81,
+        "startChar": 19,
+        "endLine": 81,
+        "endChar": 28
+      },
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aafd5e3c_0dd18f5f",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-16T17:27:55Z",
+      "side": 1,
+      "message": "Oh, right. We should at least add a bunch of comments then to explain why we need this.",
+      "parentUuid": "fe4b02c3_ddf92e34",
       "range": {
         "startLine": 81,
         "startChar": 19,
