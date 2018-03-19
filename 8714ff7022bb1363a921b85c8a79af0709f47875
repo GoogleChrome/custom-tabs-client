@@ -155,6 +155,24 @@
     },
     {
       "key": {
+        "uuid": "64360187_a78b9569",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-19T16:50:27Z",
+      "side": 1,
+      "message": "Aha! So maybe we should deal with this on the Chrome side then. Changing the StrictMode policy at the call site is at least not worse than doing it here, and it gives clients the choice to just do it in the background instead (and maybe Chrome could too?).",
+      "parentUuid": "85fe1dd8_d3773f21",
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88594d4c_1b75e5c2",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
         "patchSetId": 4

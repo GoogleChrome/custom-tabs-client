@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3b6808c_bf46212a",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-19T16:50:27Z",
+      "side": 1,
+      "message": "Nit: In Javadoc comments, use {@link […]} :)",
+      "range": {
+        "startLine": 83,
+        "startChar": 48,
+        "endLine": 83,
+        "endChar": 68
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
