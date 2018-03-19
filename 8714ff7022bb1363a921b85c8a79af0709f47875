@@ -84,6 +84,46 @@
     },
     {
       "key": {
+        "uuid": "b4f93785_5bfb0ed4",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-19T17:01:14Z",
+      "side": 1,
+      "message": "You need to catch all exceptions that can be forwarded from the client for all Binder calls. The only case where you don\u0027t AFAIK is for oneway calls.\nFor instance, as Bernhard said below, StrictMode violations are forwarded.",
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07a98316_46546ccd",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-19T17:01:14Z",
+      "side": 1,
+      "message": "What are the threading guarantees we have here for client code?\nSince this is an AIDL-based service, the calls are received on a threadpool, meaning that we have to be careful and explicit about the guarantees.",
+      "range": {
+        "startLine": 63,
+        "startChar": 50,
+        "endLine": 63,
+        "endChar": 51
+      },
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "57bb25af_159e7a98",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
         "patchSetId": 4
