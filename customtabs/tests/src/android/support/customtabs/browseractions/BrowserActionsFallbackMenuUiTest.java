@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.customtabs.R;
 import android.support.customtabs.TestActivity;
 import android.support.test.filters.SmallTest;
 import android.support.test.rule.ActivityTestRule;
