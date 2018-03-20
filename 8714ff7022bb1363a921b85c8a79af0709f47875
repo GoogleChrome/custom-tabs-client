@@ -101,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "292f608b_86158ccc",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-20T14:05:38Z",
+      "side": 1,
+      "message": "This class and its methods are going to be used from the TrustedWebActivityServiceConnectionManager class through the execute call, which takes a Callback\u003cTrustedWebActivityService\u003e.\n\nI\u0027ve decided that I\u0027m going to let these methods throw RemoteExceptions and RuntimeExceptions so the user can catch them inside the Callback if they want. However, for robustness the execute call will catch any exceptions from the Callback and handle them.",
+      "parentUuid": "b4f93785_5bfb0ed4",
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07a98316_46546ccd",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
         "patchSetId": 4
@@ -112,6 +130,30 @@
       "writtenOn": "2018-03-19T17:01:14Z",
       "side": 1,
       "message": "What are the threading guarantees we have here for client code?\nSince this is an AIDL-based service, the calls are received on a threadpool, meaning that we have to be careful and explicit about the guarantees.",
+      "range": {
+        "startLine": 63,
+        "startChar": 50,
+        "endLine": 63,
+        "endChar": 51
+      },
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cff38b96_a2f335cb",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-20T14:05:38Z",
+      "side": 1,
+      "message": "You\u0027re right, it\u0027s a service, meaning that its methods may be called on different threads.\n\nDo you think it\u0027s necessary to ensure the overridable methods are called on a single thread?",
+      "parentUuid": "07a98316_46546ccd",
       "range": {
         "startLine": 63,
         "startChar": 50,
