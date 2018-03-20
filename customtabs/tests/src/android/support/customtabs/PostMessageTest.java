@@ -24,6 +24,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.test.filters.SmallTest;
 import android.support.test.rule.ActivityTestRule;
@@ -73,15 +74,21 @@ public class PostMessageTest {
             @Override
             public void extraCallback(String callbackName, Bundle args) {
                 if (TestCustomTabsService.CALLBACK_BIND_TO_POST_MESSAGE.equals(callbackName)) {
-                    Intent postMessageServiceIntent = new Intent();
-                    postMessageServiceIntent.setClassName(
-                            mContext.getPackageName(), PostMessageService.class.getName());
-                    try {
-                        mServiceRule.bindService(postMessageServiceIntent,
-                                mPostMessageServiceConnection, Context.BIND_AUTO_CREATE);
-                    } catch (TimeoutException e) {
-                        fail();
-                    }
+                    // This gets run on the UI thread, where mServiceRule.bindService will not work.
+                    AsyncTask.THREAD_POOL_EXECUTOR.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Intent postMessageServiceIntent = new Intent();
+                                postMessageServiceIntent.setClassName(mContext.getPackageName(),
+                                        PostMessageService.class.getName());
+                                mServiceRule.bindService(postMessageServiceIntent,
+                                        mPostMessageServiceConnection, Context.BIND_AUTO_CREATE);
+                            } catch (TimeoutException e) {
+                                fail();
+                            }
+                        }
+                    });
                 }
             }
         };

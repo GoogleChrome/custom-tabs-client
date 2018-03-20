@@ -52,7 +52,7 @@ public final class BrowserActionsIntentTest {
     public void testDefaultBrowserActionsIntent() {
         BrowserActionsIntent browserActionsIntent =
                 new BrowserActionsIntent.Builder(mContext, mUri).build();
-        Intent intent = browserActionsIntent.mIntent;
+        Intent intent = browserActionsIntent.getIntent();
         assertNotNull(intent);
 
         assertEquals(BrowserActionsIntent.ACTION_BROWSER_ACTIONS_OPEN, intent.getAction());
@@ -61,7 +61,8 @@ public final class BrowserActionsIntentTest {
         assertEquals(BrowserActionsIntent.URL_TYPE_NONE,
                 intent.getIntExtra(BrowserActionsIntent.EXTRA_TYPE, 0));
         assertTrue(intent.hasExtra(BrowserActionsIntent.EXTRA_APP_ID));
-        assertEquals(mContext.getPackageName(), BrowserActionsIntent.getCreatorPackageName(intent));
+        assertEquals(mContext.getPackageName(),
+                BrowserActionsIntent.getUntrustedCreatorPackageName(intent));
         assertFalse(intent.hasExtra(BrowserActionsIntent.EXTRA_SELECTED_ACTION_PENDING_INTENT));
     }
 
@@ -82,7 +83,7 @@ public final class BrowserActionsIntentTest {
         BrowserActionsIntent browserActionsIntent = new BrowserActionsIntent.Builder(mContext, mUri)
                                                             .setCustomItems(customItems)
                                                             .build();
-        Intent intent = browserActionsIntent.mIntent;
+        Intent intent = browserActionsIntent.getIntent();
         assertTrue(intent.hasExtra(BrowserActionsIntent.EXTRA_MENU_ITEMS));
         ArrayList<Bundle> bundles =
                 intent.getParcelableArrayListExtra(BrowserActionsIntent.EXTRA_MENU_ITEMS);
