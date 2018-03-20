@@ -237,6 +237,9 @@ public class CustomTabsClient {
                     final @Relation int relation, final Uri requestedOrigin, final boolean result,
                     final @Nullable Bundle extras) throws RemoteException {
                 if (callback == null) return;
+
+                // Do something with mServiceComponentName.
+
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
