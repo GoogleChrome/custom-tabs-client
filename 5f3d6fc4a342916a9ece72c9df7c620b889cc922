@@ -2,6 +2,236 @@
   "comments": [
     {
       "key": {
+        "uuid": "783fd1c8_5c071084",
+        "filename": "customtabs/AndroidManifest.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-03-20T18:59:42Z",
+      "side": 1,
+      "message": "One thing that I don\u0027t think we have verified yet (for BrowserServiceFileProvider as well, I dont think we have that class committed to support lib yet), is how to make sure clients who are not interested in the components here are not getting them merged to their manifest.\n\nFor PostMessageService, \"the solution\" was to not include it here at all and expect the client to manually do it. This makes life easier for clients who want this functionality, but there is a ton of support lib client, who just want the basic custom tabs functionality and wouldn\u0027t want to export extra components.",
+      "range": {
+        "startLine": 38,
+        "startChar": 27,
+        "endLine": 38,
+        "endChar": 42
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df14da95_79c256ba",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/ITrustedWebActivityService.aidl",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-03-20T18:59:42Z",
+      "side": 1,
+      "message": "FYI, I think this will be android.support.browser.trusted unless otherwise noted to the support lib team.\n\nThe top level was going to be browser with customtabs, browseractions and trusted as subpackages. Best to check though, it has been a while since that conversation took place.",
+      "range": {
+        "startLine": 17,
+        "startChar": 24,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e86fed61_8953c0b0",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/ITrustedWebActivityService.aidl",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-03-20T18:59:42Z",
+      "side": 1,
+      "message": "Bundle notifyNotificationWithChannel(in Bundle args) \u003d 1; and so on for others\n\nBest to enumerate, so that when we add new ones later, we don\u0027t have to worry about backwards compatibility.",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 39
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a05ac61_b4d4d0a2",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-03-20T18:59:42Z",
+      "side": 1,
+      "message": "Why call it twice here?",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 23
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ede13309_ecf2ca18",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-03-20T18:59:42Z",
+      "side": 1,
+      "message": "do we not need to call super ourselves?",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 28
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa155bfe_566c7f8f",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-03-20T18:59:42Z",
+      "side": 1,
+      "message": "note to not forget javadocs with @return and params for all protected. Best to be as explanatory as we can about these since they will be the main resource for actually using the API.",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 13
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "981a228b_aefb628f",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-03-20T18:59:42Z",
+      "side": 1,
+      "message": "we can @hide this one as well probably. (not sure if we auto @hide all private calls tbh)",
+      "range": {
+        "startLine": 164,
+        "startChar": 23,
+        "endLine": 164,
+        "endChar": 43
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8027b63b_73c91026",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-03-20T18:59:42Z",
+      "side": 1,
+      "message": "FYI note for actual support lib review: All package protected calls will also be @hide eventually.",
+      "range": {
+        "startLine": 172,
+        "startChar": 14,
+        "endLine": 172,
+        "endChar": 15
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97624be6_cced0724",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-03-20T18:59:42Z",
+      "side": 1,
+      "message": "Is this for checking for the case where the Service died in the background?\n\n(The initial onCreate will have to be called, since they need the IInterface that we return onBind to actually call the protected methods we define here. So before calling onBind the service will be created.)",
+      "range": {
+        "startLine": 195,
+        "startChar": 17,
+        "endLine": 195,
+        "endChar": 37
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1716abee_4e3851e6",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-03-20T18:59:42Z",
+      "side": 1,
+      "message": "If this callback is something we expect Browser side developers to use often, it would also be good to highlight that as well. Right now it is a bit hard to dig and find how to use it. (it can be a description in execute() as well)",
+      "range": {
+        "startLine": 31,
+        "startChar": 21,
+        "endLine": 31,
+        "endChar": 38
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3b6808c_bf46212a",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
         "patchSetId": 5
