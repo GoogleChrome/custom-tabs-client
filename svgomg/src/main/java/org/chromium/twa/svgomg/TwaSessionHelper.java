@@ -84,7 +84,7 @@ public class TwaSessionHelper implements ServiceConnectionCallback {
             customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
         }
 
-        // Ensure we'e launching the same browser we're bound to.
+        // Ensure we're launching the same browser we're bound to.
         customTabsIntent.intent.setPackage(packageName);
 
         TrustedWebUtils.launchAsTrustedWebActivity(activity, customTabsIntent, uri);
@@ -175,8 +175,7 @@ public class TwaSessionHelper implements ServiceConnectionCallback {
         }
 
         this.mOrigin = origin;
-        this.packageName = CustomTabsClient.getPackageName(
-                context, CHROME_PACKAGES, false);
+        this.packageName = CustomTabsClient.getPackageName(context, CHROME_PACKAGES, false);
 
         Context applicationContext = context.getApplicationContext();
 
