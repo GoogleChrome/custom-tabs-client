@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5d7b7401_faef60e2",
+        "filename": "customtabs/AndroidManifest.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-21T10:28:53Z",
+      "side": 1,
+      "message": "Sorry, this file was added erroneously - the TrustedWebActivityService is mentioned in the Application/.../AndroidManifest.xml for the test application, but it doesn\u0027t need to be put here.\n\nWe want the user to have to explicitly put the service in their manifest so that they can use a subclass of the service if they want.",
+      "parentUuid": "783fd1c8_5c071084",
+      "range": {
+        "startLine": 38,
+        "startChar": 27,
+        "endLine": 38,
+        "endChar": 42
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df14da95_79c256ba",
         "filename": "customtabs/src/android/support/customtabs/browserservices/ITrustedWebActivityService.aidl",
         "patchSetId": 5
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "f4c67cfe_b420bbaa",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/ITrustedWebActivityService.aidl",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-21T10:28:53Z",
+      "side": 1,
+      "message": "Done!\n\nWhere can I read up a bit more about this? I can\u0027t find anything in https://developer.android.com/guide/components/aidl.html",
+      "parentUuid": "e86fed61_8953c0b0",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 39
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a05ac61_b4d4d0a2",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
         "patchSetId": 5
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "590b0ccb_3f235fed",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-21T10:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a05ac61_b4d4d0a2",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 23
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ede13309_ecf2ca18",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
         "patchSetId": 5
@@ -114,6 +186,30 @@
       "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a33788ab_337c2ce1",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-21T10:28:53Z",
+      "side": 1,
+      "message": "https://developer.android.com/reference/android/app/Service.html#LocalServiceSample doesn\u0027t seem to, however it doesn\u0027t hurt (and we never know how much we can trust the Android documentation :-P ).",
+      "parentUuid": "ede13309_ecf2ca18",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 28
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -197,6 +293,30 @@
       "writtenOn": "2018-03-20T18:59:42Z",
       "side": 1,
       "message": "Is this for checking for the case where the Service died in the background?\n\n(The initial onCreate will have to be called, since they need the IInterface that we return onBind to actually call the protected methods we define here. So before calling onBind the service will be created.)",
+      "range": {
+        "startLine": 195,
+        "startChar": 17,
+        "endLine": 195,
+        "endChar": 37
+      },
+      "revId": "5f3d6fc4a342916a9ece72c9df7c620b889cc922",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaad9d22_b631d01b",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-21T10:28:53Z",
+      "side": 1,
+      "message": "This is for when a user extends this class. It\u0027s basically throwing a more readable exception when the user\u0027s Service doesn\u0027t call super.onCreate().",
+      "parentUuid": "97624be6_cced0724",
       "range": {
         "startLine": 195,
         "startChar": 17,
