@@ -17,16 +17,12 @@ package org.chromium.customtabsclient;
 import android.app.ActivityManager;
 import android.app.ActivityOptions;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,18 +33,17 @@ import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.customtabs.CustomTabsSession;
+import android.support.customtabs.browseractions.BrowserActionItem;
 import android.support.customtabs.browseractions.BrowserActionsIntent;
 import android.support.customtabs.browseractions.BrowserServiceFileProvider;
-import android.support.v4.content.FileProvider;
+import android.support.customtabs.trusted.TrustedWebActivityService;
 import android.support.v7.app.AppCompatActivity;
-import android.support.customtabs.browseractions.BrowserActionItem;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -56,15 +51,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.chromium.customtabsclient.shared.CustomTabsHelper;
 import org.chromium.customtabsclient.shared.ServiceConnection;
 import org.chromium.customtabsclient.shared.ServiceConnectionCallback;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +78,7 @@ public class MainActivity
     private Button mLaunchButton;
     private MediaPlayer mMediaPlayer;
     private Button mLaunchBrowserActionsButton;
+    private Button mRegisterTwaServiceButton;
 
     /**
      * Once per second, asks the framework for the process importance, and logs any change.
@@ -133,6 +125,7 @@ public class MainActivity
         mLaunchButton = (Button) findViewById(R.id.launch_button);
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         mLaunchBrowserActionsButton = (Button) findViewById(R.id.launch_browser_actions_button);
+        mRegisterTwaServiceButton = (Button) findViewById(R.id.register_twa_service);
         mEditText.requestFocus();
         mConnectButton.setOnClickListener(this);
         mWarmupButton.setOnClickListener(this);
@@ -140,6 +133,7 @@ public class MainActivity
         mLaunchButton.setOnClickListener(this);
         mMediaPlayer = MediaPlayer.create(this, R.raw.amazing_grace);
         mLaunchBrowserActionsButton.setOnClickListener(this);
+        mRegisterTwaServiceButton.setOnClickListener(this);
 
         Intent activityIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com"));
         PackageManager pm = getPackageManager();
@@ -286,6 +280,10 @@ public class MainActivity
             PendingIntent defaultAction = PendingIntent.getBroadcast(this, 0, defaultIntent, 0);
             BrowserActionsIntent.openBrowserAction(
                     this, Uri.parse(url), BrowserActionsIntent.URL_TYPE_NONE, items, defaultAction);
+        } else if (viewId == R.id.register_twa_service) {
+            if (mPackageNameToBind != null) {
+                TrustedWebActivityService.setVerifiedProviderForTesting(this, mPackageNameToBind);
+            }
         }
     }
 
