@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "6eef8037_bdd9ca9c",
+        "filename": "Application/src/main/AndroidManifest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-22T11:33:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c478a960_3c964fb9",
+      "range": {
+        "startLine": 47,
+        "startChar": 36,
+        "endLine": 47,
+        "endChar": 51
+      },
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4f93785_5bfb0ed4",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
         "patchSetId": 4
@@ -116,6 +140,24 @@
       "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75fd7088_ecc0732c",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-22T11:33:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "292f608b_86158ccc",
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -154,6 +196,30 @@
       "side": 1,
       "message": "You\u0027re right, it\u0027s a service, meaning that its methods may be called on different threads.\n\nDo you think it\u0027s necessary to ensure the overridable methods are called on a single thread?",
       "parentUuid": "07a98316_46546ccd",
+      "range": {
+        "startLine": 63,
+        "startChar": 50,
+        "endLine": 63,
+        "endChar": 51
+      },
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "528c726a_3c716744",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-22T11:33:05Z",
+      "side": 1,
+      "message": "I think ultimately we should warn the developers that their overrides need to be threadsafe - and if there is a need for it we can add a SingleThreadedTrustedWebActivityService subclass or something.",
+      "parentUuid": "cff38b96_a2f335cb",
       "range": {
         "startLine": 63,
         "startChar": 50,
