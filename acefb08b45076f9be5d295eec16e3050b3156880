@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecd8bfd1_09fa988d",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-03-22T14:49:03Z",
+      "side": 1,
+      "message": "Nit: remove empty line",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
