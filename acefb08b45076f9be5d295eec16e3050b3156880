@@ -93,6 +93,24 @@
     },
     {
       "key": {
+        "uuid": "86ace08b_5b64a755",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-23T13:12:46Z",
+      "side": 1,
+      "message": "From https://developer.android.com/guide/components/bound-services.html#Basics:\n\nYou can connect multiple clients to a service simultaneously. However, the system caches the IBinder service communication channel. In other words, the system calls the service\u0027s onBind() method to generate the IBinder only when the first client binds. The system then delivers that same IBinder to all additional clients that bind to that same service, without calling onBind() again.\n\nSo we can\u0027t do the verification here.",
+      "parentUuid": "68fe25dd_ddcf3c4a",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b53952e9_13fb5e32",
         "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
         "patchSetId": 12
@@ -104,6 +122,24 @@
       "writtenOn": "2018-03-23T12:41:45Z",
       "side": 1,
       "message": "Which thread is this called on?\n\nFrom the onServiceConnected(), I believe this is on the UI thread. If so, this should probably be documented.",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83b6346a_f8e8aa32",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-23T13:12:46Z",
+      "side": 1,
+      "message": "This is going to be called on a background thread - I mentioned this in the documentation for #execute.",
+      "parentUuid": "b53952e9_13fb5e32",
       "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -317,6 +353,24 @@
       "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6f694ff_fc85dd47",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-03-23T13:12:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecd8bfd1_09fa988d",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
