@@ -2,6 +2,307 @@
   "comments": [
     {
       "key": {
+        "uuid": "4d578b01_ebd1d15b",
+        "filename": "Application/src/main/java/org/chromium/customtabsclient/MainActivity.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "nit: I know that the app is not really clean right now, but it\u0027s not required to make the button an instance variable, since nothing refers to it outside onCreate().",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04a58383_b7743d64",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "nit: try {} finally {}\n\naround the strictmode configuration changes.",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bcd8934_e8563445",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "nit:\nif (packages.contains(verifiedPackage)) return;\n\n(List#contains() uses .equals())",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6916b628_27b4944a",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "Is it really necessary to have this check?",
+      "range": {
+        "startLine": 208,
+        "startChar": 8,
+        "endLine": 208,
+        "endChar": 28
+      },
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68fe25dd_ddcf3c4a",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "This means that any app is allowed to bind the the current app, and then later can crash it by issuing a call, since it would throw a SecurityException.\n\nFrom the Android documentation (https://developer.android.com/reference/android/app/Service.html#onBind(android.content.Intent)), onBind() may return null if the calling app is not allowed to bind to the service.\n\nThis looks better to me, as this doesn\u0027t throw an exception, and remove the need to check the caller in each and every call (assuming that it\u0027s OK for the truster provider to pass the connection to another app, which may be true or not).",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b53952e9_13fb5e32",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "Which thread is this called on?\n\nFrom the onServiceConnected(), I believe this is on the UI thread. If so, this should probably be documented.",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66b4dced_deae1d40",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "Since this is not synchronized, this should only be called on the thread where the service callbacks occur, right?\nIf so, please document is here, and below in the external-facing execute().",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "938c6816_d228b2d6",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "Wouldn\u0027t AtomicReference\u003c\u003e work here?",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d961ac29_9dee87f4",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "nit: try {} finally {} for setting the strictmode policy.",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe6d4ddd_b9ea009e",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "With AtomicReference, this would be:\n\nif (sSharedPreferences.get() \u003d\u003d null) {\n  sSharedPreferences.compareAndSet(null, context.getSharedPreferences(...));\n}",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef6fc406_799c7ee4",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "mContext \u003d context.getApplicationContext();\n\nOtherwise we can have an activity leak if the caller passes an Activity, right?",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bfed04e_f8394174",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "nit: lambda? Or are they forbidden in the android support library?",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8655740c_30a6e61a",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "nit: ditto, lambda is possible?",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "973b4085_42c30419",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "See above, I believe the fact that Connection is mutated here means that this has to be called from the UI thread.",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f689d2df_cc58d700",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "Connection.addCallback() can be called both from the parent thread and from an AsyncTask, yet nothing is protected by locks there.\nCan you clarify threading?",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f4e6983_f7a6ff99",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "Per the Android style guide, these variables shouldn\u0027t have a leading \"m\".\nSee https://source.android.com/setup/code-style\n\nThese should be:\n\npublic final String platformTag;\n...",
+      "range": {
+        "startLine": 107,
+        "startChar": 27,
+        "endLine": 107,
+        "endChar": 28
+      },
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16c69e93_9810a5a0",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "ditto, no leading \"m\" there as well.",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ecd8bfd1_09fa988d",
         "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
         "patchSetId": 12
@@ -13,6 +314,40 @@
       "writtenOn": "2018-03-22T14:49:03Z",
       "side": 1,
       "message": "Nit: remove empty line",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3467f37d_c2b1e8e5",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "nit: ditto, no leading \"m\"",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98a4dc41_03c90913",
+        "filename": "customtabs/tests/src/android/support/customtabs/trusted/TestTrustedWebActivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-03-23T12:41:45Z",
+      "side": 1,
+      "message": "🎵 THE NUMBER OF THE BEAST 🎵",
       "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
