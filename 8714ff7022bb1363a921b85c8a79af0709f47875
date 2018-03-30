@@ -510,6 +510,29 @@
     },
     {
       "key": {
+        "uuid": "fc6804e2_2c3886b8",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-03-30T17:41:53Z",
+      "side": 1,
+      "message": "I do wonder if declaring ExecutionCallback as an abstract class with a final onConnected that essentially does what you have below would be cleaner here.\n\nso the client still extends this other onConnectedForClientOrAddBetterNameHere() which gets called from the final onConnected with the try and catch (and within here we only call that). Then we create a single abstract class and that is it.\n\nHaving the two interfaces above and this wrapping logic here makes it a bit hard to read imho.",
+      "range": {
+        "startLine": 131,
+        "startChar": 19,
+        "endLine": 131,
+        "endChar": 34
+      },
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "021a7b1a_b9fc1231",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
         "patchSetId": 4
