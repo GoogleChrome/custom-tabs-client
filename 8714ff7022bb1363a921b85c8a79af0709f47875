@@ -533,6 +533,30 @@
     },
     {
       "key": {
+        "uuid": "7db070a7_455e07ca",
+        "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-04-17T14:10:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc6804e2_2c3886b8",
+      "range": {
+        "startLine": 131,
+        "startChar": 19,
+        "endLine": 131,
+        "endChar": 34
+      },
+      "revId": "8714ff7022bb1363a921b85c8a79af0709f47875",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "021a7b1a_b9fc1231",
         "filename": "customtabs/src/android/support/customtabs/browserservices/TrustedWebActivityServiceConnectionManager.java",
         "patchSetId": 4
