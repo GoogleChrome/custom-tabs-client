@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "65dd0024_1f8f99e2",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-04-20T00:35:52Z",
+      "side": 1,
+      "message": "Everything can throw on Android :-)\n\nIt\u0027s just general code habit, having these kind of things in try {} finally {} looks cleaner to me.",
+      "parentUuid": "a338965f_3d73ab4f",
+      "revId": "acefb08b45076f9be5d295eec16e3050b3156880",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3bcd8934_e8563445",
         "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
         "patchSetId": 12

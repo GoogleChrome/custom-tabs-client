@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "402e6331_5ee7e3b4",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-04-20T00:35:52Z",
+      "side": 1,
+      "message": "Each of the calls above will incur at least one call to ActivityManager (in another process), and potentially jank the UI, especially if these calls are dispatched from the UI thread in the caller, as these interfaces are not oneway.\n\nWe could cache that a given calling UID is fine, avoiding the call. The only failure cas I can think of would be:\n- A legitimate caller (e.g. Chrome) is uninstalled\n- An illegitimate caller is installed and gets the *same* UID.\n\nThe client app can notice that the provider went away (onUnbind() called, unless a given app has several providers at the same time which seems wrong to begin with), and invalidate the UID.\n\nIn light of that, what about:\n1. Allowing a single provider at a time (in checkCaller())\n2. invalidating the UID in onUnbind()\n\nMay be deferred, but I\u0027m somewhat concerned about a call to PackageManager blocking the calling app (that is, the provider).",
+      "revId": "2a0ac38d09796a6696ae5709223f23389241d2c5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
