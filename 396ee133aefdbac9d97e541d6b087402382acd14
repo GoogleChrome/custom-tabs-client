@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c9940f0_60a4b69a",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-04-23T17:39:25Z",
+      "side": 1,
+      "message": "Use a @Nullable Integer?",
+      "range": {
+        "startLine": 101,
+        "startChar": 11,
+        "endLine": 101,
+        "endChar": 14
+      },
+      "revId": "396ee133aefdbac9d97e541d6b087402382acd14",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
