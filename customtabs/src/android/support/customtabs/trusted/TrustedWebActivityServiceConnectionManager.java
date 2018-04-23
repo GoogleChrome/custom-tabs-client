@@ -121,7 +121,7 @@ public class TrustedWebActivityServiceConnectionManager {
                 callback.onConnected(mService);
             }
         }
-    };
+    }
 
     private final Context mContext;
     /** Map from ServiceWorker scope to Connection. */
@@ -152,11 +152,9 @@ public class TrustedWebActivityServiceConnectionManager {
                         context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE));
             }
 
-            Set<String> packages = origin == null ? null :
+            return origin == null ? null :
                     new HashSet<>(sSharedPreferences.get().getStringSet(origin,
                             Collections.<String>emptySet()));
-
-            return packages;
         } finally {
             StrictMode.setThreadPolicy(policy);
         }
@@ -272,6 +270,26 @@ public class TrustedWebActivityServiceConnectionManager {
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         return true;
+    }
+
+    /**
+     * Checks if a TrustedWebActivityService exists to handle requests for the given scope and
+     * origin. The value will be the same as that returned from {@link #execute} so calling that
+     * and checking the return may be more convenient.
+     *
+     * This method should be called on the UI thread.
+     *
+     * @param scope The scope used in an Intent to find packages that may have a
+     *              {@link TrustedWebActivityService}.
+     * @param origin An origin that the {@link TrustedWebActivityService} package must be registered
+     *               to.
+     * @return Whether a {@link TrustedWebActivityService} was found.
+     */
+    public boolean twaExistsForScope(Uri scope, String origin) {
+        // If we have an existing connection, we can deal with the scope.
+        if (mConnections.get(scope) != null) return true;
+
+        return createServiceIntent(mContext, scope, origin) != null;
     }
 
     /**
