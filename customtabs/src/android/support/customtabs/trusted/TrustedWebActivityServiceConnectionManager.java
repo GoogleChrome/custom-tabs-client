@@ -275,6 +275,16 @@ public class TrustedWebActivityServiceConnectionManager {
     }
 
     /**
+     * Unbinds all open connections to Trusted Web Activity clients.
+     */
+    void unbindAllConnections() {
+        for (Connection connection : mConnections.values()) {
+            mContext.unbindService(connection);
+        }
+        mConnections.clear();
+    }
+
+    /**
      * Creates an Intent to launch the Service for the given scope and verified origin. Will
      * return null if there is no applicable Service.
      */

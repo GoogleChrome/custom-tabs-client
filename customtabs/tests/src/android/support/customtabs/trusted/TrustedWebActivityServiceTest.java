@@ -52,6 +52,7 @@ public class TrustedWebActivityServiceTest {
     @Before
     public void setup() {
         mContext = InstrumentationRegistry.getContext();
+
         Intent intent = new Intent();
         intent.setClassName(mContext.getPackageName(),
                 TestTrustedWebActivityService.class.getName());
@@ -65,6 +66,7 @@ public class TrustedWebActivityServiceTest {
 
     @After
     public void tearDown() {
+        mServiceRule.unbindService();
         TrustedWebActivityService.setVerifiedProvider(mContext, null);
     }
 
