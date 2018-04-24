@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9771a357_dfbdb337",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-04-24T09:17:54Z",
+      "side": 1,
+      "message": "Really, really minor nits:\n- naming: I prefer to avoid acronyms in names if possible. What about \"serviceExistsForScope\" or \"hasHandlerForScope\"?\n- This will output things to logcat if there is no scope, which seems not abnormal in the context of the parent method. Is it expected?",
+      "revId": "420127adc3c4241802fef525a6fc70ae2a4f41dd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
