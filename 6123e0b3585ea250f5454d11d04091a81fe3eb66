@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb4c5121_a7a064ea",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-04-24T09:12:12Z",
+      "side": 1,
+      "message": "POSIX mandates that -1 is an invalid UID, so you don\u0027t need to use an Integer here, and can use an int initialized to -1.\n\nUp to you.",
+      "range": {
+        "startLine": 101,
+        "startChar": 21,
+        "endLine": 101,
+        "endChar": 28
+      },
+      "revId": "6123e0b3585ea250f5454d11d04091a81fe3eb66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "749884b2_fb0e1a49",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-04-24T09:12:12Z",
+      "side": 1,
+      "message": "nit: Early return instead of checking after the \"if (mVerifiedUid \u003d\u003d null)\" check?\n\nAlso, if you use an int, you can just write:\nif (mVerifiedUid \u003d\u003d getCallingUid()) return;",
+      "revId": "6123e0b3585ea250f5454d11d04091a81fe3eb66",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
