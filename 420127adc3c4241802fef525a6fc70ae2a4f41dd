@@ -16,6 +16,24 @@
       "revId": "420127adc3c4241802fef525a6fc70ae2a4f41dd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20ed13cf_51f1fbca",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-04-25T09:49:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9771a357_dfbdb337",
+      "revId": "420127adc3c4241802fef525a6fc70ae2a4f41dd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
