@@ -52,6 +52,7 @@ public class TrustedWebActivityServiceTest {
     @Before
     public void setup() {
         mContext = InstrumentationRegistry.getContext();
+
         Intent intent = new Intent();
         intent.setClassName(mContext.getPackageName(),
                 TestTrustedWebActivityService.class.getName());
@@ -65,6 +66,7 @@ public class TrustedWebActivityServiceTest {
 
     @After
     public void tearDown() {
+        mServiceRule.unbindService();
         TrustedWebActivityService.setVerifiedProvider(mContext, null);
     }
 
@@ -82,6 +84,7 @@ public class TrustedWebActivityServiceTest {
         // This only works because we're in the same process as the service, otherwise this would
         // have to be called in the Service's process.
         TrustedWebActivityService.setVerifiedProvider(mContext, mContext.getPackageName());
+        mService.getSmallIconId();
     }
 
     @Test(expected = SecurityException.class)

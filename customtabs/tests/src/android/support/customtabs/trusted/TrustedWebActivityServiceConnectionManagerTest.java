@@ -56,6 +56,8 @@ public class TrustedWebActivityServiceConnectionManagerTest {
 
     @After
     public void tearDown() {
+        mManager.unbindAllConnections();
+
         TrustedWebActivityService.setVerifiedProvider(mContext, null);
     }
 
@@ -85,8 +87,8 @@ public class TrustedWebActivityServiceConnectionManagerTest {
         boolean delegated = mManager.execute(BAD_SCOPE, ORIGIN,
                 new TrustedWebActivityServiceConnectionManager.ExecutionCallback() {
                     @Override
-                    public void onConnected(@Nullable TrustedWebActivityServiceWrapper service)
-                            throws RemoteException {}});
+                    public void onConnected(@Nullable TrustedWebActivityServiceWrapper service) {}
+        });
         Assert.assertFalse(delegated);
     }
 }
