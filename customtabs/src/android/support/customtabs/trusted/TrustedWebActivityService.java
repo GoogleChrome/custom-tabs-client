@@ -98,6 +98,8 @@ public class TrustedWebActivityService extends Service {
 
     private NotificationManager mNotificationManager;
 
+    public int mVerifiedUid = -1;
+
     private final ITrustedWebActivityService.Stub mBinder =
             new ITrustedWebActivityService.Stub() {
         @Override
@@ -129,19 +131,27 @@ public class TrustedWebActivityService extends Service {
         }
 
         private void checkCaller() {
-            String[] packages = getPackageManager().getPackagesForUid(getCallingUid());
+            if (mVerifiedUid == -1) {
+                String[] packages = getPackageManager().getPackagesForUid(getCallingUid());
+                // We need to read Preferences. This should only be called on the Binder thread
+                // which is designed to handle long running, blocking tasks, so disk I/O should be
+                // OK.
+                StrictMode.ThreadPolicy policy = StrictMode.allowThreadDiskReads();
+                try {
+                    String verifiedPackage = getPreferences(TrustedWebActivityService.this)
+                            .getString(PREFS_VERIFIED_PROVIDER, null);
 
-            // We need to read Preferences. This should only be called on the Binder thread which
-            // is designed to handle long running, blocking tasks, so disk I/O should be OK.
-            StrictMode.ThreadPolicy policy = StrictMode.allowThreadDiskReads();
-            try {
-                String verifiedPackage = getPreferences(TrustedWebActivityService.this)
-                        .getString(PREFS_VERIFIED_PROVIDER, null);
+                    if (Arrays.asList(packages).contains(verifiedPackage)) {
+                        mVerifiedUid = getCallingUid();
 
-                if (Arrays.asList(packages).contains(verifiedPackage)) return;
-            } finally {
-                StrictMode.setThreadPolicy(policy);
+                        return;
+                    }
+                } finally {
+                    StrictMode.setThreadPolicy(policy);
+                }
             }
+
+            if (mVerifiedUid == getCallingUid()) return;
 
             throw new SecurityException("Caller is not verified as Trusted Web Activity provider.");
         }
@@ -235,6 +245,13 @@ public class TrustedWebActivityService extends Service {
     @Override
     final public IBinder onBind(Intent intent) {
         return mBinder;
+    }
+
+    @Override
+    final public boolean onUnbind(Intent intent) {
+        mVerifiedUid = -1;
+
+        return super.onUnbind(intent);
     }
 
     /**
