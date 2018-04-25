@@ -235,6 +235,9 @@ public class TrustedWebActivityService extends Service {
         try {
             ServiceInfo info = getPackageManager().getServiceInfo(
                     new ComponentName(this, getClass()), PackageManager.GET_META_DATA);
+
+            if (info.metaData == null) return -1;
+
             return info.metaData.getInt(SMALL_ICON_META_DATA_NAME, -1);
         } catch (PackageManager.NameNotFoundException e) {
             // Will only happen if the package provided (the one we are running in) is not
