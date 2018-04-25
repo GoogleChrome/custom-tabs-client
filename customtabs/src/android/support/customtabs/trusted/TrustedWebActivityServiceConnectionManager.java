@@ -121,7 +121,7 @@ public class TrustedWebActivityServiceConnectionManager {
                 callback.onConnected(mService);
             }
         }
-    };
+    }
 
     private final Context mContext;
     /** Map from ServiceWorker scope to Connection. */
@@ -152,11 +152,9 @@ public class TrustedWebActivityServiceConnectionManager {
                         context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE));
             }
 
-            Set<String> packages = origin == null ? null :
+            return origin == null ? null :
                     new HashSet<>(sSharedPreferences.get().getStringSet(origin,
                             Collections.<String>emptySet()));
-
-            return packages;
         } finally {
             StrictMode.setThreadPolicy(policy);
         }
@@ -235,7 +233,7 @@ public class TrustedWebActivityServiceConnectionManager {
         }
 
         // Check that this is a notification we want to handle.
-        final Intent bindServiceIntent = createServiceIntent(mContext, scope, origin);
+        final Intent bindServiceIntent = createServiceIntent(mContext, scope, origin, true);
         if (bindServiceIntent == null) return false;
 
         final Connection newConnection = new Connection(scope);
@@ -275,6 +273,26 @@ public class TrustedWebActivityServiceConnectionManager {
     }
 
     /**
+     * Checks if a TrustedWebActivityService exists to handle requests for the given scope and
+     * origin. The value will be the same as that returned from {@link #execute} so calling that
+     * and checking the return may be more convenient.
+     *
+     * This method should be called on the UI thread.
+     *
+     * @param scope The scope used in an Intent to find packages that may have a
+     *              {@link TrustedWebActivityService}.
+     * @param origin An origin that the {@link TrustedWebActivityService} package must be registered
+     *               to.
+     * @return Whether a {@link TrustedWebActivityService} was found.
+     */
+    public boolean serviceExistsForScope(Uri scope, String origin) {
+        // If we have an existing connection, we can deal with the scope.
+        if (mConnections.get(scope) != null) return true;
+
+        return createServiceIntent(mContext, scope, origin, false) != null;
+    }
+
+    /**
      * Unbinds all open connections to Trusted Web Activity clients.
      */
     void unbindAllConnections() {
@@ -285,10 +303,12 @@ public class TrustedWebActivityServiceConnectionManager {
     }
 
     /**
+
      * Creates an Intent to launch the Service for the given scope and verified origin. Will
      * return null if there is no applicable Service.
      */
-    private @Nullable Intent createServiceIntent(Context appContext, Uri scope, String origin) {
+    private @Nullable Intent createServiceIntent(Context appContext, Uri scope, String origin,
+            boolean shouldLog) {
         Set<String> possiblePackages = getVerifiedPackages(appContext, origin);
 
         if (possiblePackages == null || possiblePackages.size() == 0) {
@@ -316,7 +336,7 @@ public class TrustedWebActivityServiceConnectionManager {
         }
 
         if (resolvedPackage == null) {
-            Log.w(TAG, "No TWA candidates for " + origin + " have been registered.");
+            if (shouldLog) Log.w(TAG, "No TWA candidates for " + origin + " have been registered.");
             return null;
         }
 
@@ -328,11 +348,13 @@ public class TrustedWebActivityServiceConnectionManager {
                 PackageManager.MATCH_ALL);
 
         if (info == null) {
-            Log.w(TAG, "Could not find TWAService for " + resolvedPackage);
+            if (shouldLog) Log.w(TAG, "Could not find TWAService for " + resolvedPackage);
             return null;
         }
 
-        Log.i(TAG, "Found " + info.serviceInfo.name + " to handle request for " + origin);
+        if (shouldLog) {
+            Log.i(TAG, "Found " + info.serviceInfo.name + " to handle request for " + origin);
+        }
         Intent finalIntent = new Intent();
         finalIntent.setComponent(new ComponentName(resolvedPackage, info.serviceInfo.name));
         return finalIntent;
