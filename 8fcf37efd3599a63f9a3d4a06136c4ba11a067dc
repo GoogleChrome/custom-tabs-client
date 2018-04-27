@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aba441cc_7e904699",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-04-27T17:11:17Z",
+      "side": 1,
+      "message": "This is not ForTesting anymore :)",
+      "range": {
+        "startLine": 246,
+        "startChar": 65,
+        "endLine": 246,
+        "endChar": 75
+      },
+      "revId": "8fcf37efd3599a63f9a3d4a06136c4ba11a067dc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
