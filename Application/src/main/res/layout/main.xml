@@ -93,7 +93,7 @@
             android:layout_margin="3dp"
             android:textAllCaps="false"
             android:text="@string/launch_button_text"
-            android:enabled="false" />
+            android:enabled="true" />
     
         <Button
             android:id="@+id/launch_browser_actions_button"

@@ -252,17 +252,24 @@ public class MainActivity
             if (mClient != null) success = session.mayLaunchUrl(Uri.parse(url), null, null);
             if (!success) mMayLaunchButton.setEnabled(false);
         } else if (viewId == R.id.launch_button) {
-            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder(getSession());
+            CustomTabsSession session = getSession();
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder(session);
             builder.setToolbarColor(Color.parseColor(TOOLBAR_COLOR)).setShowTitle(true);
             prepareMenuItems(builder);
             prepareActionButton(builder);
-            prepareBottombar(builder);
+            if (session != null) prepareBottombar(builder);
             builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left);
             builder.setExitAnimations(this, R.anim.slide_in_left, R.anim.slide_out_right);
             builder.setCloseButtonIcon(
                     BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back));
             CustomTabsIntent customTabsIntent = builder.build();
-            CustomTabsHelper.addKeepAliveExtra(this, customTabsIntent.intent);
+            if (session != null) {
+                CustomTabsHelper.addKeepAliveExtra(this, customTabsIntent.intent);
+            } else {
+                if (!TextUtils.isEmpty(mPackageNameToBind)) {
+                    customTabsIntent.intent.setPackage(mPackageNameToBind);
+                }
+            }
             customTabsIntent.launchUrl(this, Uri.parse(url));
         } else if (viewId == R.id.launch_browser_actions_button) {
             Intent openLinkIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
