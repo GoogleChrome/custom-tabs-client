@@ -17,6 +17,7 @@
 package android.support.customtabs;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
@@ -26,11 +27,22 @@ import android.os.IBinder;
  * connection like rebinding on disconnect.
  */
 public abstract class CustomTabsServiceConnection implements ServiceConnection {
+    private Context mApplicationContext;
+
+    /** @hide */
+    /* package */ void setApplicationContext(Context context) {
+        mApplicationContext = context;
+    }
+
+    /** @hide */
+    /* package */ Context getApplicationContext() {
+        return mApplicationContext;
+    }
 
     @Override
     public final void onServiceConnected(ComponentName name, IBinder service) {
         onCustomTabsServiceConnected(name, new CustomTabsClient(
-                ICustomTabsService.Stub.asInterface(service), name) {
+                ICustomTabsService.Stub.asInterface(service), name, mApplicationContext) {
         });
     }
 

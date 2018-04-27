@@ -29,6 +29,7 @@ import android.os.Looper;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsService.Relation;
+import android.support.customtabs.trusted.TrustedWebActivityService;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -41,11 +42,14 @@ import java.util.List;
 public class CustomTabsClient {
     private final ICustomTabsService mService;
     private final ComponentName mServiceComponentName;
+    private final Context mApplicationContext;
 
     /**@hide*/
-    CustomTabsClient(ICustomTabsService service, ComponentName componentName) {
+    CustomTabsClient(ICustomTabsService service, ComponentName componentName,
+            Context applicationContext) {
         mService = service;
         mServiceComponentName = componentName;
+        mApplicationContext = applicationContext;
     }
 
     /**
@@ -62,6 +66,7 @@ public class CustomTabsClient {
      */
     public static boolean bindCustomTabsService(Context context,
             String packageName, CustomTabsServiceConnection connection) {
+        connection.setApplicationContext(context.getApplicationContext());
         Intent intent = new Intent(CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION);
         if (!TextUtils.isEmpty(packageName)) intent.setPackage(packageName);
         return context.bindService(intent, connection,
@@ -236,6 +241,12 @@ public class CustomTabsClient {
             public void onRelationshipValidationResult(
                     final @Relation int relation, final Uri requestedOrigin, final boolean result,
                     final @Nullable Bundle extras) throws RemoteException {
+
+                if (mApplicationContext != null && result) {
+                    TrustedWebActivityService.setVerifiedProviderForTesting(mApplicationContext,
+                            mServiceComponentName.getPackageName());
+                }
+
                 if (callback == null) return;
 
                 // Do something with mServiceComponentName.
