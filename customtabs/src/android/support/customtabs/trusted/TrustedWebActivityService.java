@@ -279,7 +279,7 @@ public class TrustedWebActivityService extends Service {
      * @param provider The package of the provider to accept connections from or null to clear.
      * @hide
      */
-    /* package */ static final void setVerifiedProvider(final Context context,
+    public static final void setVerifiedProvider(final Context context,
             @Nullable String provider) {
         final String providerEmptyChecked =
                 (provider == null || provider.isEmpty()) ? null : provider;
