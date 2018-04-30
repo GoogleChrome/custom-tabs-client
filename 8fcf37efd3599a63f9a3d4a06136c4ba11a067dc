@@ -22,6 +22,30 @@
       "revId": "8fcf37efd3599a63f9a3d4a06136c4ba11a067dc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79eda316_201b2861",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-04-30T13:24:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aba441cc_7e904699",
+      "range": {
+        "startLine": 246,
+        "startChar": 65,
+        "endLine": 246,
+        "endChar": 75
+      },
+      "revId": "8fcf37efd3599a63f9a3d4a06136c4ba11a067dc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
