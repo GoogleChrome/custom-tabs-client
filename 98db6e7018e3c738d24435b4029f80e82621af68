@@ -34,6 +34,24 @@
       "revId": "98db6e7018e3c738d24435b4029f80e82621af68",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5828d45d_ba483ff3",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-05-01T10:56:23Z",
+      "side": 1,
+      "message": "Oh, hm. I wonder what the best way is to express \"this is hidden unless for testing\" – I expect usually if Android code hides stuff, it hides it for good (presumably because developers will mercilessly use ...ForTesting methods in production etc. 😁). But ok, what you have right now makes sense, and if necessary we can adjust when we upstream this into the Support Library (where Alan might have more feedback).",
+      "parentUuid": "bb96359e_894cfaf5",
+      "revId": "98db6e7018e3c738d24435b4029f80e82621af68",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
