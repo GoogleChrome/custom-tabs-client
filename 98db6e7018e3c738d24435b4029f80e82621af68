@@ -16,6 +16,24 @@
       "revId": "98db6e7018e3c738d24435b4029f80e82621af68",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb96359e_894cfaf5",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-05-01T10:26:00Z",
+      "side": 1,
+      "message": "Is it not still useful for developers playing around with TWAs? We want them to use the \"forTesting\" method to make it explicit (and we\u0027ve hidden the not \"forTesting\" method).",
+      "parentUuid": "4a8c6c36_308da5af",
+      "revId": "98db6e7018e3c738d24435b4029f80e82621af68",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
