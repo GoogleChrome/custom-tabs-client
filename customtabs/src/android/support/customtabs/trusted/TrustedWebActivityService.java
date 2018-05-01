@@ -179,7 +179,8 @@ public class TrustedWebActivityService extends Service {
      * @param channelName The name of the notification channel that the notification should be
      *                    displayed on. This method gets or creates a channel from the name and
      *                    modifies the notification to use that channel.
-     * @return Whether notifications or the given notification channel are blocked by the user.
+     * @return Whether the notification was successfully displayed (the channel/app may be blocked
+     *         by the user).
      */
     protected boolean notifyNotificationWithChannel(String platformTag, int platformId,
             Notification notification, String channelName) {
@@ -279,7 +280,7 @@ public class TrustedWebActivityService extends Service {
      * @param provider The package of the provider to accept connections from or null to clear.
      * @hide
      */
-    /* package */ static final void setVerifiedProvider(final Context context,
+    public static final void setVerifiedProvider(final Context context,
             @Nullable String provider) {
         final String providerEmptyChecked =
                 (provider == null || provider.isEmpty()) ? null : provider;
