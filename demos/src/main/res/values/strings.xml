@@ -39,6 +39,7 @@
     <string name="title_activity_simple_chrome_tab">Simple Chrome Custom Tab</string>
     <string name="title_activity_customized_chrome_tab">Customized UI Chrome Custom Tab</string>
     <string name="title_activity_service_connection">Service Connection Activity</string>
+    <string name="title_activity_browser_actions">Browser Actions Demo</string>
 
     <!-- Demo Activities Descriptions -->
     <string name="description_activity_simple_chrome_tab">
@@ -60,14 +61,24 @@
         Creates a Notification that opens a Chrome Custom Tab when clicked, and returns to the host
         app when the user hits Back or Up
     </string>
+
+    <string name="description_activity_browser_actions">
+        Demonstrates the usage of Browser Actions with a Custom Tab. A simple click on a button
+        opens a link in the custom tab. A long-click will trigger browser actions and give the
+        user further options on how to open the tab.
+    </string>
+
     <string name="label_custom_back_button">Custom back button</string>
     <string name="label_show_title">Show title</string>
     <string name="label_auto_hide_appbar">Auto-hide AppBar</string>
     <string name="label_add_default_share">Add default share</string>
     <string name="label_toobar_secondary_color">Secondary Toolbar Color</string>
     <string name="label_add_toolbar_item">Add toolbar item</string>
+    <string name="label_open_link">Open Link</string>
+    <string name="label_open_alternate_link">Open Alternate Link</string>
     <string name="action_button_toast_text">Action Button Clicked with URL: %s</string>
     <string name="menu_item_toast_text">Menu Item Clicked with URL: %s</string>
     <string name="toolbar_toast_text">Toolbar Clicked with URL: %s</string>
     <string name="unknown_toast_text">Unknown Action Clicked with URL: %s</string>
+    <string name="browser_actions_desc">Tap the button to open custom tab. Long press the button to see the actions menu.</string>
 </resources>
