@@ -71,6 +71,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DemoListActivity" />
         </activity>
+
+        <activity
+            android:name=".BrowserActionActivity"
+            android:label="@string/title_activity_browser_actions"
+            android:parentActivityName=".DemoListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DemoListActivity"/>
+        </activity>
+
         <receiver android:name=".ActionBroadcastReceiver" />
     </application>
 
