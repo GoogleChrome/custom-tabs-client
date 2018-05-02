@@ -59,6 +59,11 @@ public class DemoListActivity extends AppCompatActivity {
                 NotificationParentActivity.class);
         activityDescList.add(activityDesc);
 
+        activityDesc = createActivityDesc(R.string.title_activity_browser_actions,
+                R.string.description_activity_browser_actions,
+                BrowserActionActivity.class);
+        activityDescList.add(activityDesc);
+
         RecyclerView recyclerView = (RecyclerView) findViewById(android.R.id.list);
         recyclerView.setAdapter(listAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
