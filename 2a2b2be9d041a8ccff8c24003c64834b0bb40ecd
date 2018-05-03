@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "347c2e10_547cf716",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1155004
+      },
+      "writtenOn": "2018-05-03T14:14:15Z",
+      "side": 1,
+      "message": "Original code had it, but looking at the ActivityHelper code it makes no sense, removed",
+      "parentUuid": "e4b58840_c3920f35",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 60
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a3a5c1d_5b4e914b",
         "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31392eca_5a8c65fc",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1155004
+      },
+      "writtenOn": "2018-05-03T14:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a3a5c1d_5b4e914b",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 13
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1579f041_12574f7f",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1155004
+      },
+      "writtenOn": "2018-05-03T14:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8a14934_abaff567",
+      "range": {
+        "startLine": 102,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 27
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc47fb9f_44acdaed",
         "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aede08f4_a2b2a7a6",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1155004
+      },
+      "writtenOn": "2018-05-03T14:14:15Z",
+      "side": 1,
+      "message": "Removed (and from openBrowserActionsLink, too). Although I am wondering, does it really make sense to invoke it with a null URL?.",
+      "parentUuid": "cc47fb9f_44acdaed",
+      "range": {
+        "startLine": 108,
+        "startChar": 38,
+        "endLine": 108,
+        "endChar": 47
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,54 @@
     },
     {
       "key": {
+        "uuid": "036f9382_935cbc6f",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1155004
+      },
+      "writtenOn": "2018-05-03T14:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e57ae8e_7e3e6886",
+      "range": {
+        "startLine": 140,
+        "startChar": 51,
+        "endLine": 140,
+        "endChar": 56
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65570be5_e1f97584",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1155004
+      },
+      "writtenOn": "2018-05-03T14:14:15Z",
+      "side": 1,
+      "message": "Unfortunately it seems to be the limitation on BrowserActionsIntent.openBrowserAction(...) API. It wants ArrayList\u003cBrowserActionItem\u003e, not a List\u003c\u003e.",
+      "parentUuid": "d8698bf7_b2253694",
+      "range": {
+        "startLine": 140,
+        "startChar": 22,
+        "endLine": 140,
+        "endChar": 31
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "143b1a2a_024bc5a9",
         "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
         "patchSetId": 1
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "bf19ca5c_f0d79b53",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1155004
+      },
+      "writtenOn": "2018-05-03T14:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "143b1a2a_024bc5a9",
+      "range": {
+        "startLine": 152,
+        "startChar": 16,
+        "endLine": 153,
+        "endChar": 8
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed42ca40_05743fd1",
         "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
         "patchSetId": 1
@@ -183,6 +351,30 @@
       "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "366edd1d_8b0c1d7b",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1155004
+      },
+      "writtenOn": "2018-05-03T14:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed42ca40_05743fd1",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 6
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
