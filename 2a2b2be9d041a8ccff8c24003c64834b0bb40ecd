@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4b58840_c3920f35",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-05-03T12:38:22Z",
+      "side": 1,
+      "message": "Why do we need a complete no-op callback?",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 60
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a3a5c1d_5b4e914b",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-05-03T12:38:22Z",
+      "side": 1,
+      "message": "Can this be private?",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 13
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8a14934_abaff567",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-05-03T12:38:22Z",
+      "side": 1,
+      "message": "Use `url !\u003d null`, it reads more natural.",
+      "range": {
+        "startLine": 102,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 27
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc47fb9f_44acdaed",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-05-03T12:38:22Z",
+      "side": 1,
+      "message": "I would rather use @Nullable for things that legitimately *can* be null.",
+      "range": {
+        "startLine": 108,
+        "startChar": 38,
+        "endLine": 108,
+        "endChar": 47
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e57ae8e_7e3e6886",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-05-03T12:38:22Z",
+      "side": 1,
+      "message": "Members should start with m, i.e. |mItems|.",
+      "range": {
+        "startLine": 140,
+        "startChar": 51,
+        "endLine": 140,
+        "endChar": 56
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8698bf7_b2253694",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-05-03T12:38:22Z",
+      "side": 1,
+      "message": "Use the more general type List\u003c...\u003e.",
+      "range": {
+        "startLine": 140,
+        "startChar": 22,
+        "endLine": 140,
+        "endChar": 31
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "143b1a2a_024bc5a9",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-05-03T12:38:22Z",
+      "side": 1,
+      "message": "This formatting doesn\u0027t look right. Both closing parenthesis and opening brace should fit on line 152? If not, break the individual parameters, but always keep the closing parenthesis and opening brace together.",
+      "range": {
+        "startLine": 152,
+        "startChar": 16,
+        "endLine": 153,
+        "endChar": 8
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed42ca40_05743fd1",
+        "filename": "demos/src/main/java/org/chromium/customtabsdemos/BrowserActionActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-05-03T12:38:22Z",
+      "side": 1,
+      "message": "Please remove :)",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 6
+      },
+      "revId": "2a2b2be9d041a8ccff8c24003c64834b0bb40ecd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
