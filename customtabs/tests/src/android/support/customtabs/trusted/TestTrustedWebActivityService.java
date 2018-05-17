@@ -17,9 +17,12 @@
 package android.support.customtabs.trusted;
 
 import android.app.Notification;
+import android.service.notification.StatusBarNotification;
 
 public class TestTrustedWebActivityService extends TrustedWebActivityService {
     public static final int SMALL_ICON_ID = 666;
+    public static final StatusBarNotification[] NOTIFICATIONS =
+            new StatusBarNotification[] { null, null, null };
 
     @Override
     protected boolean notifyNotificationWithChannel(String platformTag, int platformId,
@@ -29,6 +32,11 @@ public class TestTrustedWebActivityService extends TrustedWebActivityService {
 
     @Override
     protected void cancelNotification(String platformTag, int platformId) {
+    }
+
+    @Override
+    protected StatusBarNotification[] getActiveNotifications() {
+        return NOTIFICATIONS;
     }
 
     @Override

@@ -20,6 +20,7 @@ import android.app.Notification;
 import android.content.ComponentName;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.service.notification.StatusBarNotification;
 
 /**
  * TrustedWebActivityServiceWrapper is used by a Trusted Web Activity provider app to wrap calls to
@@ -41,6 +42,8 @@ public class TrustedWebActivityServiceWrapper {
             "android.support.customtabs.trusted.NOTIFICATION";
     private static final String KEY_CHANNEL_NAME =
             "android.support.customtabs.trusted.CHANNEL_NAME";
+    private static final String KEY_ACTIVE_NOTIFICATIONS =
+            "android.support.customtabs.trusted.ACTIVE_NOTIFICATIONS";
 
     // Outputs.
     private static final String KEY_NOTIFICATION_SUCCESS =
@@ -70,7 +73,7 @@ public class TrustedWebActivityServiceWrapper {
             String channel) throws RemoteException {
         Bundle args = new NotifyNotificationArgs(platformTag, platformId, notification, channel)
                 .toBundle();
-        return new ResultArgs(mService.notifyNotificationWithChannel(args)).success;
+        return ResultArgs.fromBundle(mService.notifyNotificationWithChannel(args)).success;
     }
 
     /**
@@ -83,6 +86,19 @@ public class TrustedWebActivityServiceWrapper {
     public void cancel(String platformTag, int platformId) throws RemoteException {
         Bundle args = new CancelNotificationArgs(platformTag, platformId).toBundle();
         mService.cancelNotification(args);
+    }
+
+    /**
+     * Gets the notifications shown by the Trusted Web Activity client. Can only be called on
+     * Android M and above.
+     * @return Array of active notifications.
+     * @throws RemoteException If the Service dies while responding to the request.
+     * @throws SecurityException If verification with the TrustedWebActivityService fails.
+     * @throws IllegalStateException If called on Android pre-M.
+     */
+    public StatusBarNotification[] getActiveNotifications() throws RemoteException {
+        Bundle notifications = mService.getActiveNotifications();
+        return ActiveNotificationsArgs.fromBundle(notifications).notifications;
     }
 
     /**
@@ -171,14 +187,34 @@ public class TrustedWebActivityServiceWrapper {
             this.success = success;
         }
 
-        public ResultArgs(Bundle bundle) {
+        public static ResultArgs fromBundle(Bundle bundle) {
             ensureBundleContains(bundle, KEY_NOTIFICATION_SUCCESS);
-            success = bundle.getBoolean(KEY_NOTIFICATION_SUCCESS);
+            return new ResultArgs(bundle.getBoolean(KEY_NOTIFICATION_SUCCESS));
         }
 
         public Bundle toBundle() {
             Bundle args = new Bundle();
             args.putBoolean(KEY_NOTIFICATION_SUCCESS, success);
+            return args;
+        }
+    }
+
+    static class ActiveNotificationsArgs {
+        public final StatusBarNotification[] notifications;
+
+        public ActiveNotificationsArgs(StatusBarNotification[] notifications) {
+            this.notifications = notifications;
+        }
+
+        public static ActiveNotificationsArgs fromBundle(Bundle bundle) {
+            ensureBundleContains(bundle, KEY_ACTIVE_NOTIFICATIONS);
+            return new ActiveNotificationsArgs((StatusBarNotification[])
+                    bundle.getParcelableArray(KEY_ACTIVE_NOTIFICATIONS));
+        }
+
+        public Bundle toBundle() {
+            Bundle args = new Bundle();
+            args.putParcelableArray(KEY_ACTIVE_NOTIFICATIONS, notifications);
             return args;
         }
     }

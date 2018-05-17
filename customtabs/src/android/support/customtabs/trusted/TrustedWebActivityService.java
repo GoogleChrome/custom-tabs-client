@@ -16,6 +16,7 @@
 
 package android.support.customtabs.trusted;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -31,8 +32,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.StrictMode;
+import android.service.notification.StatusBarNotification;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
+import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.ActiveNotificationsArgs;
 import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.CancelNotificationArgs;
 import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.NotifyNotificationArgs;
 import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.ResultArgs;
@@ -121,6 +124,14 @@ public class TrustedWebActivityService extends Service {
             CancelNotificationArgs args = CancelNotificationArgs.fromBundle(bundle);
 
             TrustedWebActivityService.this.cancelNotification(args.platformTag, args.platformId);
+        }
+
+        @Override
+        public Bundle getActiveNotifications() {
+            checkCaller();
+
+            return new ActiveNotificationsArgs(
+                    TrustedWebActivityService.this.getActiveNotifications()).toBundle();
         }
 
         @Override
@@ -220,6 +231,21 @@ public class TrustedWebActivityService extends Service {
     protected void cancelNotification(String platformTag, int platformId) {
         ensureOnCreateCalled();
         mNotificationManager.cancel(platformTag, platformId);
+    }
+
+    /**
+     * Returns a list of active notifications, essentially calling
+     * NotificationManager#getActiveNotifications. The default implementation does not work on
+     * pre-Android M.
+     * @return An array of StatusBarNotification.
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    protected StatusBarNotification[] getActiveNotifications() {
+        ensureOnCreateCalled();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return mNotificationManager.getActiveNotifications();
+        }
+        throw new IllegalStateException("getActiveNotifications cannot be called pre-M.");
     }
 
     /**
