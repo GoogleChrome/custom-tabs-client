@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15622b2f_196a1ed0",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ITrustedWebActivityService.aidl",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-05-17T10:59:13Z",
+      "side": 1,
+      "message": "I would maybe reorder this before getSmallIconId() -- the numeric values ensure wire compatibility anyway, and that way it looks a bit more logical.",
+      "revId": "94ad50f39b63c01253cf90a85a823dd5da69b20b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98934919_55f4284b",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-05-17T10:59:13Z",
+      "side": 1,
+      "message": "@TargetApi?",
+      "revId": "94ad50f39b63c01253cf90a85a823dd5da69b20b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
