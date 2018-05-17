@@ -17,6 +17,7 @@
 package android.support.customtabs.trusted;
 
 import android.app.Notification;
+import android.service.notification.StatusBarNotification;
 
 public class TestTrustedWebActivityService extends TrustedWebActivityService {
     public static final int SMALL_ICON_ID = 666;
@@ -34,5 +35,10 @@ public class TestTrustedWebActivityService extends TrustedWebActivityService {
     @Override
     protected int getSmallIconId() {
         return SMALL_ICON_ID;
+    }
+
+    @Override
+    protected StatusBarNotification[] getActiveNotifications() {
+        return new StatusBarNotification[] {null, null, null};
     }
 }

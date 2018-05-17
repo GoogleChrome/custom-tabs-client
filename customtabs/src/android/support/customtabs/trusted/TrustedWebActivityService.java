@@ -31,11 +31,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.StrictMode;
+import android.service.notification.StatusBarNotification;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.CancelNotificationArgs;
 import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.NotifyNotificationArgs;
 import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.ResultArgs;
+import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.ActiveNotificationsArgs;
 import android.support.v4.app.NotificationManagerCompat;
 
 import java.util.Arrays;
@@ -128,6 +130,14 @@ public class TrustedWebActivityService extends Service {
             checkCaller();
 
             return TrustedWebActivityService.this.getSmallIconId();
+        }
+
+        @Override
+        public Bundle getActiveNotifications() {
+            checkCaller();
+
+            return new ActiveNotificationsArgs(
+                    TrustedWebActivityService.this.getActiveNotifications()).toBundle();
         }
 
         private void checkCaller() {
@@ -240,6 +250,20 @@ public class TrustedWebActivityService extends Service {
             // installed - so should never happen.
             return -1;
         }
+    }
+
+    /**
+     * Returns a list of active notifications, essentially calling
+     * NotificationManager#getActiveNotifications. The default implementation does not work on
+     * pre-Android M.
+     * @return An array of StatusBarNotification.
+     */
+    protected StatusBarNotification[] getActiveNotifications() {
+        ensureOnCreateCalled();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return mNotificationManager.getActiveNotifications();
+        }
+        throw new IllegalStateException("getActiveNotifications cannot be called pre-M.");
     }
 
     @Override
