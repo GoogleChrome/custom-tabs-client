@@ -68,7 +68,10 @@ public class TrustedWebActivityServiceConnectionManagerTest {
                     @Override
                     public void onConnected(@Nullable TrustedWebActivityServiceWrapper service)
                             throws RemoteException {
-                        service.getSmallIconId();
+                        Assert.assertEquals(TestTrustedWebActivityService.SMALL_ICON_ID,
+                                service.getSmallIconId());
+                        Assert.assertEquals(TestTrustedWebActivityService.NOTIFICATIONS,
+                                service.getActiveNotifications());
                         mConnected = true;
                     }
                 });
