@@ -16,6 +16,7 @@
 
 package android.support.customtabs;
 
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -187,6 +188,12 @@ public class CustomTabsClient {
      *         Null on error.
      */
     public CustomTabsSession newSession(final CustomTabsCallback callback) {
+        return newSession(callback, null);
+    }
+
+
+    public CustomTabsSession newSession(final CustomTabsCallback callback,
+                                        PendingIntent sessionId) {
         ICustomTabsCallback.Stub wrapper = new ICustomTabsCallback.Stub() {
             private Handler mHandler = new Handler(Looper.getMainLooper());
 
@@ -262,11 +269,15 @@ public class CustomTabsClient {
         };
 
         try {
-            if (!mService.newSession(wrapper)) return null;
+            if (sessionId == null) {
+                if (!mService.newSession(wrapper)) return null;
+            } else {
+                if (!mService.newSessionWithId(wrapper, sessionId)) return null;
+            }
         } catch (RemoteException e) {
             return null;
         }
-        return new CustomTabsSession(mService, wrapper, mServiceComponentName);
+        return new CustomTabsSession(mService, wrapper, mServiceComponentName, sessionId);
     }
 
     public Bundle extraCommand(String commandName, Bundle args) {
@@ -275,5 +286,103 @@ public class CustomTabsClient {
         } catch (RemoteException e) {
             return null;
         }
+    }
+
+    /**
+     * Request to restore session which previously was created with
+     * {@link CustomTabsService#newSessionWithId} or {@CustomTabClient@precreateSesssion} methods.
+     */
+    public CustomTabsSession restoreSession(PendingIntent sessionId) {
+         try {
+            ICustomTabsCallback callback = mService.restoreSession(sessionId);
+            if (callback == null)
+                return null;
+            return new CustomTabsSession(mService, callback, mServiceComponentName, sessionId);
+        } catch (RemoteException e) {
+            return null;
+        }
+    }
+
+    public static CustomTabsSession precreateSession(final CustomTabsCallback callback,
+                                                     PendingIntent sessionId) {
+        ICustomTabsCallback.Stub wrapper = new ICustomTabsCallback.Stub() {
+            private Handler mHandler = new Handler(Looper.getMainLooper());
+
+            @Override
+            public void onNavigationEvent(final int navigationEvent, final Bundle extras) {
+                if (callback == null) return;
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onNavigationEvent(navigationEvent, extras);
+                    }
+                });
+            }
+
+            @Override
+            public void extraCallback(final String callbackName, final Bundle args)
+                    throws RemoteException {
+                if (callback == null) return;
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.extraCallback(callbackName, args);
+                    }
+                });
+            }
+
+            @Override
+            public void onMessageChannelReady(final Bundle extras)
+                    throws RemoteException {
+                if (callback == null) return;
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onMessageChannelReady(extras);
+                    }
+                });
+            }
+
+            @Override
+            public void onPostMessage(final String message, final Bundle extras)
+                    throws RemoteException {
+                if (callback == null) return;
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onPostMessage(message, extras);
+                    }
+                });
+            }
+
+            @Override
+            public void onRelationshipValidationResult(
+                    final @Relation int relation, final Uri requestedOrigin, final boolean result,
+                    final @Nullable Bundle extras) throws RemoteException {
+
+//                if (mApplicationContext != null && result) {
+//                    TrustedWebActivityService.setVerifiedProvider(mApplicationContext,
+//                            mServiceComponentName.getPackageName());
+//                }
+
+                if (callback == null) return;
+
+                // Do something with mServiceComponentName.
+
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onRelationshipValidationResult(
+                                relation, requestedOrigin, result, extras);
+                    }
+                });
+            }
+        };
+
+        return new CustomTabsSession(null, wrapper, null, sessionId);
+    }
+
+    public boolean attachSessionToService(CustomTabsSession session) {
+        return session.attachService(mService);
     }
 }

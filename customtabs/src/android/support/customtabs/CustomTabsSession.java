@@ -40,10 +40,11 @@ import java.util.List;
 public final class CustomTabsSession {
     private static final String TAG = "CustomTabsSession";
     private final Object mLock = new Object();
-    private final ICustomTabsService mService;
+    private ICustomTabsService mService;
     private final ICustomTabsCallback mCallback;
     private final ComponentName mComponentName;
 
+    private final PendingIntent mSessionId;
     /**
      * Provides browsers a way to generate a mock {@link CustomTabsSession} for testing
      * purposes.
@@ -61,9 +62,16 @@ public final class CustomTabsSession {
 
     /* package */ CustomTabsSession(
             ICustomTabsService service, ICustomTabsCallback callback, ComponentName componentName) {
+        this(service, callback, componentName, null);
+    }
+
+    /* package */ CustomTabsSession(
+            ICustomTabsService service, ICustomTabsCallback callback, ComponentName componentName,
+            PendingIntent sessionId) {
         mService = service;
         mCallback = callback;
         mComponentName = componentName;
+        mSessionId = sessionId;
     }
 
     /**
@@ -83,6 +91,9 @@ public final class CustomTabsSession {
      * @return                   true for success.
      */
     public boolean mayLaunchUrl(Uri url, Bundle extras, List<Bundle> otherLikelyBundles) {
+        if (mService == null)
+            return false;
+
         try {
             return mService.mayLaunchUrl(mCallback, url, extras, otherLikelyBundles);
         } catch (RemoteException e) {
@@ -100,6 +111,9 @@ public final class CustomTabsSession {
      * @see CustomTabsSession#setToolbarItem(int, Bitmap, String)
      */
     public boolean setActionButton(@NonNull Bitmap icon, @NonNull String description) {
+        if (mService == null)
+            return false;
+
         Bundle bundle = new Bundle();
         bundle.putParcelable(CustomTabsIntent.KEY_ICON, icon);
         bundle.putString(CustomTabsIntent.KEY_DESCRIPTION, description);
@@ -124,6 +138,9 @@ public final class CustomTabsSession {
      */
     public boolean setSecondaryToolbarViews(@Nullable RemoteViews remoteViews,
             @Nullable int[] clickableIDs, @Nullable PendingIntent pendingIntent) {
+        if (mService == null)
+            return false;
+
         Bundle bundle = new Bundle();
         bundle.putParcelable(CustomTabsIntent.EXTRA_REMOTEVIEWS, remoteViews);
         bundle.putIntArray(CustomTabsIntent.EXTRA_REMOTEVIEWS_VIEW_IDS, clickableIDs);
@@ -147,6 +164,9 @@ public final class CustomTabsSession {
      */
     @Deprecated
     public boolean setToolbarItem(int id, @NonNull Bitmap icon, @NonNull String description) {
+        if (mService == null)
+            return false;
+
         Bundle bundle = new Bundle();
         bundle.putInt(CustomTabsIntent.KEY_ID, id);
         bundle.putParcelable(CustomTabsIntent.KEY_ICON, icon);
@@ -171,6 +191,9 @@ public final class CustomTabsSession {
      *         asynchronous.
      */
     public boolean requestPostMessageChannel(Uri postMessageOrigin) {
+        if (mService == null)
+            return false;
+
         try {
             return mService.requestPostMessageChannel(
                     mCallback, postMessageOrigin);
@@ -193,6 +216,9 @@ public final class CustomTabsSession {
      */
     @Result
     public int postMessage(String message, Bundle extras) {
+        if (mService == null)
+            return CustomTabsService.RESULT_FAILURE_SERVICE_IS_NOT_CONNECTED;
+
         synchronized (mLock) {
             try {
                 return mService.postMessage(mCallback, message, extras);
@@ -224,6 +250,9 @@ public final class CustomTabsSession {
      */
     public boolean validateRelationship(@Relation int relation, @NonNull Uri origin,
                                         @Nullable Bundle extras) {
+        if (mService == null)
+            return false;
+
         if (relation < CustomTabsService.RELATION_USE_AS_ORIGIN
                 || relation > CustomTabsService.RELATION_HANDLE_ALL_URLS) {
             return false;
@@ -241,5 +270,17 @@ public final class CustomTabsSession {
 
     /* package */ ComponentName getComponentName() {
         return mComponentName;
+    }
+
+    PendingIntent getSessionId() {
+        return mSessionId;
+    }
+
+    boolean attachService(ICustomTabsService service) {
+        if (mService == null) {
+            mService = service;
+            return true;
+        }
+        return false;
     }
 }
