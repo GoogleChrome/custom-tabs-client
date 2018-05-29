@@ -16,9 +16,11 @@
 
 package android.support.customtabs;
 
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.IBinder.DeathRecipient;
@@ -78,6 +80,11 @@ public abstract class CustomTabsService extends Service {
      */
     public static final int RESULT_FAILURE_MESSAGING_ERROR = -3;
 
+    /**
+     * Indicates that the service has not connected yet.
+     */
+    public static final int RESULT_FAILURE_SERVICE_IS_NOT_CONNECTED = -4;
+
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({RELATION_USE_AS_ORIGIN, RELATION_HANDLE_ALL_URLS})
     public @interface Relation {
@@ -125,6 +132,26 @@ public abstract class CustomTabsService extends Service {
         }
 
         @Override
+        public boolean newSessionWithId(ICustomTabsCallback callback, PendingIntent sessionId) {
+            final CustomTabsSessionToken sessionToken = new CustomTabsSessionToken(callback);
+            try {
+                DeathRecipient deathRecipient = new IBinder.DeathRecipient() {
+                    @Override
+                    public void binderDied() {
+                        cleanUpSession(sessionToken);
+                    }
+                };
+                synchronized (mDeathRecipientMap) {
+                    callback.asBinder().linkToDeath(deathRecipient, 0);
+                    mDeathRecipientMap.put(callback.asBinder(), deathRecipient);
+                }
+                return CustomTabsService.this.newSessionWithId(sessionToken, sessionId);
+            } catch (RemoteException e) {
+                return false;
+            }
+        }
+
+        @Override
         public boolean mayLaunchUrl(ICustomTabsCallback callback, Uri url,
                                     Bundle extras, List<Bundle> otherLikelyBundles) {
             return CustomTabsService.this.mayLaunchUrl(
@@ -160,6 +187,11 @@ public abstract class CustomTabsService extends Service {
                 ICustomTabsCallback callback, @Relation int relation, Uri origin, Bundle extras) {
             return CustomTabsService.this.validateRelationship(
                     new CustomTabsSessionToken(callback), relation, origin, extras);
+        }
+
+        @Override
+        public ICustomTabsCallback restoreSession(PendingIntent sessionId) {
+            return CustomTabsService.this.restoreSession(sessionId);
         }
     };
 
@@ -213,6 +245,11 @@ public abstract class CustomTabsService extends Service {
      * @return Whether a new session was successfully created.
      */
     protected abstract boolean newSession(CustomTabsSessionToken sessionToken);
+
+    protected boolean newSessionWithId(CustomTabsSessionToken sessionToken,
+                                          PendingIntent sessionId) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Tells the browser of a likely future navigation to a URL.
@@ -311,4 +348,16 @@ public abstract class CustomTabsService extends Service {
     protected abstract boolean validateRelationship(
             CustomTabsSessionToken sessionToken, @Relation int relation, Uri origin,
             Bundle extras);
+
+    protected CustomTabsSessionToken restoreSessionInternal(PendingIntent sessionId) {
+        return null;
+    }
+
+    public ICustomTabsCallback restoreSession(PendingIntent sessionId) {
+        CustomTabsSessionToken token = restoreSessionInternal(sessionId);
+
+        if (token == null)
+            return null;
+        return ICustomTabsCallback.Stub.asInterface(token.getCallbackBinder());
+    }
 }
