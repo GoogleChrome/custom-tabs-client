@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69fa03a1_5e8b103f",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-05-30T09:10:47Z",
+      "side": 1,
+      "message": "Does this object do anything different to the one created in createSession? Can we combine the code from these two methods (eg have a createCallbackWrapper(callback) method or something)?",
+      "range": {
+        "startLine": 308,
+        "startChar": 47,
+        "endLine": 308,
+        "endChar": 66
+      },
+      "revId": "546ed65caef069dcdaa9f8da8da4327722459a74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ec4104b_55da6200",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-05-30T09:10:47Z",
+      "side": 1,
+      "message": "Don\u0027t forget to uncomment this before committing!",
+      "range": {
+        "startLine": 363,
+        "startChar": 22,
+        "endLine": 363,
+        "endChar": 42
+      },
+      "revId": "546ed65caef069dcdaa9f8da8da4327722459a74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8704ebea_03923f11",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsIntent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-05-30T09:10:47Z",
+      "side": 1,
+      "message": "Add some javadoc.",
+      "range": {
+        "startLine": 68,
+        "startChar": 31,
+        "endLine": 68,
+        "endChar": 48
+      },
+      "revId": "546ed65caef069dcdaa9f8da8da4327722459a74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5b94cdc_c0353206",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsIntent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-05-30T09:10:47Z",
+      "side": 1,
+      "message": "Why was this check needed? I\u0027m guessing something crashed when you were developing? Is this something that only occurred because of your development setup, or was it a bug users could have run into?\n\nAlso, nit: for \u0027if\u0027s use curly braces if the body is on the next line (you can avoid curly braces in things like:\n\nif (blah) return;\n\nbut you should use them for:\n\nif (blah) {\n    return;\n}\n\n)",
+      "range": {
+        "startLine": 301,
+        "startChar": 28,
+        "endLine": 301,
+        "endChar": 44
+      },
+      "revId": "546ed65caef069dcdaa9f8da8da4327722459a74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75716de8_7a857e08",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-05-30T09:10:47Z",
+      "side": 1,
+      "message": "Can you deduplicate the code between newSession and newSessionWithId?",
+      "range": {
+        "startLine": 135,
+        "startChar": 23,
+        "endLine": 135,
+        "endChar": 39
+      },
+      "revId": "546ed65caef069dcdaa9f8da8da4327722459a74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05caa2ce_667f62e5",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-05-30T09:10:47Z",
+      "side": 1,
+      "message": "So if I understand correctly a developer can get a CustomTabsSession by either calling:\nCustomTabsClient#newSession or CustomTabsClient#precreateSession. If they call precreateSession they get this session with a null mService, and then must call CustomTabsClient#attachSessionToService.\n\nGiven this, I\u0027d say that maybe we are justified in throwing an IllegalStateException here (and all the future times) instead of just failing silently.\n\nOr, even better we could make CustomTabsClient#precreateSession return a new object, a PendingSession/PrecreatedSession/SessionPlaceholder/something which only contains the members we need and make CustomTabsClient#attachSessionToService take that and return a proper session. That way developers can\u0027t misuse the result of CustomTabsClient#precreateSession and we don\u0027t complicate the CustomTabsSession.",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 94,
+        "endChar": 21
+      },
+      "revId": "546ed65caef069dcdaa9f8da8da4327722459a74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2da68f0_084aafdb",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-05-30T09:10:47Z",
+      "side": 1,
+      "message": "I\u0027m guessing you don\u0027t need this line?",
+      "range": {
+        "startLine": 19,
+        "startChar": 19,
+        "endLine": 19,
+        "endChar": 32
+      },
+      "revId": "546ed65caef069dcdaa9f8da8da4327722459a74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe614550_f8fb4772",
+        "filename": "customtabs/src/android/support/customtabs/ICustomTabsService.aidl",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-05-30T09:10:47Z",
+      "side": 1,
+      "message": "You can move this (and maybe restoreSession) up to newSession (but keep the numbers the same) so the AIDL file is a bit more organised.",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "546ed65caef069dcdaa9f8da8da4327722459a74",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
