@@ -18,6 +18,7 @@ package android.support.customtabs;
 
 import android.app.PendingIntent;
 import android.content.ComponentName;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import android.widget.RemoteViews;
 
 import java.util.List;
 
+
 /**
  * A class to be used for Custom Tabs related communication. Clients that want to launch Custom Tabs
  * can use this class exclusively to handle all related communication.
@@ -40,10 +42,17 @@ import java.util.List;
 public final class CustomTabsSession {
     private static final String TAG = "CustomTabsSession";
     private final Object mLock = new Object();
-    private final ICustomTabsService mService;
-    private final ICustomTabsCallback mCallback;
-    private final ComponentName mComponentName;
 
+    private ICustomTabsService mService;
+    private ComponentName mComponentName;
+
+    private ICustomTabsCallback mCallback;
+
+    /**
+     * The session id is represented by {@link PendingIntent} provided by client. It can not be
+     * forged by other apps and remain usable even if its owning application dies.
+     */
+    private PendingIntent mSessionId;
     /**
      * Provides browsers a way to generate a mock {@link CustomTabsSession} for testing
      * purposes.
@@ -59,11 +68,17 @@ public final class CustomTabsSession {
                 null, new CustomTabsSessionToken.MockCallback(), componentName);
     }
 
+    CustomTabsSession(ICustomTabsService service, ICustomTabsCallback callback,
+                      ComponentName componentName, @Nullable PendingIntent sessionId) {
+        mService = service;
+        mComponentName = componentName;
+        mCallback = callback;
+        mSessionId = sessionId;
+    }
+
     /* package */ CustomTabsSession(
             ICustomTabsService service, ICustomTabsCallback callback, ComponentName componentName) {
-        mService = service;
-        mCallback = callback;
-        mComponentName = componentName;
+        this(service, callback, componentName, null);
     }
 
     /**
@@ -241,5 +256,43 @@ public final class CustomTabsSession {
 
     /* package */ ComponentName getComponentName() {
         return mComponentName;
+    }
+
+    PendingIntent getSessionId() {
+        return mSessionId;
+    }
+
+    /**
+     * A class to be used instead {@link CustomTabsSession} before connection
+     * to {@link CustomTabsService}. This class does not support methods which require service.
+     * Use {@link CustomTabsClient#attachSessionToService} to get {@link CustomTabsSession}.
+     */
+    public static class PendingSession {
+        private static final String TAG = "android.support.customtabs.CustomTabsPendingSession";
+        private final Object mLock = new Object();
+
+        private final CustomTabsCallback.Wrapper mCallback;
+        private final PendingIntent mSessionId;
+
+
+        /* package */ PendingSession(
+                CustomTabsCallback.Wrapper callback, PendingIntent sessionId) {
+            mCallback = callback;
+            mSessionId = sessionId;
+        }
+
+        /* package */ IBinder getBinder() {
+            return mCallback.asBinder();
+        }
+
+        PendingIntent getSessionId() {
+            return mSessionId;
+        }
+
+        /* package */ CustomTabsSession attachService(Context context, ICustomTabsService service, ComponentName componentName) {
+            mCallback.attachToService(context, componentName);
+
+            return new CustomTabsSession(service, mCallback, componentName, mSessionId);
+        }
     }
 }
