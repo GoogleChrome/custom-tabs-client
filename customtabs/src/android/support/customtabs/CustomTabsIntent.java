@@ -66,6 +66,12 @@ public final class CustomTabsIntent {
     public static final String EXTRA_SESSION = "android.support.customtabs.extra.SESSION";
 
     /**
+     * Extra used to specify id represented by {@link PendingIntent} for the session.
+     * This has to be included in the intent together with the session.
+     */
+    public static final String EXTRA_SESSION_ID = "android.support.customtabs.extra.SESSION_ID";
+
+    /**
      * Extra that changes the background color for the toolbar. colorRes is an int that specifies a
      * {@link Color}, not a resource id.
      */
@@ -282,7 +288,10 @@ public final class CustomTabsIntent {
          * {@link CustomTabsSession}.
          */
         public Builder() {
-            this(null);
+            Bundle bundle = new Bundle();
+            BundleCompat.putBinder(
+                    bundle, EXTRA_SESSION, null);
+            mIntent.putExtras(bundle);
         }
 
         /**
@@ -295,7 +304,21 @@ public final class CustomTabsIntent {
          * @param session The session to associate this Builder with.
          */
         public Builder(@Nullable CustomTabsSession session) {
-            if (session != null) mIntent.setPackage(session.getComponentName().getPackageName());
+            if (session != null) {
+                if (session.getComponentName() != null)
+                    mIntent.setPackage(session.getComponentName().getPackageName());
+                mIntent.putExtra(EXTRA_SESSION_ID, session.getSessionId());
+            }
+            Bundle bundle = new Bundle();
+            BundleCompat.putBinder(
+                    bundle, EXTRA_SESSION, session == null ? null : session.getBinder());
+            mIntent.putExtras(bundle);
+        }
+
+        public Builder(@Nullable CustomTabsSession.PendingSession session) {
+            if (session != null) {
+                mIntent.putExtra(EXTRA_SESSION_ID, session.getSessionId());
+            }
             Bundle bundle = new Bundle();
             BundleCompat.putBinder(
                     bundle, EXTRA_SESSION, session == null ? null : session.getBinder());

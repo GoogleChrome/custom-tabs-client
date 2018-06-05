@@ -16,6 +16,7 @@
 
 package android.support.customtabs;
 
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -24,12 +25,9 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.RemoteException;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsService.Relation;
-import android.support.customtabs.trusted.TrustedWebActivityService;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -186,87 +184,32 @@ public class CustomTabsClient {
      *         use this to relay session specific calls.
      *         Null on error.
      */
-    public CustomTabsSession newSession(final CustomTabsCallback callback) {
-        ICustomTabsCallback.Stub wrapper = new ICustomTabsCallback.Stub() {
-            private Handler mHandler = new Handler(Looper.getMainLooper());
+    public @Nullable CustomTabsSession newSession(@Nullable final CustomTabsCallback callback) {
+        return newSessionWithId(callback, null);
+    }
 
-            @Override
-            public void onNavigationEvent(final int navigationEvent, final Bundle extras) {
-                if (callback == null) return;
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onNavigationEvent(navigationEvent, extras);
-                    }
-                });
-            }
 
-            @Override
-            public void extraCallback(final String callbackName, final Bundle args)
-                    throws RemoteException {
-                if (callback == null) return;
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.extraCallback(callbackName, args);
-                    }
-                });
-            }
-
-            @Override
-            public void onMessageChannelReady(final Bundle extras)
-                    throws RemoteException {
-                if (callback == null) return;
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onMessageChannelReady(extras);
-                    }
-                });
-            }
-
-            @Override
-            public void onPostMessage(final String message, final Bundle extras)
-                    throws RemoteException {
-                if (callback == null) return;
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onPostMessage(message, extras);
-                    }
-                });
-            }
-
-            @Override
-            public void onRelationshipValidationResult(
-                    final @Relation int relation, final Uri requestedOrigin, final boolean result,
-                    final @Nullable Bundle extras) throws RemoteException {
-
-                if (mApplicationContext != null && result) {
-                    TrustedWebActivityService.setVerifiedProvider(mApplicationContext,
-                            mServiceComponentName.getPackageName());
-                }
-
-                if (callback == null) return;
-
-                // Do something with mServiceComponentName.
-
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onRelationshipValidationResult(
-                                relation, requestedOrigin, result, extras);
-                    }
-                });
-            }
-        };
+    /**
+     * Creates a new session (see {@link CustomTabsClient#newSession}) and associates it with
+     * id on the server side. This id can be used later to restore session.
+     * @param callback The callback through which the client will receive updates about the created
+     *                 session. Can be null. All the callbacks will be received on the UI thread.
+     * @param sessionId {@link PendingIntent} which will be associated with the created session.
+     * @return The session object that was created as a result of the transaction. The client can
+     *         use this to relay session specific calls.
+     *         Null on error.
+     */
+    public @Nullable CustomTabsSession newSessionWithId(@Nullable final CustomTabsCallback callback,
+                                        @Nullable PendingIntent sessionId) {
+        ICustomTabsCallback.Stub wrapper = new CustomTabsCallback.Wrapper(callback,
+                mApplicationContext, mServiceComponentName);
 
         try {
-            if (!mService.newSession(wrapper)) return null;
+            if (!mService.newSessionWithId(wrapper, sessionId)) return null;
         } catch (RemoteException e) {
             return null;
         }
-        return new CustomTabsSession(mService, wrapper, mServiceComponentName);
+        return new CustomTabsSession(mService, wrapper, mServiceComponentName, sessionId);
     }
 
     public Bundle extraCommand(String commandName, Bundle args) {
@@ -275,5 +218,48 @@ public class CustomTabsClient {
         } catch (RemoteException e) {
             return null;
         }
+    }
+
+    /**
+     * Request to restore session which previously was created with
+     * {@link CustomTabsService#newSessionWithId} or {@CustomTabClient#createPendingSession} methods.
+     * @param sessionId The PendingIntent associated with the session (same operation,
+     *                  same Intent action, data, categories, and components, and same flags).
+     * @return The session object associated with given PendingIntent.
+     *         Null if such session does not exist.
+     */
+    public @Nullable CustomTabsSession restoreSession(@NonNull PendingIntent sessionId) {
+         try {
+            ICustomTabsCallback callback = mService.restoreSession(sessionId);
+            if (callback == null)
+                return null;
+            return new CustomTabsSession(mService, callback, mServiceComponentName, sessionId);
+        } catch (RemoteException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Creates a new {@link CustomTabsSession.PendingSession}
+     * @param callback The callback through which the client will receive updates about the created
+     *                 session.
+     * @param sessionId {@link PendingIntent}
+     * @return The PendingSession object that was created. After connection to service the client can
+     *         use this to relay session specific calls.
+     */
+    public static CustomTabsSession.PendingSession createPendingSession(
+            final CustomTabsCallback callback, @NonNull PendingIntent sessionId) {
+        CustomTabsCallback.Wrapper wrapper = new CustomTabsCallback.Wrapper(callback);
+        return new CustomTabsSession.PendingSession(wrapper, sessionId);
+    }
+
+    /**
+     * Associate session with the service after connection.
+     * @param session
+     * @return The session object with the same callback and id.
+     */
+    public CustomTabsSession attachSessionToService(
+            @NonNull CustomTabsSession.PendingSession session) {
+        return session.attachService(mApplicationContext, mService, mServiceComponentName);
     }
 }

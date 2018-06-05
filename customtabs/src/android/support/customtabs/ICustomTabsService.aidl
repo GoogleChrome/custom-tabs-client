@@ -30,6 +30,8 @@ import java.util.List;
 interface ICustomTabsService {
     boolean warmup(long flags) = 1;
     boolean newSession(in ICustomTabsCallback callback) = 2;
+    ICustomTabsCallback restoreSession(in PendingIntent sessionId) = 9;
+    boolean newSessionWithId(in ICustomTabsCallback callback, in PendingIntent sessionId) = 10;
     boolean mayLaunchUrl(in ICustomTabsCallback callback, in Uri url,
             in Bundle extras, in List<Bundle> otherLikelyBundles) = 3;
     Bundle extraCommand(String commandName, in Bundle args) = 4;
