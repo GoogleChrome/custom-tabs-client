@@ -24,6 +24,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.AnimRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -64,6 +65,12 @@ public final class CustomTabsIntent {
      * Null if there is no need to match any service side sessions with the intent.
      */
     public static final String EXTRA_SESSION = "android.support.customtabs.extra.SESSION";
+
+    /**
+     * Extra used to specify id represented by {@link PendingIntent} for the session.
+     * This has to be included in the intent together with the session.
+     */
+    public static final String EXTRA_SESSION_ID = "android.support.customtabs.extra.SESSION_ID";
 
     /**
      * Extra that changes the background color for the toolbar. colorRes is an int that specifies a
@@ -282,9 +289,21 @@ public final class CustomTabsIntent {
          * {@link CustomTabsSession}.
          */
         public Builder() {
-            this(null);
+            Bundle bundle = new Bundle();
+            BundleCompat.putBinder(
+                    bundle, EXTRA_SESSION, null);
+            mIntent.putExtras(bundle);
         }
 
+        private void initialize(@Nullable IBinder session, @Nullable String packageName,
+                                @Nullable PendingIntent sessionId) {
+            Bundle bundle = new Bundle();
+            BundleCompat.putBinder(bundle, EXTRA_SESSION, session);
+            mIntent.putExtras(bundle);
+
+            if (packageName != null) mIntent.setPackage(packageName);
+            if (sessionId != null) mIntent.putExtra(EXTRA_SESSION_ID, sessionId);
+        }
         /**
          * Creates a {@link CustomTabsIntent.Builder} object associated with a given
          * {@link CustomTabsSession}.
@@ -295,11 +314,20 @@ public final class CustomTabsIntent {
          * @param session The session to associate this Builder with.
          */
         public Builder(@Nullable CustomTabsSession session) {
-            if (session != null) mIntent.setPackage(session.getComponentName().getPackageName());
-            Bundle bundle = new Bundle();
-            BundleCompat.putBinder(
-                    bundle, EXTRA_SESSION, session == null ? null : session.getBinder());
-            mIntent.putExtras(bundle);
+            if (session == null) {
+                initialize(null, null, null);
+            } else {
+                initialize(session.getBinder(), session.getComponentName().getPackageName(),
+                        session.getSessionId());
+            }
+        }
+
+        public Builder(@Nullable CustomTabsSession.PendingSession session) {
+            if (session == null) {
+                initialize(null, null, null);
+            } else {
+                initialize(session.getBinder(), null, session.getSessionId());
+            }
         }
 
         /**
