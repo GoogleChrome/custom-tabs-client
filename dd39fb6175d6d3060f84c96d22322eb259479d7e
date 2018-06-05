@@ -1,0 +1,435 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7966547_6f8b2213",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsCallback.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "Is this something we want clients to use? Can we make it package private?",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 10
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd8901b7_5a811d54",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsCallback.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "These variables can be final, can\u0027t they?",
+      "range": {
+        "startLine": 133,
+        "startChar": 35,
+        "endLine": 133,
+        "endChar": 44
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f51d215c_e15fce59",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsCallback.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "Is this meant to be package-private? If so write:\n\n/* package */ void attachToService",
+      "range": {
+        "startLine": 139,
+        "startChar": 8,
+        "endLine": 139,
+        "endChar": 12
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03bbda37_a191d65c",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsCallback.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "nit: Can you move the constructors up to above attachToService?",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 144,
+        "endChar": 15
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7143d59a_d3c98402",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsCallback.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "I think we can remove this comment (Yusuf added it as a TODO, I added the \"setVerifiedProvider(..., mServiceComponentName...)\" above and forgot to delete Yusuf\u0027s comment).",
+      "range": {
+        "startLine": 213,
+        "startChar": 33,
+        "endLine": 213,
+        "endChar": 54
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d395f64e_89a348f8",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "nit: This seems to be indented funny - it should be indented 12 spaces like [1]. You can run \"git cl format\" in a checkout and it will correct your formatting for you - unfortunately it sometimes does stupid things with Java annotations/lambdas (it\u0027s a tool designed for C++).\n\n\n[1] https://cs.chromium.org/chromium/src/third_party/custom_tabs_client/src/customtabs/src/android/support/customtabs/CustomTabsClient.java?type\u003dcs\u0026q\u003dcustomtabsclient\u0026g\u003d0\u0026l\u003d49",
+      "range": {
+        "startLine": 203,
+        "startChar": 41,
+        "endLine": 203,
+        "endChar": 49
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df1fcb15_6250c50f",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsClient.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "Wow, is this really the first place we have something non-nullable?\n\nOverall with these annotations, there are a few options that make sense:\n1) Use @NonNull on things that are definitely not null and assume everything else can be null.\n2) Use @Nullable on things that may be null and assume everything else can\u0027t be null.\n3) Use @NonNull or @Nullable on everything.\n\nPersonally I (and happily most of our team) prefer option 2. This is because the presence of @Nullable means that we need to take extra care in our code. On the other hand @NonNull means we can just continue as normal - I prefer this way of using an annotation as a warning, an extra thing we need to consider. In addition @Nullable kinda maps mentally onto Optional.\n\nSo yeah, that was my long was of saying that we use @Nullable, but you don\u0027t need to use @NonNull.",
+      "range": {
+        "startLine": 231,
+        "startChar": 55,
+        "endLine": 231,
+        "endChar": 62
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bbeebce_dbc411f4",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsIntent.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "nit: This can be on the same line.",
+      "range": {
+        "startLine": 293,
+        "startChar": 25,
+        "endLine": 293,
+        "endChar": 34
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2ff22c9_cae45bef",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsIntent.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "session can be null? If that\u0027s the case do we want to put it into bundle below?",
+      "range": {
+        "startLine": 298,
+        "startChar": 50,
+        "endLine": 298,
+        "endChar": 57
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92cb14bd_0d1b2a89",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsIntent.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "nit: Add some javadoc.",
+      "range": {
+        "startLine": 325,
+        "startChar": 8,
+        "endLine": 325,
+        "endChar": 14
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1e2bc89_91b41cc1",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "As above, can you get rid of @NonNull please?",
+      "range": {
+        "startLine": 28,
+        "startChar": 34,
+        "endLine": 28,
+        "endChar": 41
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f5b98a0_7e4e82f4",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "nit: Remove empty line.",
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa63c75d_bc54740d",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "we are connected",
+      "range": {
+        "startLine": 266,
+        "startChar": 67,
+        "endLine": 266,
+        "endChar": 77
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1590058d_cf299b4e",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "instead *of*",
+      "range": {
+        "startLine": 266,
+        "startChar": 26,
+        "endLine": 266,
+        "endChar": 33
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47532c5d_b462f506",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "I\u0027m not sure this sentence is relevant - the class is called PendingSession and has no methods on it that can\u0027t be called. I think it\u0027s fine for the PendingSession to not really do much until it\u0027s turned into a Session.",
+      "range": {
+        "startLine": 267,
+        "startChar": 37,
+        "endLine": 267,
+        "endChar": 95
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c663b15a_9a1bc07f",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "I don\u0027t think this is used.",
+      "range": {
+        "startLine": 271,
+        "startChar": 36,
+        "endLine": 271,
+        "endChar": 39
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9a7a66c_45ea48fb",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "Likewise, I don\u0027t think this is used.",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 272,
+        "endChar": 50
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c87bd3b7_298c8a33",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "Does this need to be a CustomTabsCallback.Wrapper? Can it just be a CustomTabsCallback? (same for the use in the constructor)",
+      "range": {
+        "startLine": 274,
+        "startChar": 49,
+        "endLine": 274,
+        "endChar": 58
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f5160b4_d24f1ab5",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-05T13:28:32Z",
+      "side": 1,
+      "message": "/* package */ ?",
+      "range": {
+        "startLine": 288,
+        "startChar": 8,
+        "endLine": 288,
+        "endChar": 21
+      },
+      "revId": "dd39fb6175d6d3060f84c96d22322eb259479d7e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
