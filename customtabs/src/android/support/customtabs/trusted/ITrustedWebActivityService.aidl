@@ -21,6 +21,7 @@ package android.support.customtabs.trusted;
  * @hide
  */
 interface ITrustedWebActivityService {
+    Bundle areNotificationsEnabled(in Bundle args) = 5;
     Bundle notifyNotificationWithChannel(in Bundle args) = 1;
     void cancelNotification(in Bundle args) = 2;
     Bundle getActiveNotifications() = 4;
