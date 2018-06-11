@@ -59,6 +59,17 @@ public class TrustedWebActivityServiceWrapper {
     }
 
     /**
+     * Checks whether notifications are enabled.
+     * @param channelName The name of the channel to check enabled status. Only used on Android O+.
+     * @return Whether notifications or the notification channel is blocked for the client app.
+     * @throws RemoteException If the Service dies while responding to the request.
+     */
+    public boolean areNotificationsEnabled(String channelName) throws RemoteException {
+        Bundle args = new NotificationsEnabledArgs(channelName).toBundle();
+        return ResultArgs.fromBundle(mService.areNotificationsEnabled(args)).success;
+    }
+
+    /**
      * Requests a notification be shown.
      * @param platformTag The tag to identify the notification.
      * @param platformId The id to identify the notification.
@@ -215,6 +226,25 @@ public class TrustedWebActivityServiceWrapper {
         public Bundle toBundle() {
             Bundle args = new Bundle();
             args.putParcelableArray(KEY_ACTIVE_NOTIFICATIONS, notifications);
+            return args;
+        }
+    }
+
+    static class NotificationsEnabledArgs {
+        public final String channelName;
+
+        public NotificationsEnabledArgs(String channelName) {
+            this.channelName = channelName;
+        }
+
+        public static NotificationsEnabledArgs fromBundle(Bundle bundle) {
+            ensureBundleContains(bundle, KEY_CHANNEL_NAME);
+            return new NotificationsEnabledArgs(bundle.getString(KEY_CHANNEL_NAME));
+        }
+
+        public Bundle toBundle() {
+            Bundle args = new Bundle();
+            args.putString(KEY_CHANNEL_NAME, channelName);
             return args;
         }
     }
