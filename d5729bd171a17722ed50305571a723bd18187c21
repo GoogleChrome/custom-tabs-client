@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "152eff5b_206e4c63",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-06-11T13:32:59Z",
+      "side": 1,
+      "message": "Flip the condition and return true for pre-O? Then below return `getImportance() !\u003d IMPORTANCE_NONE`.",
+      "range": {
+        "startLine": 205,
+        "startChar": 12,
+        "endLine": 205,
+        "endChar": 58
+      },
+      "revId": "d5729bd171a17722ed50305571a723bd18187c21",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
