@@ -37,6 +37,7 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.ActiveNotificationsArgs;
 import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.CancelNotificationArgs;
+import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.NotificationsEnabledArgs;
 import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.NotifyNotificationArgs;
 import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.ResultArgs;
 import android.support.v4.app.NotificationManagerCompat;
@@ -105,6 +106,17 @@ public class TrustedWebActivityService extends Service {
 
     private final ITrustedWebActivityService.Stub mBinder =
             new ITrustedWebActivityService.Stub() {
+        @Override
+        public Bundle areNotificationsEnabled(Bundle bundle) {
+            checkCaller();
+
+            NotificationsEnabledArgs args = NotificationsEnabledArgs.fromBundle(bundle);
+            boolean result =
+                    TrustedWebActivityService.this.areNotificationsEnabled(args.channelName);
+
+            return new ResultArgs(result).toBundle();
+        }
+
         @Override
         public Bundle notifyNotificationWithChannel(Bundle bundle) {
             checkCaller();
@@ -178,6 +190,32 @@ public class TrustedWebActivityService extends Service {
         super.onCreate();
         mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    }
+
+    /**
+     * Checks whether notifications are enabled.
+     * @param channelName The name of the notification channel to be used on Android O+.
+     * @return Whether notifications are enabled.
+     */
+    protected boolean areNotificationsEnabled(String channelName) {
+        ensureOnCreateCalled();
+
+        if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) return false;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = channelNameToId(channelName);
+            // Create the notification channel, (no-op if already created).
+            mNotificationManager.createNotificationChannel(new NotificationChannel(channelId,
+                    channelName, NotificationManager.IMPORTANCE_DEFAULT));
+
+            // Check that the channel is enabled.
+            if (mNotificationManager.getNotificationChannel(channelId).getImportance() ==
+                    NotificationManager.IMPORTANCE_NONE) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
