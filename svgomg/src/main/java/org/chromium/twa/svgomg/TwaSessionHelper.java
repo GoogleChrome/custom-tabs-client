@@ -27,6 +27,7 @@ import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.TrustedWebUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.chromium.customtabsclient.shared.ServiceConnection;
 import org.chromium.customtabsclient.shared.ServiceConnectionCallback;
@@ -44,7 +45,11 @@ import java.util.List;
  */
 public class TwaSessionHelper implements ServiceConnectionCallback {
     private static final String TAG = TwaSessionHelper.class.getSimpleName();
-    private static final List<String> CHROME_PACKAGES = Arrays.asList("com.chrome.canary");
+    private static final List<String> CHROME_PACKAGES = Arrays.asList(
+            "com.google.android.apps.chrome",  // Chrome local build.
+            "org.chromium.chrome",  // Chromium local build.
+            "com.chrome.canary",  // Chrome Canary.
+            "com.chrome.dev");  // Chrome Dev.
     private static final TwaSessionHelper INSTANCE = new TwaSessionHelper();
 
     private CustomTabsSession mCustomTabsSession;
@@ -176,6 +181,11 @@ public class TwaSessionHelper implements ServiceConnectionCallback {
 
         this.mOrigin = origin;
         this.packageName = CustomTabsClient.getPackageName(context, CHROME_PACKAGES, false);
+
+        if (this.packageName == null) {
+            Toast.makeText(context, "Please install Chrome Dev/Canary.", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         Context applicationContext = context.getApplicationContext();
 
