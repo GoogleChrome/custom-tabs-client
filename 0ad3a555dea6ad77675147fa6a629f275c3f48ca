@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "752c3d51_82a94344",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaSessionHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-06-13T10:58:36Z",
+      "side": 1,
+      "message": "This list should also include org.chromium.chrome.",
+      "range": {
+        "startLine": 48,
+        "startChar": 27,
+        "endLine": 48,
+        "endChar": 57
+      },
+      "revId": "0ad3a555dea6ad77675147fa6a629f275c3f48ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b37a5699_6864a3ca",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaSessionHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-06-13T10:58:36Z",
+      "side": 1,
+      "message": "I\u0027m not sure if an IllegalStateException is the right thing here -- it\u0027s not a bug in code if there is no suitable browser. Should we show a toast or something?",
+      "revId": "0ad3a555dea6ad77675147fa6a629f275c3f48ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
