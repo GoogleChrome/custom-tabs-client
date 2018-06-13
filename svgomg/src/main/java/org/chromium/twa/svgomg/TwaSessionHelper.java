@@ -44,7 +44,8 @@ import java.util.List;
  */
 public class TwaSessionHelper implements ServiceConnectionCallback {
     private static final String TAG = TwaSessionHelper.class.getSimpleName();
-    private static final List<String> CHROME_PACKAGES = Arrays.asList("com.chrome.canary");
+    private static final List<String> CHROME_PACKAGES =
+            Arrays.asList("com.google.android.apps.chrome", "com.chrome.canary", "com.chrome.dev");
     private static final TwaSessionHelper INSTANCE = new TwaSessionHelper();
 
     private CustomTabsSession mCustomTabsSession;
@@ -176,6 +177,11 @@ public class TwaSessionHelper implements ServiceConnectionCallback {
 
         this.mOrigin = origin;
         this.packageName = CustomTabsClient.getPackageName(context, CHROME_PACKAGES, false);
+
+        if (this.packageName == null) {
+            throw new IllegalStateException("You must have Chrome Canary, Dev or a local build " +
+                    "installed to be able to use Trusted Web Activities.");
+        }
 
         Context applicationContext = context.getApplicationContext();
 
