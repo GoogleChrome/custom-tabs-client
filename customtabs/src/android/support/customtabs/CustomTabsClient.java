@@ -16,6 +16,7 @@
 
 package android.support.customtabs;
 
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -24,12 +25,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsService.Relation;
-import android.support.customtabs.trusted.TrustedWebActivityService;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -175,6 +172,12 @@ public class CustomTabsClient {
         }
     }
 
+    private static PendingIntent createSessionId(Context context, int sessionId) {
+        // Create a {@link PendingIntent} with empty Action to prevent using it other than
+        // a session identifier.
+        return PendingIntent.getActivity(context, sessionId, new Intent(), 0);
+    }
+
     /**
      * Creates a new session through an ICustomTabsService with the optional callback. This session
      * can be used to associate any related communication through the service with an intent and
@@ -182,91 +185,72 @@ public class CustomTabsClient {
      * through same session-intent-Custom Tab association.
      * @param callback The callback through which the client will receive updates about the created
      *                 session. Can be null. All the callbacks will be received on the UI thread.
+     * @param sessionId The session id.
      * @return The session object that was created as a result of the transaction. The client can
      *         use this to relay session specific calls.
      *         Null on error.
      */
-    public CustomTabsSession newSession(final CustomTabsCallback callback) {
-        ICustomTabsCallback.Stub wrapper = new ICustomTabsCallback.Stub() {
-            private Handler mHandler = new Handler(Looper.getMainLooper());
-
-            @Override
-            public void onNavigationEvent(final int navigationEvent, final Bundle extras) {
-                if (callback == null) return;
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onNavigationEvent(navigationEvent, extras);
-                    }
-                });
-            }
-
-            @Override
-            public void extraCallback(final String callbackName, final Bundle args)
-                    throws RemoteException {
-                if (callback == null) return;
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.extraCallback(callbackName, args);
-                    }
-                });
-            }
-
-            @Override
-            public void onMessageChannelReady(final Bundle extras)
-                    throws RemoteException {
-                if (callback == null) return;
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onMessageChannelReady(extras);
-                    }
-                });
-            }
-
-            @Override
-            public void onPostMessage(final String message, final Bundle extras)
-                    throws RemoteException {
-                if (callback == null) return;
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onPostMessage(message, extras);
-                    }
-                });
-            }
-
-            @Override
-            public void onRelationshipValidationResult(
-                    final @Relation int relation, final Uri requestedOrigin, final boolean result,
-                    final @Nullable Bundle extras) throws RemoteException {
-
-                if (mApplicationContext != null && result) {
-                    TrustedWebActivityService.setVerifiedProvider(mApplicationContext,
-                            mServiceComponentName.getPackageName());
-                }
-
-                if (callback == null) return;
-
-                // Do something with mServiceComponentName.
-
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onRelationshipValidationResult(
-                                relation, requestedOrigin, result, extras);
-                    }
-                });
-            }
-        };
-
+    public CustomTabsSession newSession(final @Nullable CustomTabsCallback callback,
+            int sessionId) {
+        ICustomTabsCallback.Stub wrapper = new CustomTabsCallback.Wrapper(callback,
+                mApplicationContext, mServiceComponentName);
+        PendingIntent id = createSessionId(mApplicationContext, sessionId);
         try {
-            if (!mService.newSession(wrapper)) return null;
+            if (!mService.newSession(wrapper, id)) return null;
         } catch (RemoteException e) {
             return null;
         }
-        return new CustomTabsSession(mService, wrapper, mServiceComponentName);
+        return new CustomTabsSession(mService, wrapper, mServiceComponentName, id);
+    }
+
+    /**
+     * Creates a new session with default id 0.
+     *
+     * {@see #newSession(CustomTabsCallback, int)}
+     */
+    public CustomTabsSession newSession(final @Nullable CustomTabsCallback callback) {
+        return newSession(callback, 0);
+    }
+
+    /**
+     * Creates a new pending session with an optional callback.
+     *
+     * {@see #newSession}
+     */
+    public static CustomTabsSession.PendingSession newPendingSession(
+            Context context, final @Nullable CustomTabsCallback callback, int sessionId)
+    {
+        PendingIntent id = createSessionId(context.getApplicationContext(), sessionId);
+        CustomTabsCallback.Wrapper wrapper = new CustomTabsCallback.Wrapper(callback);
+        return new CustomTabsSession.PendingSession(wrapper, id);
+    }
+
+    /**
+     * Associate {@link CustomTabsSession.PendingSession} with the service
+     * and turn it into a {@link CustomTabsSession}.
+     */
+    public CustomTabsSession attachSession(CustomTabsSession.PendingSession session) {
+        return session.attachService(mApplicationContext, mService, mServiceComponentName);
+    }
+
+    /**
+     * Request to restore session or update its callback
+     * @param callback The new callback for the session.
+     * @param sessionId The session id.
+     * @return The session object with updated callback
+     *         Null on error or if session with the id does not exist.
+     */
+    @Nullable public CustomTabsSession restoreSessionAndUpdateCallback(CustomTabsCallback callback,
+                                                                       int sessionId) {
+        ICustomTabsCallback.Stub wrapper = new CustomTabsCallback.Wrapper(callback,
+                mApplicationContext, mServiceComponentName);
+        PendingIntent id = createSessionId(mApplicationContext, sessionId);
+        try {
+            if (!mService.restoreSessionAndUpdateCallback(wrapper, id)) return null;
+        } catch (RemoteException e) {
+            return null;
+        }
+        return new CustomTabsSession(mService, wrapper, mServiceComponentName, id);
     }
 
     public Bundle extraCommand(String commandName, Bundle args) {

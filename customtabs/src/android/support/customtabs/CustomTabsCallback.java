@@ -16,9 +16,16 @@
 
 package android.support.customtabs;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.RemoteException;
+import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsService.Relation;
+import android.support.customtabs.trusted.TrustedWebActivityService;
 
 /**
  * A callback class for custom tabs client to get messages regarding events in their custom tabs. In
@@ -121,4 +128,94 @@ public class CustomTabsCallback {
      */
     public void onRelationshipValidationResult(@Relation int relation, Uri requestedOrigin,
                                                boolean result, Bundle extras) {}
+
+    /* package */ static class Wrapper extends ICustomTabsCallback.Stub {
+        private final CustomTabsCallback mCallback;
+        private Context mApplicationContext;
+        private ComponentName mServiceComponentName;
+
+        private final Handler mHandler = new Handler(Looper.getMainLooper());
+
+        Wrapper(@Nullable CustomTabsCallback callback, Context context, ComponentName componentName) {
+            mCallback = callback;
+            mApplicationContext = context;
+            mServiceComponentName = componentName;
+        }
+
+        Wrapper(@Nullable CustomTabsCallback callback) {
+            this(callback, null, null);
+        }
+
+        /* package */ void attachToService(Context context, ComponentName componentName) {
+            mApplicationContext = context;
+            mServiceComponentName = componentName;
+        }
+
+        @Override
+        public void onNavigationEvent(final int navigationEvent, final Bundle extras)
+                throws RemoteException {
+            if (mCallback == null) return;
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mCallback.onNavigationEvent(navigationEvent, extras);
+                }
+            });
+        }
+
+        @Override
+        public void extraCallback(final String callbackName, final Bundle args)
+                throws RemoteException {
+            if (mCallback == null) return;
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mCallback.extraCallback(callbackName, args);
+                }
+            });
+        }
+
+        @Override
+        public void onMessageChannelReady(final Bundle extras) throws RemoteException {
+            if (mCallback == null) return;
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mCallback.onMessageChannelReady(extras);
+                }
+            });
+        }
+
+        @Override
+        public void onPostMessage(final String message, final Bundle extras)
+                throws RemoteException {
+            if (mCallback == null) return;
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mCallback.onPostMessage(message, extras);
+                }
+            });
+        }
+
+        @Override
+        public void onRelationshipValidationResult(final int relation, final Uri requestedOrigin,
+                                                   final boolean result, final Bundle extras)
+                throws RemoteException {
+            if (mServiceComponentName != null && mApplicationContext != null && result) {
+                TrustedWebActivityService.setVerifiedProvider(mApplicationContext,
+                        mServiceComponentName.getPackageName());
+            }
+
+            if (mCallback == null) return;
+
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mCallback.onRelationshipValidationResult(
+                            relation, requestedOrigin, result, extras);
+                }
+            });
+        }
+    }
 }
