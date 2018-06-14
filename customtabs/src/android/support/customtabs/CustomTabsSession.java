@@ -18,6 +18,7 @@ package android.support.customtabs;
 
 import android.app.PendingIntent;
 import android.content.ComponentName;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,6 +46,16 @@ public final class CustomTabsSession {
     private final ComponentName mComponentName;
 
     /**
+     * The session id is represented by {@link PendingIntent}. Other apps can not
+     * forge {@link PendingIntent}. {@link PendingIntent#equals(Object)} methods
+     * considers two PendingIntent objects are equal if their action, data, type, class and category
+     * are the same (even across a process being killed).
+     *
+     * {@see Intent#filterEquals()}
+     */
+    private final PendingIntent mId;
+
+    /**
      * Provides browsers a way to generate a mock {@link CustomTabsSession} for testing
      * purposes.
      *
@@ -56,14 +67,16 @@ public final class CustomTabsSession {
     public static CustomTabsSession createMockSessionForTesting(
             @NonNull ComponentName componentName) {
         return new CustomTabsSession(
-                null, new CustomTabsSessionToken.MockCallback(), componentName);
+                null, new CustomTabsSessionToken.MockCallback(), componentName, null);
     }
 
     /* package */ CustomTabsSession(
-            ICustomTabsService service, ICustomTabsCallback callback, ComponentName componentName) {
+            ICustomTabsService service, ICustomTabsCallback callback, ComponentName componentName,
+            PendingIntent id) {
         mService = service;
         mCallback = callback;
         mComponentName = componentName;
+        mId = id;
     }
 
     /**
@@ -84,7 +97,7 @@ public final class CustomTabsSession {
      */
     public boolean mayLaunchUrl(Uri url, Bundle extras, List<Bundle> otherLikelyBundles) {
         try {
-            return mService.mayLaunchUrl(mCallback, url, extras, otherLikelyBundles);
+            return mService.mayLaunchUrl(mCallback, mId, url, extras, otherLikelyBundles);
         } catch (RemoteException e) {
             return false;
         }
@@ -107,7 +120,7 @@ public final class CustomTabsSession {
         Bundle metaBundle = new Bundle();
         metaBundle.putBundle(CustomTabsIntent.EXTRA_ACTION_BUTTON_BUNDLE, bundle);
         try {
-            return mService.updateVisuals(mCallback, metaBundle);
+            return mService.updateVisuals(mCallback, mId, metaBundle);
         } catch (RemoteException e) {
             return false;
         }
@@ -129,7 +142,7 @@ public final class CustomTabsSession {
         bundle.putIntArray(CustomTabsIntent.EXTRA_REMOTEVIEWS_VIEW_IDS, clickableIDs);
         bundle.putParcelable(CustomTabsIntent.EXTRA_REMOTEVIEWS_PENDINGINTENT, pendingIntent);
         try {
-            return mService.updateVisuals(mCallback, bundle);
+            return mService.updateVisuals(mCallback, mId, bundle);
         } catch (RemoteException e) {
             return false;
         }
@@ -155,7 +168,7 @@ public final class CustomTabsSession {
         Bundle metaBundle = new Bundle();
         metaBundle.putBundle(CustomTabsIntent.EXTRA_ACTION_BUTTON_BUNDLE, bundle);
         try {
-            return mService.updateVisuals(mCallback, metaBundle);
+            return mService.updateVisuals(mCallback, mId, metaBundle);
         } catch (RemoteException e) {
             return false;
         }
@@ -173,7 +186,7 @@ public final class CustomTabsSession {
     public boolean requestPostMessageChannel(Uri postMessageOrigin) {
         try {
             return mService.requestPostMessageChannel(
-                    mCallback, postMessageOrigin);
+                    mCallback, mId, postMessageOrigin);
         } catch (RemoteException e) {
             return false;
         }
@@ -195,7 +208,7 @@ public final class CustomTabsSession {
     public int postMessage(String message, Bundle extras) {
         synchronized (mLock) {
             try {
-                return mService.postMessage(mCallback, message, extras);
+                return mService.postMessage(mCallback, mId, message, extras);
             } catch (RemoteException e) {
                 return CustomTabsService.RESULT_FAILURE_REMOTE_ERROR;
             }
@@ -229,7 +242,7 @@ public final class CustomTabsSession {
             return false;
         }
         try {
-            return mService.validateRelationship(mCallback, relation, origin, extras);
+            return mService.validateRelationship(mCallback, mId, relation, origin, extras);
         } catch (RemoteException e) {
             return false;
         }
@@ -241,5 +254,44 @@ public final class CustomTabsSession {
 
     /* package */ ComponentName getComponentName() {
         return mComponentName;
+    }
+
+    /* package */ public PendingIntent getId() {
+        return mId;
+    }
+
+    /**
+     * A class to be used instead of {@link CustomTabsSession} before we are connected
+     * {@link CustomTabsService}.
+     *
+     * Use {@link CustomTabsClient#attachSession(PendingSession)} to get {@link CustomTabsSession}.
+     */
+     public static class PendingSession {
+        private final CustomTabsCallback.Wrapper mCallback;
+        private final PendingIntent mId;
+
+        /* package */ PendingSession(
+                CustomTabsCallback.Wrapper callback, PendingIntent sessionId) {
+            mCallback = callback;
+            mId = sessionId;
+        }
+
+        /* package */ IBinder getBinder() {
+            return mCallback.asBinder();
+        }
+
+        /* package */ public PendingIntent getId() {
+            return mId;
+        }
+
+        /* package */ CustomTabsSession attachService(Context context, ICustomTabsService service, ComponentName componentName) {
+            try {
+                mCallback.attachToService(context, componentName);
+                service.newSession(mCallback, mId);
+                return new CustomTabsSession(service, mCallback, componentName, mId);
+            } catch (RemoteException e) {
+                return null;
+            }
+        }
     }
 }
