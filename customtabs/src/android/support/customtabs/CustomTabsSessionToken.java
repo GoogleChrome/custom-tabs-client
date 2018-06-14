@@ -16,6 +16,7 @@
 
 package android.support.customtabs;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +35,8 @@ public class CustomTabsSessionToken {
     private static final String TAG = "CustomTabsSessionToken";
     private final ICustomTabsCallback mCallbackBinder;
     private final CustomTabsCallback mCallback;
+
+    private final PendingIntent mSessionId;
 
     /* package */ static class MockCallback extends ICustomTabsCallback.Stub {
         @Override
@@ -69,7 +72,8 @@ public class CustomTabsSessionToken {
         Bundle b = intent.getExtras();
         IBinder binder = BundleCompat.getBinder(b, CustomTabsIntent.EXTRA_SESSION);
         if (binder == null) return null;
-        return new CustomTabsSessionToken(ICustomTabsCallback.Stub.asInterface(binder));
+        PendingIntent sessionId = intent.getParcelableExtra(CustomTabsIntent.EXTRA_SESSION_ID);
+        return new CustomTabsSessionToken(ICustomTabsCallback.Stub.asInterface(binder), sessionId);
     }
 
     /**
@@ -80,11 +84,12 @@ public class CustomTabsSessionToken {
      */
     @NonNull
     public static CustomTabsSessionToken createMockSessionTokenForTesting() {
-        return new CustomTabsSessionToken(new MockCallback());
+        return new CustomTabsSessionToken(new MockCallback(), null);
     }
 
-    CustomTabsSessionToken(ICustomTabsCallback callbackBinder) {
+    CustomTabsSessionToken(ICustomTabsCallback callbackBinder, PendingIntent sessionId) {
         mCallbackBinder = callbackBinder;
+        mSessionId = sessionId;
         mCallback = new CustomTabsCallback() {
 
             @Override
@@ -143,6 +148,7 @@ public class CustomTabsSessionToken {
 
     @Override
     public int hashCode() {
+        //return getId().hashCode();
         return getCallbackBinder().hashCode();
     }
 
@@ -165,6 +171,11 @@ public class CustomTabsSessionToken {
      * @return Whether this token is associated with the given session.
      */
     public boolean isAssociatedWith(CustomTabsSession session) {
-        return session.getBinder().equals(mCallbackBinder);
+        //return session.getBinder().equals(mCallbackBinder);
+        return session.getId().equals(mSessionId);
+    }
+
+    public PendingIntent getId() {
+        return mSessionId;
     }
 }

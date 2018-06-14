@@ -29,12 +29,13 @@ import java.util.List;
  */
 interface ICustomTabsService {
     boolean warmup(long flags) = 1;
-    boolean newSession(in ICustomTabsCallback callback) = 2;
-    boolean mayLaunchUrl(in ICustomTabsCallback callback, in Uri url,
+    boolean newSession(in ICustomTabsCallback callback, in PendingIntent id) = 2;
+    boolean restoreSessionAndUpdateCallback(in ICustomTabsCallback callback, in PendingIntent sessionId) = 9;
+    boolean mayLaunchUrl(in ICustomTabsCallback callback, in PendingIntent id, in Uri url,
             in Bundle extras, in List<Bundle> otherLikelyBundles) = 3;
     Bundle extraCommand(String commandName, in Bundle args) = 4;
-    boolean updateVisuals(in ICustomTabsCallback callback, in Bundle bundle) = 5;
-    boolean requestPostMessageChannel(in ICustomTabsCallback callback, in Uri postMessageOrigin) = 6;
-    int postMessage(in ICustomTabsCallback callback, String message, in Bundle extras) = 7;
-    boolean validateRelationship(in ICustomTabsCallback callback, int relation, in Uri origin, in Bundle extras) = 8;
+    boolean updateVisuals(in ICustomTabsCallback callback, in PendingIntent id, in Bundle bundle) = 5;
+    boolean requestPostMessageChannel(in ICustomTabsCallback callback, in PendingIntent id, in Uri postMessageOrigin) = 6;
+    int postMessage(in ICustomTabsCallback callback, in PendingIntent id, String message, in Bundle extras) = 7;
+    boolean validateRelationship(in ICustomTabsCallback callback, in PendingIntent id, int relation, in Uri origin, in Bundle extras) = 8;
 }
