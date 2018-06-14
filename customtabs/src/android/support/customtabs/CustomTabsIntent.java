@@ -24,6 +24,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.AnimRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -61,9 +62,13 @@ public final class CustomTabsIntent {
     /**
      * Extra used to match the session. This has to be included in the intent to open in
      * a custom tab. This is the same IBinder that gets passed to ICustomTabsService#newSession.
-     * Null if there is no need to match any service side sessions with the intent.
      */
     public static final String EXTRA_SESSION = "android.support.customtabs.extra.SESSION";
+    /**
+     * Extra used to match a session id with the session. This has to be included in the intent
+     * together with the session to open in a custom tab.
+     */
+    public static final String EXTRA_SESSION_ID = "android.support.customtabs.extra.SESSION_ID";
 
     /**
      * Extra that changes the background color for the toolbar. colorRes is an int that specifies a
@@ -258,6 +263,13 @@ public final class CustomTabsIntent {
      * @param url The URL to load in the Custom Tab.
      */
     public void launchUrl(Context context, Uri url) {
+        // Use a session with id 0 and empty callback if a client does not specify a session
+        if (intent.getExtras() == null ||
+                BundleCompat.getBinder(intent.getExtras(), EXTRA_SESSION) == null) {
+            CustomTabsSession.PendingSession session = CustomTabsClient.newPendingSession(
+                    context, new CustomTabsCallback(), 0);
+            initialize(intent, session.getBinder(), null, session.getId());
+        }
         intent.setData(url);
         ContextCompat.startActivity(context, intent, startAnimationBundle);
     }
@@ -265,6 +277,16 @@ public final class CustomTabsIntent {
     private CustomTabsIntent(Intent intent, Bundle startAnimationBundle) {
         this.intent = intent;
         this.startAnimationBundle = startAnimationBundle;
+    }
+
+    private static void initialize(Intent intent, @Nullable IBinder session, @Nullable String packageName,
+                            @Nullable PendingIntent sessionId) {
+        Bundle bundle = new Bundle();
+        if (session != null) BundleCompat.putBinder(bundle, EXTRA_SESSION, session);
+        intent.putExtras(bundle);
+
+        if (packageName != null) intent.setPackage(packageName);
+        if (sessionId != null) intent.putExtra(EXTRA_SESSION_ID, sessionId);
     }
 
     /**
@@ -282,7 +304,6 @@ public final class CustomTabsIntent {
          * {@link CustomTabsSession}.
          */
         public Builder() {
-            this(null);
         }
 
         /**
@@ -294,12 +315,19 @@ public final class CustomTabsIntent {
          *
          * @param session The session to associate this Builder with.
          */
-        public Builder(@Nullable CustomTabsSession session) {
-            if (session != null) mIntent.setPackage(session.getComponentName().getPackageName());
-            Bundle bundle = new Bundle();
-            BundleCompat.putBinder(
-                    bundle, EXTRA_SESSION, session == null ? null : session.getBinder());
-            mIntent.putExtras(bundle);
+        public Builder(CustomTabsSession session) {
+            initialize(mIntent, session.getBinder(), session.getComponentName().getPackageName(),
+                    session.getId());
+        }
+
+        /**
+         * Creates a {@link CustomTabsIntent.Builder} object associated with a given
+         * {@link android.support.customtabs.CustomTabsSession.PendingSession}.
+         *
+         * {@see Builder(CustomTabsSession)}
+         */
+        public Builder(CustomTabsSession.PendingSession session) {
+            initialize(mIntent, session.getBinder(), null, session.getId());
         }
 
         /**

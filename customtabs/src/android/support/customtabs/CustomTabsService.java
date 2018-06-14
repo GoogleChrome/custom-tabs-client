@@ -16,6 +16,7 @@
 
 package android.support.customtabs;
 
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.net.Uri;
@@ -105,8 +106,8 @@ public abstract class CustomTabsService extends Service {
         }
 
         @Override
-        public boolean newSession(ICustomTabsCallback callback) {
-            final CustomTabsSessionToken sessionToken = new CustomTabsSessionToken(callback);
+        public boolean newSession(ICustomTabsCallback callback, PendingIntent sessionId) {
+            final CustomTabsSessionToken sessionToken = new CustomTabsSessionToken(callback, sessionId);
             try {
                 DeathRecipient deathRecipient = new IBinder.DeathRecipient() {
                     @Override
@@ -125,10 +126,18 @@ public abstract class CustomTabsService extends Service {
         }
 
         @Override
-        public boolean mayLaunchUrl(ICustomTabsCallback callback, Uri url,
+        public boolean restoreSessionAndUpdateCallback(ICustomTabsCallback callback,
+                                                       PendingIntent sessionId) {
+            return CustomTabsService.this.restoreSessionAndUpdateCallback(
+                    new CustomTabsSessionToken(callback, sessionId));
+        }
+
+        @Override
+        public boolean mayLaunchUrl(ICustomTabsCallback callback,
+                                    PendingIntent sessionId, Uri url,
                                     Bundle extras, List<Bundle> otherLikelyBundles) {
             return CustomTabsService.this.mayLaunchUrl(
-                    new CustomTabsSessionToken(callback), url, extras, otherLikelyBundles);
+                    new CustomTabsSessionToken(callback, sessionId), url, extras, otherLikelyBundles);
         }
 
         @Override
@@ -137,29 +146,29 @@ public abstract class CustomTabsService extends Service {
         }
 
         @Override
-        public boolean updateVisuals(ICustomTabsCallback callback, Bundle bundle) {
+        public boolean updateVisuals(ICustomTabsCallback callback, PendingIntent sessionId, Bundle bundle) {
             return CustomTabsService.this.updateVisuals(
-                    new CustomTabsSessionToken(callback), bundle);
+                    new CustomTabsSessionToken(callback, sessionId), bundle);
         }
 
         @Override
-        public boolean requestPostMessageChannel(ICustomTabsCallback callback,
+        public boolean requestPostMessageChannel(ICustomTabsCallback callback, PendingIntent sessionId,
                                                  Uri postMessageOrigin) {
             return CustomTabsService.this.requestPostMessageChannel(
-                    new CustomTabsSessionToken(callback), postMessageOrigin);
+                    new CustomTabsSessionToken(callback, sessionId), postMessageOrigin);
         }
 
         @Override
-        public int postMessage(ICustomTabsCallback callback, String message, Bundle extras) {
+        public int postMessage(ICustomTabsCallback callback, PendingIntent sessionId, String message, Bundle extras) {
             return CustomTabsService.this.postMessage(
-                    new CustomTabsSessionToken(callback), message, extras);
+                    new CustomTabsSessionToken(callback, sessionId), message, extras);
         }
 
         @Override
         public boolean validateRelationship(
-                ICustomTabsCallback callback, @Relation int relation, Uri origin, Bundle extras) {
+                ICustomTabsCallback callback, PendingIntent sessionId, @Relation int relation, Uri origin, Bundle extras) {
             return CustomTabsService.this.validateRelationship(
-                    new CustomTabsSessionToken(callback), relation, origin, extras);
+                    new CustomTabsSessionToken(callback, sessionId), relation, origin, extras);
         }
     };
 
@@ -311,4 +320,8 @@ public abstract class CustomTabsService extends Service {
     protected abstract boolean validateRelationship(
             CustomTabsSessionToken sessionToken, @Relation int relation, Uri origin,
             Bundle extras);
+
+    protected boolean restoreSessionAndUpdateCallback(CustomTabsSessionToken sessionToken) {
+        throw new UnsupportedOperationException();
+    }
 }
