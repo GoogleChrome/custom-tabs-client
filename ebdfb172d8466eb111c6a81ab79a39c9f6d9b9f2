@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b1e00a4e_89744982",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1282710
+      },
+      "writtenOn": "2018-06-14T16:39:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cee3fbb8_3844c69e",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 3
+      },
+      "revId": "ebdfb172d8466eb111c6a81ab79a39c9f6d9b9f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b49aa7c_0bf2e952",
         "filename": "customtabs/src/android/support/customtabs/CustomTabsCallback.java",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "ebdfb172d8466eb111c6a81ab79a39c9f6d9b9f2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdf08f70_7b2e6585",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsCallback.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1282710
+      },
+      "writtenOn": "2018-06-14T16:39:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b49aa7c_0bf2e952",
+      "range": {
+        "startLine": 139,
+        "startChar": 101,
+        "endLine": 139,
+        "endChar": 102
+      },
+      "revId": "ebdfb172d8466eb111c6a81ab79a39c9f6d9b9f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "39fa60db_72fb2394",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1282710
+      },
+      "writtenOn": "2018-06-14T16:39:01Z",
+      "side": 1,
+      "message": "Making this method abstract requires changes in another repository. It will cause an error if this CL landed before CL 1077147.",
+      "parentUuid": "e7632b91_8f6df6cd",
+      "range": {
+        "startLine": 325,
+        "startChar": 18,
+        "endLine": 325,
+        "endChar": 47
+      },
+      "revId": "ebdfb172d8466eb111c6a81ab79a39c9f6d9b9f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2f19a21_18dc14fe",
         "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
         "patchSetId": 10
@@ -91,6 +163,30 @@
       "revId": "ebdfb172d8466eb111c6a81ab79a39c9f6d9b9f2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b92b5a39_975718d4",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1282710
+      },
+      "writtenOn": "2018-06-14T16:39:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2f19a21_18dc14fe",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 79,
+        "endChar": 12
+      },
+      "revId": "ebdfb172d8466eb111c6a81ab79a39c9f6d9b9f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "3472dfa4_b03b1a1b",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1282710
+      },
+      "writtenOn": "2018-06-14T16:39:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15611394_90c6ad07",
+      "range": {
+        "startLine": 151,
+        "startChar": 10,
+        "endLine": 151,
+        "endChar": 16
+      },
+      "revId": "ebdfb172d8466eb111c6a81ab79a39c9f6d9b9f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "767f68af_01a92917",
         "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
         "patchSetId": 10
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "646d61e3_2bf3e1e4",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1282710
+      },
+      "writtenOn": "2018-06-14T16:39:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "767f68af_01a92917",
+      "range": {
+        "startLine": 178,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 10
+      },
+      "revId": "ebdfb172d8466eb111c6a81ab79a39c9f6d9b9f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c5edb5f_329f284e",
         "filename": "customtabs/src/android/support/customtabs/ICustomTabsService.aidl",
         "patchSetId": 10
@@ -151,6 +295,30 @@
       "writtenOn": "2018-06-14T15:45:39Z",
       "side": 1,
       "message": "So it feels like we\u0027re duplicating information here - you\u0027re giving both the callback (which had been previously used for identification) and the pending intent (which is now the id).\n\nIt would be cleaner if we passed the callback and the pending intent in to \"newSession\" and \"restoreSessionAndUpdateCallback\", then for the other calls we just pass in the pending intent (and it figures the callback out from there).\n\nAdditionally, could we make \"newSession\" and \"restoreSessionAndUpdateCallback\" the same method?\n\nHowever, we maybe don\u0027t want to change the AIDL this much - adding new methods is fine, but updating existing ones changes the API, Bernhard what do you think?",
+      "range": {
+        "startLine": 34,
+        "startChar": 61,
+        "endLine": 34,
+        "endChar": 74
+      },
+      "revId": "ebdfb172d8466eb111c6a81ab79a39c9f6d9b9f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8c9b249_c862d238",
+        "filename": "customtabs/src/android/support/customtabs/ICustomTabsService.aidl",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1282710
+      },
+      "writtenOn": "2018-06-14T16:39:01Z",
+      "side": 1,
+      "message": "We could merge \"newSession\" and \"restoreSessionAndUpdateCallback\", but now their behavior is slightly different. \"newSession\" set up new session parameters (even for existing id), while \"restoreSession\" reuse parameters. Could it be useful to have both methods or we don\u0027t want to reset session parameters?",
+      "parentUuid": "4c5edb5f_329f284e",
       "range": {
         "startLine": 34,
         "startChar": 61,
