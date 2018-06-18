@@ -96,6 +96,23 @@
     },
     {
       "key": {
+        "uuid": "76cb8539_be5c0a3f",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsCallback.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-06-18T13:16:15Z",
+      "side": 1,
+      "message": "Why would this throw a RemoteException? The callback object is supposed to be local.",
+      "revId": "ebdfb172d8466eb111c6a81ab79a39c9f6d9b9f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e7632b91_8f6df6cd",
         "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
         "patchSetId": 10
@@ -190,6 +207,23 @@
     },
     {
       "key": {
+        "uuid": "3a3ecad5_b8048d91",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-06-18T13:16:15Z",
+      "side": 1,
+      "message": "A client cannot do anything with a PendingSession, so do we really need this object?\nIt seems that clients always have to wait for a proper session to do anything, right?",
+      "revId": "ebdfb172d8466eb111c6a81ab79a39c9f6d9b9f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15611394_90c6ad07",
         "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
         "patchSetId": 10
@@ -281,6 +315,23 @@
       "revId": "ebdfb172d8466eb111c6a81ab79a39c9f6d9b9f2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78c4e1fc_42ac0b64",
+        "filename": "customtabs/src/android/support/customtabs/ICustomTabsService.aidl",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-06-18T13:16:15Z",
+      "side": 1,
+      "message": "AFAIK, we cannot modify any existing AIDL method without breaking backwards compatibility, which is not desirable.\n\nThe alternatives are either to use the \"extras\" bundles for some methods, or to make new ones.",
+      "revId": "ebdfb172d8466eb111c6a81ab79a39c9f6d9b9f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     },
     {
       "key": {
