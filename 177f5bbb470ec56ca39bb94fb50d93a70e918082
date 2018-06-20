@@ -93,6 +93,30 @@
       "revId": "177f5bbb470ec56ca39bb94fb50d93a70e918082",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "259b4707_da40e667",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-06-20T14:39:00Z",
+      "side": 1,
+      "message": "Very cool! I\u0027m for deleting :) (And I just talked to Andre offline -- so is he.)",
+      "parentUuid": "3d265d36_8aa5f479",
+      "range": {
+        "startLine": 22,
+        "startChar": 41,
+        "endLine": 22,
+        "endChar": 58
+      },
+      "revId": "177f5bbb470ec56ca39bb94fb50d93a70e918082",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
