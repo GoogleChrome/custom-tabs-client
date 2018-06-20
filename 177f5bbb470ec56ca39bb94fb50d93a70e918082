@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a2ffed1_b4cec867",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-06-20T13:36:08Z",
+      "side": 1,
+      "message": "Let\u0027s remove this, as custom activity transitions are discouraged :)",
+      "range": {
+        "startLine": 88,
+        "startChar": 26,
+        "endLine": 88,
+        "endChar": 68
+      },
+      "revId": "177f5bbb470ec56ca39bb94fb50d93a70e918082",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "409bde2e_7621c3fa",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-06-20T13:36:08Z",
+      "side": 1,
+      "message": "Should this extend LauncherActivity now?",
+      "range": {
+        "startLine": 22,
+        "startChar": 41,
+        "endLine": 22,
+        "endChar": 58
+      },
+      "revId": "177f5bbb470ec56ca39bb94fb50d93a70e918082",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
