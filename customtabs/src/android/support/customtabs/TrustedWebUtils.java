@@ -19,7 +19,7 @@ package android.support.customtabs;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.os.IBinder;
 import android.support.v4.app.BundleCompat;
 
 /**
@@ -49,7 +49,7 @@ public class TrustedWebUtils {
      * Boolean extra that triggers a {@link CustomTabsIntent} launch to be in a fullscreen UI with
      * no browser controls.
      *
-     * @see TrustedWebUtils#launchAsTrustedWebActivity(Context, CustomTabsIntent, Uri).
+     * @see TrustedWebUtils#launchAsTrustedWebActivity
      */
     public static final String EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY =
             "android.support.customtabs.extra.LAUNCH_AS_TRUSTED_WEB_ACTIVITY";
@@ -57,26 +57,31 @@ public class TrustedWebUtils {
     private TrustedWebUtils() {}
 
     /**
-     * Launch the given {@link CustomTabsIntent} as a Trusted Web Activity. The given
-     * {@link CustomTabsIntent} should have a valid {@link CustomTabsSession} associated with it
-     * during construction. Once the Trusted Web Activity is launched, browser side implementations
-     * may have their own fallback behavior (e.g. Showing the page in a custom tab UI with toolbar)
-     * based on qualifications listed above or more.
+     * Launches the given {@link CustomTabsIntent} as a Trusted Web Activity. Once the Trusted Web
+     * Activity is launched, browser side implementations may have their own fallback behavior (e.g.
+     * Showing the page in a custom tab UI with toolbar) based on qualifications listed above or
+     * more.
      *
      * @param context {@link Context} to use while launching the {@link CustomTabsIntent}.
-     * @param customTabsIntent The {@link CustomTabsIntent} to use for launching the
-     *                         Trusted Web Activity. Note that all customizations in the given
-     *                         associated with browser toolbar controls will be ignored.
+     * @param session The {@link CustomTabsSession} used to create the intent.
+     * @param intent The {@link CustomTabsIntent} to use for launching the Trusted Web Activity.
+     *               Note that all customizations in the given associated with browser toolbar
+     *               controls will be ignored.
      * @param uri The web page to launch as Trusted Web Activity.
+
      */
-    public static void launchAsTrustedWebActivity(@NonNull Context context,
-            @NonNull CustomTabsIntent customTabsIntent, @NonNull Uri uri) {
-        if (BundleCompat.getBinder(
-                customTabsIntent.intent.getExtras(), CustomTabsIntent.EXTRA_SESSION) == null) {
-            throw new IllegalArgumentException(
-                    "Given CustomTabsIntent should be associated with a valid CustomTabsSession");
+    public static void launchAsTrustedWebActivity(Context context, CustomTabsSession session,
+            CustomTabsIntent intent, Uri uri) {
+        session.validateRelationship(CustomTabsService.RELATION_HANDLE_ALL_URLS, uri, null);
+
+        IBinder binder = BundleCompat.getBinder(intent.intent.getExtras(),
+                CustomTabsIntent.EXTRA_SESSION);
+        if (binder != session.getBinder()) {
+            throw new IllegalArgumentException("Given CustomTabsIntent should be associated with "
+                    + "the given CustomTabsSession");
         }
-        customTabsIntent.intent.putExtra(EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY, true);
-        customTabsIntent.launchUrl(context, uri);
+
+        intent.intent.putExtra(EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY, true);
+        intent.launchUrl(context, uri);
     }
 }
