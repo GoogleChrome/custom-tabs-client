@@ -92,7 +92,7 @@ public class TwaSessionHelper implements ServiceConnectionCallback {
         // Ensure we're launching the same browser we're bound to.
         customTabsIntent.intent.setPackage(packageName);
 
-        TrustedWebUtils.launchAsTrustedWebActivity(activity, customTabsIntent, uri);
+        TrustedWebUtils.launchAsTrustedWebActivity(activity, getSession(), customTabsIntent, uri);
 
         final TwaSessionCallback twaSessionCallback = mTwaSessionCallback.get();
         if (twaSessionCallback == null) {

@@ -30,10 +30,24 @@
             android:resource="@string/asset_statements" />
 
         <activity android:name=".TwaLauncherActivity">
+        </activity>
+
+        <activity android:name="android.support.customtabs.trusted.LauncherActivity"
+                  android:label="Launcher Activity">
+            <meta-data android:name="android.support.customtabs.trusted.DEFAULT_URL"
+                       android:value="https://svgomg.firebaseapp.com" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="https"
+                      android:host="svgomg.firebaseapp.com"/>
             </intent-filter>
         </activity>
     </application>
