@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d00a97ce_8465d768",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-20T13:43:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a2ffed1_b4cec867",
+      "range": {
+        "startLine": 88,
+        "startChar": 26,
+        "endLine": 88,
+        "endChar": 68
+      },
+      "revId": "177f5bbb470ec56ca39bb94fb50d93a70e918082",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "409bde2e_7621c3fa",
         "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-20T13:36:08Z",
       "side": 1,
       "message": "Should this extend LauncherActivity now?",
+      "range": {
+        "startLine": 22,
+        "startChar": 41,
+        "endLine": 22,
+        "endChar": 58
+      },
+      "revId": "177f5bbb470ec56ca39bb94fb50d93a70e918082",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d265d36_8aa5f479",
+        "filename": "svgomg/src/main/java/org/chromium/twa/svgomg/TwaLauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-06-20T13:43:22Z",
+      "side": 1,
+      "message": "No, I haven\u0027t changed TwaLauncherActivity at all. I\u0027m uncertain whether I should leave it around (as an example for other people if they want to do do TWAs more manually) or whether I should delete it (and TwaSessionHelper as well).\n\nWe don\u0027t need a Java class extending LauncherActivity (unless we want to customize something) - the TWA works fully just by including LauncherActivity in the manifest.",
+      "parentUuid": "409bde2e_7621c3fa",
       "range": {
         "startLine": 22,
         "startChar": 41,
