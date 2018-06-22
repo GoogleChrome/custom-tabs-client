@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63e531f9_f02e8cc8",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-06-22T12:58:38Z",
+      "side": 1,
+      "message": "nit: final?",
+      "revId": "73c95cd582871de6ef1755a0606f6fac4fa711c1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
