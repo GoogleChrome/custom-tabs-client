@@ -25,15 +25,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TwaSplash">
 
+        <!--
+        To skip digital asset link verification testing from the website to the app (which you'll
+        need to do to get Trusted Web Activities to work) you'll need to run Chrome with the flag:
+          __disable-digital-asset-link-verification-for-url=https://svgomg.firebaseapp.com
+        but with the '_' replaced by '-' (XML comments don't allow double dashes).
+        -->
+
         <meta-data
             android:name="asset_statements"
             android:resource="@string/asset_statements" />
 
-        <activity android:name=".TwaLauncherActivity">
+        <activity android:name="android.support.customtabs.trusted.LauncherActivity"
+                  android:label="Launcher Activity">
+            <meta-data android:name="android.support.customtabs.trusted.DEFAULT_URL"
+                       android:value="https://svgomg.firebaseapp.com" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="https"
+                      android:host="svgomg.firebaseapp.com"/>
             </intent-filter>
         </activity>
     </application>
