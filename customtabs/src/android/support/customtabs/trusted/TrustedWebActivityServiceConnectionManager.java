@@ -134,8 +134,12 @@ public class TrustedWebActivityServiceConnectionManager {
      * method call will just trigger caching the Preferences.
      *
      * This is safe to be called on any thread, however it may hit disk.
+     *
+     * @param context A Context to be used for accessing SharedPreferences.
+     * @param origin The origin that was previously used with {@link #registerClient}.
+     * @return A set of package names. This set is safe to be modified.
      */
-    private static Set<String> getVerifiedPackages(Context context, String origin) {
+    public static Set<String> getVerifiedPackages(Context context, String origin) {
         // Loading preferences is on the critical path for this class - we need to synchronously
         // inform the client whether or not an notification can be handled by a TWA.
         // I considered loading the preferences into a cache on a background thread when this class
