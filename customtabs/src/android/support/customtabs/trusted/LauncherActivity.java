@@ -22,7 +22,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsCallback;
 import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
@@ -72,6 +71,8 @@ public class LauncherActivity extends AppCompatActivity {
             "com.chrome.canary",  // Chrome Canary.
             "com.chrome.dev");  // Chrome Dev.
 
+    private String mChromePackage;
+
     /**
      * Connects to the CustomTabsService.
      */
@@ -79,15 +80,26 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String chromePackage = CustomTabsClient.getPackageName(this, CHROME_PACKAGES, false);
-        if (chromePackage == null) {
+        mChromePackage = CustomTabsClient.getPackageName(this, CHROME_PACKAGES, false);
+        if (mChromePackage == null) {
             Log.d(TAG, "No valid build of Chrome found, exiting.");
             Toast.makeText(this, "Please install Chrome Dev/Canary.", Toast.LENGTH_LONG).show();
             finishCompat();
             return;
         }
+    }
 
-        CustomTabsClient.bindCustomTabsService(this, chromePackage, mServiceConnection);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CustomTabsClient.bindCustomTabsService(this, mChromePackage, mServiceConnection);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unbindService(mServiceConnection);
+        finishCompat();
     }
 
     /**
@@ -96,17 +108,7 @@ public class LauncherActivity extends AppCompatActivity {
      * behaviour.
      */
     protected CustomTabsSession getSession(CustomTabsClient client) {
-        return client.newSession(new CustomTabsCallback() {
-            private boolean mCalledFinish;
-            @Override
-            public void onNavigationEvent(int navigationEvent, Bundle extras) {
-                if (mCalledFinish) return;
-
-                Log.d(TAG, "Trusted Web Activity launched successfully, closing LauncherActivity.");
-                finishCompat();
-                mCalledFinish = true;
-            }
-        });
+        return client.newSession(null);
     }
 
     /**
@@ -161,7 +163,8 @@ public class LauncherActivity extends AppCompatActivity {
         return Uri.parse("https://www.example.com/");
     }
 
-    final private CustomTabsServiceConnection mServiceConnection = new CustomTabsServiceConnection() {
+    final private CustomTabsServiceConnection mServiceConnection =
+            new CustomTabsServiceConnection() {
         @Override
         public void onCustomTabsServiceConnected(ComponentName componentName,
                 CustomTabsClient client) {
@@ -177,9 +180,7 @@ public class LauncherActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-
-        }
+        public void onServiceDisconnected(ComponentName componentName) { }
     };
 
     private void finishCompat() {
