@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b510527c_3d24325b",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsClient.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1282710
+      },
+      "writtenOn": "2018-08-15T14:10:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "722ea7ea_cbfe573e",
+      "range": {
+        "startLine": 232,
+        "startChar": 16,
+        "endLine": 232,
+        "endChar": 29
+      },
+      "revId": "caa8fe9895b08b66ea8facce5b2086c4ef67bc5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd357f9d_160fa0ea",
         "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
         "patchSetId": 14
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "58998de7_960b0d2f",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1282710
+      },
+      "writtenOn": "2018-08-15T14:10:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd357f9d_160fa0ea",
+      "range": {
+        "startLine": 98,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 86
+      },
+      "revId": "caa8fe9895b08b66ea8facce5b2086c4ef67bc5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "201876df_9a3cff05",
         "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
         "patchSetId": 14
@@ -62,6 +110,24 @@
       "revId": "caa8fe9895b08b66ea8facce5b2086c4ef67bc5c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0891fdc7_ed5f22a5",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1282710
+      },
+      "writtenOn": "2018-08-15T14:10:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "201876df_9a3cff05",
+      "revId": "caa8fe9895b08b66ea8facce5b2086c4ef67bc5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "1cf12cd4_ce8eb3ce",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1282710
+      },
+      "writtenOn": "2018-08-15T14:10:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec21f102_0bdf404b",
+      "range": {
+        "startLine": 173,
+        "startChar": 31,
+        "endLine": 173,
+        "endChar": 36
+      },
+      "revId": "caa8fe9895b08b66ea8facce5b2086c4ef67bc5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a15b536_bddf5a1c",
         "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
         "patchSetId": 14
@@ -108,6 +198,30 @@
       "revId": "caa8fe9895b08b66ea8facce5b2086c4ef67bc5c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c276f1b_fb49d616",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1282710
+      },
+      "writtenOn": "2018-08-15T14:10:23Z",
+      "side": 1,
+      "message": "The idea is to compare in old way, i.e compare binders, if there is no new session identifier. However, I don\u0027t think it\u0027s possible to have two session tokens with the same binders, but one with id and one without. I can remove this line, but I prefer to leave it just in case.",
+      "parentUuid": "7a15b536_bddf5a1c",
+      "range": {
+        "startLine": 174,
+        "startChar": 34,
+        "endLine": 174,
+        "endChar": 55
+      },
+      "revId": "caa8fe9895b08b66ea8facce5b2086c4ef67bc5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
