@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "722ea7ea_cbfe573e",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsClient.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-08-15T13:07:31Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 232,
+        "startChar": 16,
+        "endLine": 232,
+        "endChar": 29
+      },
+      "revId": "caa8fe9895b08b66ea8facce5b2086c4ef67bc5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd357f9d_160fa0ea",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSession.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-08-15T13:07:31Z",
+      "side": 1,
+      "message": "You repeat this line a lot - can you make a \"addIdToBundle\" method or something?",
+      "range": {
+        "startLine": 98,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 86
+      },
+      "revId": "caa8fe9895b08b66ea8facce5b2086c4ef67bc5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "201876df_9a3cff05",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-08-15T13:07:31Z",
+      "side": 1,
+      "message": "nit: you\u0027ve got a few random empty lines dotted about the place.",
+      "revId": "caa8fe9895b08b66ea8facce5b2086c4ef67bc5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec21f102_0bdf404b",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-08-15T13:07:31Z",
+      "side": 1,
+      "message": "Just for readability do you mind calling this \"other\".",
+      "range": {
+        "startLine": 173,
+        "startChar": 31,
+        "endLine": 173,
+        "endChar": 36
+      },
+      "revId": "caa8fe9895b08b66ea8facce5b2086c4ef67bc5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a15b536_bddf5a1c",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-08-15T13:07:31Z",
+      "side": 1,
+      "message": "So if we have:\n\nToken A with SessionId 123 and Binder 234.\nToken B with SessionId null and Binder 234.\n\nThis code would give A \u003d\u003d B - is this is correct intention? Is this something that could ever happen? (this code may be correct, I\u0027m just wondering about what could happen).",
+      "range": {
+        "startLine": 174,
+        "startChar": 34,
+        "endLine": 174,
+        "endChar": 55
+      },
+      "revId": "caa8fe9895b08b66ea8facce5b2086c4ef67bc5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
