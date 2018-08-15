@@ -16,6 +16,7 @@
 
 package android.support.customtabs;
 
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.net.Uri;
@@ -106,7 +107,18 @@ public abstract class CustomTabsService extends Service {
 
         @Override
         public boolean newSession(ICustomTabsCallback callback) {
-            final CustomTabsSessionToken sessionToken = new CustomTabsSessionToken(callback);
+            return newSessionInternal(callback, null);
+        }
+
+        @Override
+        public boolean newSessionWithExtras(ICustomTabsCallback callback, Bundle extras) {
+            PendingIntent sessionId = extras.getParcelable(CustomTabsIntent.EXTRA_SESSION_ID);
+            return newSessionInternal(callback, sessionId);
+        }
+
+        private boolean newSessionInternal(ICustomTabsCallback callback, PendingIntent sessionId) {
+            final CustomTabsSessionToken sessionToken =
+                    new CustomTabsSessionToken(callback, sessionId);
             try {
                 DeathRecipient deathRecipient = new IBinder.DeathRecipient() {
                     @Override
@@ -127,8 +139,9 @@ public abstract class CustomTabsService extends Service {
         @Override
         public boolean mayLaunchUrl(ICustomTabsCallback callback, Uri url,
                                     Bundle extras, List<Bundle> otherLikelyBundles) {
+            PendingIntent sessionId = extras.getParcelable(CustomTabsIntent.EXTRA_SESSION_ID);
             return CustomTabsService.this.mayLaunchUrl(
-                    new CustomTabsSessionToken(callback), url, extras, otherLikelyBundles);
+                    new CustomTabsSessionToken(callback, sessionId), url, extras, otherLikelyBundles);
         }
 
         @Override
@@ -138,28 +151,39 @@ public abstract class CustomTabsService extends Service {
 
         @Override
         public boolean updateVisuals(ICustomTabsCallback callback, Bundle bundle) {
+            PendingIntent sessionId = bundle.getParcelable(CustomTabsIntent.EXTRA_SESSION_ID);
             return CustomTabsService.this.updateVisuals(
-                    new CustomTabsSessionToken(callback), bundle);
+                    new CustomTabsSessionToken(callback, sessionId), bundle);
         }
 
         @Override
         public boolean requestPostMessageChannel(ICustomTabsCallback callback,
                                                  Uri postMessageOrigin) {
             return CustomTabsService.this.requestPostMessageChannel(
-                    new CustomTabsSessionToken(callback), postMessageOrigin);
+                    new CustomTabsSessionToken(callback, null), postMessageOrigin);
+        }
+
+        @Override
+        public boolean requestPostMessageChannelWithExtras(ICustomTabsCallback callback,
+                                                 Uri postMessageOrigin, Bundle extras) {
+            PendingIntent sessionId = extras.getParcelable(CustomTabsIntent.EXTRA_SESSION_ID);
+            return CustomTabsService.this.requestPostMessageChannel(
+                    new CustomTabsSessionToken(callback, sessionId), postMessageOrigin);
         }
 
         @Override
         public int postMessage(ICustomTabsCallback callback, String message, Bundle extras) {
+            PendingIntent sessionId = extras.getParcelable(CustomTabsIntent.EXTRA_SESSION_ID);
             return CustomTabsService.this.postMessage(
-                    new CustomTabsSessionToken(callback), message, extras);
+                    new CustomTabsSessionToken(callback, sessionId), message, extras);
         }
 
         @Override
         public boolean validateRelationship(
                 ICustomTabsCallback callback, @Relation int relation, Uri origin, Bundle extras) {
+            PendingIntent sessionId = extras.getParcelable(CustomTabsIntent.EXTRA_SESSION_ID);
             return CustomTabsService.this.validateRelationship(
-                    new CustomTabsSessionToken(callback), relation, origin, extras);
+                    new CustomTabsSessionToken(callback, sessionId), relation, origin, extras);
         }
     };
 
