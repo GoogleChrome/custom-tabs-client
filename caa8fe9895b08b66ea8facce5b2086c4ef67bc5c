@@ -222,6 +222,30 @@
       "revId": "caa8fe9895b08b66ea8facce5b2086c4ef67bc5c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5984180e_084ceb1f",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-08-16T13:56:20Z",
+      "side": 1,
+      "message": "Well my thought is that in this case you could simplify this line to:\n\nif (mSessionId !\u003d null) return mSessionId.equals(token.getId());\n\nIf you don\u0027t mind my example returning false.\n\nBut it\u0027s up to you.",
+      "parentUuid": "8c276f1b_fb49d616",
+      "range": {
+        "startLine": 174,
+        "startChar": 34,
+        "endLine": 174,
+        "endChar": 55
+      },
+      "revId": "caa8fe9895b08b66ea8facce5b2086c4ef67bc5c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
