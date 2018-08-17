@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "f2409738_8aa58136",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-08-17T13:40:42Z",
+      "side": 1,
+      "message": "If you leave out the space (CL:1077147), Gerrit makes a clickable link out if it :) Alternatively, https://crrev.com/c/1077147 also works.",
+      "range": {
+        "startLine": 15,
+        "startChar": 11,
+        "endLine": 15,
+        "endChar": 12
+      },
+      "revId": "ebdfb172d8466eb111c6a81ab79a39c9f6d9b9f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0b49aa7c_0bf2e952",
         "filename": "customtabs/src/android/support/customtabs/CustomTabsCallback.java",
         "patchSetId": 10
