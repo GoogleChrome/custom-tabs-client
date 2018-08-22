@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b43c90f0_4a1ec064",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsSessionToken.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001606
+      },
+      "writtenOn": "2018-08-22T13:43:07Z",
+      "side": 1,
+      "message": "Ugh, I guess even that isn\u0027t correct: the browser *might* clean up unused sessions. Maybe we need to rephrase this as: \"If {@link #mSessionId} is null, the session will be invalidated as soon as the client goes away. Otherwise the browser will attempt to keep the session parameters, but it might drop them to reclaim resources\". Sorry for not catching that earlier!",
+      "range": {
+        "startLine": 42,
+        "startChar": 7,
+        "endLine": 42,
+        "endChar": 85
+      },
+      "revId": "ed8746388239bae80089082ca4c65a2ff8ada024",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
