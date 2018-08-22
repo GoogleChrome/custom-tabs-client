@@ -16,12 +16,14 @@
 
 package android.support.customtabs;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsService.Relation;
 import android.support.v4.app.BundleCompat;
 import android.util.Log;
@@ -32,7 +34,17 @@ import android.util.Log;
  */
 public class CustomTabsSessionToken {
     private static final String TAG = "CustomTabsSessionToken";
-    private final ICustomTabsCallback mCallbackBinder;
+
+    /**
+     * Both {@link #mCallbackBinder} and {@link #mSessionId} are used as session ID.
+     * At least one of the ID should be not null. If {@link #mSessionId} is null,
+     * the session will be invalidated as soon as the client goes away.
+     * Otherwise the browser will attempt to keep the session parameters,
+     * but it might drop them to reclaim resources
+     */
+    @Nullable private final ICustomTabsCallback mCallbackBinder;
+    @Nullable private final PendingIntent mSessionId;
+
     private final CustomTabsCallback mCallback;
 
     /* package */ static class MockCallback extends ICustomTabsCallback.Stub {
@@ -68,8 +80,9 @@ public class CustomTabsSessionToken {
     public static CustomTabsSessionToken getSessionTokenFromIntent(Intent intent) {
         Bundle b = intent.getExtras();
         IBinder binder = BundleCompat.getBinder(b, CustomTabsIntent.EXTRA_SESSION);
-        if (binder == null) return null;
-        return new CustomTabsSessionToken(ICustomTabsCallback.Stub.asInterface(binder));
+        PendingIntent sessionId = intent.getParcelableExtra(CustomTabsIntent.EXTRA_SESSION_ID);
+        if (binder == null && sessionId == null) return null;
+        return new CustomTabsSessionToken(ICustomTabsCallback.Stub.asInterface(binder), sessionId);
     }
 
     /**
@@ -80,13 +93,15 @@ public class CustomTabsSessionToken {
      */
     @NonNull
     public static CustomTabsSessionToken createMockSessionTokenForTesting() {
-        return new CustomTabsSessionToken(new MockCallback());
+        return new CustomTabsSessionToken(new MockCallback(), null);
     }
 
-    CustomTabsSessionToken(ICustomTabsCallback callbackBinder) {
+    CustomTabsSessionToken(@Nullable ICustomTabsCallback callbackBinder,
+                           @Nullable PendingIntent sessionId) {
         mCallbackBinder = callbackBinder;
-        mCallback = new CustomTabsCallback() {
+        mSessionId = sessionId;
 
+        mCallback = callbackBinder == null ? null : new CustomTabsCallback() {
             @Override
             public void onNavigationEvent(int navigationEvent, Bundle extras) {
                 try {
@@ -141,16 +156,30 @@ public class CustomTabsSessionToken {
         return mCallbackBinder.asBinder();
     }
 
+    PendingIntent getId() {
+        return mSessionId;
+    }
+
+    public boolean hasCallback() {
+        return mCallbackBinder != null;
+    }
+
+    public boolean hasId() {return mSessionId != null;}
     @Override
     public int hashCode() {
+        if (mSessionId != null) return mSessionId.hashCode();
+
         return getCallbackBinder().hashCode();
     }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof CustomTabsSessionToken)) return false;
-        CustomTabsSessionToken token = (CustomTabsSessionToken) o;
-        return token.getCallbackBinder().equals(mCallbackBinder.asBinder());
+        CustomTabsSessionToken other = (CustomTabsSessionToken) o;
+        if (mSessionId != null && other.getId() != null) return mSessionId.equals(other.getId());
+
+        return other.getCallbackBinder() != null &&
+               other.getCallbackBinder().equals(mCallbackBinder.asBinder());
     }
 
     /**
