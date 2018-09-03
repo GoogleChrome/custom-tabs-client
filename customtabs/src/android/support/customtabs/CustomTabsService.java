@@ -25,6 +25,7 @@ import android.os.IBinder;
 import android.os.IBinder.DeathRecipient;
 import android.os.RemoteException;
 import android.support.annotation.IntDef;
+import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
 
 import java.lang.annotation.Retention;
@@ -112,20 +113,14 @@ public abstract class CustomTabsService extends Service {
 
         @Override
         public boolean newSessionWithExtras(ICustomTabsCallback callback, Bundle extras) {
-            PendingIntent sessionId = extras.getParcelable(CustomTabsIntent.EXTRA_SESSION_ID);
-            return newSessionInternal(callback, sessionId);
+            return newSessionInternal(callback, getSessionIdFromBundle(extras));
         }
 
         private boolean newSessionInternal(ICustomTabsCallback callback, PendingIntent sessionId) {
             final CustomTabsSessionToken sessionToken =
                     new CustomTabsSessionToken(callback, sessionId);
             try {
-                DeathRecipient deathRecipient = new IBinder.DeathRecipient() {
-                    @Override
-                    public void binderDied() {
-                        cleanUpSession(sessionToken);
-                    }
-                };
+                DeathRecipient deathRecipient = () -> cleanUpSession(sessionToken);
                 synchronized (mDeathRecipientMap) {
                     callback.asBinder().linkToDeath(deathRecipient, 0);
                     mDeathRecipientMap.put(callback.asBinder(), deathRecipient);
@@ -139,9 +134,9 @@ public abstract class CustomTabsService extends Service {
         @Override
         public boolean mayLaunchUrl(ICustomTabsCallback callback, Uri url,
                                     Bundle extras, List<Bundle> otherLikelyBundles) {
-            PendingIntent sessionId = extras.getParcelable(CustomTabsIntent.EXTRA_SESSION_ID);
             return CustomTabsService.this.mayLaunchUrl(
-                    new CustomTabsSessionToken(callback, sessionId), url, extras, otherLikelyBundles);
+                    new CustomTabsSessionToken(callback, getSessionIdFromBundle(extras)),
+                    url, extras, otherLikelyBundles);
         }
 
         @Override
@@ -151,9 +146,8 @@ public abstract class CustomTabsService extends Service {
 
         @Override
         public boolean updateVisuals(ICustomTabsCallback callback, Bundle bundle) {
-            PendingIntent sessionId = bundle.getParcelable(CustomTabsIntent.EXTRA_SESSION_ID);
             return CustomTabsService.this.updateVisuals(
-                    new CustomTabsSessionToken(callback, sessionId), bundle);
+                    new CustomTabsSessionToken(callback, getSessionIdFromBundle(bundle)), bundle);
         }
 
         @Override
@@ -166,24 +160,32 @@ public abstract class CustomTabsService extends Service {
         @Override
         public boolean requestPostMessageChannelWithExtras(ICustomTabsCallback callback,
                                                  Uri postMessageOrigin, Bundle extras) {
-            PendingIntent sessionId = extras.getParcelable(CustomTabsIntent.EXTRA_SESSION_ID);
             return CustomTabsService.this.requestPostMessageChannel(
-                    new CustomTabsSessionToken(callback, sessionId), postMessageOrigin);
+                    new CustomTabsSessionToken(callback, getSessionIdFromBundle(extras)),
+                    postMessageOrigin);
         }
 
         @Override
         public int postMessage(ICustomTabsCallback callback, String message, Bundle extras) {
-            PendingIntent sessionId = extras.getParcelable(CustomTabsIntent.EXTRA_SESSION_ID);
             return CustomTabsService.this.postMessage(
-                    new CustomTabsSessionToken(callback, sessionId), message, extras);
+                    new CustomTabsSessionToken(callback, getSessionIdFromBundle(extras)),
+                    message, extras);
         }
 
         @Override
         public boolean validateRelationship(
                 ICustomTabsCallback callback, @Relation int relation, Uri origin, Bundle extras) {
-            PendingIntent sessionId = extras.getParcelable(CustomTabsIntent.EXTRA_SESSION_ID);
             return CustomTabsService.this.validateRelationship(
-                    new CustomTabsSessionToken(callback, sessionId), relation, origin, extras);
+                    new CustomTabsSessionToken(callback, getSessionIdFromBundle(extras)),
+                    relation, origin, extras);
+        }
+
+        private @Nullable PendingIntent getSessionIdFromBundle(@Nullable Bundle bundle) {
+            if (bundle == null) return null;
+
+            PendingIntent sessionId = bundle.getParcelable(CustomTabsIntent.EXTRA_SESSION_ID);
+            bundle.remove(CustomTabsIntent.EXTRA_SESSION_ID);
+            return sessionId;
         }
     };
 
