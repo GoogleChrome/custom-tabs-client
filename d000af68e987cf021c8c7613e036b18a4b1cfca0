@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c7ebd80_b658890e",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1141499
+      },
+      "writtenOn": "2018-09-11T02:31:14Z",
+      "side": 1,
+      "message": "why not on commit, too?",
+      "revId": "d000af68e987cf021c8c7613e036b18a4b1cfca0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b986d29_30ff485d",
+        "filename": "luci-milo.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1141499
+      },
+      "writtenOn": "2018-09-11T02:31:14Z",
+      "side": 1,
+      "message": ".try?",
+      "range": {
+        "startLine": 13,
+        "startChar": 47,
+        "endLine": 13,
+        "endChar": 49
+      },
+      "revId": "d000af68e987cf021c8c7613e036b18a4b1cfca0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
