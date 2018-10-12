@@ -18,6 +18,7 @@ package android.support.customtabs.trusted;
 
 import android.app.Notification;
 import android.content.ComponentName;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.service.notification.StatusBarNotification;
@@ -120,6 +121,17 @@ public class TrustedWebActivityServiceWrapper {
      */
     public int getSmallIconId() throws RemoteException {
         return mService.getSmallIconId();
+    }
+
+    /**
+     * Requests an Android resource id and a bitmap decoded from it to be used for the notification
+     * small icon. Decoding happens on the client's side for security reasons.
+     * @return {@link SmallIconData} with both an id and a bitmap
+     * @throws RemoteException If the Service dies while responding to the request.
+     * @throws SecurityException If verification with the TrustedWebActivityService fails.
+     */
+    public SmallIconData getSmallIconData() throws RemoteException {
+        return new SmallIconData(mService.getSmallIconData());
     }
 
     /**
@@ -246,6 +258,16 @@ public class TrustedWebActivityServiceWrapper {
             Bundle args = new Bundle();
             args.putString(KEY_CHANNEL_NAME, channelName);
             return args;
+        }
+    }
+
+    public static class SmallIconData {
+        public final int id;
+        public final Bitmap bitmap;
+
+        SmallIconData(Bundle bundle) {
+            id = bundle.getInt(TrustedWebActivityService.KEY_SMALL_ICON_ID);
+            bitmap = bundle.getParcelable(TrustedWebActivityService.KEY_SMALL_ICON_BITMAP);
         }
     }
 
