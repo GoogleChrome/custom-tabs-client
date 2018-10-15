@@ -25,5 +25,6 @@ interface ITrustedWebActivityService {
     Bundle notifyNotificationWithChannel(in Bundle args) = 1;
     void cancelNotification(in Bundle args) = 2;
     Bundle getActiveNotifications() = 4;
-    int getSmallIconId() = 3;
+    int getSmallIconId() = 3; // TODO(pshmakov): remove after downstream update
+    Bundle getSmallIconData() = 6;
 }

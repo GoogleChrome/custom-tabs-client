@@ -29,6 +29,7 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.StrictMode;
+import android.os.TransactionTooLargeException;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -189,6 +190,10 @@ public class TrustedWebActivityServiceConnectionManager {
                     public void run() {
                         try {
                             callback.onConnected(service);
+                        } catch (TransactionTooLargeException e) {
+                            Log.w(TAG,
+                                    "TransactionTooLargeException from TrustedWebActivityService,"
+                                            + "possibly due to large size of small icon.", e);
                         } catch (RemoteException | RuntimeException e) {
                             Log.w(TAG,
                                     "Exception while trying to use TrustedWebActivityService.", e);
