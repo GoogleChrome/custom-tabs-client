@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6f78c2f8_efb3978c",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-10-15T10:10:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62c65ee5_e835ccd6",
+      "range": {
+        "startLine": 298,
+        "startChar": 19,
+        "endLine": 298,
+        "endChar": 32
+      },
+      "revId": "b77e389e99f7106243cb654cc3495428bf80e1dd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f82dc6ee_587aa728",
         "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "b77e389e99f7106243cb654cc3495428bf80e1dd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "851da964_ec7af159",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-10-15T10:10:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f82dc6ee_587aa728",
+      "range": {
+        "startLine": 264,
+        "startChar": 24,
+        "endLine": 264,
+        "endChar": 37
+      },
+      "revId": "b77e389e99f7106243cb654cc3495428bf80e1dd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
