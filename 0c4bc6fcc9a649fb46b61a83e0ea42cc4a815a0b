@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5fe6e1c6_1e20269e",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-10-15T13:25:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdb3351a_482dfd04",
+      "revId": "0c4bc6fcc9a649fb46b61a83e0ea42cc4a815a0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb5147ad_8c1d0d70",
         "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ba4c1216_ec344ed6",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-10-15T13:25:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb5147ad_8c1d0d70",
+      "revId": "0c4bc6fcc9a649fb46b61a83e0ea42cc4a815a0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1210d92c_9c1a6ec3",
         "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2018-10-15T10:37:10Z",
       "side": 1,
       "message": "What are the values when either of those keys are not available in the bundle? Do we gracefully handle those?",
+      "revId": "0c4bc6fcc9a649fb46b61a83e0ea42cc4a815a0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc8a1ddc_116d1b27",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-10-15T13:25:33Z",
+      "side": 1,
+      "message": "Added -1 as default value for id, @Nullable for bitmap, and included this in the javadoc. TrustedWebActivityClient and NotificationBuilders can handle these cases.",
+      "parentUuid": "1210d92c_9c1a6ec3",
       "revId": "0c4bc6fcc9a649fb46b61a83e0ea42cc4a815a0b",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
