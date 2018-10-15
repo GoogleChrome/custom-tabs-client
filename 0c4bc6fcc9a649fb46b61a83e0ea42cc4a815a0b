@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdb3351a_482dfd04",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceConnectionManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1002032
+      },
+      "writtenOn": "2018-10-15T10:37:10Z",
+      "side": 1,
+      "message": "nit: extra space (\"...from TWAService,possibly due...\")",
+      "revId": "0c4bc6fcc9a649fb46b61a83e0ea42cc4a815a0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb5147ad_8c1d0d70",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1002032
+      },
+      "writtenOn": "2018-10-15T10:37:10Z",
+      "side": 1,
+      "message": "nit: public interfaces before (package-)protected before private ones, per the style guide",
+      "revId": "0c4bc6fcc9a649fb46b61a83e0ea42cc4a815a0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1210d92c_9c1a6ec3",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1002032
+      },
+      "writtenOn": "2018-10-15T10:37:10Z",
+      "side": 1,
+      "message": "What are the values when either of those keys are not available in the bundle? Do we gracefully handle those?",
+      "revId": "0c4bc6fcc9a649fb46b61a83e0ea42cc4a815a0b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
