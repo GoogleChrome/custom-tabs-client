@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62c65ee5_e835ccd6",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-10-15T09:27:46Z",
+      "side": 1,
+      "message": "Did you mention there was a size limit on what we can put into bundles? Can we catch and log if the bitmap is too big?",
+      "range": {
+        "startLine": 298,
+        "startChar": 19,
+        "endLine": 298,
+        "endChar": 32
+      },
+      "revId": "b77e389e99f7106243cb654cc3495428bf80e1dd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f82dc6ee_587aa728",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityServiceWrapper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-10-15T09:27:46Z",
+      "side": 1,
+      "message": "Could you add javadoc please (since it\u0027s a public class)?",
+      "range": {
+        "startLine": 264,
+        "startChar": 24,
+        "endLine": 264,
+        "endChar": 37
+      },
+      "revId": "b77e389e99f7106243cb654cc3495428bf80e1dd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
