@@ -22,6 +22,30 @@
       "revId": "abeefc4e52563bbbcf854acb44369c58df733e8e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "126e7690_bad3256a",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-10-16T17:01:29Z",
+      "side": 1,
+      "message": "Yes, I don\u0027t really know why I made it a single method instead of two :)\nI\u0027m not sure it\u0027s worth optimizing out unnecessary requests for the bitmap on the client side, though, because that would probably involve making API of NotificationBuilderBase even more complicated than it is now. But the service API should allow for such optimizations.\n\nOne other thing we might consider is caching the latest bitmap in the service.",
+      "parentUuid": "c2371470_a2aab0e7",
+      "range": {
+        "startLine": 299,
+        "startChar": 43,
+        "endLine": 299,
+        "endChar": 71
+      },
+      "revId": "abeefc4e52563bbbcf854acb44369c58df733e8e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
