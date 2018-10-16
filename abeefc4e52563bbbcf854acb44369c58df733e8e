@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2371470_a2aab0e7",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-10-16T15:38:09Z",
+      "side": 1,
+      "message": "It just occurred to me that we may do unnecessary work here - we only use the Bitmap in certain circumstances.\n\nDo we not know in advance on the Chrome side whether we need an icon id or a bitmap? In that case can\u0027t we just request the piece of data we need?",
+      "range": {
+        "startLine": 299,
+        "startChar": 43,
+        "endLine": 299,
+        "endChar": 71
+      },
+      "revId": "abeefc4e52563bbbcf854acb44369c58df733e8e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
