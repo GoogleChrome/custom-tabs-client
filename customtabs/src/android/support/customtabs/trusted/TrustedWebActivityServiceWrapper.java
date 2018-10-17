@@ -18,9 +18,11 @@ package android.support.customtabs.trusted;
 
 import android.app.Notification;
 import android.content.ComponentName;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.service.notification.StatusBarNotification;
+import android.support.annotation.Nullable;
 
 /**
  * TrustedWebActivityServiceWrapper is used by a Trusted Web Activity provider app to wrap calls to
@@ -123,11 +125,47 @@ public class TrustedWebActivityServiceWrapper {
     }
 
     /**
+     * Requests a bitmap of a small icon to be used for the notification
+     * small icon. The bitmap is decoded on the side of Trusted Web Activity client using
+     * the resource id from {@link TrustedWebActivityService#getSmallIconId}.
+     * @return {@link SmallIconData} with both an id and a bitmap
+     * @throws RemoteException If the Service dies while responding to the request.
+     * @throws SecurityException If verification with the TrustedWebActivityService fails.
+     */
+    @Nullable
+    public Bitmap getSmallIconBitmap() throws RemoteException {
+        return mService.getSmallIconBitmap()
+                .getParcelable(TrustedWebActivityService.KEY_SMALL_ICON_BITMAP);
+    }
+
+    /**
      * Gets the {@link ComponentName} of the connected Trusted Web Activity client app.
      * @return The Trusted Web Activity client app component name.
      */
     public ComponentName getComponentName() {
         return mComponentName;
+    }
+
+    /**
+     * Contains resource id and decoded bitmap of the small icon provided by
+     * {@link TrustedWebActivityService}.
+     * {@link #id} is -1 if no resource id provided.
+     * {@link #bitmap} is null if no resource id provided or failed to decode the bitmap.
+     */
+    public static class SmallIconData {
+        public final int id;
+        @Nullable
+        public final Bitmap bitmap;
+
+        public SmallIconData(int id, @Nullable Bitmap bitmap) {
+            this.id = id;
+            this.bitmap = bitmap;
+        }
+
+        static SmallIconData fromBundle(Bundle bundle) {
+            return new SmallIconData(bundle.getInt(TrustedWebActivityService.KEY_SMALL_ICON_ID, -1),
+                    bundle.getParcelable(TrustedWebActivityService.KEY_SMALL_ICON_BITMAP));
+        }
     }
 
     static class NotifyNotificationArgs {

@@ -27,10 +27,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ServiceInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.os.StrictMode;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.CallSuper;
@@ -100,6 +103,10 @@ public class TrustedWebActivityService extends Service {
     private static final String PREFS_FILE = "TrustedWebActivityVerifiedProvider";
     private static final String PREFS_VERIFIED_PROVIDER = "Provider";
 
+    static final String KEY_SMALL_ICON_ID = "android.support.customtabs.trusted.SMALL_ICON_ID";
+    static final String KEY_SMALL_ICON_BITMAP =
+            "android.support.customtabs.trusted.SMALL_ICON_BITMAP";
+
     private NotificationManager mNotificationManager;
 
     public int mVerifiedUid = -1;
@@ -151,6 +158,13 @@ public class TrustedWebActivityService extends Service {
             checkCaller();
 
             return TrustedWebActivityService.this.getSmallIconId();
+        }
+
+        @Override
+        public Bundle getSmallIconBitmap() {
+            checkCaller();
+
+            return TrustedWebActivityService.this.getSmallIconBitmap();
         }
 
         private void checkCaller() {
@@ -276,6 +290,18 @@ public class TrustedWebActivityService extends Service {
             return mNotificationManager.getActiveNotifications();
         }
         throw new IllegalStateException("getActiveNotifications cannot be called pre-M.");
+    }
+
+    @Nullable
+    private Bundle getSmallIconBitmap() {
+        int id = getSmallIconId();
+        Bundle bundle = new Bundle();
+        if (id == -1) {
+            return bundle;
+        }
+        bundle.putParcelable(KEY_SMALL_ICON_BITMAP,
+                BitmapFactory.decodeResource(getResources(), id));
+        return bundle;
     }
 
     /**
