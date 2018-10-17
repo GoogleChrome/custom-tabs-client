@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f3a4c45_ef904c88",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ITrustedWebActivityService.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002032
+      },
+      "writtenOn": "2018-10-17T13:11:46Z",
+      "side": 1,
+      "message": "nit: is this intentional?",
+      "revId": "63e0d06c79b48d38b93074f7c98cac13943d753d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
