@@ -13,10 +13,11 @@ dependencies {
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion = 16
     }
 
     sourceSets {
