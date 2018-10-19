@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1554a64_fb9cdcc2",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-10-19T17:11:07Z",
+      "side": 1,
+      "message": "Should we have a INVALID_RESOURCE_ID \u003d -1 for this? Do we always return -1 on invalid resource ids, or should we check for \u003c0?",
+      "range": {
+        "startLine": 299,
+        "startChar": 18,
+        "endLine": 299,
+        "endChar": 19
+      },
+      "revId": "63a4eeab75626191545a3c8f8976a71cc90069d0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
