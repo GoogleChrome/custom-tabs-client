@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "7044fb16_e0a28a6a",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-10-22T08:15:54Z",
+      "side": 1,
+      "message": "This method never returns null (and since it\u0027s a private method we don\u0027t care about future-proofing the interface, so there\u0027s no point marking it @Nullable incase we want to return null in the future).",
+      "range": {
+        "startLine": 295,
+        "startChar": 5,
+        "endLine": 295,
+        "endChar": 13
+      },
+      "revId": "63a4eeab75626191545a3c8f8976a71cc90069d0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c1554a64_fb9cdcc2",
         "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
         "patchSetId": 7
@@ -37,6 +60,30 @@
       "side": 1,
       "message": "The javadoc for getSmallIcon says that -1 should be returned. If the client app doesn\u0027t follow that, BitmapFactory.decodeResource() should return null for an invalid id, so I guess we\u0027re safe.",
       "parentUuid": "c1554a64_fb9cdcc2",
+      "range": {
+        "startLine": 299,
+        "startChar": 18,
+        "endLine": 299,
+        "endChar": 19
+      },
+      "revId": "63a4eeab75626191545a3c8f8976a71cc90069d0",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44af6844_bce67f3c",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-10-22T08:15:54Z",
+      "side": 1,
+      "message": "Actually yeah - I know I wrote the \"return -1\" in getSmallIconId, but now that we\u0027re using it in multiple places I\u0027d prefer a \"INVALID_RESOURCE_ID\" or something.",
+      "parentUuid": "193b4c08_b7bc5443",
       "range": {
         "startLine": 299,
         "startChar": 18,
