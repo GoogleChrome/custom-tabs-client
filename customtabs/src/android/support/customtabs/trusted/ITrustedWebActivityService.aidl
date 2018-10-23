@@ -26,4 +26,5 @@ interface ITrustedWebActivityService {
     void cancelNotification(in Bundle args) = 2;
     Bundle getActiveNotifications() = 4;
     int getSmallIconId() = 3;
+    Bundle getSmallIconBitmap() = 6;
 }

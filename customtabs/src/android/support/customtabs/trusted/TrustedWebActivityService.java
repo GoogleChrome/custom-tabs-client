@@ -27,10 +27,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ServiceInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.os.StrictMode;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.CallSuper;
@@ -97,8 +100,14 @@ public class TrustedWebActivityService extends Service {
     public static final String SMALL_ICON_META_DATA_NAME =
             "android.support.customtabs.trusted.SMALL_ICON";
 
+    /** Used as a return value of {@link #getSmallIconId} when the icon is not provided. */
+    public static final int NO_ID = -1;
+
     private static final String PREFS_FILE = "TrustedWebActivityVerifiedProvider";
     private static final String PREFS_VERIFIED_PROVIDER = "Provider";
+
+    static final String KEY_SMALL_ICON_BITMAP =
+            "android.support.customtabs.trusted.SMALL_ICON_BITMAP";
 
     private NotificationManager mNotificationManager;
 
@@ -151,6 +160,13 @@ public class TrustedWebActivityService extends Service {
             checkCaller();
 
             return TrustedWebActivityService.this.getSmallIconId();
+        }
+
+        @Override
+        public Bundle getSmallIconBitmap() {
+            checkCaller();
+
+            return TrustedWebActivityService.this.getSmallIconBitmap();
         }
 
         private void checkCaller() {
@@ -278,6 +294,17 @@ public class TrustedWebActivityService extends Service {
         throw new IllegalStateException("getActiveNotifications cannot be called pre-M.");
     }
 
+    private Bundle getSmallIconBitmap() {
+        int id = getSmallIconId();
+        Bundle bundle = new Bundle();
+        if (id == NO_ID) {
+            return bundle;
+        }
+        bundle.putParcelable(KEY_SMALL_ICON_BITMAP,
+                BitmapFactory.decodeResource(getResources(), id));
+        return bundle;
+    }
+
     /**
      * Returns the Android resource id of a drawable to be used for the small icon of the
      * notification. This is called by the provider as it is constructing the notification, so a
@@ -285,20 +312,20 @@ public class TrustedWebActivityService extends Service {
      *
      * Default behaviour looks for meta-data with the name {@link #SMALL_ICON_META_DATA_NAME} in
      * service section of the manifest.
-     * @return A resource id for the small icon, or -1 if not found.
+     * @return A resource id for the small icon, or {@link #NO_ID} if not found.
      */
     protected int getSmallIconId() {
         try {
             ServiceInfo info = getPackageManager().getServiceInfo(
                     new ComponentName(this, getClass()), PackageManager.GET_META_DATA);
 
-            if (info.metaData == null) return -1;
+            if (info.metaData == null) return NO_ID;
 
-            return info.metaData.getInt(SMALL_ICON_META_DATA_NAME, -1);
+            return info.metaData.getInt(SMALL_ICON_META_DATA_NAME, NO_ID);
         } catch (PackageManager.NameNotFoundException e) {
             // Will only happen if the package provided (the one we are running in) is not
             // installed - so should never happen.
-            return -1;
+            return NO_ID;
         }
     }
 
