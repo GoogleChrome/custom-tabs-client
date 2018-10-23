@@ -18,9 +18,11 @@ package android.support.customtabs.trusted;
 
 import android.app.Notification;
 import android.content.ComponentName;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.service.notification.StatusBarNotification;
+import android.support.annotation.Nullable;
 
 /**
  * TrustedWebActivityServiceWrapper is used by a Trusted Web Activity provider app to wrap calls to
@@ -120,6 +122,20 @@ public class TrustedWebActivityServiceWrapper {
      */
     public int getSmallIconId() throws RemoteException {
         return mService.getSmallIconId();
+    }
+
+    /**
+     * Requests a bitmap of a small icon to be used for the notification
+     * small icon. The bitmap is decoded on the side of Trusted Web Activity client using
+     * the resource id from {@link TrustedWebActivityService#getSmallIconId}.
+     * @return {@link SmallIconData} with both an id and a bitmap
+     * @throws RemoteException If the Service dies while responding to the request.
+     * @throws SecurityException If verification with the TrustedWebActivityService fails.
+     */
+    @Nullable
+    public Bitmap getSmallIconBitmap() throws RemoteException {
+        return mService.getSmallIconBitmap()
+                .getParcelable(TrustedWebActivityService.KEY_SMALL_ICON_BITMAP);
     }
 
     /**
