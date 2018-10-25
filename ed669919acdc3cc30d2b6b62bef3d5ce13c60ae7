@@ -68,6 +68,29 @@
       "revId": "ed669919acdc3cc30d2b6b62bef3d5ce13c60ae7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d9ac902_5b96b78e",
+        "filename": "customtabs/src/android/support/customtabs/PostMessageServiceConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-10-25T13:57:28Z",
+      "side": 1,
+      "message": "Also, so now the message channel can be ready before the service is connected? Were you running into this in development?",
+      "range": {
+        "startLine": 159,
+        "startChar": 8,
+        "endLine": 159,
+        "endChar": 76
+      },
+      "revId": "ed669919acdc3cc30d2b6b62bef3d5ce13c60ae7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
