@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1230b202_70afeafb",
+        "filename": "customtabs/src/android/support/customtabs/PostMessageBackend.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1268766
+      },
+      "writtenOn": "2018-10-25T16:24:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07ab8eb1_6de18c6e",
+      "range": {
+        "startLine": 8,
+        "startChar": 3,
+        "endLine": 8,
+        "endChar": 70
+      },
+      "revId": "ed669919acdc3cc30d2b6b62bef3d5ce13c60ae7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e2dc742_e821096f",
         "filename": "customtabs/src/android/support/customtabs/PostMessageBackend.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "ed669919acdc3cc30d2b6b62bef3d5ce13c60ae7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "112d86e1_7d1bf771",
+        "filename": "customtabs/src/android/support/customtabs/PostMessageBackend.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1268766
+      },
+      "writtenOn": "2018-10-25T16:24:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e2dc742_e821096f",
+      "range": {
+        "startLine": 18,
+        "startChar": 12,
+        "endLine": 18,
+        "endChar": 23
+      },
+      "revId": "ed669919acdc3cc30d2b6b62bef3d5ce13c60ae7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9eb092d9_034de004",
+        "filename": "customtabs/src/android/support/customtabs/PostMessageServiceConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1268766
+      },
+      "writtenOn": "2018-10-25T16:24:39Z",
+      "side": 1,
+      "message": "Sgtm, I copied this from PostMessageHandler but will remove.",
+      "parentUuid": "65978c90_e51cf5b6",
+      "range": {
+        "startLine": 26,
+        "startChar": 7,
+        "endLine": 26,
+        "endChar": 41
+      },
+      "revId": "ed669919acdc3cc30d2b6b62bef3d5ce13c60ae7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d9ac902_5b96b78e",
         "filename": "customtabs/src/android/support/customtabs/PostMessageServiceConnection.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "ed669919acdc3cc30d2b6b62bef3d5ce13c60ae7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec798c8a_71c79a06",
+        "filename": "customtabs/src/android/support/customtabs/PostMessageServiceConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1268766
+      },
+      "writtenOn": "2018-10-25T16:24:39Z",
+      "side": 1,
+      "message": "No, this is just a copy of the logic that was in PostMessageHandler (I\u0027m shifting the mMessageChannelCreated boolean up here). The behaviour will end up being the same for now because equivalent guards already exist in PostMessageHandler.\n\nIn a follow-up I\u0027ll have PostMessageHandler notify unconditionally when its channel has been created so the logic for \"channel created + service connected\" will all live in this class.",
+      "parentUuid": "6d9ac902_5b96b78e",
+      "range": {
+        "startLine": 159,
+        "startChar": 8,
+        "endLine": 159,
+        "endChar": 76
+      },
+      "revId": "ed669919acdc3cc30d2b6b62bef3d5ce13c60ae7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
