@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07ab8eb1_6de18c6e",
+        "filename": "customtabs/src/android/support/customtabs/PostMessageBackend.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-10-25T13:53:33Z",
+      "side": 1,
+      "message": "To help readability, when you\u0027re editing these files can you add to the javadoc whether a class is going to be used by the client or by the provider (eg Chrome)?",
+      "range": {
+        "startLine": 8,
+        "startChar": 3,
+        "endLine": 8,
+        "endChar": 70
+      },
+      "revId": "ed669919acdc3cc30d2b6b62bef3d5ce13c60ae7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e2dc742_e821096f",
+        "filename": "customtabs/src/android/support/customtabs/PostMessageBackend.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-10-25T13:53:33Z",
+      "side": 1,
+      "message": "Can you make this \"onPostMessage\" and below \"onMessageChannelReady\", I think it makes things read a bit better.",
+      "range": {
+        "startLine": 18,
+        "startChar": 12,
+        "endLine": 18,
+        "endChar": 23
+      },
+      "revId": "ed669919acdc3cc30d2b6b62bef3d5ce13c60ae7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65978c90_e51cf5b6",
+        "filename": "customtabs/src/android/support/customtabs/PostMessageServiceConnection.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-10-25T13:53:33Z",
+      "side": 1,
+      "message": "In general (this isn\u0027t followed rigidly) we prefer using the Nullable annotation with everything else implicitly not-null than using the NonNull annotation with everything else implicitly nullable.\n\nThough yeah, when you introduce it to a file you\u0027ll have to make an effort to introduce it to the whole file, otherwise things get a bit confusing.",
+      "range": {
+        "startLine": 26,
+        "startChar": 7,
+        "endLine": 26,
+        "endChar": 41
+      },
+      "revId": "ed669919acdc3cc30d2b6b62bef3d5ce13c60ae7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
