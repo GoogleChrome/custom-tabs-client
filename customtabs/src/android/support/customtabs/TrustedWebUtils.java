@@ -16,11 +16,19 @@
 
 package android.support.customtabs;
 
+import static android.support.customtabs.CustomTabsIntent.EXTRA_SESSION;
+import static android.support.customtabs.CustomTabsIntent.EXTRA_SESSION_ID;
+
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.BundleCompat;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Class for utilities and convenience calls for opening a qualifying web page as a
@@ -46,6 +54,15 @@ import android.support.v4.app.BundleCompat;
 public class TrustedWebUtils {
 
     /**
+     * List of packages currently supporting Trusted Web Activities.
+     */
+    public static final List<String> SUPPORTED_CHROME_PACKAGES = Arrays.asList(
+            "com.google.android.apps.chrome",  // Chrome local build.
+            "org.chromium.chrome",  // Chromium local build.
+            "com.chrome.canary",  // Chrome Canary.
+            "com.chrome.dev");  // Chrome Dev.
+
+    /**
      * Boolean extra that triggers a {@link CustomTabsIntent} launch to be in a fullscreen UI with
      * no browser controls.
      *
@@ -53,6 +70,9 @@ public class TrustedWebUtils {
      */
     public static final String EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY =
             "android.support.customtabs.extra.LAUNCH_AS_TRUSTED_WEB_ACTIVITY";
+
+    public static final String ACTION_MANAGE_TRUSTED_WEB_ACTIVITY_DATA =
+            "android.support.customtabs.action.ACTION_MANAGE_TRUSTED_WEB_ACTIVITY_DATA";
 
     private TrustedWebUtils() {}
 
@@ -68,14 +88,13 @@ public class TrustedWebUtils {
      *               Note that all customizations in the given associated with browser toolbar
      *               controls will be ignored.
      * @param uri The web page to launch as Trusted Web Activity.
-
      */
     public static void launchAsTrustedWebActivity(Context context, CustomTabsSession session,
             CustomTabsIntent intent, Uri uri) {
         session.validateRelationship(CustomTabsService.RELATION_HANDLE_ALL_URLS, uri, null);
 
         IBinder binder = BundleCompat.getBinder(intent.intent.getExtras(),
-                CustomTabsIntent.EXTRA_SESSION);
+                EXTRA_SESSION);
         if (binder != session.getBinder()) {
             throw new IllegalArgumentException("Given CustomTabsIntent should be associated with "
                     + "the given CustomTabsSession");
@@ -83,5 +102,36 @@ public class TrustedWebUtils {
 
         intent.intent.putExtra(EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY, true);
         intent.launchUrl(context, uri);
+    }
+
+    /**
+     * Open the site-settings for given url in the web browser. The url must belong to the origin
+     * associated with the calling application via the Digital Asset Links. Prior to calling, one
+     * must establish a connection to {@link CustomTabsService} and create a
+     * {@link CustomTabsSession}.
+     *
+     * @param context {@link Context} to use while launching site-settings activity.
+     * @param session The {@link CustomTabsSession} used to verify the origin.
+     * @param uri The {@link Uri} for which site-settings are to be shown.
+     */
+    public static void launchBrowserSiteSettings(Context context, CustomTabsSession session,
+            Uri uri) {
+        Intent intent = new Intent(TrustedWebUtils.ACTION_MANAGE_TRUSTED_WEB_ACTIVITY_DATA);
+        intent.setPackage(session.getComponentName().getPackageName());
+        intent.setData(uri);
+
+        Bundle bundle = new Bundle();
+        BundleCompat.putBinder(bundle, EXTRA_SESSION, session.getBinder());
+        intent.putExtras(bundle);
+        PendingIntent id = session.getId();
+        if (id != null) {
+            intent.putExtra(EXTRA_SESSION_ID, id);
+        }
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(intent);
+        } else {
+            throw new RuntimeException("No activity was found to handle " +
+                    ACTION_MANAGE_TRUSTED_WEB_ACTIVITY_DATA);
+        }
     }
 }
