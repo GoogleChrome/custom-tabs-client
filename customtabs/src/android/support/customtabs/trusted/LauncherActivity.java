@@ -65,11 +65,6 @@ public class LauncherActivity extends AppCompatActivity {
     private static final String TAG = "LauncherActivity";
     private static final String DEFAULT_URL_METADATA =
             "android.support.customtabs.trusted.DEFAULT_URL";
-    private static final List<String> CHROME_PACKAGES = Arrays.asList(
-            "com.google.android.apps.chrome",  // Chrome local build.
-            "org.chromium.chrome",  // Chromium local build.
-            "com.chrome.canary",  // Chrome Canary.
-            "com.chrome.dev");  // Chrome Dev.
 
     private String mChromePackage;
 
@@ -80,7 +75,8 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mChromePackage = CustomTabsClient.getPackageName(this, CHROME_PACKAGES, false);
+        mChromePackage = CustomTabsClient.getPackageName(this,
+                TrustedWebUtils.SUPPORTED_CHROME_PACKAGES, false);
         if (mChromePackage == null) {
             Log.d(TAG, "No valid build of Chrome found, exiting.");
             Toast.makeText(this, "Please install Chrome Dev/Canary.", Toast.LENGTH_LONG).show();
