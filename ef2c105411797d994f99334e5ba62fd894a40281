@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4dcd0327_f84c936f",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-12T16:12:08Z",
+      "side": 1,
+      "message": "I do not do the warmup here, because that includes gpu warmup and other stuff we don\u0027t need in this case. To do verification we only need to load the native library, which I do on Chrome\u0027s side, in ManageTrustedWebActivityDataActivity. If verification is successful, the settings activity is then launched and does all the other initialization.",
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
