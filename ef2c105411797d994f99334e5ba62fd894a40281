@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6283a2ec_af91180c",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-13T15:50:16Z",
+      "side": 1,
+      "message": "It uses some package-local methods, such as session.getBinder().",
+      "parentUuid": "d4ba8e48_08c9d8b8",
+      "range": {
+        "startLine": 51,
+        "startChar": 13,
+        "endLine": 51,
+        "endChar": 28
+      },
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "950ec0d4_a0e2cd1a",
         "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-13T08:46:43Z",
       "side": 1,
       "message": "If someone does this, what does it look like? Do they get a flash of a white/empty Activity?",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68c40b8b_1a967152",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-13T15:50:16Z",
+      "side": 1,
+      "message": "It would be white by default, so they would need to set transparent theme. There seems to be no way to set it from code, so that it\u0027s the default. So it\u0027s worth mentioning in the javadoc.\nAnnoyingly, there is no analogue of Theme.NoDisplay for AppCompatActivity to use out of the box, so that developers would have to create a transparent theme by themselves, and I can\u0027t even find a good first-party resource about that to leave a link to.",
+      "parentUuid": "950ec0d4_a0e2cd1a",
       "range": {
         "startLine": 35,
         "startChar": 6,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "120fed42_00819ba3",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-13T15:50:16Z",
+      "side": 1,
+      "message": "Ok, then the constant in LauncherActivity will have to change as well.",
+      "parentUuid": "19ad69dc_8551f5b6",
+      "range": {
+        "startLine": 50,
+        "startChar": 32,
+        "endLine": 50,
+        "endChar": 57
+      },
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a915d600_d01b905d",
         "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "ed2829c6_638c08fb",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-13T15:50:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a915d600_d01b905d",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 18
+      },
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d98e0112_0fb2a71b",
         "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
         "patchSetId": 3
@@ -105,6 +201,30 @@
       "writtenOn": "2018-11-13T08:46:43Z",
       "side": 1,
       "message": "I think if this line gets called before a connection is actually established, this will crash.",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 21
+      },
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d72de17_11c0e444",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-13T15:50:16Z",
+      "side": 1,
+      "message": "I tried calling unbind synchronously right after bind, and it didn\u0027t crash. The semantics seems to be to cancel the process of binding, although I have no proof.",
+      "parentUuid": "d98e0112_0fb2a71b",
       "range": {
         "startLine": 99,
         "startChar": 8,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "7d146264_60520908",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-13T15:50:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77d62a21_991defd5",
+      "range": {
+        "startLine": 110,
+        "startChar": 16,
+        "endLine": 110,
+        "endChar": 22
+      },
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4dcd0327_f84c936f",
         "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
         "patchSetId": 3
@@ -169,6 +313,24 @@
       "side": 1,
       "message": "I do like this approach, however it splits the delay across two Activities:\n\n1) ManageDataLauncherActivity is started.\n2) wait to connect to CustomTabsService.\n3) ManageTrustedWebActivityDataActivity is started.\n4) wait for native to start.\n\nThere are two pauses in two different states here.\n\nIf we made ManageDataLauncherActivity call warmup, then we have 1 (admittedly potentially longer) pause. In fact, if we make ManageDataLauncherActivity responsible for:\n\n1) Connecting to the CustomTabsService\n2) Calling warmup.\n3) Calling validateRelationship.\n\nThen in ManageTrustedWebActivityDataActivity, we just need to call the synchronous OriginVerifier.isValidOrigin and all the logic in that class can be synchronous and in onCreate.\n\nThe benefit of this (in addition to simplifying code in Chrome) is that if the cumulative pause is noticeable, we can put some UI like a spinner in, and the custom tabs client can customize this if they want.\n\nThis does result in us doing more work though. Probably outside of the scope of this CL, but it may be nice if we could see if we have add some nativeOnlyWarmup method or maybe warmup(FLAG_ONLY_LOAD_NATIVE).",
       "parentUuid": "4dcd0327_f84c936f",
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4962ff68_07afc3c7",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-13T15:50:16Z",
+      "side": 1,
+      "message": "I like your approach, and going to implement it in this CL except for warmup(FLAG_ONLY_LOAD_NATIVE) - I think we can leave that bit of optimization for later.\n\nHowever, I would still use OriginVerifier#start instead of OriginVerifier.isValidOrigin on Chrome\u0027s side. In the expected scenario, they would work the same: OriginVerifier#start would just yield cached value synchronously. But we also have to take care of the cases when the app developer makes a custom activity instead of using ManageDataLauncherActivity, and doesn\u0027t do the verification. For the same reason, I would keep native loading code on Chrome side, even though in the \"ordinary\" case it shouldn\u0027t run.",
+      "parentUuid": "cd3ff61b_41920abf",
       "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
