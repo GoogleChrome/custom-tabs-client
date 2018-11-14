@@ -39,7 +39,7 @@ import java.util.List;
  * basic modifications to the behaviour.
  *
  * If you just want to wrap a website in a Trusted Web Activity you should:
- * 1) Copy the manifest for this (the svgomg) project.
+ * 1) Copy the manifest for the svgomg project.
  * 2) Set up Digital Asset Links [1] for your site and app.
  * 3) Set the DEFAULT_URL metadata in the manifest and the browsable intent filter to point to your
  *    website.
@@ -90,16 +90,15 @@ public class LauncherActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         CustomTabsClient.bindCustomTabsService(this, mChromePackage, mServiceConnection);
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
         unbindService(mServiceConnection);
-        finishCompat();
     }
 
     /**
@@ -117,18 +116,10 @@ public class LauncherActivity extends AppCompatActivity {
      * launching behaviour.
      */
     protected CustomTabsIntent getCustomTabsIntent(CustomTabsSession session) {
-        CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder(session).build();
-
-        // When opening a TWA, there are items on the Recents screen.
-        // Workaround seems to be using the Intent.FLAG_ACTIVITY_NEW_DOCUMENT to create a new
-        // document on Recents.
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        } else {
-            customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
-        }
-
-        return customTabsIntent;
+        CustomTabsIntent intent = new CustomTabsIntent.Builder(session).build();
+        intent.intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        return intent;
     }
 
     /**
