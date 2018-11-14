@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2989612d_865153b4",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-11-14T09:37:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6283a2ec_af91180c",
+      "range": {
+        "startLine": 51,
+        "startChar": 13,
+        "endLine": 51,
+        "endChar": 28
+      },
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "950ec0d4_a0e2cd1a",
         "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
         "patchSetId": 3
@@ -89,6 +113,53 @@
         "startChar": 6,
         "endLine": 35,
         "endChar": 28
+      },
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65ee4925_96e99a30",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-11-14T09:37:34Z",
+      "side": 1,
+      "message": "We\u0027ll add an example of how to do it when we create the exemplar app.",
+      "parentUuid": "68c40b8b_1a967152",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f089520c_0775e1a0",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-11-14T09:37:34Z",
+      "side": 1,
+      "message": "Can you add that if you\u0027re doing it yourself, you should call warmup and validateRelationship for the best experience?",
+      "range": {
+        "startLine": 41,
+        "startChar": 38,
+        "endLine": 41,
+        "endChar": 50
       },
       "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
@@ -140,6 +211,30 @@
       "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c6b3ea5_4eb0388b",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-11-14T09:37:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "120fed42_00819ba3",
+      "range": {
+        "startLine": 50,
+        "startChar": 32,
+        "endLine": 50,
+        "endChar": 57
+      },
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -237,6 +332,30 @@
     },
     {
       "key": {
+        "uuid": "b8db363f_b88f2fcf",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-11-14T09:37:34Z",
+      "side": 1,
+      "message": "Huh that\u0027s odd - I have definitely had crashes trying to unbind a service that hasn\u0027t been bound.",
+      "parentUuid": "3d72de17_11c0e444",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 21
+      },
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77d62a21_991defd5",
         "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
         "patchSetId": 3
@@ -331,6 +450,24 @@
       "side": 1,
       "message": "I like your approach, and going to implement it in this CL except for warmup(FLAG_ONLY_LOAD_NATIVE) - I think we can leave that bit of optimization for later.\n\nHowever, I would still use OriginVerifier#start instead of OriginVerifier.isValidOrigin on Chrome\u0027s side. In the expected scenario, they would work the same: OriginVerifier#start would just yield cached value synchronously. But we also have to take care of the cases when the app developer makes a custom activity instead of using ManageDataLauncherActivity, and doesn\u0027t do the verification. For the same reason, I would keep native loading code on Chrome side, even though in the \"ordinary\" case it shouldn\u0027t run.",
       "parentUuid": "cd3ff61b_41920abf",
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f37ab060_6bb1620e",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-11-14T09:37:34Z",
+      "side": 1,
+      "message": "Personally I would prefer leaving it up to the client to do these things and making the Chrome-side code 100% synchronous (so we don\u0027t have to worry about any user interaction happening while in ManageTrustedWebActivityDataActivity.java).\n\nHowever I do get your point about making things more robust for other developers, so I\u0027ll sign off on this approach.",
+      "parentUuid": "4962ff68_07afc3c7",
       "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
