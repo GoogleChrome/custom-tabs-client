@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "6cc3c137_180abb89",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-15T18:43:21Z",
+      "side": 1,
+      "message": "Done. TWAUtils#launchBrowserSiteSettings already has this explained, I\u0027ll add a shorter comment to the activity.",
+      "parentUuid": "f089520c_0775e1a0",
+      "range": {
+        "startLine": 41,
+        "startChar": 38,
+        "endLine": 41,
+        "endChar": 50
+      },
+      "revId": "ef2c105411797d994f99334e5ba62fd894a40281",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19ad69dc_8551f5b6",
         "filename": "customtabs/src/android/support/customtabs/trusted/ManageDataLauncherActivity.java",
         "patchSetId": 3
