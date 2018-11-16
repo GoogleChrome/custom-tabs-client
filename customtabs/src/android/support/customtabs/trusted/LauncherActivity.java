@@ -31,9 +31,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * A convenience class to make using Trusted Web Activities easier. You can extend this class for
  * basic modifications to the behaviour.
@@ -63,13 +60,8 @@ import java.util.List;
  */
 public class LauncherActivity extends AppCompatActivity {
     private static final String TAG = "LauncherActivity";
-    private static final String DEFAULT_URL_METADATA =
+    private static final String METADATA_DEFAULT_URL =
             "android.support.customtabs.trusted.DEFAULT_URL";
-    private static final List<String> CHROME_PACKAGES = Arrays.asList(
-            "com.google.android.apps.chrome",  // Chrome local build.
-            "org.chromium.chrome",  // Chromium local build.
-            "com.chrome.canary",  // Chrome Canary.
-            "com.chrome.dev");  // Chrome Dev.
 
     private String mChromePackage;
 
@@ -80,7 +72,8 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mChromePackage = CustomTabsClient.getPackageName(this, CHROME_PACKAGES, false);
+        mChromePackage = CustomTabsClient.getPackageName(this,
+                TrustedWebUtils.SUPPORTED_CHROME_PACKAGES, false);
         if (mChromePackage == null) {
             Log.d(TAG, "No valid build of Chrome found, exiting.");
             Toast.makeText(this, "Please install Chrome Dev/Canary.", Toast.LENGTH_LONG).show();
@@ -150,8 +143,8 @@ public class LauncherActivity extends AppCompatActivity {
             ActivityInfo info = getPackageManager().getActivityInfo(
                     new ComponentName(this, getClass()), PackageManager.GET_META_DATA);
 
-            if (info.metaData != null && info.metaData.containsKey(DEFAULT_URL_METADATA)) {
-                uri = Uri.parse(info.metaData.getString(DEFAULT_URL_METADATA));
+            if (info.metaData != null && info.metaData.containsKey(METADATA_DEFAULT_URL)) {
+                uri = Uri.parse(info.metaData.getString(METADATA_DEFAULT_URL));
                 Log.d(TAG, "Using URL from Manifest (" + uri + ").");
                 return uri;
             }
