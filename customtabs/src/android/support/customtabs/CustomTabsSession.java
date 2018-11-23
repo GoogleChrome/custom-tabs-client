@@ -247,6 +247,9 @@ public final class CustomTabsSession {
                 || relation > CustomTabsService.RELATION_HANDLE_ALL_URLS) {
             return false;
         }
+        if (extras == null) {
+            extras = new Bundle();
+        }
         addIdToBundle(extras);
         try {
             return mService.validateRelationship(mCallback, relation, origin, extras);

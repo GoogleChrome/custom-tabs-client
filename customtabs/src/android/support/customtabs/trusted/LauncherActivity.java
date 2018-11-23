@@ -15,13 +15,13 @@
 package android.support.customtabs.trusted;
 
 import android.content.ComponentName;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.customtabs.CustomTabsCallback;
 import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
@@ -63,7 +63,14 @@ public class LauncherActivity extends AppCompatActivity {
     private static final String METADATA_DEFAULT_URL =
             "android.support.customtabs.trusted.DEFAULT_URL";
 
-    private String mChromePackage;
+    private static final String TWA_WAS_LAUNCHED_KEY =
+            "android.support.customtabs.trusted.TWA_WAS_LAUNCHED_KEY";
+
+    private static final int SESSION_ID = 0;
+
+    @Nullable private ServiceConnection mServiceConnection;
+
+    private boolean mTwaWasLaunched;
 
     /**
      * Connects to the CustomTabsService.
@@ -71,48 +78,69 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mChromePackage = CustomTabsClient.getPackageName(this,
+        String chromePackage = CustomTabsClient.getPackageName(this,
                 TrustedWebUtils.SUPPORTED_CHROME_PACKAGES, false);
-        if (mChromePackage == null) {
+        if (chromePackage == null) {
             Log.d(TAG, "No valid build of Chrome found, exiting.");
             Toast.makeText(this, "Please install Chrome Dev/Canary.", Toast.LENGTH_LONG).show();
             finishCompat();
             return;
         }
+
+        if (savedInstanceState != null && savedInstanceState.getBoolean(TWA_WAS_LAUNCHED_KEY)) {
+            // This activity died in the background after launching Trusted Web Activity, then
+            // the user closed the Trusted Web Activity and ended up here.
+            finishCompat();
+            return;
+        }
+
+        mServiceConnection = new ServiceConnection();
+        CustomTabsClient.bindCustomTabsService(this, chromePackage, mServiceConnection);
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        CustomTabsClient.bindCustomTabsService(this, mChromePackage, mServiceConnection);
+    protected void onRestart() {
+        super.onRestart();
+        if (mTwaWasLaunched) {
+            finishCompat(); // The user closed the Trusted Web Activity and ended up here.
+        }
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        unbindService(mServiceConnection);
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mServiceConnection != null) {
+            unbindService(mServiceConnection);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(TWA_WAS_LAUNCHED_KEY, mTwaWasLaunched);
     }
 
     /**
-     * Creates a {@link CustomTabsSession} that cleans up the current activity once navigation has
-     * occurred on the Trusted Web Activity. Override this if you want any special session specific
-     * behaviour.
+     * Creates a {@link CustomTabsSession}. Default implementation reuses the session id, so that
+     * if an instance of Trusted Web Activity associated with this app is already running, the new
+     * Intent will be routed to it, allowing for seamless page transitions. The user will be able
+     * to navigate to the previous page with the back button.
+     *
+     * Override this if you want any special session specific behaviour. To launch a separate
+     * instance of Trusted Web Activity, use a different session id or
+     * {@link CustomTabsClient#newSession(CustomTabsCallback)}.
      */
     protected CustomTabsSession getSession(CustomTabsClient client) {
-        return client.newSession(null);
+        return client.newSession(null, SESSION_ID);
     }
 
     /**
-     * Creates a {@link CustomTabsIntent} to launch the Trusted Web Activity, adding flags to put
-     * the Trusted Web Activity on a separate Android Task. Override this if you want any special
-     * launching behaviour.
+     * Creates a {@link CustomTabsIntent} to launch the Trusted Web Activity.
+     * By default, Trusted Web Activity will be launched in the same Android Task.
+     * Override this if you want any special launching behaviour.
      */
     protected CustomTabsIntent getCustomTabsIntent(CustomTabsSession session) {
-        CustomTabsIntent intent = new CustomTabsIntent.Builder(session).build();
-        intent.intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        return intent;
+        return new CustomTabsIntent.Builder(session).build();
     }
 
     /**
@@ -147,8 +175,7 @@ public class LauncherActivity extends AppCompatActivity {
         return Uri.parse("https://www.example.com/");
     }
 
-    final private CustomTabsServiceConnection mServiceConnection =
-            new CustomTabsServiceConnection() {
+    private final class ServiceConnection extends CustomTabsServiceConnection {
         @Override
         public void onCustomTabsServiceConnected(ComponentName componentName,
                 CustomTabsClient client) {
@@ -161,11 +188,12 @@ public class LauncherActivity extends AppCompatActivity {
 
             Log.d(TAG, "Launching Trusted Web Activity.");
             TrustedWebUtils.launchAsTrustedWebActivity(LauncherActivity.this, session, intent, url);
+            mTwaWasLaunched = true;
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) { }
-    };
+    }
 
     private void finishCompat() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
