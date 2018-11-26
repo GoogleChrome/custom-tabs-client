@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "65a10a3d_a76d4414",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-11-26T23:08:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "187f3e4b_ecde6dbb",
+      "range": {
+        "startLine": 90,
+        "startChar": 42,
+        "endLine": 90,
+        "endChar": 60
+      },
+      "revId": "bbc320076eed760504875240bc1aea0be6b2dae8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38b4bcdd_6d5ec2d6",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 2
@@ -168,6 +192,30 @@
     },
     {
       "key": {
+        "uuid": "2bca3ae5_273f7b28",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-11-26T23:08:55Z",
+      "side": 1,
+      "message": "OK. Since you are both convinced that this is a proper and clear usage of the API, no need for me to push back on this any further. I was mainly trying to channel what concerns  Android API Council  might have once we start upstreaming these changes. (Using the API like this, essentially locks in the faith of this implementation to the debates over the new API for newSession. If the API changes during upstreaming, what we recommend to devs may end up changing as well.)\n\nNo need to do anything around this here. But please take into consideration my worry that we are adding a lot of API changes and recommendations and betting on a bulk approval from a body that is not familiar with any of these yet AFAIK. (Assuming we want to release TWAs timed with a public support library release)",
+      "parentUuid": "740de687_00d9a171",
+      "range": {
+        "startLine": 136,
+        "startChar": 38,
+        "endLine": 136,
+        "endChar": 39
+      },
+      "revId": "bbc320076eed760504875240bc1aea0be6b2dae8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb2fd130_60dc084a",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 2
@@ -203,6 +251,30 @@
       "side": 1,
       "message": "Could you suggest one? It seems \"CustomTabsServiceConnection\" gives all the context, and there\u0027s no need to repeat the same in the name of the derived class.",
       "parentUuid": "eb2fd130_60dc084a",
+      "range": {
+        "startLine": 180,
+        "startChar": 18,
+        "endLine": 180,
+        "endChar": 35
+      },
+      "revId": "bbc320076eed760504875240bc1aea0be6b2dae8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c95df6e3_4e07d14e",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-11-26T23:08:55Z",
+      "side": 1,
+      "message": "TWAClientToBrowserConnection? Mainly, I saw the ServiceConnection above and for a sec was trying to think through CustomTabsService vs TrustedWebActivityServiceConnection",
+      "parentUuid": "d82b85f4_0eaffa8a",
       "range": {
         "startLine": 180,
         "startChar": 18,
