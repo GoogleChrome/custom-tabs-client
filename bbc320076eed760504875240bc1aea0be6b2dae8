@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "aa9641f2_7e7ab449",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-11-26T20:44:52Z",
+      "side": 1,
+      "message": "To be a bit more clear, my comment was on API usage, more than the implementation is working or not.\n\nnewSession() with two params seems to be a public method we have added, so a natural question is which API usage is recommended? (with an int given or not). If this is the only publicly visible example of its usage, then it gets a bit more confusing imo. Is there a way to have the internal implementation details not leak into the API surface this much?\n\nWhat happens if we make the default implementation of newSession(null) assign a single constant value internally at all times for the session integer ID? (That way we are keeping the API with a designated ID for cases where you are using multiple sessions and want to distinguish between the two).",
+      "parentUuid": "cc471b4b_f30b778b",
+      "range": {
+        "startLine": 136,
+        "startChar": 38,
+        "endLine": 136,
+        "endChar": 39
+      },
+      "revId": "bbc320076eed760504875240bc1aea0be6b2dae8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb2fd130_60dc084a",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 2
