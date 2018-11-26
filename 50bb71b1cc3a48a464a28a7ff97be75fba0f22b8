@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d1567a87_0fa0b5ab",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-26T13:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "843b928a_4cde0681",
+      "range": {
+        "startLine": 69,
+        "startChar": 29,
+        "endLine": 69,
+        "endChar": 44
+      },
+      "revId": "50bb71b1cc3a48a464a28a7ff97be75fba0f22b8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a21c1690_ecc105c3",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "50bb71b1cc3a48a464a28a7ff97be75fba0f22b8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69d3c440_eb9a7318",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-26T13:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a21c1690_ecc105c3",
+      "range": {
+        "startLine": 124,
+        "startChar": 67,
+        "endLine": 124,
+        "endChar": 88
+      },
+      "revId": "50bb71b1cc3a48a464a28a7ff97be75fba0f22b8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9b626fef_526a92aa",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-26T13:49:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3475f2f8_440c89bd",
+      "range": {
+        "startLine": 129,
+        "startChar": 73,
+        "endLine": 131,
+        "endChar": 63
+      },
+      "revId": "50bb71b1cc3a48a464a28a7ff97be75fba0f22b8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4242e1f5_90af9c04",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "50bb71b1cc3a48a464a28a7ff97be75fba0f22b8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9c6c55a_22caad46",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-26T13:49:49Z",
+      "side": 1,
+      "message": "Yes, it\u0027s a leftover.",
+      "parentUuid": "4242e1f5_90af9c04",
+      "range": {
+        "startLine": 178,
+        "startChar": 12,
+        "endLine": 178,
+        "endChar": 17
+      },
+      "revId": "50bb71b1cc3a48a464a28a7ff97be75fba0f22b8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
