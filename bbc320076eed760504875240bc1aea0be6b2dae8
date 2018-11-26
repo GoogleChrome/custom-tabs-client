@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e851554_95e2d9cf",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-11-26T19:34:17Z",
+      "side": 1,
+      "message": "do we need the new key or can we just check whether the instance state was saved at all?",
+      "range": {
+        "startLine": 90,
+        "startChar": 42,
+        "endLine": 90,
+        "endChar": 60
+      },
+      "revId": "bbc320076eed760504875240bc1aea0be6b2dae8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38b4bcdd_6d5ec2d6",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-11-26T19:34:17Z",
+      "side": 1,
+      "message": "It seems a bit scary to me that we are recommending developers to use a helper class that sets the session id to some hardcoded ID.\n\nThis is the first time I had a chance to see the newSession implementation with an integer session ID. This seems like quite a bit shift from the \"CustomTabsSession with Binder as ID\" concept and I am trying to wrap my head around the recommended flow here still. But I would say all clients using LauncherActivity launching as session with a hardcoded ID seems a bit problematic to begin with.",
+      "range": {
+        "startLine": 136,
+        "startChar": 38,
+        "endLine": 136,
+        "endChar": 39
+      },
+      "revId": "bbc320076eed760504875240bc1aea0be6b2dae8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb2fd130_60dc084a",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2018-11-26T19:34:17Z",
+      "side": 1,
+      "message": "A less generic name maybe for devs who are not familiar with Custom Tabs specifics and various services in play here.",
+      "range": {
+        "startLine": 180,
+        "startChar": 18,
+        "endLine": 180,
+        "endChar": 35
+      },
+      "revId": "bbc320076eed760504875240bc1aea0be6b2dae8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
