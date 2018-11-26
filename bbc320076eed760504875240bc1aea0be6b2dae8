@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "740de687_00d9a171",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-11-26T21:44:38Z",
+      "side": 1,
+      "message": "Ah gotcha, so the session resumption work was done by Anna (amalova@), there\u0027s a design doc here: https://docs.google.com/document/d/1xu2NZElKGiutlL_Lu9USS9TD6mjgBRKUGIHgU1m8Ne4/edit#heading\u003dh.2p59iqykq4fd\n\nThere\u0027s no recommendation of one #newSession method over the other - if the client wants to create a fire-and-forget session they use the single argument one and if they want a session they can reconnect to, they use the two argument one.\n\nI\u0027m not sure this is an implementation detail leaking into the design. The original behaviour is that newSession creates a new session each time its called and that is what most clients would want. Changing the default behaviour of newSession to using a constant session integer id would mess things up - multiple calls to newSession would all link to the same session.\n\nThis is a decent example of the API use - for the app, we have LauncherActivity.SESSION_ID for the main TWA session, if the developer wants to launch other CCT\u0027s or TWA\u0027s that don\u0027t get clobbered when a new browsable Intent comes in, they can use different ids/no ids.",
+      "parentUuid": "aa9641f2_7e7ab449",
+      "range": {
+        "startLine": 136,
+        "startChar": 38,
+        "endLine": 136,
+        "endChar": 39
+      },
+      "revId": "bbc320076eed760504875240bc1aea0be6b2dae8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb2fd130_60dc084a",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 2
