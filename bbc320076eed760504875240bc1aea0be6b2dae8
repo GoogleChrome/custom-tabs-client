@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "cc471b4b_f30b778b",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2018-11-26T19:44:59Z",
+      "side": 1,
+      "message": "When an id is provided, it is used to create a PendingIntent and this is used as the session key. This means that sessions from different apps can\u0027t collide.",
+      "parentUuid": "38b4bcdd_6d5ec2d6",
+      "range": {
+        "startLine": 136,
+        "startChar": 38,
+        "endLine": 136,
+        "endChar": 39
+      },
+      "revId": "bbc320076eed760504875240bc1aea0be6b2dae8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb2fd130_60dc084a",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 2
