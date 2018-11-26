@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "187f3e4b_ecde6dbb",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-26T21:29:18Z",
+      "side": 1,
+      "message": "There is an asynchoronous delay before the service get bound, so potentially there is a chance for the user to rotate the device before TWA is launched. This chance is very slim of course, but why risk it.",
+      "parentUuid": "0e851554_95e2d9cf",
+      "range": {
+        "startLine": 90,
+        "startChar": 42,
+        "endLine": 90,
+        "endChar": 60
+      },
+      "revId": "bbc320076eed760504875240bc1aea0be6b2dae8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "38b4bcdd_6d5ec2d6",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 2
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "1a5ce080_b7481e92",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-26T21:29:18Z",
+      "side": 1,
+      "message": "To me the current api makes sense: you use newSession with 2 args when you care about retaining sessions, and the one with 1 arg when you don\u0027t. In this case we care. I don\u0027t really see how this choice is an implementation detail. We might make the javadocs on newSession a bit more clear though.",
+      "parentUuid": "aa9641f2_7e7ab449",
+      "range": {
+        "startLine": 136,
+        "startChar": 38,
+        "endLine": 136,
+        "endChar": 39
+      },
+      "revId": "bbc320076eed760504875240bc1aea0be6b2dae8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb2fd130_60dc084a",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 2
@@ -107,6 +155,30 @@
       "writtenOn": "2018-11-26T19:34:17Z",
       "side": 1,
       "message": "A less generic name maybe for devs who are not familiar with Custom Tabs specifics and various services in play here.",
+      "range": {
+        "startLine": 180,
+        "startChar": 18,
+        "endLine": 180,
+        "endChar": 35
+      },
+      "revId": "bbc320076eed760504875240bc1aea0be6b2dae8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d82b85f4_0eaffa8a",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-26T21:29:18Z",
+      "side": 1,
+      "message": "Could you suggest one? It seems \"CustomTabsServiceConnection\" gives all the context, and there\u0027s no need to repeat the same in the name of the derived class.",
+      "parentUuid": "eb2fd130_60dc084a",
       "range": {
         "startLine": 180,
         "startChar": 18,
