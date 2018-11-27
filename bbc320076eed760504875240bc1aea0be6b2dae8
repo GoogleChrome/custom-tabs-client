@@ -284,6 +284,30 @@
       "revId": "bbc320076eed760504875240bc1aea0be6b2dae8",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18ad5705_1f3d2719",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-27T17:05:35Z",
+      "side": 1,
+      "message": "Renamed to TwaCustomTabsServiceConnection. Both CustomTabsServiceConnection and TrustedWebActivityServiceConnection are technically client-to-browser connections, so I think \"TWAClientToBrowserConnection\" might not fully disambiguate this.",
+      "parentUuid": "c95df6e3_4e07d14e",
+      "range": {
+        "startLine": 180,
+        "startChar": 18,
+        "endLine": 180,
+        "endChar": 35
+      },
+      "revId": "bbc320076eed760504875240bc1aea0be6b2dae8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }

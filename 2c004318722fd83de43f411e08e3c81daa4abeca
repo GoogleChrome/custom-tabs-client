@@ -33,6 +33,24 @@
       "revId": "2c004318722fd83de43f411e08e3c81daa4abeca",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0815b57a_0ab8d93e",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2018-11-27T17:05:35Z",
+      "side": 1,
+      "message": "Good point, I guess we could allow clients to select the flags. This would be another API change, however, and not really TWA-specific, so I\u0027d refrain from doing it in this CL, if you don\u0027t mind.",
+      "parentUuid": "ac06aca3_bf06ff8d",
+      "revId": "2c004318722fd83de43f411e08e3c81daa4abeca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
