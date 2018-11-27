@@ -77,8 +77,10 @@ public class CustomTabsSessionToken {
      *               {@link CustomTabsIntent#EXTRA_SESSION}.
      * @return The token that was generated.
      */
+    @Nullable
     public static CustomTabsSessionToken getSessionTokenFromIntent(Intent intent) {
         Bundle b = intent.getExtras();
+        if (b == null) return null;
         IBinder binder = BundleCompat.getBinder(b, CustomTabsIntent.EXTRA_SESSION);
         PendingIntent sessionId = intent.getParcelableExtra(CustomTabsIntent.EXTRA_SESSION_ID);
         if (binder == null && sessionId == null) return null;
