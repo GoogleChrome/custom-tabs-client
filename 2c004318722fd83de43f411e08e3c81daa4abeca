@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8ac4475_cb9ecfd6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-11-27T16:11:18Z",
+      "side": 1,
+      "message": "nit: LauncherActivity :)",
+      "revId": "2c004318722fd83de43f411e08e3c81daa4abeca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac06aca3_bf06ff8d",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2018-11-27T16:11:18Z",
+      "side": 1,
+      "message": "CustomTabsClient probably doesn\u0027t use the right flags to connect to the browser, as it has BIND_WAIVE_PRIORITY. This does not matter much until the point at which the browser is in the background, but since you mention this one this may become important here.",
+      "revId": "2c004318722fd83de43f411e08e3c81daa4abeca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
