@@ -23,12 +23,15 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.util.Log;
 
 /**
  * A {@link ServiceConnection} for Custom Tabs providers to use while connecting to a
  * {@link PostMessageService} on the client side.
  */
 public class PostMessageServiceConnection implements PostMessageBackend, ServiceConnection {
+    private static final String TAG = "PostMessageServConn";
+
     private final Object mLock = new Object();
     private final ICustomTabsCallback mSessionBinder;
     private IPostMessageService mService;
@@ -60,7 +63,11 @@ public class PostMessageServiceConnection implements PostMessageBackend, Service
     public boolean bindSessionToPostMessageService(Context context, String packageName) {
         Intent intent = new Intent();
         intent.setClassName(packageName, PostMessageService.class.getName());
-        return context.bindService(intent, this, Context.BIND_AUTO_CREATE);
+        boolean success = context.bindService(intent, this, Context.BIND_AUTO_CREATE);
+        if (!success) {
+            Log.w(TAG, "Could not bind to PostMessageService in client.");
+        }
+        return success;
     }
 
     /**
