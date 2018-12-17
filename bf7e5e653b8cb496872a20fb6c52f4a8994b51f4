@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d057f0eb_b75b6a01",
+        "filename": "customtabs/src/android/support/customtabs/PostMessageServiceConnection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1115980
+      },
+      "writtenOn": "2018-12-17T11:18:42Z",
+      "side": 1,
+      "message": "Is there a character limit of tags that means this can\u0027t be \"PostMessageServiceConnection\" or is this a sly reference to the author\u0027s name?",
+      "range": {
+        "startLine": 33,
+        "startChar": 39,
+        "endLine": 33,
+        "endChar": 58
+      },
+      "revId": "bf7e5e653b8cb496872a20fb6c52f4a8994b51f4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
