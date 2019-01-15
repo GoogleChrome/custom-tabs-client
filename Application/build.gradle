@@ -5,7 +5,7 @@ android {
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "org.chromium.customtabsclient.example"
-        minSdkVersion 16
+        minSdkVersion 26
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
