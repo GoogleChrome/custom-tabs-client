@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "696d239f_37fbc06f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-01-15T11:09:44Z",
+      "side": 1,
+      "message": "How much effort would it be to instead make Application work on earlier sdk versions?",
+      "range": {
+        "startLine": 13,
+        "startChar": 20,
+        "endLine": 13,
+        "endChar": 61
+      },
+      "revId": "0308b05c939dea4c6fe6f3f1225cbc19be1aeb41",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
