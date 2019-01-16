@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "52893ecf_0c2ac8b7",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-01-16T16:04:44Z",
+      "side": 1,
+      "message": "I put it here on the off chance that developers could still use it even if they didn\u0027t use LauncherActivity, but yeah I agree the state is ugly.",
+      "parentUuid": "028322ac_ba448eb5",
+      "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3e98970_2784a812",
         "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
         "patchSetId": 1
@@ -77,6 +95,24 @@
       "writtenOn": "2019-01-16T15:45:49Z",
       "side": 1,
       "message": "What happens if the version check fails? Would we just continue with (trying to) launch it?",
+      "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1994e3f_dee103e8",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-01-16T16:04:44Z",
+      "side": 1,
+      "message": "If the version check fails, we show a toast and then launch anyway, falling back to Custom Tabs.",
+      "parentUuid": "e3e98970_2784a812",
       "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -111,6 +147,24 @@
       "writtenOn": "2019-01-16T15:45:49Z",
       "side": 1,
       "message": "What happens when Chrome\u0027s not installed on the system at all?",
+      "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47ebabae_abe4125a",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-01-16T16:04:44Z",
+      "side": 1,
+      "message": "Is that possible?\n\nIf the user has another browser as their default and that browser supports Custom Tabs (has its own CustomTabsService), that browser will be used in preference to any versions of Chrome.\n\nI suppose if that isn\u0027t the case either, we\u0027ll get the chromePackage \u003d\u003d null case below, which was previously protected, but I removed that protection - I\u0027ll re-add it with a different error message.",
+      "parentUuid": "ee90e356_92224f67",
       "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
