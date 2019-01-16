@@ -22,6 +22,40 @@
       "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "028322ac_ba448eb5",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-01-16T11:49:07Z",
+      "side": 1,
+      "message": "Maybe it\u0027s better to leave this logic up to the client (move it to LauncherActivity). Utilities are usually stateless.",
+      "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f05e424_2150b56d",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-01-16T11:49:07Z",
+      "side": 1,
+      "message": "Can we retrieve pm and resources out of context?",
+      "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
