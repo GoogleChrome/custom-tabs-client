@@ -168,6 +168,24 @@
       "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35eb0189_d274b208",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1002032
+      },
+      "writtenOn": "2019-01-16T16:53:06Z",
+      "side": 1,
+      "message": "Absolutely, sharing APKs is common in markets where GMScore isn\u0027t always available - users won\u0027t know which technologies an app has been built with, so what works for one because they\u0027ve got Chrome installed won\u0027t necessarily work for others. The default behaviour is that apps \"just crash\", but by displaying the toast we\u0027ve got a nice call to action to maybe motivate an extra install or two :)",
+      "parentUuid": "47ebabae_abe4125a",
+      "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
