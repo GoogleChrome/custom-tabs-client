@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c6a48460_ae142dbb",
+        "filename": "customtabs/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002032
+      },
+      "writtenOn": "2019-01-16T15:45:49Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "4810fac1_6fc43dc2",
+      "range": {
+        "startLine": 22,
+        "startChar": 72,
+        "endLine": 22,
+        "endChar": 73
+      },
+      "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "028322ac_ba448eb5",
         "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
         "patchSetId": 1
@@ -42,6 +66,23 @@
     },
     {
       "key": {
+        "uuid": "e3e98970_2784a812",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1002032
+      },
+      "writtenOn": "2019-01-16T15:45:49Z",
+      "side": 1,
+      "message": "What happens if the version check fails? Would we just continue with (trying to) launch it?",
+      "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f05e424_2150b56d",
         "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
         "patchSetId": 1
@@ -53,6 +94,23 @@
       "writtenOn": "2019-01-16T11:49:07Z",
       "side": 1,
       "message": "Can we retrieve pm and resources out of context?",
+      "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee90e356_92224f67",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1002032
+      },
+      "writtenOn": "2019-01-16T15:45:49Z",
+      "side": 1,
+      "message": "What happens when Chrome\u0027s not installed on the system at all?",
       "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
