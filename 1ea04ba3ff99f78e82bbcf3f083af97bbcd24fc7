@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4810fac1_6fc43dc2",
+        "filename": "customtabs/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2019-01-16T10:37:09Z",
+      "side": 1,
+      "message": "Of course, not a UI expert, but wouldn\u0027t be \"Chrome 72 or later\" be easier to understand?",
+      "range": {
+        "startLine": 22,
+        "startChar": 72,
+        "endLine": 22,
+        "endChar": 73
+      },
+      "revId": "1ea04ba3ff99f78e82bbcf3f083af97bbcd24fc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
