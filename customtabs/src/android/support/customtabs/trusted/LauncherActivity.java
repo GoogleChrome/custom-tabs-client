@@ -29,7 +29,6 @@ import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.TrustedWebUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * A convenience class to make using Trusted Web Activities easier. You can extend this class for
@@ -80,12 +79,9 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         String chromePackage = CustomTabsClient.getPackageName(this,
                 TrustedWebUtils.SUPPORTED_CHROME_PACKAGES, false);
-        if (chromePackage == null) {
-            Log.d(TAG, "No valid build of Chrome found, exiting.");
-            Toast.makeText(this, "Please install Chrome Dev/Canary.", Toast.LENGTH_LONG).show();
-            finishAndRemoveTaskCompat();
-            return;
-        }
+
+        TrustedWebUtils.promptForChromeUpdateIfNeeded(
+                this, getPackageManager(), getResources(), chromePackage);
 
         if (savedInstanceState != null && savedInstanceState.getBoolean(TWA_WAS_LAUNCHED_KEY)) {
             // This activity died in the background after launching Trusted Web Activity, then
