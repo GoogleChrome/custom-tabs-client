@@ -19,10 +19,15 @@ package android.support.customtabs;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.BundleCompat;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,15 +54,53 @@ import java.util.List;
  *  for sending details of the verification results.
  */
 public class TrustedWebUtils {
+    private static final String CHROME_STABLE_PACKAGE = "com.android.chrome";
+    private static final String CHROME_BETA_PACKAGE = "com.chrome.beta";
 
     /**
-     * List of packages currently supporting Trusted Web Activities.
+     * List of packages currently supporting Trusted Web Activities. This list is designed to be
+     * passed into {@link CustomTabsClient#getPackageName}, so the order of this list is the order
+     * of preference (we assume that if the user has Chrome Canary or Dev installed, it should be
+     * used instead of Chrome Stable). Depending on the call to
+     * {@link CustomTabsClient#getPackageName} the user's default browser may take preference over
+     * all of these.
      */
     public static final List<String> SUPPORTED_CHROME_PACKAGES = Arrays.asList(
             "com.google.android.apps.chrome",  // Chrome local build.
             "org.chromium.chrome",  // Chromium local build.
             "com.chrome.canary",  // Chrome Canary.
-            "com.chrome.dev");  // Chrome Dev.
+            "com.chrome.dev",  // Chrome Dev.
+            CHROME_BETA_PACKAGE,
+            CHROME_STABLE_PACKAGE);
+
+    /**
+     * The versions of Chrome for which we should warn the user if they are out of date. We can't
+     * check the version on local builds (the version code is 1) and we assume Canary and Dev users
+     * update regularly.
+     */
+    private static final List<String> VERSION_CHECK_CHROME_PACKAGES = Arrays.asList(
+            CHROME_BETA_PACKAGE,
+            CHROME_STABLE_PACKAGE);
+
+    /**
+     * The version code of Chrome that is built from branch 3626/Chrome M72. This is the version
+     * that Trusted Web Activities were released in.
+     */
+    private static final int SUPPORTING_CHROME_VERSION_CODE = 362600000;
+
+    /**
+     * The resource identifier to be passed to {@link Resources#getIdentifier} specifying the
+     * resource name and type of the string to show if launching with an out of date version of
+     * Chrome.
+     */
+    private static final String UPDATE_CHROME_MESSAGE_RESOURCE_ID = "string/update_chrome_toast";
+
+    /**
+     * The resource identifier to be passed to {@link Resources#getIdentifier} specifying the
+     * resource name and type of the string to show if launching with an out of date version of
+     * Chrome.
+     */
+    private static final String NO_PROVIDER_RESOURCE_ID = "string/no_provider_toast";
 
     /**
      * Boolean extra that triggers a {@link CustomTabsIntent} launch to be in a fullscreen UI with
@@ -128,5 +171,50 @@ public class TrustedWebUtils {
             intent.putExtra(CustomTabsIntent.EXTRA_SESSION_ID, id);
         }
         context.startActivity(intent);
+    }
+
+    /**
+     * If we are about to launch a TWA on Chrome Beta or Stable at a version before TWAs are
+     * supported, display a Toast to the user asking them to update.
+     * @param context {@link Context} to launch the Toast and access Resources and the
+     *                PackageManager.
+     * @param chromePackage Chrome package we're about to use.
+     */
+    public static void promptForChromeUpdateIfNeeded(Context context, String chromePackage) {
+        if (!TrustedWebUtils.VERSION_CHECK_CHROME_PACKAGES.contains(chromePackage)) return;
+        if (!chromeNeedsUpdate(context.getPackageManager(), chromePackage)) return;
+
+        // Record the prompt as being shown - if the following code fails it will fail if we try it
+        // again.
+        showToastIfResourceExists(context, UPDATE_CHROME_MESSAGE_RESOURCE_ID);
+    }
+
+    /**
+     * Show a toast asking the user to install a Custom Tabs provider.
+     * @param context {@link Context} to launch the Toast and access Resources.
+     */
+    public static void showNoPackageToast(Context context) {
+        showToastIfResourceExists(context, NO_PROVIDER_RESOURCE_ID);
+    }
+
+    private static void showToastIfResourceExists(Context context, String resource) {
+        int stringId = context.getResources().getIdentifier(resource, null,
+                context.getPackageName());
+        if (stringId == 0) return;
+
+        Toast.makeText(context, stringId, Toast.LENGTH_LONG).show();
+    }
+
+    private static boolean chromeNeedsUpdate(PackageManager pm, String chromePackage) {
+        try {
+            PackageInfo packageInfo = pm.getPackageInfo(chromePackage, 0);
+            if (packageInfo.versionCode < TrustedWebUtils.SUPPORTING_CHROME_VERSION_CODE) {
+                return true;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            // Do nothing - the user doesn't get prompted to update, but falling back to Custom
+            // Tabs should still work.
+        }
+        return false;
     }
 }
