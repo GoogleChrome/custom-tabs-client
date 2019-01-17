@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9773e932_237e4bbb",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-01-17T12:05:31Z",
+      "side": 1,
+      "message": "This comment is out of date",
+      "revId": "72408eeaa1733595815037d894dd0fe303a39b31",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
