@@ -181,9 +181,6 @@ public class LauncherActivity extends AppCompatActivity {
         @Override
         public void onCustomTabsServiceConnected(ComponentName componentName,
                 CustomTabsClient client) {
-            // Warmup must be called for Trusted Web Activity verification to work.
-            client.warmup(0L);
-
             CustomTabsSession session = getSession(client);
             CustomTabsIntent intent = getCustomTabsIntent(session);
             Uri url = getLaunchingUrl();
