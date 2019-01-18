@@ -22,8 +22,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v4.app.BundleCompat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -68,6 +70,9 @@ public class TrustedWebUtils {
     public static final String EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY =
             "android.support.customtabs.extra.LAUNCH_AS_TRUSTED_WEB_ACTIVITY";
 
+    public static final String EXTRA_ADDITIONAL_TRUSTED_ORIGINS =
+            "android.support.customtabs.extra.ADDITIONAL_TRUSTED_ORIGINS";
+
     public static final String ACTION_MANAGE_TRUSTED_WEB_ACTIVITY_DATA =
             "android.support.customtabs.action.ACTION_MANAGE_TRUSTED_WEB_ACTIVITY_DATA";
 
@@ -88,6 +93,24 @@ public class TrustedWebUtils {
      */
     public static void launchAsTrustedWebActivity(Context context, CustomTabsSession session,
             CustomTabsIntent intent, Uri uri) {
+        launchAsTrustedWebActivity(context, session, intent, uri, null);
+    }
+
+    /**
+     * As {@link #launchAsTrustedWebActivity(Context, CustomTabsSession, CustomTabsIntent, Uri)},
+     * but allows to specify a list of additional trusted origins that the user may navigate or be
+     * redirected to from the starting uri.
+     *
+     * For example, if the user starts at https://www.example.com/page1 and is redirected to
+     * https://m.example.com/page2, and both origins are associated with the calling application via
+     * the Digital Asset Links, then pass "https://www.example.com/page1" as uri and  Arrays.asList(
+     * "https://m.example.com") as additionalTrustedOrigins.
+     *
+     * Alternatively, use {@link CustomTabsSession#validateRelationship} for additional origins, but
+     * that would delay launching the Trusted Web Activity.
+     */
+    public static void launchAsTrustedWebActivity(Context context, CustomTabsSession session,
+            CustomTabsIntent intent, Uri uri, @Nullable List<String> additionalTrustedOrigins) {
         session.validateRelationship(CustomTabsService.RELATION_HANDLE_ALL_URLS, uri, null);
 
         IBinder binder = BundleCompat.getBinder(intent.intent.getExtras(),
@@ -98,6 +121,10 @@ public class TrustedWebUtils {
         }
 
         intent.intent.putExtra(EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY, true);
+        if (additionalTrustedOrigins != null) {
+            intent.intent.putExtra(EXTRA_ADDITIONAL_TRUSTED_ORIGINS,
+                    new ArrayList<>(additionalTrustedOrigins));
+        }
         intent.launchUrl(context, uri);
     }
 
