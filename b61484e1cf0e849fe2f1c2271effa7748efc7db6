@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "482b55cf_2ae83e42",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-01-22T18:21:19Z",
+      "side": 0,
+      "message": "This is also not needed, along with warmup, which further simplifies the api. I\u0027m not even sure this really did anything, since validation is asynchronous.",
+      "revId": "b61484e1cf0e849fe2f1c2271effa7748efc7db6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
