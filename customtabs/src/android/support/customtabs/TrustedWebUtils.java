@@ -22,8 +22,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v4.app.BundleCompat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -68,6 +70,9 @@ public class TrustedWebUtils {
     public static final String EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY =
             "android.support.customtabs.extra.LAUNCH_AS_TRUSTED_WEB_ACTIVITY";
 
+    public static final String EXTRA_ADDITIONAL_TRUSTED_ORIGINS =
+            "android.support.customtabs.extra.ADDITIONAL_TRUSTED_ORIGINS";
+
     public static final String ACTION_MANAGE_TRUSTED_WEB_ACTIVITY_DATA =
             "android.support.customtabs.action.ACTION_MANAGE_TRUSTED_WEB_ACTIVITY_DATA";
 
@@ -80,24 +85,36 @@ public class TrustedWebUtils {
      * more.
      *
      * @param context {@link Context} to use while launching the {@link CustomTabsIntent}.
-     * @param session The {@link CustomTabsSession} used to create the intent.
      * @param intent The {@link CustomTabsIntent} to use for launching the Trusted Web Activity.
      *               Note that all customizations in the given associated with browser toolbar
      *               controls will be ignored.
      * @param uri The web page to launch as Trusted Web Activity.
      */
-    public static void launchAsTrustedWebActivity(Context context, CustomTabsSession session,
-            CustomTabsIntent intent, Uri uri) {
-        session.validateRelationship(CustomTabsService.RELATION_HANDLE_ALL_URLS, uri, null);
+    public static void launchAsTrustedWebActivity(Context context, CustomTabsIntent intent,
+            Uri uri) {
+        launchAsTrustedWebActivity(context, intent, uri, null);
+    }
 
-        IBinder binder = BundleCompat.getBinder(intent.intent.getExtras(),
-                CustomTabsIntent.EXTRA_SESSION);
-        if (binder != session.getBinder()) {
-            throw new IllegalArgumentException("Given CustomTabsIntent should be associated with "
-                    + "the given CustomTabsSession");
-        }
-
+    /**
+     * As {@link #launchAsTrustedWebActivity(Context, CustomTabsIntent, Uri)},
+     * but allows to specify a list of additional trusted origins that the user may navigate or be
+     * redirected to from the starting uri.
+     *
+     * For example, if the user starts at https://www.example.com/page1 and is redirected to
+     * https://m.example.com/page2, and both origins are associated with the calling application via
+     * the Digital Asset Links, then pass "https://www.example.com/page1" as uri and  Arrays.asList(
+     * "https://m.example.com") as additionalTrustedOrigins.
+     *
+     * Alternatively, use {@link CustomTabsSession#validateRelationship} for additional origins, but
+     * that would delay launching the Trusted Web Activity.
+     */
+    public static void launchAsTrustedWebActivity(Context context, CustomTabsIntent intent, Uri uri,
+            @Nullable List<String> additionalTrustedOrigins) {
         intent.intent.putExtra(EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY, true);
+        if (additionalTrustedOrigins != null) {
+            intent.intent.putExtra(EXTRA_ADDITIONAL_TRUSTED_ORIGINS,
+                    new ArrayList<>(additionalTrustedOrigins));
+        }
         intent.launchUrl(context, uri);
     }
 
