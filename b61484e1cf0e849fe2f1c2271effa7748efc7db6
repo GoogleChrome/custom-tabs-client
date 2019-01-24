@@ -39,6 +39,30 @@
       "revId": "b61484e1cf0e849fe2f1c2271effa7748efc7db6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9098c631_c2099800",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-01-24T11:23:48Z",
+      "side": 0,
+      "message": "Yes, we should check the presence of a session in the intent.",
+      "parentUuid": "07b63444_1d0c954e",
+      "range": {
+        "startLine": 95,
+        "startChar": 30,
+        "endLine": 95,
+        "endChar": 39
+      },
+      "revId": "b61484e1cf0e849fe2f1c2271effa7748efc7db6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
