@@ -16,6 +16,29 @@
       "revId": "b61484e1cf0e849fe2f1c2271effa7748efc7db6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07b63444_1d0c954e",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2019-01-24T07:21:50Z",
+      "side": 0,
+      "message": "Can we keep these checks here to ensure that the client knows they need to add a session to the intent?",
+      "range": {
+        "startLine": 95,
+        "startChar": 30,
+        "endLine": 95,
+        "endChar": 39
+      },
+      "revId": "b61484e1cf0e849fe2f1c2271effa7748efc7db6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
