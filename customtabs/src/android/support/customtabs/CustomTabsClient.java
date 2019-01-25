@@ -322,6 +322,12 @@ public class CustomTabsClient {
                     }
                 });
             }
+
+            @Override
+            public void onTrustedWebActivityEvent(int event, Bundle extras) {
+                if (callback == null) return;
+                mHandler.post(() -> callback.onTrustedWebActivityEvent(event, extras));
+            }
         };
     }
 

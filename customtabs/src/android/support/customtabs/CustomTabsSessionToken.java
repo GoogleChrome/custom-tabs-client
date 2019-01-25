@@ -65,6 +65,9 @@ public class CustomTabsSessionToken {
                 boolean result, Bundle extras) {}
 
         @Override
+        public void onTrustedWebActivityEvent(int event, Bundle extras) {}
+
+        @Override
         public IBinder asBinder() {
             return this;
         }
@@ -151,6 +154,14 @@ public class CustomTabsSessionToken {
                 }
             }
 
+            @Override
+            public void onTrustedWebActivityEvent(int event, Bundle extras) {
+                try {
+                    mCallbackBinder.onTrustedWebActivityEvent(event, extras);
+                } catch (RemoteException e) {
+                    Log.e(TAG, "RemoteException during ICustomTabsCallback transaction");
+                }
+            }
         };
     }
 

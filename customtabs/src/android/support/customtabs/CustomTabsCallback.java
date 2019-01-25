@@ -57,6 +57,19 @@ public class CustomTabsCallback {
     public static final int TAB_HIDDEN = 6;
 
     /**
+     * Sent when a Trusted Web Activity starts loading. This may be a good time to launch a splash
+     * screen activity.
+     */
+    public static final int TRUSTED_WEB_ACTIVITY_LOADING_STARTED = 1;
+
+    /**
+     * Sent when a Trusted Web Activity finishes loading. This may be a good time to remove the
+     * splash screen activity. This is sent when the web page starts to get painted and usually
+     * occurs earlier than {@link #NAVIGATION_FINISHED}.
+     */
+    public static final int TRUSTED_WEB_ACTIVITY_LOADING_FINISHED = 2;
+
+    /**
      * Key for the extra included in {@link #onRelationshipValidationResult} {@code extras}
      * containing whether the verification was performed while the device was online. This may be
      * missing in cases verification was short cut.
@@ -70,6 +83,13 @@ public class CustomTabsCallback {
      * @param extras Reserved for future use.
      */
     public void onNavigationEvent(int navigationEvent, Bundle extras) {}
+
+    /**
+     * To be called when a Trusted Web Activity event happens
+     * @param event The code of the event.
+     * @param extras Reserved for future use
+     */
+    public void onTrustedWebActivityEvent(int event, Bundle extras) {}
 
     /**
      * Unsupported callbacks that may be provided by the implementation.
