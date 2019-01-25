@@ -57,6 +57,18 @@ public class CustomTabsCallback {
     public static final int TAB_HIDDEN = 6;
 
     /**
+     * Sent at the time when the client activity may launch a splash screen activity, if required.
+     */
+    public static final int TRUSTED_WEB_ACTIVITY_SHOW_SPLASH = 1;
+
+    /**
+     * Sent at the time when the client activity should remove the splash screen activity, if it
+     * was launched. Clients can make use of {@link android.content.Intent#FLAG_ACTIVITY_SINGLE_TOP}
+     * to deliver the message to a splash screen being on top of a Trusted Web Activity.
+     */
+    public static final int TRUSTED_WEB_ACTIVITY_HIDE_SPLASH = 2;
+
+    /**
      * Key for the extra included in {@link #onRelationshipValidationResult} {@code extras}
      * containing whether the verification was performed while the device was online. This may be
      * missing in cases verification was short cut.
@@ -70,6 +82,13 @@ public class CustomTabsCallback {
      * @param extras Reserved for future use.
      */
     public void onNavigationEvent(int navigationEvent, Bundle extras) {}
+
+    /**
+     * To be called when a Trusted Web Activity event happens
+     * @param event The code of the event.
+     * @param extras Reserved for future use
+     */
+    public void onTrustedWebActivityEvent(int event, Bundle extras) {}
 
     /**
      * Unsupported callbacks that may be provided by the implementation.
