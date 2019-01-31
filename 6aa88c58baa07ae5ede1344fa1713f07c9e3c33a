@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4fa07fd_88182b97",
+        "filename": "customtabs/src/android/support/customtabs/ICustomTabsCallback.aidl",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-01-31T11:55:49Z",
+      "side": 1,
+      "message": "Maybe for the moment we could just piggy-back off extraCallback. I\u0027m getting a bit uncertain about adding methods to the interface before we know how the Android Support Library folks are to API changes.",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 68
+      },
+      "revId": "6aa88c58baa07ae5ede1344fa1713f07c9e3c33a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74031baf_29e593af",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-01-31T11:55:49Z",
+      "side": 1,
+      "message": "Could you update this with your changes?",
+      "range": {
+        "startLine": 72,
+        "startChar": 55,
+        "endLine": 72,
+        "endChar": 88
+      },
+      "revId": "6aa88c58baa07ae5ede1344fa1713f07c9e3c33a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5a50ad2_d72cd408",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-01-31T11:55:49Z",
+      "side": 1,
+      "message": "Can you store this as an Uri instead?",
+      "range": {
+        "startLine": 97,
+        "startChar": 22,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "6aa88c58baa07ae5ede1344fa1713f07c9e3c33a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64c30f59_b57ef741",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-01-31T11:55:49Z",
+      "side": 1,
+      "message": "nit: line length",
+      "range": {
+        "startLine": 196,
+        "startChar": 58,
+        "endLine": 196,
+        "endChar": 94
+      },
+      "revId": "6aa88c58baa07ae5ede1344fa1713f07c9e3c33a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a56750b3_ac337594",
+        "filename": "customtabs/src/android/support/customtabs/trusted/SplashScreenActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-01-31T11:55:49Z",
+      "side": 1,
+      "message": "Could you add a line or two here about how it and LauncherActivity communicate (they send each other intents with CLOSE_ACTION)?",
+      "range": {
+        "startLine": 14,
+        "startChar": 3,
+        "endLine": 14,
+        "endChar": 60
+      },
+      "revId": "6aa88c58baa07ae5ede1344fa1713f07c9e3c33a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
