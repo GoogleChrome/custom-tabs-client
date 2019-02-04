@@ -24,10 +24,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.BundleCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -203,7 +201,7 @@ public class TrustedWebUtils {
      */
     public static void promptForChromeUpdateIfNeeded(Context context, String chromePackage) {
         if (!TrustedWebUtils.VERSION_CHECK_CHROME_PACKAGES.contains(chromePackage)) return;
-        if (!chromeNeedsUpdate(context.getPackageManager(), chromePackage)) return;
+        if (!chromeSupportsTWAs(context.getPackageManager(), chromePackage)) return;
 
         showToastIfResourceExists(context, UPDATE_CHROME_MESSAGE_RESOURCE_ID);
     }
@@ -224,7 +222,7 @@ public class TrustedWebUtils {
         Toast.makeText(context, stringId, Toast.LENGTH_LONG).show();
     }
 
-    private static boolean chromeNeedsUpdate(PackageManager pm, String chromePackage) {
+    public static boolean chromeSupportsTWAs(PackageManager pm, String chromePackage) {
         try {
             PackageInfo packageInfo = pm.getPackageInfo(chromePackage, 0);
             if (packageInfo.versionCode < TrustedWebUtils.SUPPORTING_CHROME_VERSION_CODE) {
