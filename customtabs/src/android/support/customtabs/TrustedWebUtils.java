@@ -24,10 +24,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.BundleCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -203,7 +201,14 @@ public class TrustedWebUtils {
      */
     public static void promptForChromeUpdateIfNeeded(Context context, String chromePackage) {
         if (!TrustedWebUtils.VERSION_CHECK_CHROME_PACKAGES.contains(chromePackage)) return;
-        if (!chromeNeedsUpdate(context.getPackageManager(), chromePackage)) return;
+
+        try {
+            if (chromeSupportsTWAs(context.getPackageManager(), chromePackage)) return;
+        } catch (PackageManager.NameNotFoundException e) {
+            // Do nothing - the user doesn't get prompted to update, but falling back to Custom
+            // Tabs should still work.
+            return;
+        }
 
         showToastIfResourceExists(context, UPDATE_CHROME_MESSAGE_RESOURCE_ID);
     }
@@ -224,16 +229,19 @@ public class TrustedWebUtils {
         Toast.makeText(context, stringId, Toast.LENGTH_LONG).show();
     }
 
-    private static boolean chromeNeedsUpdate(PackageManager pm, String chromePackage) {
-        try {
-            PackageInfo packageInfo = pm.getPackageInfo(chromePackage, 0);
-            if (packageInfo.versionCode < TrustedWebUtils.SUPPORTING_CHROME_VERSION_CODE) {
-                return true;
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            // Do nothing - the user doesn't get prompted to update, but falling back to Custom
-            // Tabs should still work.
-        }
-        return false;
+    /**
+     * Returns true if the given Chrome package is of a version that supports Trusted Web
+     * Activities.
+     * @param packageManager A {@link PackageManager} to query for version information.
+     * @param chromePackage The Chrome package to check - if the string does not name to a Chrome
+     *                      package, the return value is meaningless.
+     * @return Whether the given Chrome package supports Trusted Web Activities.
+     * @throws PackageManager.NameNotFoundException if the given Package Name is not found.
+     */
+    public static boolean chromeSupportsTWAs(PackageManager packageManager, String chromePackage)
+            throws PackageManager.NameNotFoundException {
+        PackageInfo packageInfo = packageManager.getPackageInfo(chromePackage, 0);
+
+        return packageInfo.versionCode >= TrustedWebUtils.SUPPORTING_CHROME_VERSION_CODE;
     }
 }
