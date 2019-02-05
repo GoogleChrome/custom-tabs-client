@@ -22,6 +22,30 @@
       "revId": "b37717cf6e39bc192225c9e6589e01ca722e0c08",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c686373_97023ecd",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-02-05T15:49:59Z",
+      "side": 0,
+      "message": "Passing the most specific class adds flexibility only if there are multiple ways to retrieve that class. Otherwise it only exposes more impl details and makes the api less friendly. I think in this case it\u0027s the latter: it\u0027s a bit better for the client to not have to care how to get the PackageManager.",
+      "parentUuid": "483b4224_7cc13027",
+      "range": {
+        "startLine": 206,
+        "startChar": 39,
+        "endLine": 206,
+        "endChar": 56
+      },
+      "revId": "b37717cf6e39bc192225c9e6589e01ca722e0c08",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }

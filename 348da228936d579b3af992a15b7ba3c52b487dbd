@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2458d28_a0257810",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-02-05T15:49:59Z",
+      "side": 1,
+      "message": "I\u0027m not sure about defaulting to \"true\". I think we should encourage to implement simplified api from the beginning. Returning \"true\" forces to either implement a suboptimal api, or to make client-side hacks such as \"if (packageName.equals(\"some.provider\"))\".",
+      "revId": "348da228936d579b3af992a15b7ba3c52b487dbd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

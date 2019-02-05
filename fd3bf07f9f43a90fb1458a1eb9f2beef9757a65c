@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8e7f493e_af363460",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-02-05T15:49:59Z",
+      "side": 1,
+      "message": "I think not having any lists except SUPPORTED_CHROME_PACKAGES is the simplest way. Calling equals() two times rather than contains() on a list of two items is not really less readable and slightly more efficient.",
+      "parentUuid": "83f54477_e7ea1305",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 0
+      },
+      "revId": "fd3bf07f9f43a90fb1458a1eb9f2beef9757a65c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "311230d7_acaa82dc",
         "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ef9d938b_800975de",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-02-05T15:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "311230d7_acaa82dc",
+      "range": {
+        "startLine": 225,
+        "startChar": 22,
+        "endLine": 225,
+        "endChar": 38
+      },
+      "revId": "fd3bf07f9f43a90fb1458a1eb9f2beef9757a65c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76f04aa1_5b62b1c9",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2019-02-05T13:20:59Z",
       "side": 1,
       "message": "Could you move this into TrustedWebUtils to be alongside SUPPORTING_CHROME_VERSION_CODE. Also we should have this variable and SUPPORTING_CHROME_VERSION_CODE named along the same scheme, so either:\n\n- SUPPORTING_CHROME_VERSION_CODE\n- SUPPORTING_CHROME_NO_PREWARM_VERSION_CODE\n\nor\n\n- CHROME_72_VERSION_CODE\n- CHROME_73_VERSION_CODE\n\nI prefer the 1st, but I\u0027m open to convincing the other way.\n\nAdditionally, is that version code right? Even the earliest builds of M73 support this?",
+      "range": {
+        "startLine": 70,
+        "startChar": 29,
+        "endLine": 70,
+        "endChar": 51
+      },
+      "revId": "fd3bf07f9f43a90fb1458a1eb9f2beef9757a65c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2c35541_12a59dd3",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-02-05T15:49:59Z",
+      "side": 1,
+      "message": "\u003e Additionally, is that version code right? Even the earliest builds of M73 support this?\n\nIt\u0027s going to be available in M73 beta and stable from the beginning. As for dev or canary, I think we can assume it\u0027s no more than 3 weeks old (the change landed about 3 weeks ago).\nThis thread seems to imply it\u0027s tricky to map specific build to version code, so I\u0027d rather keep things simple.\nhttps://groups.google.com/a/google.com/forum/#!msg/nemo-eng-fe/pchU_LJT0HM/DgFwwrIuCAAJ",
+      "parentUuid": "76f04aa1_5b62b1c9",
       "range": {
         "startLine": 70,
         "startChar": 29,
@@ -91,6 +163,30 @@
       "revId": "fd3bf07f9f43a90fb1458a1eb9f2beef9757a65c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b99b402_00f00bf5",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-02-05T15:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca30974b_f44fcb66",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 56
+      },
+      "revId": "fd3bf07f9f43a90fb1458a1eb9f2beef9757a65c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
