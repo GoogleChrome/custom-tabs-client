@@ -16,6 +16,24 @@
       "revId": "348da228936d579b3af992a15b7ba3c52b487dbd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4ba5afd_b3350608",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-02-05T16:09:07Z",
+      "side": 1,
+      "message": "If we return true when it\u0027s unnecessary, we get a performance hit. If we return false when it\u0027s necessary, we get a bug.\n\nAlso, the reason we want to skip calling warmup is because Chrome\u0027s warmup method take a long time - maybe another providers\u0027 warmup method will be much lighter.\n\nThe other option is creating some sort of WARMUP_FOR_TRUSTED_WEB_ACTIVITY flag and passing that to the warmup method (since we have that handy, currently unused long parameter). Then the provider can decide itself whether it needs to call warmup.",
+      "parentUuid": "b2458d28_a0257810",
+      "revId": "348da228936d579b3af992a15b7ba3c52b487dbd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
