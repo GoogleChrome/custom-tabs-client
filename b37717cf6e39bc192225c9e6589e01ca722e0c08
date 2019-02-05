@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "483b4224_7cc13027",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-02-05T13:20:59Z",
+      "side": 0,
+      "message": "Why change this? I generally go for passing the most specific class that is needed and I think we only need the PackageManager here.",
+      "range": {
+        "startLine": 206,
+        "startChar": 39,
+        "endLine": 206,
+        "endChar": 56
+      },
+      "revId": "b37717cf6e39bc192225c9e6589e01ca722e0c08",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

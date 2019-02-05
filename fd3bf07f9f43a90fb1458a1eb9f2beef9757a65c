@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83f54477_e7ea1305",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-02-05T13:20:59Z",
+      "side": 1,
+      "message": "We could probably (with the changes above), make this:\n\nCHROME_LOCAL_BUILDS \u003d [chrome local, chromium local]\nCHROME_OFFICIAL_BUILDS \u003d [canary, dev, beta, stable]\nCHROME_BUILDS \u003d CHROME_LOCAL_BUILDS + CHROME_OFFICIAL_BUILDS\n\nThis way you can use CHROME_LOCAL_BUILDS for your check above. This change in behaviour would cause Canary and Dev users to get a prompt if they\u0027re out of date, which I think is a good thing.",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 0
+      },
+      "revId": "fd3bf07f9f43a90fb1458a1eb9f2beef9757a65c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "311230d7_acaa82dc",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-02-05T13:20:59Z",
+      "side": 1,
+      "message": "This method doesn\u0027t have anything to do with Chrome - it could just be called getPackageVersion and take an arbitrary package name.",
+      "range": {
+        "startLine": 225,
+        "startChar": 22,
+        "endLine": 225,
+        "endChar": 38
+      },
+      "revId": "fd3bf07f9f43a90fb1458a1eb9f2beef9757a65c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76f04aa1_5b62b1c9",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-02-05T13:20:59Z",
+      "side": 1,
+      "message": "Could you move this into TrustedWebUtils to be alongside SUPPORTING_CHROME_VERSION_CODE. Also we should have this variable and SUPPORTING_CHROME_VERSION_CODE named along the same scheme, so either:\n\n- SUPPORTING_CHROME_VERSION_CODE\n- SUPPORTING_CHROME_NO_PREWARM_VERSION_CODE\n\nor\n\n- CHROME_72_VERSION_CODE\n- CHROME_73_VERSION_CODE\n\nI prefer the 1st, but I\u0027m open to convincing the other way.\n\nAdditionally, is that version code right? Even the earliest builds of M73 support this?",
+      "range": {
+        "startLine": 70,
+        "startChar": 29,
+        "endLine": 70,
+        "endChar": 51
+      },
+      "revId": "fd3bf07f9f43a90fb1458a1eb9f2beef9757a65c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca30974b_f44fcb66",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-02-05T13:20:59Z",
+      "side": 1,
+      "message": "I don\u0027t like CHROME_LOCAL_BUILD_VERSION_CODE, I suggest we make the logic:\n\nif (chromePackage in [\"com.google.android.apps.chrome\", \"org.chromium.chrome\"]) {\n  // Local build\n  mChromeNeedsWarmup \u003d false;\n} else if (chromePackage in [canary, dev, beta, stable]) {\n  mChromeNeedsWarmup \u003d versionCode \u003c CHROME_73_VERSION_CODE;\n} else {\n  // Remember, the package name doesn\u0027t need to necessarily be Chrome - it could be another provider.\n  // Let\u0027s assume for now that the other providers need to warmup.\n  mChromeNeedsWarmup \u003d true;\n}",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 56
+      },
+      "revId": "fd3bf07f9f43a90fb1458a1eb9f2beef9757a65c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
