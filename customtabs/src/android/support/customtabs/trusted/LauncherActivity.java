@@ -71,6 +71,8 @@ public class LauncherActivity extends AppCompatActivity {
 
     private boolean mTwaWasLaunched;
 
+    private String mChromePackage;
+
     /** We only want to show the update prompt once per instance of this application. */
     private static boolean sChromeVersionChecked;
 
@@ -80,17 +82,17 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String chromePackage = CustomTabsClient.getPackageName(this,
+        mChromePackage = CustomTabsClient.getPackageName(this,
                 TrustedWebUtils.SUPPORTED_CHROME_PACKAGES, false);
 
-        if (chromePackage == null) {
+        if (mChromePackage == null) {
             TrustedWebUtils.showNoPackageToast(this);
             finish();
             return;
         }
 
         if (!sChromeVersionChecked) {
-            TrustedWebUtils.promptForChromeUpdateIfNeeded(this, chromePackage);
+            TrustedWebUtils.promptForChromeUpdateIfNeeded(this, mChromePackage);
             sChromeVersionChecked = true;
         }
 
@@ -102,7 +104,7 @@ public class LauncherActivity extends AppCompatActivity {
         }
 
         mServiceConnection = new TwaCustomTabsServiceConnection();
-        CustomTabsClient.bindCustomTabsService(this, chromePackage, mServiceConnection);
+        CustomTabsClient.bindCustomTabsService(this, mChromePackage, mServiceConnection);
     }
 
     @Override
@@ -188,6 +190,10 @@ public class LauncherActivity extends AppCompatActivity {
         @Override
         public void onCustomTabsServiceConnected(ComponentName componentName,
                 CustomTabsClient client) {
+            if (TrustedWebUtils.warmupIsRequired(LauncherActivity.this, mChromePackage)) {
+                client.warmup(0);
+            }
+
             CustomTabsSession session = getSession(client);
             CustomTabsIntent intent = getCustomTabsIntent(session);
             Uri url = getLaunchingUrl();

@@ -24,10 +24,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.BundleCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -56,6 +54,10 @@ import java.util.List;
  *  for sending details of the verification results.
  */
 public class TrustedWebUtils {
+    private static final String CHROME_LOCAL_BUILD_PACKAGE = "com.google.android.apps.chrome";
+    private static final String CHROMIUM_LOCAL_BUILD_PACKAGE = "org.chromium.chrome";
+    private static final String CHROME_CANARY_PACKAGE = "com.chrome.canary";
+    private static final String CHROME_DEV_PACKAGE = "com.chrome.dev";
     private static final String CHROME_STABLE_PACKAGE = "com.android.chrome";
     private static final String CHROME_BETA_PACKAGE = "com.chrome.beta";
 
@@ -68,10 +70,10 @@ public class TrustedWebUtils {
      * all of these.
      */
     public static final List<String> SUPPORTED_CHROME_PACKAGES = Arrays.asList(
-            "com.google.android.apps.chrome",  // Chrome local build.
-            "org.chromium.chrome",  // Chromium local build.
-            "com.chrome.canary",  // Chrome Canary.
-            "com.chrome.dev",  // Chrome Dev.
+            CHROME_LOCAL_BUILD_PACKAGE,
+            CHROMIUM_LOCAL_BUILD_PACKAGE,
+            CHROME_CANARY_PACKAGE,
+            CHROME_DEV_PACKAGE,
             CHROME_BETA_PACKAGE,
             CHROME_STABLE_PACKAGE);
 
@@ -89,6 +91,8 @@ public class TrustedWebUtils {
      * that Trusted Web Activities were released in.
      */
     private static final int SUPPORTING_CHROME_VERSION_CODE = 362600000;
+
+    private static final int NO_PREWARM_CHROME_VERSION_CODE = 368300000;
 
     /**
      * The resource identifier to be passed to {@link Resources#getIdentifier} specifying the
@@ -150,6 +154,9 @@ public class TrustedWebUtils {
      *
      * Alternatively, use {@link CustomTabsSession#validateRelationship} to validate additional
      * origins asynchronously, but that would delay launching the Trusted Web Activity.
+     *
+     * Note: additionalTrustedOrigins parameter will have effect only for Chrome version 74 and up.
+     * For older versions please use {@link CustomTabsSession#validateRelationship}.
      */
     public static void launchAsTrustedWebActivity(Context context, CustomTabsIntent intent, Uri uri,
             @Nullable List<String> additionalTrustedOrigins) {
@@ -203,7 +210,7 @@ public class TrustedWebUtils {
      */
     public static void promptForChromeUpdateIfNeeded(Context context, String chromePackage) {
         if (!TrustedWebUtils.VERSION_CHECK_CHROME_PACKAGES.contains(chromePackage)) return;
-        if (!chromeNeedsUpdate(context.getPackageManager(), chromePackage)) return;
+        if (!chromeNeedsUpdate(context, chromePackage)) return;
 
         showToastIfResourceExists(context, UPDATE_CHROME_MESSAGE_RESOURCE_ID);
     }
@@ -216,6 +223,30 @@ public class TrustedWebUtils {
         showToastIfResourceExists(context, NO_PROVIDER_RESOURCE_ID);
     }
 
+    /**
+     * @return Whether {@link CustomTabsClient#warmup} needs to be called prior to launching a
+     * Trusted Web Activity. Starting from version 73 Chrome does not require warmup, which allows
+     * to launch Trusted Web Activities faster.
+     */
+    public static boolean warmupIsRequired(Context context, String packageName) {
+        if (CHROME_LOCAL_BUILD_PACKAGE.equals(packageName) ||
+                CHROMIUM_LOCAL_BUILD_PACKAGE.equals(packageName)) {
+            return false;
+        }
+        if (!SUPPORTED_CHROME_PACKAGES.contains(packageName)) {
+            return false;
+        }
+        return getVersionCode(context, packageName) < NO_PREWARM_CHROME_VERSION_CODE;
+    }
+
+    private static int getVersionCode(Context context, String packageName) {
+        try {
+            return context.getPackageManager().getPackageInfo(packageName, 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            return 0;
+        }
+    }
+
     private static void showToastIfResourceExists(Context context, String resource) {
         int stringId = context.getResources().getIdentifier(resource, null,
                 context.getPackageName());
@@ -224,16 +255,13 @@ public class TrustedWebUtils {
         Toast.makeText(context, stringId, Toast.LENGTH_LONG).show();
     }
 
-    private static boolean chromeNeedsUpdate(PackageManager pm, String chromePackage) {
-        try {
-            PackageInfo packageInfo = pm.getPackageInfo(chromePackage, 0);
-            if (packageInfo.versionCode < TrustedWebUtils.SUPPORTING_CHROME_VERSION_CODE) {
-                return true;
-            }
-        } catch (PackageManager.NameNotFoundException e) {
+    private static boolean chromeNeedsUpdate(Context context, String chromePackage) {
+        int versionCode = getVersionCode(context, chromePackage);
+        if (versionCode == 0) {
             // Do nothing - the user doesn't get prompted to update, but falling back to Custom
             // Tabs should still work.
+            return false;
         }
-        return false;
+        return versionCode < SUPPORTING_CHROME_VERSION_CODE;
     }
 }
