@@ -67,9 +67,14 @@ public class LauncherActivity extends AppCompatActivity {
 
     private static final int SESSION_ID = 96375;
 
+    private static final int CHROME_73_VERSION_CODE = 368300000;
+    private static final int CHROME_LOCAL_BUILD_VERSION_CODE = 1;
+
     @Nullable private TwaCustomTabsServiceConnection mServiceConnection;
 
     private boolean mTwaWasLaunched;
+
+    private boolean mChromeNeedsWarmup;
 
     /** We only want to show the update prompt once per instance of this application. */
     private static boolean sChromeVersionChecked;
@@ -100,6 +105,12 @@ public class LauncherActivity extends AppCompatActivity {
             finish();
             return;
         }
+
+        // Warmup is no longer required since Chrome 73.
+        // TODO(pshmakov): refactor to handle different Chrome versions more smoothly.
+        int versionCode = TrustedWebUtils.getChromeVersion(this, chromePackage);
+        mChromeNeedsWarmup = versionCode != CHROME_LOCAL_BUILD_VERSION_CODE
+                && versionCode < CHROME_73_VERSION_CODE;
 
         mServiceConnection = new TwaCustomTabsServiceConnection();
         CustomTabsClient.bindCustomTabsService(this, chromePackage, mServiceConnection);
@@ -188,6 +199,10 @@ public class LauncherActivity extends AppCompatActivity {
         @Override
         public void onCustomTabsServiceConnected(ComponentName componentName,
                 CustomTabsClient client) {
+            if (mChromeNeedsWarmup) {
+                client.warmup(0);
+            }
+
             CustomTabsSession session = getSession(client);
             CustomTabsIntent intent = getCustomTabsIntent(session);
             Uri url = getLaunchingUrl();
