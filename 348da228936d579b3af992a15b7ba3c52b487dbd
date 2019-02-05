@@ -34,6 +34,24 @@
       "revId": "348da228936d579b3af992a15b7ba3c52b487dbd",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99e922d7_1ba67cfc",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-02-05T16:15:31Z",
+      "side": 1,
+      "message": "\u003e If we return false when it\u0027s necessary, we get a bug.\n\nThe new providers will have to ensure from the beginning there\u0027s no bug in this case, which I think would be good.\n\n\u003e Also, the reason we want to skip calling warmup is because Chrome\u0027s warmup method take a long time - maybe another providers\u0027 warmup method will be much lighter.\n\nWarmup is by definition for doing heavy work upfront. The clients have to assume it\u0027s going to take a long time.\n\n\u003e The other option is creating some sort of WARMUP_FOR_TRUSTED_WEB_ACTIVITY flag and passing that to the warmup method (since we have that handy, currently unused long parameter). Then the provider can decide itself whether it needs to call warmup.\n\nThis makes client-facing api more complex. I\u0027d like to eventually see clients not having to worry about warmup at all.",
+      "parentUuid": "b4ba5afd_b3350608",
+      "revId": "348da228936d579b3af992a15b7ba3c52b487dbd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
