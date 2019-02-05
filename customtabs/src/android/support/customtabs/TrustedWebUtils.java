@@ -203,7 +203,7 @@ public class TrustedWebUtils {
      */
     public static void promptForChromeUpdateIfNeeded(Context context, String chromePackage) {
         if (!TrustedWebUtils.VERSION_CHECK_CHROME_PACKAGES.contains(chromePackage)) return;
-        if (!chromeNeedsUpdate(context.getPackageManager(), chromePackage)) return;
+        if (!chromeNeedsUpdate(context, chromePackage)) return;
 
         showToastIfResourceExists(context, UPDATE_CHROME_MESSAGE_RESOURCE_ID);
     }
@@ -216,6 +216,21 @@ public class TrustedWebUtils {
         showToastIfResourceExists(context, NO_PROVIDER_RESOURCE_ID);
     }
 
+    /**
+     * Returns the version code of Chrome or 0 if Chrome not installed.
+     * Note: local builds have version code 1.
+     * @param context {@link Context} to use for retrieving package info.
+     * @param chromePackage Chrome package we're about to use.
+     */
+    public static int getChromeVersion(Context context, String chromePackage) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(chromePackage, 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            return 0;
+        }
+    }
+
     private static void showToastIfResourceExists(Context context, String resource) {
         int stringId = context.getResources().getIdentifier(resource, null,
                 context.getPackageName());
@@ -224,16 +239,13 @@ public class TrustedWebUtils {
         Toast.makeText(context, stringId, Toast.LENGTH_LONG).show();
     }
 
-    private static boolean chromeNeedsUpdate(PackageManager pm, String chromePackage) {
-        try {
-            PackageInfo packageInfo = pm.getPackageInfo(chromePackage, 0);
-            if (packageInfo.versionCode < TrustedWebUtils.SUPPORTING_CHROME_VERSION_CODE) {
-                return true;
-            }
-        } catch (PackageManager.NameNotFoundException e) {
+    private static boolean chromeNeedsUpdate(Context context, String chromePackage) {
+        int versionCode = getChromeVersion(context, chromePackage);
+        if (versionCode == 0) {
             // Do nothing - the user doesn't get prompted to update, but falling back to Custom
             // Tabs should still work.
+            return false;
         }
-        return false;
+        return versionCode < TrustedWebUtils.SUPPORTING_CHROME_VERSION_CODE;
     }
 }
