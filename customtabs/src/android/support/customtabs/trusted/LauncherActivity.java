@@ -70,6 +70,7 @@ public class LauncherActivity extends AppCompatActivity {
     @Nullable private TwaCustomTabsServiceConnection mServiceConnection;
 
     private boolean mTwaWasLaunched;
+    @Nullable private String mCustomTabsProviderPackage;
 
     /** We only want to show the update prompt once per instance of this application. */
     private static boolean sChromeVersionChecked;
@@ -80,17 +81,17 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String chromePackage = CustomTabsClient.getPackageName(this,
+        mCustomTabsProviderPackage = CustomTabsClient.getPackageName(this,
                 TrustedWebUtils.SUPPORTED_CHROME_PACKAGES, false);
 
-        if (chromePackage == null) {
+        if (mCustomTabsProviderPackage == null) {
             TrustedWebUtils.showNoPackageToast(this);
             finish();
             return;
         }
 
         if (!sChromeVersionChecked) {
-            TrustedWebUtils.promptForChromeUpdateIfNeeded(this, chromePackage);
+            TrustedWebUtils.promptForChromeUpdateIfNeeded(this, mCustomTabsProviderPackage);
             sChromeVersionChecked = true;
         }
 
@@ -102,7 +103,8 @@ public class LauncherActivity extends AppCompatActivity {
         }
 
         mServiceConnection = new TwaCustomTabsServiceConnection();
-        CustomTabsClient.bindCustomTabsService(this, chromePackage, mServiceConnection);
+        CustomTabsClient.bindCustomTabsService(
+                this, mCustomTabsProviderPackage, mServiceConnection);
     }
 
     @Override
@@ -194,6 +196,11 @@ public class LauncherActivity extends AppCompatActivity {
 
             Log.d(TAG, "Launching Trusted Web Activity.");
             TrustedWebUtils.launchAsTrustedWebActivity(LauncherActivity.this, intent, url);
+
+            // Remember who we connect to as the package that is allowed to delegate notifications
+            // to us.
+            TrustedWebActivityService.setVerifiedProvider(
+                    LauncherActivity.this, mCustomTabsProviderPackage);
             mTwaWasLaunched = true;
         }
 

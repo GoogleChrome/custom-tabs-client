@@ -305,11 +305,6 @@ public class CustomTabsClient {
                     final @Relation int relation, final Uri requestedOrigin, final boolean result,
                     final @Nullable Bundle extras) throws RemoteException {
 
-                if (mApplicationContext != null && result) {
-                    TrustedWebActivityService.setVerifiedProvider(mApplicationContext,
-                            mServiceComponentName.getPackageName());
-                }
-
                 if (callback == null) return;
 
                 // Do something with mServiceComponentName.
