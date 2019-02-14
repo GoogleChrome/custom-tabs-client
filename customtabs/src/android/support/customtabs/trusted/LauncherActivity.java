@@ -14,8 +14,11 @@
 
 package android.support.customtabs.trusted;
 
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.pm.ActivityInfo;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -27,6 +30,7 @@ import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.TrustedWebUtils;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -51,27 +55,80 @@ import android.util.Log;
  * If you just want default behaviour your Trusted Web Activity client app doesn't even need any
  * Java code - you just set everything up in the Android Manifest!
  *
- * At the moment this only works with Chrome Dev, Beta and local builds (launch progress [3]).
+ *
+ * This class also supports showing a splash screen while Chrome is warming up and is loading the
+ * page in Trusted Web Activity (this requires Chrome 74+). To set up splash screens you should:
+ *
+ * 1) Enable the feature by setting {@link #METADATA_SHOW_SPLASH_SCREEN} to "true" for
+ * LauncherActivity in your manifest.
+ *
+ * 2) Include {@link SplashScreenActivity} in your manifest, and specify a theme for it. The theme
+ * should include the drawable for your splash screen and <strong>must</strong> be translucent.
+ * For example:
+ * <pre>{@code
+ *   <style name="Theme.SplashScreenActivity" parent="Theme.AppCompat.NoActionBar">
+ *       <item name="android:windowBackground">@drawable/your_splash_screen_drawable</item>
+ *       <item name="android:windowIsTranslucent">true</item>
+ *   </style>
+ * }</pre>
+ *
+ * Note: despite the windowIsTranslucent flag, the drawable itself doesn't have to be translucent.
+ *
+ * At the moment Trusted Web Activities only work with Chrome Dev, Beta and local builds (launch
+ * progress [3]).
  *
  * [1] https://developers.google.com/digital-asset-links/v1/getting-started
  * [2] https://www.chromium.org/developers/how-tos/run-chromium-with-flags#TOC-Setting-Flags-for-Chrome-on-Android
  * [3] https://www.chromestatus.com/feature/4857483210260480
  */
 public class LauncherActivity extends AppCompatActivity {
+    /** Action used for communication with {@link SplashScreenActivity}. */
+    public static final String CLOSE_ACTION = "android.support.customtabs.trusted.CLOSE_ACTION";
+
+    public static final String LOCAL_BROADCAST_REMOVE_SPLASH_SCREEN =
+            "LOCAL_BROADCAST_REMOVE_SPLASH_SCREEN";
+
+    public static final String LOCAL_BROADCAST_TOP_SPLASH_SCREEN_SHOWN =
+            "LOCAL_BROADCAST_TOP_SPLASH_SCREEN_SHOWN";
+
     private static final String TAG = "LauncherActivity";
     private static final String METADATA_DEFAULT_URL =
             "android.support.customtabs.trusted.DEFAULT_URL";
 
+    private static final String METADATA_SHOW_SPLASH_SCREEN =
+            "android.support.customtabs.trusted.SHOW_SPLASH_SCREEN";
+
     private static final String TWA_WAS_LAUNCHED_KEY =
             "android.support.customtabs.trusted.TWA_WAS_LAUNCHED_KEY";
+
+    private static final String CALLBACK_TWA_LOADING_STARTED = "twa_loading_started";
+
+    private static final String CALLBACK_TWA_LOADING_FINISHED = "twa_loading_finished";
+
+    private static final String EXTRA_SPLASH_SCREEN_REQUESTED =
+            "android.support.customtabs.trusted.EXTRA_SPLASH_SCREEN_REQUESTED";
+
+    private static final String COMMAND_SPLASH_SCREEN_SHOWN = "splash_screen_shown";
 
     private static final int SESSION_ID = 96375;
 
     @Nullable private TwaCustomTabsServiceConnection mServiceConnection;
 
+    @Nullable private CustomTabsClient mClient;
+
+    @Nullable private String mDefaultUrl;
+
+    private boolean mSplashScreenEnabled;
+
     private boolean mTwaWasLaunched;
 
     private String mChromePackage;
+
+    // Defaulting to true on pre-L, because onEnterAnimationComplete was introduced in L.
+    private boolean mEnterAnimationFinished =
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
+
+    @Nullable private Runnable mOnEnterAnimationFinishedRunnable;
 
     /** We only want to show the update prompt once per instance of this application. */
     private static boolean sChromeVersionChecked;
@@ -103,8 +160,42 @@ public class LauncherActivity extends AppCompatActivity {
             return;
         }
 
+        parseMetadata();
+
+        if (shouldShowSplashScreen()) {
+            startActivity(new Intent(this, SplashScreenActivity.class));
+        }
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcastReceiver,
+                new IntentFilter(LOCAL_BROADCAST_TOP_SPLASH_SCREEN_SHOWN));
         mServiceConnection = new TwaCustomTabsServiceConnection();
         CustomTabsClient.bindCustomTabsService(this, mChromePackage, mServiceConnection);
+    }
+
+    private void parseMetadata() {
+        try {
+            Bundle metaData = getPackageManager().getActivityInfo(
+                    new ComponentName(this, getClass()), PackageManager.GET_META_DATA).metaData;
+            if (metaData == null) {
+                return;
+            }
+            mDefaultUrl = metaData.getString(METADATA_DEFAULT_URL);
+            mSplashScreenEnabled = metaData.getBoolean(METADATA_SHOW_SPLASH_SCREEN);
+        } catch (PackageManager.NameNotFoundException e) {
+            // Will only happen if the package provided (the one we are running in) is not
+            // installed - so should never happen.
+        }
+    }
+
+
+    @Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
+        mEnterAnimationFinished = true;
+        if (mOnEnterAnimationFinishedRunnable != null) {
+            mOnEnterAnimationFinishedRunnable.run();
+            mOnEnterAnimationFinishedRunnable = null;
+        }
     }
 
     @Override
@@ -120,6 +211,15 @@ public class LauncherActivity extends AppCompatActivity {
         super.onDestroy();
         if (mServiceConnection != null) {
             unbindService(mServiceConnection);
+        }
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (CLOSE_ACTION.equals(intent.getAction())) {
+            finish();
         }
     }
 
@@ -142,7 +242,15 @@ public class LauncherActivity extends AppCompatActivity {
      * call.
      */
     protected CustomTabsSession getSession(CustomTabsClient client) {
-        return client.newSession(null, SESSION_ID);
+        CustomTabsCallback callback =
+                shouldShowSplashScreen() ? new TrustedWebActivityEventHandler() : null;
+        return client.newSession(callback, SESSION_ID);
+    }
+
+    private boolean shouldShowSplashScreen() {
+        // If this activity isn't task root, then a TWA already is running, and we're passing a new
+        // intent into it. Don't show splash screen in this case.
+        return mSplashScreenEnabled && isTaskRoot();
     }
 
     /**
@@ -168,50 +276,80 @@ public class LauncherActivity extends AppCompatActivity {
             Log.d(TAG, "Using URL from Intent (" + uri + ").");
             return uri;
         }
-
-        try {
-            ActivityInfo info = getPackageManager().getActivityInfo(
-                    new ComponentName(this, getClass()), PackageManager.GET_META_DATA);
-
-            if (info.metaData != null && info.metaData.containsKey(METADATA_DEFAULT_URL)) {
-                uri = Uri.parse(info.metaData.getString(METADATA_DEFAULT_URL));
-                Log.d(TAG, "Using URL from Manifest (" + uri + ").");
-                return uri;
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            // Will only happen if the package provided (the one we are running in) is not
-            // installed - so should never happen.
+        if (mDefaultUrl != null) {
+            Log.d(TAG, "Using URL from Manifest (" + mDefaultUrl + ").");
+            return Uri.parse(mDefaultUrl);
         }
-
         return Uri.parse("https://www.example.com/");
     }
+
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mClient.extraCommand(COMMAND_SPLASH_SCREEN_SHOWN, null);
+        }
+    };
+
 
     private class TwaCustomTabsServiceConnection extends CustomTabsServiceConnection {
         @Override
         public void onCustomTabsServiceConnected(ComponentName componentName,
                 CustomTabsClient client) {
+            mClient = client;
             if (TrustedWebUtils.warmupIsRequired(LauncherActivity.this, mChromePackage)) {
                 client.warmup(0);
             }
 
             CustomTabsSession session = getSession(client);
             CustomTabsIntent intent = getCustomTabsIntent(session);
+            if (shouldShowSplashScreen()) {
+                intent.intent.putExtra(EXTRA_SPLASH_SCREEN_REQUESTED, true);
+                intent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            }
             Uri url = getLaunchingUrl();
 
-            Log.d(TAG, "Launching Trusted Web Activity.");
-            TrustedWebUtils.launchAsTrustedWebActivity(LauncherActivity.this, intent, url);
-            mTwaWasLaunched = true;
+            Runnable launchRunnable = () -> {
+                Log.d(TAG, "Launching Trusted Web Activity.");
+                TrustedWebUtils.launchAsTrustedWebActivity(LauncherActivity.this, intent, url);
+                overridePendingTransition(0, 0);
+                mTwaWasLaunched = true;
+            };
+            if (shouldShowSplashScreen() && !mEnterAnimationFinished) {
+                mOnEnterAnimationFinishedRunnable = launchRunnable;
+            } else {
+                launchRunnable.run();
+            }
         }
 
         @Override
-        public void onServiceDisconnected(ComponentName componentName) { }
+        public void onServiceDisconnected(ComponentName componentName) {
+            mClient = null;
+        }
     }
 
-    private void finishAndRemoveTaskCompat() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            finishAndRemoveTask();
-        } else {
-            finish();
+    private class TrustedWebActivityEventHandler extends CustomTabsCallback {
+
+        @Override
+        public void extraCallback(String callbackName, Bundle args) {
+            if (CALLBACK_TWA_LOADING_STARTED.equals(callbackName)) {
+                showTopSplashActivity();
+            } else if (CALLBACK_TWA_LOADING_FINISHED.equals(callbackName)) {
+                hideSplashScreenActivities();
+            }
         }
+
+        private void showTopSplashActivity() {
+            Intent intent = new Intent(LauncherActivity.this, SplashScreenActivity.class);
+            intent.putExtra(SplashScreenActivity.EXTRA_IS_TOP_SPLASH, true);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+        }
+
+        private void hideSplashScreenActivities() {
+            LocalBroadcastManager.getInstance(LauncherActivity.this).sendBroadcast(
+                    new Intent(LOCAL_BROADCAST_REMOVE_SPLASH_SCREEN));
+        }
+
     }
 }
