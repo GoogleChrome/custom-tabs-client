@@ -17,6 +17,7 @@ package android.support.customtabs.trusted;
 import android.content.ComponentName;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -61,6 +62,8 @@ public class LauncherActivity extends AppCompatActivity {
     private static final String TAG = "LauncherActivity";
     private static final String METADATA_DEFAULT_URL =
             "android.support.customtabs.trusted.DEFAULT_URL";
+    private static final String METADATA_STATUS_BAR_COLOR =
+            "android.support.customtabs.trusted.STATUS_BAR_COLOR";
 
     private static final String TWA_WAS_LAUNCHED_KEY =
             "android.support.customtabs.trusted.TWA_WAS_LAUNCHED_KEY";
@@ -152,7 +155,35 @@ public class LauncherActivity extends AppCompatActivity {
      * Override this if you want any special launching behaviour.
      */
     protected CustomTabsIntent getCustomTabsIntent(CustomTabsSession session) {
-        return new CustomTabsIntent.Builder(session).build();
+        return new CustomTabsIntent.Builder(session)
+                .setToolbarColor(getStatusBarColor())
+                .build();
+    }
+
+    private Bundle getMetaData() {
+        try {
+            ActivityInfo info = getPackageManager().getActivityInfo(
+                    new ComponentName(this, getClass()), PackageManager.GET_META_DATA);
+
+            return info.metaData;
+        } catch (PackageManager.NameNotFoundException ex) {
+            // Will only happen if the package provided (the one we are running in) is not
+            // installed - so should never happen.
+            return null;
+        }
+    }
+
+    /**
+     * Returns the color that should be used on the Trusted Web Activity status bar. It reads
+     * the metadata from "android.support.customtabs.trusted.STATUS_BAR_COLOR". If the metadata
+     * is not available, uses "Color.WHITE".
+     */
+    protected int getStatusBarColor() {
+        Bundle metaData = getMetaData();
+        if (metaData != null && metaData.containsKey(METADATA_STATUS_BAR_COLOR)) {
+            return metaData.getInt(METADATA_STATUS_BAR_COLOR, Color.WHITE);
+        }
+        return Color.WHITE;
     }
 
     /**
@@ -170,18 +201,11 @@ public class LauncherActivity extends AppCompatActivity {
             return uri;
         }
 
-        try {
-            ActivityInfo info = getPackageManager().getActivityInfo(
-                    new ComponentName(this, getClass()), PackageManager.GET_META_DATA);
-
-            if (info.metaData != null && info.metaData.containsKey(METADATA_DEFAULT_URL)) {
-                uri = Uri.parse(info.metaData.getString(METADATA_DEFAULT_URL));
-                Log.d(TAG, "Using URL from Manifest (" + uri + ").");
-                return uri;
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            // Will only happen if the package provided (the one we are running in) is not
-            // installed - so should never happen.
+        Bundle metaData = getMetaData();
+        if (metaData != null && metaData.containsKey(METADATA_DEFAULT_URL)) {
+            uri = Uri.parse(metaData.getString(METADATA_DEFAULT_URL));
+            Log.d(TAG, "Using URL from Manifest (" + uri + ").");
+            return uri;
         }
 
         return Uri.parse("https://www.example.com/");
