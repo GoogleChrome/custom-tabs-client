@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7cd1a94_26f9648a",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-02-18T22:31:05Z",
+      "side": 1,
+      "message": "Could you add @Nullable here?",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 30
+      },
+      "revId": "68d257c8b9e76acbfa8151e77869457e48d73234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9d3336d_67cc4643",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-02-18T22:31:05Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this check - getInt will return the default if metaData doesn\u0027t contain the key.",
+      "range": {
+        "startLine": 183,
+        "startChar": 41,
+        "endLine": 183,
+        "endChar": 52
+      },
+      "revId": "68d257c8b9e76acbfa8151e77869457e48d73234",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
