@@ -17,6 +17,7 @@ package android.support.customtabs.trusted;
 import android.content.ComponentName;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.TrustedWebUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -61,6 +63,8 @@ public class LauncherActivity extends AppCompatActivity {
     private static final String TAG = "LauncherActivity";
     private static final String METADATA_DEFAULT_URL =
             "android.support.customtabs.trusted.DEFAULT_URL";
+    private static final String METADATA_STATUS_BAR_COLOR =
+            "android.support.customtabs.trusted.STATUS_BAR_COLOR";
 
     private static final String TWA_WAS_LAUNCHED_KEY =
             "android.support.customtabs.trusted.TWA_WAS_LAUNCHED_KEY";
@@ -68,6 +72,10 @@ public class LauncherActivity extends AppCompatActivity {
     private static final int SESSION_ID = 96375;
 
     @Nullable private TwaCustomTabsServiceConnection mServiceConnection;
+
+    @Nullable private String mDefaultUrl;
+
+    private int mStatusBarColor;
 
     private boolean mTwaWasLaunched;
 
@@ -103,9 +111,27 @@ public class LauncherActivity extends AppCompatActivity {
             return;
         }
 
+        parseMetadata();
+
         mServiceConnection = new TwaCustomTabsServiceConnection();
         CustomTabsClient.bindCustomTabsService(
                 this, mCustomTabsProviderPackage, mServiceConnection);
+    }
+
+    private void parseMetadata() {
+        try {
+            Bundle metaData = getPackageManager().getActivityInfo(
+                    new ComponentName(this, getClass()), PackageManager.GET_META_DATA).metaData;
+            if (metaData == null) {
+                return;
+            }
+            mDefaultUrl = metaData.getString(METADATA_DEFAULT_URL);
+            mStatusBarColor = ContextCompat.getColor(
+                    this, metaData.getInt(METADATA_STATUS_BAR_COLOR, android.R.color.white));
+        } catch (PackageManager.NameNotFoundException e) {
+            // Will only happen if the package provided (the one we are running in) is not
+            // installed - so should never happen.
+        }
     }
 
     @Override
@@ -152,7 +178,9 @@ public class LauncherActivity extends AppCompatActivity {
      * Override this if you want any special launching behaviour.
      */
     protected CustomTabsIntent getCustomTabsIntent(CustomTabsSession session) {
-        return new CustomTabsIntent.Builder(session).build();
+        return new CustomTabsIntent.Builder(session)
+                .setToolbarColor(mStatusBarColor)
+                .build();
     }
 
     /**
@@ -170,18 +198,9 @@ public class LauncherActivity extends AppCompatActivity {
             return uri;
         }
 
-        try {
-            ActivityInfo info = getPackageManager().getActivityInfo(
-                    new ComponentName(this, getClass()), PackageManager.GET_META_DATA);
-
-            if (info.metaData != null && info.metaData.containsKey(METADATA_DEFAULT_URL)) {
-                uri = Uri.parse(info.metaData.getString(METADATA_DEFAULT_URL));
-                Log.d(TAG, "Using URL from Manifest (" + uri + ").");
-                return uri;
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            // Will only happen if the package provided (the one we are running in) is not
-            // installed - so should never happen.
+        if (mDefaultUrl != null) {
+            Log.d(TAG, "Using URL from Manifest (" + mDefaultUrl + ").");
+            return Uri.parse(mDefaultUrl);
         }
 
         return Uri.parse("https://www.example.com/");
