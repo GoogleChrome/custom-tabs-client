@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "979f3b0d_4cb23e4a",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-02-19T13:09:42Z",
+      "side": 1,
+      "message": "getMetadata() takes about 5 ms on a Go device. I think that time might be worth saving by caching the results. I was about to do it here: https://chromium-review.googlesource.com/c/custom-tabs-client/+/1437014/6/customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+      "revId": "3ee5a148a8cdb46e59f81c36adae88f2769a5906",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
