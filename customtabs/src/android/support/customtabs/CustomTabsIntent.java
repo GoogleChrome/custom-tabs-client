@@ -266,6 +266,8 @@ public final class CustomTabsIntent {
      */
     public void launchUrl(Context context, Uri url) {
         intent.setData(url);
+        android.util.Log.e("ABCD", "B " + startAnimationBundle.toString());
+        intent.addCategory("customCategory");
         ContextCompat.startActivity(context, intent, startAnimationBundle);
     }
 
@@ -517,8 +519,14 @@ public final class CustomTabsIntent {
          */
         public Builder setStartAnimations(
                 @NonNull Context context, @AnimRes int enterResId, @AnimRes int exitResId) {
-            mStartAnimationBundle = ActivityOptionsCompat.makeCustomAnimation(
+          android.util.Log.e("ABCD", "setStartAnimations");
+          mStartAnimationBundle = ActivityOptionsCompat.makeCustomAnimation(
                     context, enterResId, exitResId).toBundle();
+            return this;
+        }
+
+        public Builder setSharedElementTransition(Bundle bundle) {
+            mStartAnimationBundle = bundle;
             return this;
         }
 

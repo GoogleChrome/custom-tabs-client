@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.example.pshmakov.twatest">
+
+    <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="28" />
+    <application
+        android:allowBackup="true"
+        android:label="pavel test"
+        android:supportsRtl="true"
+        android:manageSpaceActivity="android.support.customtabs.trusted.ManageDataLauncherActivity">
+        <activity android:name="android.support.customtabs.trusted.LauncherActivity"
+          android:theme="@style/Theme.LauncherActivity">
+            <meta-data android:name="android.support.customtabs.trusted.DEFAULT_URL"
+                       android:value="https://peconn.github.io/starters"/>
+            <meta-data android:name="android.support.customtabs.trusted.SHOW_SPLASH_SCREEN"
+                       android:value="true"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="https" android:host="peconn.github.io"/>
+            </intent-filter>
+        </activity>
+ 
+        <activity android:name="android.support.customtabs.trusted.SplashScreenActivity"
+          android:theme="@style/Theme.SplashScreenActivity"
+          android:exported="true"/>
+ 
+        <activity android:name="android.support.customtabs.trusted.ManageDataLauncherActivity"
+                  android:theme="@style/Theme.LauncherActivity">
+            <meta-data android:name="android.support.customtabs.trusted.MANAGE_SPACE_URL"
+                       android:value="https://peconn.github.io/starters"/>
+        </activity>
+    </application>
+</manifest>

@@ -15,6 +15,7 @@
 package android.support.customtabs.trusted;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -51,16 +52,42 @@ import android.util.Log;
  * If you just want default behaviour your Trusted Web Activity client app doesn't even need any
  * Java code - you just set everything up in the Android Manifest!
  *
- * At the moment this only works with Chrome Dev, Beta and local builds (launch progress [3]).
+ *
+ * This class also supports showing a splash screen while Chrome is warming up and is loading the
+ * page in Trusted Web Activity (this requires Chrome 74+). To set up splash screens you should:
+ *
+ * 1) Enable the feature by setting {@link #METADATA_SHOW_SPLASH_SCREEN} to "true" for
+ * LauncherActivity in your manifest.
+ *
+ * 2) Include {@link SplashScreenActivity} in your manifest, and specify a theme for it. The theme
+ * should include the drawable for your splash screen and <strong>must</strong> be translucent.
+ * For example:
+ * <pre>{@code
+ *   <style name="Theme.SplashScreenActivity" parent="Theme.AppCompat.NoActionBar">
+ *       <item name="android:windowBackground">@drawable/your_splash_screen_drawable</item>
+ *       <item name="android:windowIsTranslucent">true</item>
+ *   </style>
+ * }</pre>
+ *
+ * Note: despite the windowIsTranslucent flag, the drawable itself doesn't have to be translucent.
+ *
+ * At the moment Trusted Web Activities only work with Chrome Dev, Beta and local builds (launch
+ * progress [3]).
  *
  * [1] https://developers.google.com/digital-asset-links/v1/getting-started
  * [2] https://www.chromium.org/developers/how-tos/run-chromium-with-flags#TOC-Setting-Flags-for-Chrome-on-Android
  * [3] https://www.chromestatus.com/feature/4857483210260480
  */
-public class LauncherActivity extends AppCompatActivity {
+public class LauncherActivity extends android.app.Activity {
+    /** Action used for communication with {@link SplashScreenActivity}. */
+    public static final String CLOSE_ACTION = "android.support.customtabs.trusted.CLOSE_ACTION";
+
     private static final String TAG = "LauncherActivity";
     private static final String METADATA_DEFAULT_URL =
             "android.support.customtabs.trusted.DEFAULT_URL";
+
+    private static final String METADATA_SHOW_SPLASH_SCREEN =
+            "android.support.customtabs.trusted.SHOW_SPLASH_SCREEN";
 
     private static final String TWA_WAS_LAUNCHED_KEY =
             "android.support.customtabs.trusted.TWA_WAS_LAUNCHED_KEY";
@@ -68,6 +95,9 @@ public class LauncherActivity extends AppCompatActivity {
     private static final int SESSION_ID = 96375;
 
     @Nullable private TwaCustomTabsServiceConnection mServiceConnection;
+
+    @Nullable private String mDefaultUrl;
+    private boolean mShowSplashScreen;
 
     private boolean mTwaWasLaunched;
 
@@ -80,8 +110,8 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String chromePackage = CustomTabsClient.getPackageName(this,
-                TrustedWebUtils.SUPPORTED_CHROME_PACKAGES, false);
+        android.util.Log.e("ABCD", "LauncherActivity#onCreate");
+        String chromePackage = "com.google.android.apps.chrome";
 
         if (chromePackage == null) {
             TrustedWebUtils.showNoPackageToast(this);
@@ -101,15 +131,40 @@ public class LauncherActivity extends AppCompatActivity {
             return;
         }
 
+        parseMetadata();
+
+        android.util.Log.e("ABCD", "bindCustomTabsService");
         mServiceConnection = new TwaCustomTabsServiceConnection();
         CustomTabsClient.bindCustomTabsService(this, chromePackage, mServiceConnection);
+    }
+
+
+    private void parseMetadata() {
+        android.widget.FrameLayout fl = new android.widget.FrameLayout(this);
+        fl.setBackgroundColor(android.graphics.Color.BLUE);
+        setContentView(fl);
+        android.view.LayoutInflater.from(this).inflate(android.support.customtabs2.R.layout.webapp_splash_screen_no_icon, fl, true);
+
+        try {
+            Bundle metaData = getPackageManager().getActivityInfo(
+                    new ComponentName(this, getClass()), PackageManager.GET_META_DATA).metaData;
+            if (metaData == null) {
+                return;
+            }
+            mDefaultUrl = metaData.getString(METADATA_DEFAULT_URL);
+            mShowSplashScreen = metaData.getBoolean(METADATA_SHOW_SPLASH_SCREEN);
+        } catch (PackageManager.NameNotFoundException e) {
+            // Will only happen if the package provided (the one we are running in) is not
+            // installed - so should never happen.
+        }
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
         if (mTwaWasLaunched) {
-            finish(); // The user closed the Trusted Web Activity and ended up here.
+            //android.util.Log.e("ABCD", "LauncherActivity#finish0");
+            //finish(); // The user closed the Trusted Web Activity and ended up here.
         }
     }
 
@@ -118,6 +173,15 @@ public class LauncherActivity extends AppCompatActivity {
         super.onDestroy();
         if (mServiceConnection != null) {
             unbindService(mServiceConnection);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (CLOSE_ACTION.equals(intent.getAction())) {
+            android.util.Log.e("ABCD", "LauncherActivity#onNewIntent() finish");
+            finish();
         }
     }
 
@@ -149,7 +213,12 @@ public class LauncherActivity extends AppCompatActivity {
      * Override this if you want any special launching behaviour.
      */
     protected CustomTabsIntent getCustomTabsIntent(CustomTabsSession session) {
-        return new CustomTabsIntent.Builder(session).build();
+        android.util.Log.e("ABCD", "Content " + findViewById(android.R.id.content));
+        android.os.Bundle b = android.support.v4.app.ActivityOptionsCompat
+                                      .makeSceneTransitionAnimation(this,
+                                              findViewById(android.R.id.content), "profile")
+                                      .toBundle();
+        return new CustomTabsIntent.Builder(session).setSharedElementTransition(b).build();
     }
 
     /**
@@ -166,21 +235,10 @@ public class LauncherActivity extends AppCompatActivity {
             Log.d(TAG, "Using URL from Intent (" + uri + ").");
             return uri;
         }
-
-        try {
-            ActivityInfo info = getPackageManager().getActivityInfo(
-                    new ComponentName(this, getClass()), PackageManager.GET_META_DATA);
-
-            if (info.metaData != null && info.metaData.containsKey(METADATA_DEFAULT_URL)) {
-                uri = Uri.parse(info.metaData.getString(METADATA_DEFAULT_URL));
-                Log.d(TAG, "Using URL from Manifest (" + uri + ").");
-                return uri;
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            // Will only happen if the package provided (the one we are running in) is not
-            // installed - so should never happen.
+        if (mDefaultUrl != null) {
+            Log.d(TAG, "Using URL from Manifest (" + mDefaultUrl + ").");
+            return Uri.parse(mDefaultUrl);
         }
-
         return Uri.parse("https://www.example.com/");
     }
 
@@ -188,27 +246,61 @@ public class LauncherActivity extends AppCompatActivity {
         @Override
         public void onCustomTabsServiceConnected(ComponentName componentName,
                 CustomTabsClient client) {
-            // Warmup must be called for Trusted Web Activity verification to work.
-            client.warmup(0L);
-
-            CustomTabsSession session = getSession(client);
-            CustomTabsIntent intent = getCustomTabsIntent(session);
-            Uri url = getLaunchingUrl();
-
-            Log.d(TAG, "Launching Trusted Web Activity.");
-            TrustedWebUtils.launchAsTrustedWebActivity(LauncherActivity.this, session, intent, url);
-            mTwaWasLaunched = true;
+            mClient = client;
+            if (mAttachedToWindow) {
+                launchUrl();
+            }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) { }
     }
 
-    private void finishAndRemoveTaskCompat() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            finishAndRemoveTask();
-        } else {
-            finish();
-        }
+    @Override
+    public void onAttachedToWindow() {
+        new android.os.Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                if (mClient != null) {
+                    launchUrl();
+                }
+                mAttachedToWindow = true;
+            }
+        });
     }
+
+    private void launchUrl() {
+        android.util.Log.e("ABCD", "onServiceConnected");
+        CustomTabsSession session = getSession(mClient);
+        CustomTabsIntent intent = getCustomTabsIntent(session);
+        Uri url = getLaunchingUrl();
+
+        LauncherActivity.this.setExitSharedElementCallback(new android.app.SharedElementCallback() {
+            @Override
+            public android.os.Parcelable onCaptureSharedElementSnapshot(
+                    android.view.View sharedElement, android.graphics.Matrix viewToGlobalMatrix,
+                    android.graphics.RectF screenBounds) {
+                android.util.Log.e("ABCD", "captureSnapshot");
+                android.os.Parcelable p = super.onCaptureSharedElementSnapshot(
+                        sharedElement, viewToGlobalMatrix, screenBounds);
+                return p;
+            }
+        });
+
+        Log.d(TAG, "Launching Trusted Web Activity.");
+
+        android.transition.Fade fade = new android.transition.Fade();
+        fade.excludeTarget(android.R.id.statusBarBackground, true);
+        fade.excludeTarget(android.R.id.navigationBarBackground, true);
+        getWindow().setExitTransition(fade);
+
+        TrustedWebUtils.launchAsTrustedWebActivity(LauncherActivity.this, intent, url);
+        // overridePendingTransition(0, 0);
+        mTwaWasLaunched = true;
+
+    }
+
+    private CustomTabsClient mClient;
+    private boolean mAttachedToWindow;
+    private static boolean s0;
 }

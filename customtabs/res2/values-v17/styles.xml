@@ -1,0 +1,26 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+<style name="Theme.LauncherActivity" parent="Theme.AppCompat.Light">
+    <item name="android:windowActionBar">false</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowBackground">@color/blue</item>
+    <item name="android:windowContentTransitions" tools:targetApi="21">true</item>
+  </style>
+
+  <style name="Theme.SplashScreenActivity" parent="Theme.AppCompat.Light">
+    <item name="android:windowActionBar">false</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowBackground">@color/blue</item>
+  <item name="android:windowIsTranslucent">true</item>
+</style>
+<style name="WebappSplashScreenText" parent="android:TextAppearance">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+<style name="WebappSplashScreenTextTheme">
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textAppearance">@style/WebappSplashScreenText</item>
+    </style>
+</resources>
