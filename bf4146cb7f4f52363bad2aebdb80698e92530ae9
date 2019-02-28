@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "820569c3_a08d8fd3",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-02-28T18:53:02Z",
+      "side": 1,
+      "message": "With one more optional parameter the \"telescoping\" methods would become messy. It\u0027s time to convert to a Builder.",
+      "revId": "bf4146cb7f4f52363bad2aebdb80698e92530ae9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa7c0438_932b368e",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivityMetadata.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-02-28T18:53:02Z",
+      "side": 1,
+      "message": "LauncherActivity is becoming messy. Factoring out the growing metadata code helps a bit.",
+      "revId": "bf4146cb7f4f52363bad2aebdb80698e92530ae9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afc71524_43d132f4",
+        "filename": "customtabs/src/android/support/customtabs/trusted/StatusAndNavBarUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-02-28T18:53:02Z",
+      "side": 1,
+      "message": "This came from Chrome (ColorUtils#shouldUseLightForegroundOnBackground), with a bit of clean up. It seems the best option to copy paste it, until we have a api that sets this explicitly.",
+      "revId": "bf4146cb7f4f52363bad2aebdb80698e92530ae9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
