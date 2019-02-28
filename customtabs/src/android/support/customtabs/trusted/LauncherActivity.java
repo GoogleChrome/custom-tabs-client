@@ -14,23 +14,25 @@
 
 package android.support.customtabs.trusted;
 
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+
+import android.annotation.TargetApi;
 import android.content.ComponentName;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsCallback;
 import android.support.customtabs.CustomTabsClient;
-import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.TrustedWebUtils;
+import android.support.customtabs.TrustedWebUtils.TrustedWebActivityBuilder;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * A convenience class to make using Trusted Web Activities easier. You can extend this class for
@@ -53,18 +55,22 @@ import android.util.Log;
  * If you just want default behaviour your Trusted Web Activity client app doesn't even need any
  * Java code - you just set everything up in the Android Manifest!
  *
- * At the moment this only works with Chrome Dev, Beta and local builds (launch progress [3]).
+ * This activity also supports showing a splash screen while the Trusted Web Activity provider is
+ * warming up and is loading the page in Trusted Web Activity. This is supported in Chrome 74+,
+ * and requires Lollipop or above.
+ *
+ * To set up splash screens provide the id of the Drawable to use as a splash screen in
+ * android.support.customtabs.trusted.SPLASH_SCREEN_DRAWABLE_ID metadata.
+ *
+ * Note: despite the opaque splash screen, LauncherActivity should still have a transparent style.
+ * That way it can gracefully fall back to being a transparent "trampoline" activity, if splash
+ * screens are not supported.
  *
  * [1] https://developers.google.com/digital-asset-links/v1/getting-started
  * [2] https://www.chromium.org/developers/how-tos/run-chromium-with-flags#TOC-Setting-Flags-for-Chrome-on-Android
- * [3] https://www.chromestatus.com/feature/4857483210260480
  */
 public class LauncherActivity extends AppCompatActivity {
     private static final String TAG = "LauncherActivity";
-    private static final String METADATA_DEFAULT_URL =
-            "android.support.customtabs.trusted.DEFAULT_URL";
-    private static final String METADATA_STATUS_BAR_COLOR =
-            "android.support.customtabs.trusted.STATUS_BAR_COLOR";
 
     private static final String TWA_WAS_LAUNCHED_KEY =
             "android.support.customtabs.trusted.TWA_WAS_LAUNCHED_KEY";
@@ -73,20 +79,23 @@ public class LauncherActivity extends AppCompatActivity {
 
     @Nullable private TwaCustomTabsServiceConnection mServiceConnection;
 
-    @Nullable private String mDefaultUrl;
-
-    private int mStatusBarColor;
+    private LauncherActivityMetadata mMetadata;
 
     private boolean mTwaWasLaunched;
 
+    @Nullable
+    private View mSplashScreenView;
+
     private String mCustomTabsProviderPackage;
+
+    private boolean mEnterAnimationFinished;
+
+    @Nullable
+    private Runnable mOnEnterAnimationFinishedRunnable;
 
     /** We only want to show the update prompt once per instance of this application. */
     private static boolean sChromeVersionChecked;
 
-    /**
-     * Connects to the CustomTabsService.
-     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,27 +120,70 @@ public class LauncherActivity extends AppCompatActivity {
             return;
         }
 
-        parseMetadata();
+        mMetadata = LauncherActivityMetadata.parse(this);
+
+        if (shouldShowSplashScreen()) {
+            mSplashScreenView = showSplashScreen();
+            customizeStatusAndNavBarDuringSplashScreen();
+        }
 
         mServiceConnection = new TwaCustomTabsServiceConnection();
         CustomTabsClient.bindCustomTabsService(
                 this, mCustomTabsProviderPackage, mServiceConnection);
     }
 
-    private void parseMetadata() {
-        try {
-            Bundle metaData = getPackageManager().getActivityInfo(
-                    new ComponentName(this, getClass()), PackageManager.GET_META_DATA).metaData;
-            if (metaData == null) {
-                return;
-            }
-            mDefaultUrl = metaData.getString(METADATA_DEFAULT_URL);
-            mStatusBarColor = ContextCompat.getColor(
-                    this, metaData.getInt(METADATA_STATUS_BAR_COLOR, android.R.color.white));
-        } catch (PackageManager.NameNotFoundException e) {
-            // Will only happen if the package provided (the one we are running in) is not
-            // installed - so should never happen.
+    @Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
+        mEnterAnimationFinished = true;
+        if (mOnEnterAnimationFinishedRunnable != null) {
+            mOnEnterAnimationFinishedRunnable.run();
+            mOnEnterAnimationFinishedRunnable = null;
         }
+    }
+
+    private boolean shouldShowSplashScreen() {
+        // Splash screen was not requested.
+        if (mMetadata.splashScreenDrawableId == 0) return false;
+
+        // If this activity isn't task root, then a TWA is already running, and we're passing a new
+        // intent into it. Don't show splash screen in this case.
+        if (!isTaskRoot()) return false;
+
+        return TrustedWebUtils.splashScreensAreSupported(this, mCustomTabsProviderPackage);
+    }
+
+    /**
+     * Splash screen is shown both before the Trusted Web Activity is launched - in this activity,
+     * and for some time after that - in browser, on top of web page being loaded.
+     * This method shows the splash screen in the LauncherActivity. Override to customize the
+     * splash screen view.
+     * @return {@link View} that displays the splash screen (this view will be transferred to the
+     * browser in a shared element transition).
+     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    protected View showSplashScreen() {
+        View view = new View(this);
+        view.setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT,  MATCH_PARENT));
+        view.setBackgroundResource(mMetadata.splashScreenDrawableId);
+        setContentView(view);
+        return view;
+    }
+
+    /**
+     * This method sets the colors of status and navigation bar to match the ones seen after the
+     * splash screen is transferred to the browser. Override to customize these colors.
+     */
+    protected void customizeStatusAndNavBarDuringSplashScreen() {
+        int statusBarColor = getColorCompat(mMetadata.statusBarColorId);
+        StatusAndNavBarUtils.setStatusBarColor(this, statusBarColor);
+
+        // Custom tabs may in future support customizing status bar icon color and nav bar color.
+        // For now, we apply the colors Chrome uses.
+        if (StatusAndNavBarUtils.shouldUseDarkStatusBarIcons(statusBarColor)) {
+            StatusAndNavBarUtils.setDarkStatusBarIcons(this);
+        }
+        StatusAndNavBarUtils.setNavigationBarColor(this, getColorCompat(android.R.color.white));
     }
 
     @Override
@@ -173,17 +225,6 @@ public class LauncherActivity extends AppCompatActivity {
     }
 
     /**
-     * Creates a {@link CustomTabsIntent} to launch the Trusted Web Activity.
-     * By default, Trusted Web Activity will be launched in the same Android Task.
-     * Override this if you want any special launching behaviour.
-     */
-    protected CustomTabsIntent getCustomTabsIntent(CustomTabsSession session) {
-        return new CustomTabsIntent.Builder(session)
-                .setToolbarColor(mStatusBarColor)
-                .build();
-    }
-
-    /**
      * Returns the URL that the Trusted Web Activity should be launched to. By default this
      * implementation checks to see if the Activity was launched with an Intent with data, if so
      * attempt to launch to that URL. If not, read the
@@ -198,12 +239,16 @@ public class LauncherActivity extends AppCompatActivity {
             return uri;
         }
 
-        if (mDefaultUrl != null) {
-            Log.d(TAG, "Using URL from Manifest (" + mDefaultUrl + ").");
-            return Uri.parse(mDefaultUrl);
+        if (mMetadata.defaultUrl != null) {
+            Log.d(TAG, "Using URL from Manifest (" + mMetadata.defaultUrl + ").");
+            return Uri.parse(mMetadata.defaultUrl);
         }
 
         return Uri.parse("https://www.example.com/");
+    }
+
+    private int getColorCompat(int resourceId) {
+        return ContextCompat.getColor(this, resourceId);
     }
 
     private class TwaCustomTabsServiceConnection extends CustomTabsServiceConnection {
@@ -216,11 +261,18 @@ public class LauncherActivity extends AppCompatActivity {
             }
 
             CustomTabsSession session = getSession(client);
-            CustomTabsIntent intent = getCustomTabsIntent(session);
-            Uri url = getLaunchingUrl();
+            TrustedWebActivityBuilder builder =
+                    new TrustedWebActivityBuilder(LauncherActivity.this, session, getLaunchingUrl())
+                            .setStatusBarColor(getColorCompat(mMetadata.statusBarColorId))
+                            .setSplashScreen(mSplashScreenView);
 
             Log.d(TAG, "Launching Trusted Web Activity.");
-            TrustedWebUtils.launchAsTrustedWebActivity(LauncherActivity.this, intent, url);
+            if (mSplashScreenView == null || mEnterAnimationFinished) {
+                builder.launchActivity();
+            } else {
+                // Need to wait for enter animation to finish, otherwise the transition will break.
+                mOnEnterAnimationFinishedRunnable = builder::launchActivity;
+            }
 
             // Remember who we connect to as the package that is allowed to delegate notifications
             // to us.
@@ -231,13 +283,5 @@ public class LauncherActivity extends AppCompatActivity {
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) { }
-    }
-
-    private void finishAndRemoveTaskCompat() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            finishAndRemoveTask();
-        } else {
-            finish();
-        }
     }
 }
