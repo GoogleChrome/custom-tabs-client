@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8906010_bdcda195",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2019-03-01T12:33:45Z",
+      "side": 1,
+      "message": "Sorry, just saw that.\n\nThis is probably quite bad latency-wise, as this triggers synchronous startup. From the commit message, we don\u0027t have that in 73 anymore, so the issue would only be in 72, right?",
+      "revId": "48b80b05b7d1e8df09be39f5a31f82c429886a7b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
