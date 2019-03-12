@@ -48,6 +48,13 @@ public abstract class CustomTabsService extends Service {
             "android.support.customtabs.action.CustomTabsService";
 
     /**
+     * An Intent filter category to signify that the Custom Tabs provider supports Trusted Web
+     * Activities.
+     */
+    public final static String TRUSTED_WEB_ACTIVITY_CATEGORY =
+            "androidx.browser.trusted.category.TrustedWebActivities";
+
+    /**
      * For {@link CustomTabsService#mayLaunchUrl} calls that wants to specify more than one url,
      * this key can be used with {@link Bundle#putParcelable(String, android.os.Parcelable)}
      * to insert a new url to each bundle inside list of bundles.

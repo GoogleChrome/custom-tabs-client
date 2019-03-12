@@ -15,11 +15,8 @@
 package android.support.customtabs.trusted;
 
 import android.content.ComponentName;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsCallback;
@@ -77,7 +74,7 @@ public class LauncherActivity extends AppCompatActivity {
 
     private int mStatusBarColor;
 
-    private boolean mTwaWasLaunched;
+    private boolean mActivityWasLaunched;
 
     private String mCustomTabsProviderPackage;
 
@@ -90,14 +87,31 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCustomTabsProviderPackage = CustomTabsClient.getPackageName(this,
-                TrustedWebUtils.SUPPORTED_CHROME_PACKAGES, false);
 
-        if (mCustomTabsProviderPackage == null) {
-            TrustedWebUtils.showNoPackageToast(this);
-            finish();
+        TwaProviderPicker.Action action = TwaProviderPicker.pickProvider(getPackageManager());
+
+        // TODO(peconn): Separate logic for different launch strategies (Browser vs Custom Tab vs
+        // TWA) into different classes.
+        if (action.launchMode != TwaProviderPicker.TRUSTED_WEB_ACTIVITY) {
+            parseMetadata();
+
+            // CustomTabsIntent will fall back to launching the Browser if there are no Custom Tabs
+            // providers installed.
+            CustomTabsIntent intent = new CustomTabsIntent.Builder()
+                    .setToolbarColor(mStatusBarColor)
+                    .build();
+
+            if (action.provider != null) {
+                intent.intent.setPackage(action.provider);
+            }
+
+            intent.launchUrl(this, getLaunchingUrl());
+
+            mActivityWasLaunched = true;
             return;
         }
+
+        mCustomTabsProviderPackage = action.provider;
 
         if (!sChromeVersionChecked) {
             TrustedWebUtils.promptForChromeUpdateIfNeeded(this, mCustomTabsProviderPackage);
@@ -137,7 +151,7 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (mTwaWasLaunched) {
+        if (mActivityWasLaunched) {
             finish(); // The user closed the Trusted Web Activity and ended up here.
         }
     }
@@ -153,7 +167,7 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(TWA_WAS_LAUNCHED_KEY, mTwaWasLaunched);
+        outState.putBoolean(TWA_WAS_LAUNCHED_KEY, mActivityWasLaunched);
     }
 
     /**
@@ -226,18 +240,10 @@ public class LauncherActivity extends AppCompatActivity {
             // to us.
             TrustedWebActivityService.setVerifiedProvider(
                     LauncherActivity.this, mCustomTabsProviderPackage);
-            mTwaWasLaunched = true;
+            mActivityWasLaunched = true;
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) { }
-    }
-
-    private void finishAndRemoveTaskCompat() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            finishAndRemoveTask();
-        } else {
-            finish();
-        }
     }
 }
