@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "58269d25_99b728ae",
+        "filename": "customtabs/junit/src/android/support/customtabs/trusted/TwaProviderPickerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-12T12:04:07Z",
+      "side": 1,
+      "message": "Might be useful to add a test for Chrome \u003c 72.",
+      "revId": "427f292961c1c7ad99257e79a700e47294005ce5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3c607cd_59371450",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-12T12:04:07Z",
+      "side": 1,
+      "message": "Should this block be in the beginning? I think we don\u0027t want to re-launch a normal CCT in this case.\nparseMetadata() can also be moved up.",
+      "revId": "427f292961c1c7ad99257e79a700e47294005ce5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afd55a00_c9a49541",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-12T12:04:07Z",
+      "side": 1,
+      "message": "nit1: mActivityWasLaunched - can be confusing which activity. Maybe mBrowserWasLaunched?\nnit2: please rename TWA_WAS_LAUNCHED_KEY accordingly.",
+      "revId": "427f292961c1c7ad99257e79a700e47294005ce5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "371e3199_5521fae5",
         "filename": "customtabs/src/android/support/customtabs/trusted/TwaProviderPicker.java",
         "patchSetId": 2
@@ -42,6 +93,23 @@
         "endLine": 67,
         "endChar": 24
       },
+      "revId": "427f292961c1c7ad99257e79a700e47294005ce5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10960698_b966e0b7",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TwaProviderPicker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-12T12:04:07Z",
+      "side": 1,
+      "message": "Is it possible to retrieve all resolveInfos with one packageManager query?\nI suspect it might be not possible with Services, but it should be possible with activities: pm.queryIntentActivities. In that case, we might want to assign feature-declaring categories to activities instead of services.",
       "revId": "427f292961c1c7ad99257e79a700e47294005ce5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
