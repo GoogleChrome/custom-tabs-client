@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "690549e3_4a13625f",
+        "filename": "customtabs/junit/src/android/support/customtabs/trusted/TwaProviderPickerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-03-12T13:09:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58269d25_99b728ae",
+      "revId": "427f292961c1c7ad99257e79a700e47294005ce5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3c607cd_59371450",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 2
@@ -76,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "6e0361c2_fb5be2c5",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TwaProviderPicker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-03-12T13:09:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "371e3199_5521fae5",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 53
+      },
+      "revId": "427f292961c1c7ad99257e79a700e47294005ce5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46a48a7e_3f68cc85",
         "filename": "customtabs/src/android/support/customtabs/trusted/TwaProviderPicker.java",
         "patchSetId": 2
@@ -99,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "0295c37d_e0c7cd01",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TwaProviderPicker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-03-12T13:09:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46a48a7e_3f68cc85",
+      "range": {
+        "startLine": 67,
+        "startChar": 12,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "427f292961c1c7ad99257e79a700e47294005ce5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10960698_b966e0b7",
         "filename": "customtabs/src/android/support/customtabs/trusted/TwaProviderPicker.java",
         "patchSetId": 2
@@ -110,6 +176,24 @@
       "writtenOn": "2019-03-12T12:04:07Z",
       "side": 1,
       "message": "Is it possible to retrieve all resolveInfos with one packageManager query?\nI suspect it might be not possible with Services, but it should be possible with activities: pm.queryIntentActivities. In that case, we might want to assign feature-declaring categories to activities instead of services.",
+      "revId": "427f292961c1c7ad99257e79a700e47294005ce5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08326002_78defbf3",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TwaProviderPicker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-03-12T13:09:02Z",
+      "side": 1,
+      "message": "So I think in the common case performance shouldn\u0027t be too much of a problem since we *should* hit a TWA provider near the start of the list and then shortcut from there.\n\nAdditionally, we would still need to check for the CustomTabsService (so we don\u0027t get screwed over by a provider that declares the TRUSTED_WEB_ACTIVITY_CATEGORY on its Activity but doesn\u0027t include a Custom Tabs Service), so we would still need to do a resolveService call for every candidate (until we find a TWA provider).\n\nSo the difference between the approaches is:\n\nCurrent approach:\n- Get all Activities.\n- For each Activity:\n  - Check the package has a Service.\n  - Check if Service has a category.\n\nSuggested approach:\n- Get all Activities.\n- For each Activity:\n  - Check if Activity has a category.  \n  - Check the package has a Service.\n\nWe will still need to check if each package has a Service even if the Activity doesn\u0027t display TWA support to know whether it has Custom Tabs support.\n\nI guess we could do just one service lookup without specifying the package and then manually match the Service ResolveInfos and Activity ResolveInfos.",
+      "parentUuid": "10960698_b966e0b7",
       "revId": "427f292961c1c7ad99257e79a700e47294005ce5",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
