@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "371e3199_5521fae5",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TwaProviderPicker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1115980
+      },
+      "writtenOn": "2019-03-12T11:34:57Z",
+      "side": 1,
+      "message": "nit: I think it\u0027s a bit neater to move these inside the LaunchMode interface, like here:\nhttps://cs.chromium.org/chromium/src/base/android/java/src/org/chromium/base/Promise.java?q\u003d@IntDef",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 53
+      },
+      "revId": "427f292961c1c7ad99257e79a700e47294005ce5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46a48a7e_3f68cc85",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TwaProviderPicker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1115980
+      },
+      "writtenOn": "2019-03-12T11:34:57Z",
+      "side": 1,
+      "message": "\"The provider package name\"?",
+      "range": {
+        "startLine": 67,
+        "startChar": 12,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "427f292961c1c7ad99257e79a700e47294005ce5",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
