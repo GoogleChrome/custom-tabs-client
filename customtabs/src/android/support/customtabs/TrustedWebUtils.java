@@ -210,7 +210,9 @@ public class TrustedWebUtils {
      */
     public static void promptForChromeUpdateIfNeeded(Context context, String chromePackage) {
         if (!TrustedWebUtils.VERSION_CHECK_CHROME_PACKAGES.contains(chromePackage)) return;
-        if (!chromeNeedsUpdate(context, chromePackage)) return;
+        if (!chromeNeedsUpdate(context.getPackageManager(), chromePackage)) {
+            return;
+        }
 
         showToastIfResourceExists(context, UPDATE_CHROME_MESSAGE_RESOURCE_ID);
     }
@@ -236,12 +238,13 @@ public class TrustedWebUtils {
         if (!SUPPORTED_CHROME_PACKAGES.contains(packageName)) {
             return false;
         }
-        return getVersionCode(context, packageName) < NO_PREWARM_CHROME_VERSION_CODE;
+        return getVersionCode(context.getPackageManager(), packageName)
+                < NO_PREWARM_CHROME_VERSION_CODE;
     }
 
-    private static int getVersionCode(Context context, String packageName) {
+    private static int getVersionCode(PackageManager pm, String packageName) {
         try {
-            return context.getPackageManager().getPackageInfo(packageName, 0).versionCode;
+            return pm.getPackageInfo(packageName, 0).versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             return 0;
         }
@@ -255,8 +258,8 @@ public class TrustedWebUtils {
         Toast.makeText(context, stringId, Toast.LENGTH_LONG).show();
     }
 
-    private static boolean chromeNeedsUpdate(Context context, String chromePackage) {
-        int versionCode = getVersionCode(context, chromePackage);
+    public static boolean chromeNeedsUpdate(PackageManager pm, String chromePackage) {
+        int versionCode = getVersionCode(pm, chromePackage);
         if (versionCode == 0) {
             // Do nothing - the user doesn't get prompted to update, but falling back to Custom
             // Tabs should still work.

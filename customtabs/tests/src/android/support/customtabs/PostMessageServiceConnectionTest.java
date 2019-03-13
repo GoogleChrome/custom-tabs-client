@@ -60,7 +60,7 @@ public class PostMessageServiceConnectionTest {
         mCallback = new TestCustomTabsCallback();
         mContext = mActivityTestRule.getActivity();
         mConnection = new PostMessageServiceConnection(
-                new CustomTabsSessionToken(mCallback.getStub())) {
+                new CustomTabsSessionToken(mCallback.getStub(), null)) {
             public void onPostMessageServiceConnected() {
                 mServiceConnected = true;
             }
