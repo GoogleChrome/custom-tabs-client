@@ -106,7 +106,7 @@ public class PostMessageTest {
             }
         };
         mPostMessageServiceConnection = new PostMessageServiceConnection(
-                new CustomTabsSessionToken(mCallback.getStub())) {
+                new CustomTabsSessionToken(mCallback.getStub(), null)) {
             @Override
             public void onPostMessageServiceConnected() {
                 mPostMessageServiceConnected = true;
