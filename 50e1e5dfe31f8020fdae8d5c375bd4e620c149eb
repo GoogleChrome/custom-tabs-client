@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa9a056c_a7992105",
+        "filename": "customtabs/junit/src/android/support/customtabs/trusted/TwaProviderPickerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1115980
+      },
+      "writtenOn": "2019-03-13T12:38:53Z",
+      "side": 1,
+      "message": "Copyright statement?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 43
+      },
+      "revId": "50e1e5dfe31f8020fdae8d5c375bd4e620c149eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15751d3e_911dadf1",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TwaProviderPicker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1115980
+      },
+      "writtenOn": "2019-03-13T12:38:53Z",
+      "side": 1,
+      "message": "Copyright statement?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 43
+      },
+      "revId": "50e1e5dfe31f8020fdae8d5c375bd4e620c149eb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
