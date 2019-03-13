@@ -6,13 +6,17 @@ dependencies {
     compile 'com.android.support:appcompat-v7:27.0.2'
     compile 'com.android.support:support-core-ui:27.0.2'
 
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-all:1.9.5'
+    testCompile 'org.robolectric:robolectric:4.0.1'
+
     androidTestCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test:runner:1.0.1'
     androidTestCompile 'com.android.support.test:rules:1.0.1'
 }
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     buildToolsVersion '26.0.2'
 
     defaultConfig {
@@ -26,6 +30,9 @@ android {
         main.res.srcDir 'res'
         main.assets.srcDir 'assets'
         main.resources.srcDir 'java'
+
+        test.setRoot('junit')
+        test.java.srcDir('junit/src/')
 
         androidTest.setRoot('tests')
         androidTest.java.srcDir('tests/src/')
