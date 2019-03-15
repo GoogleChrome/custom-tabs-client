@@ -16,18 +16,24 @@
 
 package android.support.customtabs;
 
+import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
+
 import android.app.PendingIntent;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.BundleCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -112,65 +118,38 @@ public class TrustedWebUtils {
      * Boolean extra that triggers a {@link CustomTabsIntent} launch to be in a fullscreen UI with
      * no browser controls.
      *
-     * @see TrustedWebUtils#launchAsTrustedWebActivity
+     * @see TrustedWebActivityBuilder#launchActivity
      */
     public static final String EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY =
             "android.support.customtabs.extra.LAUNCH_AS_TRUSTED_WEB_ACTIVITY";
 
+    /**
+     * @see TrustedWebActivityBuilder#setAdditionalTrustedOrigins
+     */
     public static final String EXTRA_ADDITIONAL_TRUSTED_ORIGINS =
             "android.support.customtabs.extra.ADDITIONAL_TRUSTED_ORIGINS";
+
+    /**
+     * Extra that stores the {@link Bundle} of splash screen parameters.
+     */
+    public static final String EXTRA_SPLASH_SCREEN_PARAMS =
+            "android.support.customtabs.trusted.EXTRA_SPLASH_SCREEN_PARAMS";
+
+    /**
+     * The key for background color of the splash screen.
+     */
+    public static final String KEY_SPLASH_SCREEN_BACKGROUND_COLOR =
+            "android.support.customtabs.trusted.KEY_SPLASH_SCREEN_BACKGROUND_COLOR";
 
     public static final String ACTION_MANAGE_TRUSTED_WEB_ACTIVITY_DATA =
             "android.support.customtabs.action.ACTION_MANAGE_TRUSTED_WEB_ACTIVITY_DATA";
 
+    private static final String SERVICE_METADATA_SPLASH_SCREEN_TYPE =
+            "androidx.browser.trusted.metadata.TrustedWebActivitySplashScreensType";
+
+    private static final String SPLASH_SCREEN_TYPE_FILE_PROVIDER = "FileProvider";
+
     private TrustedWebUtils() {}
-
-    /**
-     * Launches the given {@link CustomTabsIntent} as a Trusted Web Activity. Once the Trusted Web
-     * Activity is launched, browser side implementations may have their own fallback behavior (e.g.
-     * Showing the page in a custom tab UI with toolbar) based on qualifications listed above or
-     * more.
-     *
-     * @param context {@link Context} to use while launching the {@link CustomTabsIntent}.
-     * @param intent The {@link CustomTabsIntent} to use for launching the Trusted Web Activity.
-     *               Note that all customizations in the given associated with browser toolbar
-     *               controls will be ignored.
-     * @param uri The web page to launch as Trusted Web Activity.
-     */
-    public static void launchAsTrustedWebActivity(Context context, CustomTabsIntent intent,
-            Uri uri) {
-        launchAsTrustedWebActivity(context, intent, uri, null);
-    }
-
-    /**
-     * As {@link #launchAsTrustedWebActivity(Context, CustomTabsIntent, Uri)},
-     * but allows to specify a list of additional trusted origins that the user may navigate or be
-     * redirected to from the starting uri.
-     *
-     * For example, if the user starts at https://www.example.com/page1 and is redirected to
-     * https://m.example.com/page2, and both origins are associated with the calling application via
-     * the Digital Asset Links, then pass "https://www.example.com/page1" as uri and  Arrays.asList(
-     * "https://m.example.com") as additionalTrustedOrigins.
-     *
-     * Alternatively, use {@link CustomTabsSession#validateRelationship} to validate additional
-     * origins asynchronously, but that would delay launching the Trusted Web Activity.
-     *
-     * Note: additionalTrustedOrigins parameter will have effect only for Chrome version 74 and up.
-     * For older versions please use {@link CustomTabsSession#validateRelationship}.
-     */
-    public static void launchAsTrustedWebActivity(Context context, CustomTabsIntent intent, Uri uri,
-            @Nullable List<String> additionalTrustedOrigins) {
-        if (!intent.intent.hasExtra(CustomTabsIntent.EXTRA_SESSION)) {
-            throw new IllegalArgumentException("The CustomTabsIntent should be associated with a "
-                    + "CustomTabsSession");
-        }
-        intent.intent.putExtra(EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY, true);
-        if (additionalTrustedOrigins != null) {
-            intent.intent.putExtra(EXTRA_ADDITIONAL_TRUSTED_ORIGINS,
-                    new ArrayList<>(additionalTrustedOrigins));
-        }
-        intent.launchUrl(context, uri);
-    }
 
     /**
      * Open the site settings for given url in the web browser. The url must belong to the origin
@@ -242,6 +221,50 @@ public class TrustedWebUtils {
                 < NO_PREWARM_CHROME_VERSION_CODE;
     }
 
+    /**
+     * @return Whether the splash screens feature is supported by the given package.
+     * Note: you can call this method prior to connecting to a {@link CustomTabsService}. This way,
+     * if true is returned, the splash screen can be shown as soon as possible.
+     *
+     * TODO(pshmakov): make TwaProviderPicker gather supported features, including splash screens,
+     * to avoid extra PackageManager queries.
+     */
+    public static boolean splashScreensAreSupported(Context context, String packageName) {
+        Intent serviceIntent = new Intent()
+                .setAction(CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION)
+                .setPackage(packageName);
+        ResolveInfo resolveInfo =
+               context.getPackageManager().resolveService(serviceIntent,
+                       PackageManager.GET_META_DATA);
+        if (resolveInfo == null || resolveInfo.serviceInfo == null) return false;
+        Bundle metaData = resolveInfo.serviceInfo.metaData;
+        return metaData != null && SPLASH_SCREEN_TYPE_FILE_PROVIDER.equals(
+                metaData.getString(SERVICE_METADATA_SPLASH_SCREEN_TYPE));
+    }
+
+    /**
+     * Transfers the splash image to a Custom Tabs provider. The reading and decoding of the image
+     * happens synchronously, so it's recommended to call this method on a worker thread.
+     *
+     * This method should be called prior to {@link TrustedWebActivityBuilder#launchActivity}.
+     * Pass additional parameters, such as background color, using
+     * {@link TrustedWebActivityBuilder#setSplashScreenParams(Bundle)}.
+     *
+     * @param context {@link Context} to use.
+     * @param file {@link File} with the image.
+     * @param fileProviderAuthority authority of {@link FileProvider} used to generate an URI for
+     *                              the file.
+     * @param packageName Package name of Custom Tabs provider.
+     * @param session {@link CustomTabsSession} established with the Custom Tabs provider.
+     * @return {@link true} if the image was received and processed successfully.
+     */
+    public static boolean transferSplashImage(Context context, File file,
+            String fileProviderAuthority, String packageName, CustomTabsSession session) {
+        Uri uri = FileProvider.getUriForFile(context, fileProviderAuthority, file);
+        context.grantUriPermission(packageName, uri, FLAG_GRANT_READ_URI_PERMISSION);
+        return session.receiveFile(uri, CustomTabsService.FILE_PURPOSE_TWA_SPLASH_IMAGE, null);
+    }
+
     private static int getVersionCode(PackageManager pm, String packageName) {
         try {
             return pm.getPackageInfo(packageName, 0).versionCode;
@@ -266,5 +289,104 @@ public class TrustedWebUtils {
             return false;
         }
         return versionCode < SUPPORTING_CHROME_VERSION_CODE;
+    }
+
+    /**
+     * Constructs and launches an intent to start a Trusted Web Activity.
+     */
+    public static class TrustedWebActivityBuilder {
+        private final Context mContext;
+        private final CustomTabsIntent.Builder mIntentBuilder;
+        private final Uri mUri;
+
+        @Nullable
+        private List<String> mAdditionalTrustedOrigins;
+
+        @Nullable
+        private Bundle mSplashScreenParams;
+
+        /**
+         * Creates a Builder given the required parameters.
+         * @param context {@link Context} to use.
+         * @param session The {@link CustomTabsSession} to use for launching a Trusted Web Activity.
+         * @param uri The web page to launch as Trusted Web Activity.
+         */
+        public TrustedWebActivityBuilder(Context context, CustomTabsSession session, Uri uri) {
+            mContext = context;
+            mIntentBuilder = new CustomTabsIntent.Builder(session);
+            mUri = uri;
+        }
+
+        /**
+         * Sets the status bar color to be seen while the Trusted Web Activity is running.
+         */
+        public TrustedWebActivityBuilder setStatusBarColor(int color) {
+            mIntentBuilder.setToolbarColor(color); // Toolbar color applies also to the status bar.
+            return this;
+        }
+
+        /**
+         * Sets a list of additional trusted origins that the user may navigate or be redirected to
+         * from the starting uri.
+         *
+         * For example, if the user starts at https://www.example.com/page1 and is redirected to
+         * https://m.example.com/page2, and both origins are associated with the calling application
+         * via the Digital Asset Links, then pass "https://www.example.com/page1" as uri and
+         * Arrays.asList("https://m.example.com") as additionalTrustedOrigins.
+         *
+         * Alternatively, use {@link CustomTabsSession#validateRelationship} to validate additional
+         * origins asynchronously, but that would delay launching the Trusted Web Activity.
+         *
+         * Note: Chrome supports additionalTrustedOrigins only in version 74 and up.
+         * For older versions please use {@link CustomTabsSession#validateRelationship}.
+         */
+        public TrustedWebActivityBuilder setAdditionalTrustedOrigins(List<String> origins) {
+            mAdditionalTrustedOrigins = origins;
+            return this;
+        }
+
+        /**
+         * Sets the parameters of a splash screen shown while the web page is loading, such as
+         * background color. If {@link #splashScreensAreSupported} returns false,
+         * this method should have no effect.
+         *
+         * To provide the image for the splash screen, use {@link #transferSplashImage}, prior to
+         * calling {@link #launchActivity} on the builder.
+         *
+         * It is recommended to also show the same splash screen in the app as soon as possible,
+         * prior to establishing a CustomTabConnection. The Trusted Web Activity provider should
+         * ensure seamless transition of the splash screen from the app onto the top of webpage
+         * being loaded.
+         *
+         * The splash screen will be removed on the first paint of the page, or when the page load
+         * fails.
+         */
+        public TrustedWebActivityBuilder setSplashScreenParams(Bundle splashScreenParams) {
+            mSplashScreenParams = splashScreenParams;
+            return this;
+        }
+
+        /**
+         * Launches a Trusted Web Activity. Once it is launched, browser side implementations may
+         * have their own fallback behavior (e.g. showing the page in a custom tab UI with toolbar).
+         */
+        public void launchActivity() {
+            Intent intent = mIntentBuilder.build().intent;
+            if (!intent.hasExtra(CustomTabsIntent.EXTRA_SESSION)) {
+                throw new IllegalArgumentException(
+                        "The CustomTabsIntent should be associated with a CustomTabsSession");
+            }
+            intent.setData(mUri);
+            intent.putExtra(EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY, true);
+            if (mAdditionalTrustedOrigins != null) {
+                intent.putExtra(EXTRA_ADDITIONAL_TRUSTED_ORIGINS,
+                        new ArrayList<>(mAdditionalTrustedOrigins));
+            }
+
+            if (mSplashScreenParams != null) {
+                intent.putExtra(EXTRA_SPLASH_SCREEN_PARAMS, mSplashScreenParams);
+            }
+            ContextCompat.startActivity(mContext, intent, null);
+        }
     }
 }

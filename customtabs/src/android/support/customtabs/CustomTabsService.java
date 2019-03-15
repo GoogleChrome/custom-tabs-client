@@ -25,6 +25,7 @@ import android.os.IBinder;
 import android.os.IBinder.DeathRecipient;
 import android.os.RemoteException;
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
 
@@ -103,6 +104,14 @@ public abstract class CustomTabsService extends Service {
      * ability to handle all URLs from a given origin.
      */
     public static final int RELATION_HANDLE_ALL_URLS = 2;
+
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({FILE_PURPOSE_TWA_SPLASH_IMAGE})
+    public @interface FilePurpose {
+    }
+
+    public static final int FILE_PURPOSE_TWA_SPLASH_IMAGE = 1;
 
     private final Map<IBinder, DeathRecipient> mDeathRecipientMap = new ArrayMap<>();
 
@@ -185,6 +194,14 @@ public abstract class CustomTabsService extends Service {
             return CustomTabsService.this.validateRelationship(
                     new CustomTabsSessionToken(callback, getSessionIdFromBundle(extras)),
                     relation, origin, extras);
+        }
+
+        @Override
+        public boolean receiveFile(ICustomTabsCallback callback, @NonNull Uri uri,
+                @FilePurpose int purpose, @Nullable Bundle extras) {
+            return CustomTabsService.this.receiveFile(
+                    new CustomTabsSessionToken(callback, getSessionIdFromBundle(extras)),
+                    uri, purpose, extras);
         }
 
         private @Nullable PendingIntent getSessionIdFromBundle(@Nullable Bundle bundle) {
@@ -344,4 +361,24 @@ public abstract class CustomTabsService extends Service {
     protected abstract boolean validateRelationship(
             CustomTabsSessionToken sessionToken, @Relation int relation, Uri origin,
             Bundle extras);
+
+
+    /**
+     * Receive a file from client by given Uri, e.g. in order to display a large bitmap in a Custom
+     * Tab.
+     *
+     * Prior to calling this method, the client grants a read permission to the target
+     * Custom Tabs provider via {@link android.content.Context#grantUriPermission}.
+     *
+     * The file is read and processed (where applicable) synchronously.
+     *
+     * @param sessionToken The unique identifier for the session.
+     * @param uri {@link Uri} of the file.
+     * @param purpose Purpose of transferring this file, one of the constants enumerated in
+     *                {@code CustomTabsService#FilePurpose}.
+     * @param extras Reserved for future use.
+     * @return {@code true} if the file was received successfully.
+     */
+    protected abstract boolean receiveFile(@NonNull CustomTabsSessionToken sessionToken,
+            @NonNull Uri uri, @FilePurpose int purpose, @Nullable Bundle extras);
 }
