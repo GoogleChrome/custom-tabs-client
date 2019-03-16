@@ -138,8 +138,7 @@ public class LauncherActivity extends AppCompatActivity {
                 return;
             }
             mDefaultUrl = metaData.getString(METADATA_DEFAULT_URL);
-            mStatusBarColor = ContextCompat.getColor(
-                    this, metaData.getInt(METADATA_STATUS_BAR_COLOR, android.R.color.white));
+            mStatusBarColor = metaData.getInt(METADATA_STATUS_BAR_COLOR, android.R.color.white);
         } catch (PackageManager.NameNotFoundException e) {
             // Will only happen if the package provided (the one we are running in) is not
             // installed - so should never happen.
