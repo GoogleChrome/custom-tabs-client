@@ -88,7 +88,10 @@ public class PostMessageServiceConnection implements PostMessageBackend, Service
      * @param context The context to be unbound from.
      */
     public void unbindFromContext(Context context) {
-        if (isBoundToService()) context.unbindService(this);
+        if (isBoundToService()) {
+            context.unbindService(this);
+            mService = null;
+        }
     }
 
     @Override
