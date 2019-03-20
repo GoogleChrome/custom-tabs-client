@@ -65,7 +65,6 @@ public class PostMessageTest {
         mServiceRule = new ServiceTestRule();
     }
 
-
     @Before
     public void setup() {
         // Bind to PostMessageService only after CustomTabsService sends the callback to do so. This
@@ -75,18 +74,15 @@ public class PostMessageTest {
             public void extraCallback(String callbackName, Bundle args) {
                 if (TestCustomTabsService.CALLBACK_BIND_TO_POST_MESSAGE.equals(callbackName)) {
                     // This gets run on the UI thread, where mServiceRule.bindService will not work.
-                    AsyncTask.THREAD_POOL_EXECUTOR.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Intent postMessageServiceIntent = new Intent();
-                                postMessageServiceIntent.setClassName(mContext.getPackageName(),
-                                        PostMessageService.class.getName());
-                                mServiceRule.bindService(postMessageServiceIntent,
-                                        mPostMessageServiceConnection, Context.BIND_AUTO_CREATE);
-                            } catch (TimeoutException e) {
-                                fail();
-                            }
+                    AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
+                        try {
+                            Intent postMessageServiceIntent = new Intent();
+                            postMessageServiceIntent.setClassName(mContext.getPackageName(),
+                                    PostMessageService.class.getName());
+                            mServiceRule.bindService(postMessageServiceIntent,
+                                    mPostMessageServiceConnection, Context.BIND_AUTO_CREATE);
+                        } catch (TimeoutException e) {
+                            fail();
                         }
                     });
                 }
@@ -130,21 +126,11 @@ public class PostMessageTest {
 
     @Test
     public void testCustomTabsConnection() {
-        PollingCheck.waitFor(500, new PollingCheck.PollingCheckCondition() {
-            @Override
-            public boolean canProceed() {
-                return mCustomTabsServiceConnected;
-            }
-        });
+        PollingCheck.waitFor(() -> mCustomTabsServiceConnected);
         assertTrue(mCustomTabsServiceConnected);
         assertTrue(mSession.requestPostMessageChannel(Uri.EMPTY));
         assertEquals(CustomTabsService.RESULT_SUCCESS, mSession.postMessage("", null));
-        PollingCheck.waitFor(500, new PollingCheck.PollingCheckCondition() {
-            @Override
-            public boolean canProceed() {
-                return mPostMessageServiceConnected;
-            }
-        });
+        PollingCheck.waitFor(() -> mPostMessageServiceConnected);
         assertTrue(mPostMessageServiceConnected);
     }
 }
