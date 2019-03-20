@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "96c8d37e_29b09c17",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TwaProviderPicker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-20T18:07:48Z",
+      "side": 1,
+      "message": "\u003e\u003e I think I could change this to a \"restrictToPackageForTesting\" though and we can use the multiple test browsers idea.\n\nYeah, that\u0027s a good idea.",
+      "parentUuid": "992732e8_628d29c0",
+      "revId": "15bb16990071e8882431e6243271a44223d8830a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "236fafeb_1aaadad3",
         "filename": "customtabs/tests/src/android/support/customtabs/trusted/TestBrowser.java",
         "patchSetId": 2
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Sure.\n\nFWIW though, statics are how we do things in Chrome (in ApplicationStatus).",
       "parentUuid": "236fafeb_1aaadad3",
+      "revId": "15bb16990071e8882431e6243271a44223d8830a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3e44025_ca78f283",
+        "filename": "customtabs/tests/src/android/support/customtabs/trusted/TestBrowser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-20T18:07:48Z",
+      "side": 1,
+      "message": "I guess statics are more ok in instrumentation tests than in unit tests, because the whole process is restarted on each test (or is that so only with Chrome test runners? Sorry, I\u0027m not as fluent in instrumentation tests as in unit tests). But still, if the activity crashes while creating, for example, we won\u0027t catch it this way.",
+      "parentUuid": "64284bbf_40321c88",
       "revId": "15bb16990071e8882431e6243271a44223d8830a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": false
