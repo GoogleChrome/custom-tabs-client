@@ -32,6 +32,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -108,6 +109,7 @@ public class BrowserActionsFallbackMenuUiTest {
      * Test whether {@link BrowserActionsFallbackMenuUi} is inflated correctly.
      */
     @Test
+    @Ignore("Test is flaky and we're removing Browser Actions.")
     public void testBrowserActionsFallbackMenuShownCorrectly() throws InterruptedException {
         final CountDownLatch signal = new CountDownLatch(1);
         final BrowserActionsFallbackMenuUi.BrowserActionsFallMenuUiListener listener =
