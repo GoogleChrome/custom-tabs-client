@@ -62,6 +62,8 @@ import java.util.Map;
  */
 public class TwaProviderPicker {
     private static final String TAG = "TWAProviderPicker";
+    private static String sPackageNameForTesting;
+
     @IntDef({LaunchMode.TRUSTED_WEB_ACTIVITY, LaunchMode.CUSTOM_TAB, LaunchMode.BROWSER})
     @Retention(RetentionPolicy.SOURCE)
     public @interface LaunchMode {
@@ -103,6 +105,10 @@ public class TwaProviderPicker {
                 .addCategory(Intent.CATEGORY_BROWSABLE)
                 .setData(Uri.parse("http://"));
 
+        if (sPackageNameForTesting != null) {
+            queryBrowsersIntent.setPackage(sPackageNameForTesting);
+        }
+
         String bestCctProvider = null;
         String bestBrowserProvider = null;
 
@@ -140,6 +146,14 @@ public class TwaProviderPicker {
 
         Log.d(TAG, "Found no TWA providers, using first browser: " + bestBrowserProvider);
         return new Action(LaunchMode.BROWSER, bestBrowserProvider);
+    }
+
+    /**
+     * Restricts the logic to only consider providers from the given package. For use in testing.
+     * Pass in {@code null} to reset.
+     */
+    static void restrictToPackageForTesting(@Nullable String packageName) {
+        sPackageNameForTesting = packageName;
     }
 
     /** Returns a map from package name to LaunchMode for all available Custom Tabs Services. */
