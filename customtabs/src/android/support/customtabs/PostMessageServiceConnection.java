@@ -79,7 +79,7 @@ public class PostMessageServiceConnection implements PostMessageBackend, Service
         return bindSessionToPostMessageService(appContext, mPackageName);
     }
 
-    private boolean isBoundToService() {
+    boolean isBoundToService() {
         return mService != null;
     }
 

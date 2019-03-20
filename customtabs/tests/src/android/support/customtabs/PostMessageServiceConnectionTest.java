@@ -37,7 +37,6 @@ public class PostMessageServiceConnectionTest {
     private TestCustomTabsCallback mCallback;
     private Context mContext;
     private PostMessageServiceConnection mConnection;
-    private boolean mServiceConnected;
 
     @Before
     public void setup() {
@@ -45,20 +44,10 @@ public class PostMessageServiceConnectionTest {
         mContext = InstrumentationRegistry.getContext();
 
         CustomTabsSessionToken token = new CustomTabsSessionToken(mCallback.getStub(), null);
-        mConnection = new PostMessageServiceConnection(token) {
-            @Override
-            public void onPostMessageServiceConnected() {
-                mServiceConnected = true;
-            }
-
-            @Override
-            public void onPostMessageServiceDisconnected() {
-                mServiceConnected = false;
-            }
-        };
+        mConnection = new PostMessageServiceConnection(token);
 
         mConnection.bindSessionToPostMessageService(mContext, mContext.getPackageName());
-        PollingCheck.waitFor(() -> mServiceConnected);
+        PollingCheck.waitFor(() -> mConnection.isBoundToService());
     }
 
     @Test
