@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "992732e8_628d29c0",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TwaProviderPicker.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-03-20T17:57:22Z",
+      "side": 1,
+      "message": "I do like the idea of having multiple test browsers and enabling/disabling them to test that TwaProviderPicker works properly. Unfortunately though the main reason I put this in is because there are likely going to be other (much more real) browsers on the test device which we want to avoid picking.\n\nI think I could change this to a \"restrictToPackageForTesting\" though and we can use the multiple test browsers idea.",
+      "parentUuid": "29984274_0e902593",
+      "revId": "15bb16990071e8882431e6243271a44223d8830a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "236fafeb_1aaadad3",
         "filename": "customtabs/tests/src/android/support/customtabs/trusted/TestBrowser.java",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "15bb16990071e8882431e6243271a44223d8830a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64284bbf_40321c88",
+        "filename": "customtabs/tests/src/android/support/customtabs/trusted/TestBrowser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-03-20T17:57:22Z",
+      "side": 1,
+      "message": "Sure.\n\nFWIW though, statics are how we do things in Chrome (in ApplicationStatus).",
+      "parentUuid": "236fafeb_1aaadad3",
+      "revId": "15bb16990071e8882431e6243271a44223d8830a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
