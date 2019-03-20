@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.SmallTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.ServiceTestRule;
@@ -48,103 +49,54 @@ import java.util.concurrent.TimeoutException;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class PostMessageTest {
-    @Rule
-    public final ServiceTestRule mServiceRule;
-    @Rule
-    public final ActivityTestRule<TestActivity> mActivityTestRule;
     private TestCustomTabsCallback mCallback;
-    private Context mContext;
     private CustomTabsServiceConnection mCustomTabsServiceConnection;
     private PostMessageServiceConnection mPostMessageServiceConnection;
-    private boolean mCustomTabsServiceConnected;
-    private boolean mPostMessageServiceConnected;
     private CustomTabsSession mSession;
-
-    public PostMessageTest() {
-        mActivityTestRule = new ActivityTestRule<TestActivity>(TestActivity.class);
-        mServiceRule = new ServiceTestRule();
-    }
-
 
     @Before
     public void setup() {
+        Context context = InstrumentationRegistry.getContext();
+        String packageName = context.getPackageName();
+
         // Bind to PostMessageService only after CustomTabsService sends the callback to do so. This
         // callback is sent after requestPostMessageChannel is called.
         mCallback = new TestCustomTabsCallback() {
             @Override
             public void extraCallback(String callbackName, Bundle args) {
-                if (TestCustomTabsService.CALLBACK_BIND_TO_POST_MESSAGE.equals(callbackName)) {
-                    // This gets run on the UI thread, where mServiceRule.bindService will not work.
-                    AsyncTask.THREAD_POOL_EXECUTOR.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Intent postMessageServiceIntent = new Intent();
-                                postMessageServiceIntent.setClassName(mContext.getPackageName(),
-                                        PostMessageService.class.getName());
-                                mServiceRule.bindService(postMessageServiceIntent,
-                                        mPostMessageServiceConnection, Context.BIND_AUTO_CREATE);
-                            } catch (TimeoutException e) {
-                                fail();
-                            }
-                        }
-                    });
+                if (!TestCustomTabsService.CALLBACK_BIND_TO_POST_MESSAGE.equals(callbackName)) {
+                    return;
                 }
+
+                mPostMessageServiceConnection.bindSessionToPostMessageService(context, packageName);
             }
         };
-        mContext = mActivityTestRule.getActivity();
+
         mCustomTabsServiceConnection = new CustomTabsServiceConnection() {
             @Override
             public void onCustomTabsServiceConnected(ComponentName name, CustomTabsClient client) {
-                mCustomTabsServiceConnected = true;
                 mSession = client.newSession(mCallback);
             }
 
             @Override
             public void onServiceDisconnected(ComponentName componentName) {
-                mCustomTabsServiceConnected = false;
+                mSession = null;
             }
         };
-        mPostMessageServiceConnection = new PostMessageServiceConnection(
-                new CustomTabsSessionToken(mCallback.getStub(), null)) {
-            @Override
-            public void onPostMessageServiceConnected() {
-                mPostMessageServiceConnected = true;
-            }
 
-            @Override
-            public void onPostMessageServiceDisconnected() {
-                mPostMessageServiceConnected = false;
-            }
-        };
-        Intent customTabsServiceIntent = new Intent();
-        customTabsServiceIntent.setClassName(
-                mContext.getPackageName(), TestCustomTabsService.class.getName());
-        try {
-            mServiceRule.bindService(customTabsServiceIntent,
-                    mCustomTabsServiceConnection, Context.BIND_AUTO_CREATE);
-        } catch (TimeoutException e) {
-            fail();
-        }
+        CustomTabsSessionToken token = new CustomTabsSessionToken(mCallback.getStub(), null);
+        mPostMessageServiceConnection = new PostMessageServiceConnection(token);
+
+        Intent intent = new Intent();
+        intent.setClassName(packageName, TestCustomTabsService.class.getName());
+        context.bindService(intent, mCustomTabsServiceConnection, Context.BIND_AUTO_CREATE);
+        PollingCheck.waitFor(() -> mSession != null);
     }
 
     @Test
     public void testCustomTabsConnection() {
-        PollingCheck.waitFor(500, new PollingCheck.PollingCheckCondition() {
-            @Override
-            public boolean canProceed() {
-                return mCustomTabsServiceConnected;
-            }
-        });
-        assertTrue(mCustomTabsServiceConnected);
         assertTrue(mSession.requestPostMessageChannel(Uri.EMPTY));
         assertEquals(CustomTabsService.RESULT_SUCCESS, mSession.postMessage("", null));
-        PollingCheck.waitFor(500, new PollingCheck.PollingCheckCondition() {
-            @Override
-            public boolean canProceed() {
-                return mPostMessageServiceConnected;
-            }
-        });
-        assertTrue(mPostMessageServiceConnected);
+        PollingCheck.waitFor(() -> mPostMessageServiceConnection.isBoundToService());
     }
 }

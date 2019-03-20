@@ -16,16 +16,16 @@
 
 package android.support.customtabs.trusted;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import android.content.Context;
 import android.net.Uri;
-import android.os.RemoteException;
-import android.support.annotation.Nullable;
 import android.support.customtabs.PollingCheck;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
-
-import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
@@ -49,7 +49,8 @@ public class TrustedWebActivityServiceConnectionManagerTest {
         mContext = InstrumentationRegistry.getContext();
         mManager = new TrustedWebActivityServiceConnectionManager(mContext);
 
-        mManager.registerClient(mContext, ORIGIN, mContext.getPackageName());
+        TrustedWebActivityServiceConnectionManager
+                .registerClient(mContext, ORIGIN, mContext.getPackageName());
 
         TrustedWebActivityService.setVerifiedProvider(mContext, mContext.getPackageName());
     }
@@ -64,34 +65,21 @@ public class TrustedWebActivityServiceConnectionManagerTest {
     @Test
     public void testConnection() {
         boolean delegated = mManager.execute(GOOD_SCOPE, ORIGIN,
-                new TrustedWebActivityServiceConnectionManager.ExecutionCallback() {
-                    @Override
-                    public void onConnected(@Nullable TrustedWebActivityServiceWrapper service)
-                            throws RemoteException {
-                        Assert.assertEquals(TestTrustedWebActivityService.SMALL_ICON_ID,
-                                service.getSmallIconId());
-                        Assert.assertEquals(TestTrustedWebActivityService.NOTIFICATIONS,
-                                service.getActiveNotifications());
-                        mConnected = true;
-                    }
+                service -> {
+                    assertEquals(TestTrustedWebActivityService.SMALL_ICON_ID,
+                            service.getSmallIconId());
+                    assertEquals(TestTrustedWebActivityService.NOTIFICATIONS,
+                            service.getActiveNotifications());
+                    mConnected = true;
                 });
-        Assert.assertTrue(delegated);
+        assertTrue(delegated);
 
-        PollingCheck.waitFor(500, new PollingCheck.PollingCheckCondition() {
-            @Override
-            public boolean canProceed() {
-                return mConnected;
-            }
-        });
+        PollingCheck.waitFor(() -> mConnected);
     }
 
     @Test
     public void testNoService() {
-        boolean delegated = mManager.execute(BAD_SCOPE, ORIGIN,
-                new TrustedWebActivityServiceConnectionManager.ExecutionCallback() {
-                    @Override
-                    public void onConnected(@Nullable TrustedWebActivityServiceWrapper service) {}
-        });
-        Assert.assertFalse(delegated);
+        boolean delegated = mManager.execute(BAD_SCOPE, ORIGIN, service -> {});
+        assertFalse(delegated);
     }
 }

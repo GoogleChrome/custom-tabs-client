@@ -79,7 +79,7 @@ public class PostMessageServiceConnection implements PostMessageBackend, Service
         return bindSessionToPostMessageService(appContext, mPackageName);
     }
 
-    private boolean isBoundToService() {
+    boolean isBoundToService() {
         return mService != null;
     }
 
@@ -88,7 +88,10 @@ public class PostMessageServiceConnection implements PostMessageBackend, Service
      * @param context The context to be unbound from.
      */
     public void unbindFromContext(Context context) {
-        if (isBoundToService()) context.unbindService(this);
+        if (isBoundToService()) {
+            context.unbindService(this);
+            mService = null;
+        }
     }
 
     @Override
