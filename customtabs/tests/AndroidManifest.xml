@@ -30,7 +30,26 @@
         </activity>
 
         <service android:name="android.support.customtabs.PostMessageService"/>
-        <service android:name="android.support.customtabs.TestCustomTabsService"/>
+
+        <service android:name="android.support.customtabs.TestCustomTabsService">
+            <intent-filter>
+                <action android:name="android.support.customtabs.action.CustomTabsService" />
+                <category android:name="androidx.browser.trusted.category.TrustedWebActivities" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".trusted.TestBrowser"
+                  android:theme="@style/Theme.AppCompat.Light"
+                  android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity>
 
         <service android:name="android.support.customtabs.trusted.TestTrustedWebActivityService">
             <intent-filter>
@@ -38,5 +57,17 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </service>
+
+        <activity android:name="android.support.customtabs.trusted.LauncherActivity"
+                  android:label="Test Launcher Activity"
+                  android:theme="@style/Theme.AppCompat.Light">
+
+            <meta-data android:name="android.support.customtabs.trusted.DEFAULT_URL"
+                       android:value="https://www.test.com/default_url/" />
+
+            <meta-data
+                android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR"
+                android:resource="@color/browser_actions_bg_grey" />
+        </activity>
     </application>
 </manifest>
