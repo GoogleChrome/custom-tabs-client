@@ -62,6 +62,8 @@ import java.util.Map;
  */
 public class TwaProviderPicker {
     private static final String TAG = "TWAProviderPicker";
+    private static Action sActionForTesting;
+
     @IntDef({LaunchMode.TRUSTED_WEB_ACTIVITY, LaunchMode.CUSTOM_TAB, LaunchMode.BROWSER})
     @Retention(RetentionPolicy.SOURCE)
     public @interface LaunchMode {
@@ -97,6 +99,8 @@ public class TwaProviderPicker {
      * supports.
      */
     public static Action pickProvider(PackageManager pm) {
+        if (sActionForTesting != null) return sActionForTesting;
+
         // TODO(peconn): Should we use "https://" instead?
         Intent queryBrowsersIntent = new Intent()
                 .setAction(Intent.ACTION_VIEW)
@@ -140,6 +144,10 @@ public class TwaProviderPicker {
 
         Log.d(TAG, "Found no TWA providers, using first browser: " + bestBrowserProvider);
         return new Action(LaunchMode.BROWSER, bestBrowserProvider);
+    }
+
+    static void setProviderForTesting(Action action) {
+        sActionForTesting = action;
     }
 
     /** Returns a map from package name to LaunchMode for all available Custom Tabs Services. */
