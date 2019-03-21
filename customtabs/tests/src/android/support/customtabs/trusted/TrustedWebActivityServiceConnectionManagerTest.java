@@ -52,14 +52,15 @@ public class TrustedWebActivityServiceConnectionManagerTest {
         TrustedWebActivityServiceConnectionManager
                 .registerClient(mContext, ORIGIN, mContext.getPackageName());
 
-        TrustedWebActivityService.setVerifiedProvider(mContext, mContext.getPackageName());
+        TrustedWebActivityService
+                .setVerifiedProviderSynchronouslyForTesting(mContext, mContext.getPackageName());
     }
 
     @After
     public void tearDown() {
         mManager.unbindAllConnections();
 
-        TrustedWebActivityService.setVerifiedProvider(mContext, null);
+        TrustedWebActivityService.setVerifiedProviderSynchronouslyForTesting(mContext, null);
     }
 
     @Test

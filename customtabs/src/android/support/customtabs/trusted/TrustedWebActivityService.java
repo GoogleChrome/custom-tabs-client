@@ -355,9 +355,13 @@ public class TrustedWebActivityService extends Service {
      * @param context A context to be used to access SharedPreferences.
      * @param provider The package of the provider to accept connections from or null to clear.
      */
-    public static final void setVerifiedProviderForTesting(Context context,
+    public static final void setVerifiedProviderSynchronouslyForTesting(Context context,
             @Nullable String provider) {
-        setVerifiedProvider(context, provider);
+        StrictMode.ThreadPolicy oldPolicy = StrictMode.allowThreadDiskWrites();
+        SharedPreferences.Editor editor = getPreferences(context).edit();
+        editor.putString(PREFS_VERIFIED_PROVIDER, provider);
+        editor.commit();
+        StrictMode.setThreadPolicy(oldPolicy);
     }
 
     /**
