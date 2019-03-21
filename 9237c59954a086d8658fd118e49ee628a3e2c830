@@ -140,6 +140,30 @@
     },
     {
       "key": {
+        "uuid": "925dde05_fc7b5570",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-21T19:27:40Z",
+      "side": 1,
+      "message": "\u003e\u003e It seems that once TWAs start building with this, we can\u0027t change Chrome\u0027s splash screen code otherwise there\u0027s be a jank in the transition and I really don\u0027t like that.\n\nNo matter what the final approach will look like, we\u0027ll need to maintain backwards compatibility from there on. We might need to look at our versioning approach more closely to make that easier. I\u0027m thinking we need to\n- Replace metadata TrustedWebActivitySplashScreensType \u003d \"FileProvider\" with TrustedWebActivitySplashScreensVersion \u003d 1. That number would mean all version up to specified one is supported. Or maybe two metadata entries: MinVersion and MaxVersion.\n- Describe somewhere very precisely what each version does. This is especially important for potential other TWA providers.\n- Pass version number into builder.setSplashScreenParams.\n\nWith that, the only question left is how restrictive the current approach is. First of all, with the FileProvider and its absence of size limitations, the clients are always able to provide an arbitrary full-screen image. Centered logo + background color is just an optimization for presumably most common case. We can easily let clients position and scale the logo with transferring ScaleType and Matrix. I think we should do that, but in a separate pair of CLs.\n\n\u003e\u003e  maybe get the app to load a layout out of Chrome\u0027s resources.\n\nI\u0027m not sure how that would work: the clients should be telling Chrome the parameters, not vice versa.\n\n\u003e\u003e We could add a method to TrustedWebUtils (which would then I guess need to make it into the support library) which both here and Chrome use.\n\nThis won\u0027t work, because client apps and Chrome may use different versions of Custom Tabs library.",
+      "parentUuid": "c8822dc3_f7aaf4ce",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 29
+      },
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69398858_0a1562e5",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivityMetadata.java",
         "patchSetId": 4
