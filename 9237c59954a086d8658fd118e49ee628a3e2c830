@@ -164,6 +164,30 @@
     },
     {
       "key": {
+        "uuid": "83c7c397_73a65e0e",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-03-22T15:53:56Z",
+      "side": 1,
+      "message": "For the \"load a layout out of Chrome\u0027s resources\", I was imagining something like this (I\u0027m not sure it would work).\n\n    LayoutInflater inflater \u003d LayoutInflater.from(createPackageContext(providerName, 0));\n    ViewGroup view \u003d inflate.inflate(/* no idea what we put here */);\n    ImageView view \u003d view.findViewById(R.id.image_placeholder);\n    view.setImageResource(...);",
+      "parentUuid": "925dde05_fc7b5570",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 29
+      },
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69398858_0a1562e5",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivityMetadata.java",
         "patchSetId": 4
