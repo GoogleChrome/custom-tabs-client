@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.support.customtabs.EnableComponentsTestRule;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.SmallTest;
 import android.support.test.rule.ServiceTestRule;
@@ -42,6 +43,13 @@ import java.util.concurrent.TimeoutException;
 public class TrustedWebActivityServiceTest {
     @Rule
     public final ServiceTestRule mServiceRule;
+    @Rule
+    public final VerifiedProviderTestRule mVerifiedProvider = new VerifiedProviderTestRule();
+    @Rule
+    public final EnableComponentsTestRule mEnableComponents = new EnableComponentsTestRule(
+            TestTrustedWebActivityService.class
+    );
+
     private Context mContext;
     private ITrustedWebActivityService mService;
 
@@ -83,12 +91,12 @@ public class TrustedWebActivityServiceTest {
     public void testVerification() throws RemoteException {
         // This only works because we're in the same process as the service, otherwise this would
         // have to be called in the Service's process.
-        TrustedWebActivityService.setVerifiedProvider(mContext, mContext.getPackageName());
         mService.getSmallIconId();
     }
 
     @Test(expected = SecurityException.class)
     public void testVerificationFailure() throws RemoteException {
+        mVerifiedProvider.manuallyDisable();
         mService.getSmallIconId();
     }
 }

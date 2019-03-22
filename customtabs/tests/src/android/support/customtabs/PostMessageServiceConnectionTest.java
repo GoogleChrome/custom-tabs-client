@@ -25,6 +25,7 @@ import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -34,6 +35,11 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class PostMessageServiceConnectionTest {
+    @Rule
+    public final EnableComponentsTestRule mEnableComponents = new EnableComponentsTestRule(
+            PostMessageService.class
+    );
+
     private TestCustomTabsCallback mCallback;
     private Context mContext;
     private PostMessageServiceConnection mConnection;
