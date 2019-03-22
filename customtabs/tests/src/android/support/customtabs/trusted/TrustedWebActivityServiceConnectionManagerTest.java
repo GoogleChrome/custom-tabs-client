@@ -22,27 +22,38 @@ import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.customtabs.EnableComponentsTestRule;
 import android.support.customtabs.PollingCheck;
+import android.support.customtabs.TestActivity;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class TrustedWebActivityServiceConnectionManagerTest {
-    private TrustedWebActivityServiceConnectionManager mManager;
-    private Context mContext;
-
-    private boolean mConnected;
-
     private static final String ORIGIN = "https://localhost:3080";
     private static final Uri GOOD_SCOPE = Uri.parse("https://www.example.com/notifications");
     private static final Uri BAD_SCOPE = Uri.parse("https://www.notexample.com");
+
+    private TrustedWebActivityServiceConnectionManager mManager;
+    private Context mContext;
+    private boolean mConnected;
+
+    @Rule
+    public final VerifiedProviderTestRule mVerifiedProvider = new VerifiedProviderTestRule();
+    @Rule
+    public final EnableComponentsTestRule mEnableComponents = new EnableComponentsTestRule(
+            TestTrustedWebActivityService.class,
+            TestActivity.class
+    );
+
 
     @Before
     public void setUp() {
@@ -51,15 +62,11 @@ public class TrustedWebActivityServiceConnectionManagerTest {
 
         TrustedWebActivityServiceConnectionManager
                 .registerClient(mContext, ORIGIN, mContext.getPackageName());
-
-        TrustedWebActivityService.setVerifiedProvider(mContext, mContext.getPackageName());
     }
 
     @After
     public void tearDown() {
         mManager.unbindAllConnections();
-
-        TrustedWebActivityService.setVerifiedProvider(mContext, null);
     }
 
     @Test

@@ -52,6 +52,13 @@ public class PostMessageTest {
     public final ServiceTestRule mServiceRule;
     @Rule
     public final ActivityTestRule<TestActivity> mActivityTestRule;
+    @Rule
+    public final EnableComponentsTestRule mEnableComponents = new EnableComponentsTestRule(
+            TestActivity.class,
+            TestCustomTabsService.class,
+            PostMessageService.class
+    );
+
     private TestCustomTabsCallback mCallback;
     private Context mContext;
     private CustomTabsServiceConnection mCustomTabsServiceConnection;
