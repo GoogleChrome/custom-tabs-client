@@ -287,7 +287,7 @@ public class MainActivity
                     this, Uri.parse(url), BrowserActionsIntent.URL_TYPE_NONE, items, defaultAction);
         } else if (viewId == R.id.register_twa_service) {
             if (mPackageNameToBind != null) {
-                TrustedWebActivityService.setVerifiedProviderForTesting(this, mPackageNameToBind);
+                TrustedWebActivityService.setVerifiedProvider(this, mPackageNameToBind);
             }
         }
     }

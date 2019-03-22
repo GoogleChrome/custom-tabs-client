@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.customtabs.EnableComponentsTestRule;
 import android.support.customtabs.R;
 import android.support.customtabs.TestActivity;
 import android.support.test.filters.SmallTest;
@@ -52,6 +53,12 @@ public class BrowserActionsFallbackMenuUiTest {
     @Rule
     public final ActivityTestRule<TestActivity> mActivityTestRule =
             new ActivityTestRule<>(TestActivity.class);
+
+    @Rule
+    public final EnableComponentsTestRule mEnableComponents = new EnableComponentsTestRule(
+            TestActivity.class
+    );
+
     private Context mContext;
     private List<BrowserActionItem> mMenuItems;
     private List<String> mMenuItemTitles;
