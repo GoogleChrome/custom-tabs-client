@@ -17,7 +17,8 @@
           package="android.support.customtabs">
     <uses-sdk android:minSdkVersion="16"/>
     <application>
-        <activity android:name="android.support.customtabs.TestActivity">
+        <activity android:name="android.support.customtabs.TestActivity"
+                android:enabled="false">
             <!-- A browsable intent filter is required for the TrustedWebActivityService. -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -29,15 +30,18 @@
             </intent-filter>
         </activity>
 
-        <service android:name="android.support.customtabs.PostMessageService"/>
+        <service android:name="android.support.customtabs.PostMessageService"
+                 android:enabled="false"/>
 
-        <service android:name="android.support.customtabs.TestCustomTabsService">
+        <service android:name="android.support.customtabs.TestCustomTabsService"
+                 android:enabled="false">
             <intent-filter>
                 <category android:name="androidx.browser.trusted.category.TrustedWebActivities" />
             </intent-filter>
         </service>
 
-        <service android:name="android.support.customtabs.TestCustomTabsServiceSupportsTwas">
+        <service android:name="android.support.customtabs.TestCustomTabsServiceSupportsTwas"
+                 android:enabled="false">
             <intent-filter>
                 <action android:name="android.support.customtabs.action.CustomTabsService" />
                 <category android:name="androidx.browser.trusted.category.TrustedWebActivities" />
@@ -46,7 +50,8 @@
 
         <activity android:name=".trusted.TestBrowser"
                   android:theme="@style/Theme.AppCompat.Light"
-                  android:exported="true">
+                  android:exported="true"
+                  android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -57,7 +62,8 @@
             </intent-filter>
         </activity>
 
-        <service android:name="android.support.customtabs.trusted.TestTrustedWebActivityService">
+        <service android:name="android.support.customtabs.trusted.TestTrustedWebActivityService"
+                 android:enabled="false">
             <intent-filter>
                 <action android:name="android.support.customtabs.trusted.TRUSTED_WEB_ACTIVITY_SERVICE"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -66,7 +72,8 @@
 
         <activity android:name="android.support.customtabs.trusted.LauncherActivity"
                   android:label="Test Launcher Activity"
-                  android:theme="@style/Theme.AppCompat.Light">
+                  android:theme="@style/Theme.AppCompat.Light"
+                  android:enabled="false">
 
             <meta-data android:name="android.support.customtabs.trusted.DEFAULT_URL"
                        android:value="https://www.test.com/default_url/" />

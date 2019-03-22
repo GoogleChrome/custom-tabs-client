@@ -22,12 +22,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import android.app.Instrumentation;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.customtabs.EnableComponentsTestRule;
 import android.support.customtabs.R;
+import android.support.customtabs.TestCustomTabsService;
 import android.support.customtabs.TestCustomTabsServiceSupportsTwas;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.MediumTest;
@@ -57,6 +57,13 @@ public class LauncherActivityTest {
     private Context mContext = InstrumentationRegistry.getContext();
 
     @Rule
+    public final EnableComponentsTestRule mEnableComponents = new EnableComponentsTestRule(
+            LauncherActivity.class,
+            TestBrowser.class,
+            TestCustomTabsServiceSupportsTwas.class,
+            TestCustomTabsService.class
+    );
+    @Rule
     public final ActivityTestRule<LauncherActivity> mActivityTestRule =
             new ActivityTestRule<>(LauncherActivity.class, false, false);
 
@@ -72,32 +79,35 @@ public class LauncherActivityTest {
 
     @Test
     public void launchesTwa() {
-        launchAsTwa();
+        launch();
     }
 
     @Test
     public void readsUrlFromManifest() {
-        TestBrowser browser = launchAsTwa();
+        TestBrowser browser = launch();
 
         assertEquals(DEFAULT_URL, browser.getLaunchIntent().getData());
     }
 
     @Test
     public void readsStatusBarColorFromManifest() {
-        TestBrowser browser = launchAsTwa();
+        TestBrowser browser = launch();
         checkColor(browser);
     }
 
     @Test
     public void fallsBackToCustomTab() {
-        TestBrowser browser = launchAsCustomTab();
+        mEnableComponents.manuallyDisable(TestCustomTabsServiceSupportsTwas.class);
+        TestBrowser browser = launch();
 
         assertFalse(browser.getLaunchIntent().hasExtra(EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY));
     }
 
     @Test
     public void customTabHasStatusBarColor() {
-        TestBrowser browser = launchAsCustomTab();
+        mEnableComponents.manuallyDisable(TestCustomTabsServiceSupportsTwas.class);
+        TestBrowser browser = launch();
+
         checkColor(browser);
     }
 
@@ -110,18 +120,7 @@ public class LauncherActivityTest {
         assertEquals(expectedColor, requestedColor);
     }
 
-    private TestBrowser launchAsCustomTab() {
-        setComponentEnabled(TestCustomTabsServiceSupportsTwas.class, false);
-        TestBrowser browser = launchAs(TwaProviderPicker.LaunchMode.CUSTOM_TAB);
-        setComponentEnabled(TestCustomTabsServiceSupportsTwas.class, true);
-        return browser;
-    }
-
-    private TestBrowser launchAsTwa() {
-        return launchAs(TwaProviderPicker.LaunchMode.TRUSTED_WEB_ACTIVITY);
-    }
-
-    private TestBrowser launchAs(@TwaProviderPicker.LaunchMode int launchMode) {
+    private TestBrowser launch() {
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
         Instrumentation.ActivityMonitor monitor
                 = instrumentation.addMonitor(TestBrowser.class.getName(), null, false);
@@ -131,19 +130,5 @@ public class LauncherActivityTest {
         TestBrowser browserActivity = (TestBrowser) instrumentation.waitForMonitor(monitor);
         instrumentation.removeMonitor(monitor);
         return browserActivity;
-    }
-
-    private <T> void setComponentEnabled(Class<T> clazz, boolean enabled) {
-        PackageManager pm = mContext.getPackageManager();
-        ComponentName name = new ComponentName(mContext, clazz);
-
-        int newState = enabled
-                ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-                : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-        int flags = PackageManager.DONT_KILL_APP;
-
-        if (pm.getComponentEnabledSetting(name) != newState) {
-            pm.setComponentEnabledSetting(name, newState, flags);
-        }
     }
 }
