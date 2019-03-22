@@ -349,31 +349,19 @@ public class TrustedWebActivityService extends Service {
     }
 
     /**
-     * Sets the package that this service will accept connections from. This should only be used for
-     * testing as the appropriate provider will be set when the client app launches a Trusted
-     * Web Activity.
+     * Sets (asynchronously) the package that this service will accept connections from.
      * @param context A context to be used to access SharedPreferences.
      * @param provider The package of the provider to accept connections from or null to clear.
-     */
-    public static final void setVerifiedProviderForTesting(Context context,
-            @Nullable String provider) {
-        setVerifiedProvider(context, provider);
-    }
-
-    /**
-     * Sets the package that this service will accept connections from.
-     * @param context A context to be used to access SharedPreferences.
-     * @param provider The package of the provider to accept connections from or null to clear.
+     * @param callback A {@link Runnable} to be run on completion.
      * @hide
      */
-    public static final void setVerifiedProvider(final Context context,
-            @Nullable String provider) {
+    public static final void setVerifiedProvider(final Context context, @Nullable String provider,
+            @Nullable Runnable callback) {
         final String providerEmptyChecked =
                 (provider == null || provider.isEmpty()) ? null : provider;
 
         // Perform on a background thread as accessing Preferences may cause disk access.
         new AsyncTask<Void, Void, Void>() {
-
             @Override
             protected Void doInBackground(Void... voids) {
                 SharedPreferences.Editor editor = getPreferences(context).edit();
@@ -382,7 +370,21 @@ public class TrustedWebActivityService extends Service {
                 return null;
             }
 
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                if (callback != null) callback.run();
+            }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    /**
+     * Sets (asynchronously) the package that this service will accept connections from.
+     * @param context A context to be used to access SharedPreferences.
+     * @param provider The package of the provider to accept connections from or null to clear.
+     * @hide
+     */
+    public static final void setVerifiedProvider(Context context, @Nullable String provider) {
+        setVerifiedProvider(context, provider, null);
     }
 
     private static String channelNameToId(String name) {
