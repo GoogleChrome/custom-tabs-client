@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "25047bc0_0f7012ea",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-03-25T08:32:45Z",
+      "side": 1,
+      "message": "Personally, I think that I still prefer launchAsTrustedWebActivity() with an extra 2 parameters:\n- status bar color\n- splash screen params bundle",
+      "parentUuid": "bf9467c0_904959ac",
+      "range": {
+        "startLine": 297,
+        "startChar": 24,
+        "endLine": 297,
+        "endChar": 49
+      },
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d6399eb_2d737a31",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 4
