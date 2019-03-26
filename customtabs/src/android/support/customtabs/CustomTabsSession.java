@@ -26,6 +26,7 @@ import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
+import android.support.customtabs.CustomTabsService.FilePurpose;
 import android.support.customtabs.CustomTabsService.Relation;
 import android.support.customtabs.CustomTabsService.Result;
 import android.view.View;
@@ -253,6 +254,35 @@ public final class CustomTabsSession {
         addIdToBundle(extras);
         try {
             return mService.validateRelationship(mCallback, relation, origin, extras);
+        } catch (RemoteException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Passes an URI of a file, e.g. in order to pass a large bitmap to be displayed in the
+     * Custom Tabs provider.
+     *
+     * Prior to calling this method, the client needs to grant a read permission to the target
+     * Custom Tabs provider via {@link android.content.Context#grantUriPermission}.
+     *
+     * The file is read and processed (where applicable) synchronously, therefore it's recommended
+     * to call this method on a background thread.
+     *
+     * @param uri {@link Uri} of the file.
+     * @param purpose Purpose of transferring this file, one of the constants enumerated in
+     *                {@code CustomTabsService#FilePurpose}.
+     * @param extras Reserved for future use.
+     * @return {@code true} if the file was received successfully.
+     */
+    public boolean receiveFile(@NonNull Uri uri, @FilePurpose int purpose,
+            @Nullable Bundle extras) {
+        if (extras == null) {
+            extras = new Bundle();
+        }
+        addIdToBundle(extras);
+        try {
+            return mService.receiveFile(mCallback, uri, purpose, extras);
         } catch (RemoteException e) {
             return false;
         }

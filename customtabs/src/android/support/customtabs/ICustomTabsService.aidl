@@ -39,4 +39,5 @@ interface ICustomTabsService {
     boolean requestPostMessageChannelWithExtras(in ICustomTabsCallback callback, in Uri postMessageOrigin, in Bundle extras) = 10;
     int postMessage(in ICustomTabsCallback callback, String message, in Bundle extras) = 7;
     boolean validateRelationship(in ICustomTabsCallback callback, int relation, in Uri origin, in Bundle extras) = 8;
+    boolean receiveFile(in ICustomTabsCallback callback, in Uri uri, int purpose, in Bundle extras) = 11;
 }
