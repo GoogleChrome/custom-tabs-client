@@ -249,6 +249,24 @@
     },
     {
       "key": {
+        "uuid": "ff346caa_6a5bc7bd",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-03-26T16:00:10Z",
+      "side": 1,
+      "message": "For the sake of clarity, isTaskRoot() will be false if LauncherActivity is launched via a VIEW intent but without Intent.FLAG_ACTIVITY_NEW_TASK",
+      "parentUuid": "bd671676_64d0ce94",
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c3630958_200ddb33",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 4
