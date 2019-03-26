@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c032c103_ee113d9e",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T14:34:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3deb62d2_4adf2bda",
+      "range": {
+        "startLine": 114,
+        "startChar": 28,
+        "endLine": 114,
+        "endChar": 57
+      },
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "036df902_cf34949a",
         "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-21T18:32:03Z",
       "side": 1,
       "message": "It\u0027s a bit odd you use a non-existent example when you already have a good example (TWA splash image).",
+      "range": {
+        "startLine": 367,
+        "startChar": 53,
+        "endLine": 368,
+        "endChar": 11
+      },
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "711fc55b_91370da5",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T14:34:46Z",
+      "side": 1,
+      "message": "TWA splash image is kind of a special case of it. As seen with browser actions, although they didn\u0027t make it, this mechanism can be useful for other kinds of images shown in CCT. I wanted to phrase it in a way that makes it clear that this method isn\u0027t necessarily for TWAs only.",
+      "parentUuid": "036df902_cf34949a",
       "range": {
         "startLine": 367,
         "startChar": 53,
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "9ee2e47d_8e58b68d",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T14:34:46Z",
+      "side": 1,
+      "message": "Nah, single method doesn\u0027t scale well. We\u0027ll have to carry on all the params, except for splash screens-related ones:\nif (!showSplashScreen) {\n   launchAsTrustedWebActivity(common params..., null);\nelse {\n   doAsyncStuff(common params, ...);\n}\n... // Several hops later\nlaunchAsTrustedWebActivity(common params..., splashScreenParamsBundle);\n\nPlus all the javadocs will be squashed in one big wall of text. And it will become only worse as we add more params.\n\nExtracted into separate file.",
+      "parentUuid": "25047bc0_0f7012ea",
+      "range": {
+        "startLine": 297,
+        "startChar": 24,
+        "endLine": 297,
+        "endChar": 49
+      },
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d6399eb_2d737a31",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 4
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "563d26e3_ef18a281",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T14:34:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d6399eb_2d737a31",
+      "range": {
+        "startLine": 65,
+        "startChar": 47,
+        "endLine": 65,
+        "endChar": 48
+      },
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f7bc24c_b8eb7d94",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 4
@@ -135,6 +231,24 @@
     },
     {
       "key": {
+        "uuid": "bd671676_64d0ce94",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T14:34:46Z",
+      "side": 1,
+      "message": "This activity is designed to be the activity launched by the launcher or by VIEW intents. If that doesn\u0027t suit the client, chances are they\u0027ll have to copy it and change significantly. So I\u0027m not sure it\u0027s worth reflecting every possible usage in the code or comments. It\u0027s already quite complicated.",
+      "parentUuid": "1f7bc24c_b8eb7d94",
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c3630958_200ddb33",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 4
@@ -146,6 +260,30 @@
       "writtenOn": "2019-03-21T18:32:03Z",
       "side": 1,
       "message": "But if they customize it the splashscreen will appear broken, right?",
+      "range": {
+        "startLine": 172,
+        "startChar": 21,
+        "endLine": 172,
+        "endChar": 25
+      },
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ddfac4a_79c93039",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T14:34:46Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right, it\u0027s better to make it private. If they need to customize it, they\u0027ll need to change the parameters passed to TWABuilder as well. In that case they\u0027d be probably better off copy-pasting LauncherActivity and customizing it freely.",
+      "parentUuid": "c3630958_200ddb33",
       "range": {
         "startLine": 172,
         "startChar": 21,
@@ -229,6 +367,30 @@
     },
     {
       "key": {
+        "uuid": "4938d477_2b80bccd",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T14:34:46Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s what I thought you meant. In this case, Chrome dictates to the client what the layout should be. It should be vice versa. Chrome tells what it supports, and within that constraints the client constructs the view, and tells Chrome the parameters.",
+      "parentUuid": "83c7c397_73a65e0e",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 29
+      },
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d3a5f68_2fb83398",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 4
@@ -240,6 +402,24 @@
       "writtenOn": "2019-03-25T08:24:09Z",
       "side": 1,
       "message": "Should the service be unbound here similar to CustomTabsClient#connectAndInitialize() to allow the OOM killer to kill Chrome if necessary?",
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "047a7d21_7fa1ebf4",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T14:34:46Z",
+      "side": 1,
+      "message": "CustomTabsClient#connectAndInitialize seems to deal with the case when clients just want to warmup Chrome without establishing a session. Here the warmup call is just a backward compatibility artifact, that should eventually go away, and we do want to keep the connection at the very least until the TWA is launched.",
+      "parentUuid": "2d3a5f68_2fb83398",
       "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -269,6 +449,30 @@
     },
     {
       "key": {
+        "uuid": "603cea35_344aa7c4",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivityMetadata.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T14:34:46Z",
+      "side": 1,
+      "message": "Let\u0027s remove _ID from new constants for consistency.",
+      "parentUuid": "69398858_0a1562e5",
+      "range": {
+        "startLine": 26,
+        "startChar": 48,
+        "endLine": 26,
+        "endChar": 64
+      },
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6803355a_5ad6d1a9",
         "filename": "customtabs/src/android/support/customtabs/trusted/SplashImageTransferTask.java",
         "patchSetId": 4
@@ -289,6 +493,30 @@
       "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c7aa4f7_d10ea248",
+        "filename": "customtabs/src/android/support/customtabs/trusted/SplashImageTransferTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T14:34:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6803355a_5ad6d1a9",
+      "range": {
+        "startLine": 89,
+        "startChar": 21,
+        "endLine": 89,
+        "endChar": 27
+      },
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -315,6 +543,30 @@
     },
     {
       "key": {
+        "uuid": "f6a141aa_40f3ca3d",
+        "filename": "customtabs/src/android/support/customtabs/trusted/SplashImageTransferTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T14:34:46Z",
+      "side": 1,
+      "message": "Oh, sorry, these lines should be rather removed below, which I forgot. They are now inside TrustedWebUtils.transferSplashImage.",
+      "parentUuid": "84664e98_e2d2774f",
+      "range": {
+        "startLine": 91,
+        "startChar": 23,
+        "endLine": 91,
+        "endChar": 51
+      },
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23e4802d_a669e683",
         "filename": "customtabs/src/android/support/customtabs/trusted/SplashImageTransferTask.java",
         "patchSetId": 4
@@ -326,6 +578,30 @@
       "writtenOn": "2019-03-21T18:32:03Z",
       "side": 1,
       "message": "Are we likely to be cancelled between here and line 80?",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 96,
+        "endChar": 47
+      },
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aefb12ba_3d881a0e",
+        "filename": "customtabs/src/android/support/customtabs/trusted/SplashImageTransferTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T14:34:46Z",
+      "side": 1,
+      "message": "It\u0027s just a good practice to check isCancelled once in a while inside doInBackground, to not do unnecessary work after AsyncTask#cancel(true) is called.",
+      "parentUuid": "23e4802d_a669e683",
       "range": {
         "startLine": 96,
         "startChar": 16,
@@ -355,6 +631,24 @@
     },
     {
       "key": {
+        "uuid": "155b2c8e_10fc3b43",
+        "filename": "customtabs/src/android/support/customtabs/trusted/StatusAndNavBarUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T14:34:46Z",
+      "side": 1,
+      "message": "\u003e\u003e In order to make it easier switch the colors used in Chrome, I think that we should pass all of the colors from the TWA to Chrome\n\nYes, and this is mentioned LauncherActivity#customizeStatusAndNavBarDuringSplashScreen. I agree we\u0027ll need to do this, but not in the same CL. The approach in this CL is not scalable, but should be good enough for a milestone or two.",
+      "parentUuid": "7845adf1_dd64c94e",
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c69589ae_e7c4005b",
         "filename": "customtabs/src/android/support/customtabs/trusted/StatusAndNavBarUtils.java",
         "patchSetId": 4
@@ -375,6 +669,30 @@
       "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0820e78_4bb108ca",
+        "filename": "customtabs/src/android/support/customtabs/trusted/StatusAndNavBarUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T14:34:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c69589ae_e7c4005b",
+      "range": {
+        "startLine": 44,
+        "startChar": 46,
+        "endLine": 44,
+        "endChar": 52
+      },
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
