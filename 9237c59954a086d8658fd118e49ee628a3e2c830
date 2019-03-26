@@ -267,6 +267,24 @@
     },
     {
       "key": {
+        "uuid": "cee4403b_f16ec5f2",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-26T16:12:45Z",
+      "side": 1,
+      "message": "Ah, ok, I\u0027ll add this to the comment then, thanks.",
+      "parentUuid": "ff346caa_6a5bc7bd",
+      "revId": "9237c59954a086d8658fd118e49ee628a3e2c830",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c3630958_200ddb33",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 4
