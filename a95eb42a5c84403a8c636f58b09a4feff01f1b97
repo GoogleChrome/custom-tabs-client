@@ -16,6 +16,24 @@
       "revId": "a95eb42a5c84403a8c636f58b09a4feff01f1b97",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81944b24_07a4c880",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-03-29T11:38:42Z",
+      "side": 1,
+      "message": "Wait, I don\u0027t think that\u0027s correct. isTaskRoot() is true if\n1) VIEW intent _without_ Intent.FLAG_ACTIVITY_NEW_TASK is handled by TWA, and TWA is _not_ already running.\n2) VIEW intent _with_ Intent.FLAG_ACTIVITY_NEW_TASK is handled by TWA (regardless of whether TWA is already running)\"\n\nThe opposite case of when isTaskRoot() is false is simpler to describe: when intent is without the flag, and TWA is already running. That\u0027s what the comment currently says.",
+      "parentUuid": "39e4c213_58ae91ab",
+      "revId": "a95eb42a5c84403a8c636f58b09a4feff01f1b97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
