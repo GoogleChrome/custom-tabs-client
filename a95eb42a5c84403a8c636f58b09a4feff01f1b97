@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "a4e43af7_37e57178",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-03-29T20:03:27Z",
+      "side": 1,
+      "message": "Same comment about @return https://google.github.io/styleguide/javaguide.html",
+      "revId": "a95eb42a5c84403a8c636f58b09a4feff01f1b97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43f51f9b_466d2c61",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-03-29T20:03:27Z",
+      "side": 1,
+      "message": "You should double check whether you want to enable splash screens on all Android OSes. For WebAPKs, I enabled the new-style splash screen on Android M+. I have not checked whether I can enable this for older OSes in light of recent changes",
+      "revId": "a95eb42a5c84403a8c636f58b09a4feff01f1b97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8711ab2_a646b30d",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-03-29T20:03:27Z",
+      "side": 1,
+      "message": "Nit: \"@return True\"\nThere are more usages of \"@return True\" than \"{@link true}\" in the Chromium source code",
+      "revId": "a95eb42a5c84403a8c636f58b09a4feff01f1b97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39e4c213_58ae91ab",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 7
@@ -49,6 +100,29 @@
       "side": 1,
       "message": "My bad:\n\nisTaskRoot() is false in the following scenarios:\n 1) VIEW intent is handled by TWA and TWA is already running\n 2) VIEW intent without Intent.FLAG_ACTIVITY_NEW_TASK is handled by TWA (regardless of whether TWA is already running)\n\nIn particular, isTaskRoot() \u003d\u003d false, does not guarantee that the TWA is already running",
       "parentUuid": "81944b24_07a4c880",
+      "revId": "a95eb42a5c84403a8c636f58b09a4feff01f1b97",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5d6b567_dd4bf166",
+        "filename": "customtabs/src/android/support/customtabs/trusted/StatusAndNavBarUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-03-29T20:03:27Z",
+      "side": 1,
+      "message": "Not sure if this is the same as\nactivity.getWindow().getDecorView().getRootView()\n\nWe should use the same way to get the root view in setDarkStatusBarIcons() and setWhiteNavigationBar()",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 64
+      },
       "revId": "a95eb42a5c84403a8c636f58b09a4feff01f1b97",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
