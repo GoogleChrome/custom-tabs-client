@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2188783_22b7748f",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivityMetadata.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1132034
+      },
+      "writtenOn": "2019-04-02T12:59:34Z",
+      "side": 1,
+      "message": "Can this just be LauncherActivityMetadata(new Bundle())?",
+      "revId": "513ae8f50f52979b5d81ff94fe6d98a4c638ece2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
