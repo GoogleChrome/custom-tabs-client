@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b04fe751_b164a171",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-04-02T13:42:40Z",
+      "side": 1,
+      "message": "We should, done",
+      "parentUuid": "da11378e_3ea40988",
+      "range": {
+        "startLine": 304,
+        "startChar": 12,
+        "endLine": 304,
+        "endChar": 30
+      },
+      "revId": "513ae8f50f52979b5d81ff94fe6d98a4c638ece2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2188783_22b7748f",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivityMetadata.java",
         "patchSetId": 8
@@ -39,6 +63,24 @@
       "revId": "513ae8f50f52979b5d81ff94fe6d98a4c638ece2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "925ac30a_609d15e2",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivityMetadata.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-04-02T13:42:40Z",
+      "side": 1,
+      "message": "Indeed. Done",
+      "parentUuid": "d2188783_22b7748f",
+      "revId": "513ae8f50f52979b5d81ff94fe6d98a4c638ece2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
