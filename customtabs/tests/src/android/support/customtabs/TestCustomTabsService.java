@@ -18,6 +18,8 @@ package android.support.customtabs;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.List;
 
@@ -75,6 +77,12 @@ public class TestCustomTabsService extends CustomTabsService {
     @Override
     protected boolean validateRelationship(CustomTabsSessionToken sessionToken,
                                            @Relation int relation, Uri origin, Bundle extras) {
+        return false;
+    }
+
+    @Override
+    protected boolean receiveFile(@NonNull CustomTabsSessionToken sessionToken, @NonNull Uri uri,
+            int purpose, @Nullable Bundle extras) {
         return false;
     }
 }
