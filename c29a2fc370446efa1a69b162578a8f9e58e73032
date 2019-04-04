@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "85eaf3f6_3cb8f74f",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-04-04T19:10:33Z",
+      "side": 1,
+      "message": "Nit: Rename variable to specify time unit -\u003e FADE_OUT_DURATION_MS",
+      "range": {
+        "startLine": 190,
+        "startChar": 25,
+        "endLine": 190,
+        "endChar": 26
+      },
+      "revId": "c29a2fc370446efa1a69b162578a8f9e58e73032",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "997ba313_299f68c3",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 4
