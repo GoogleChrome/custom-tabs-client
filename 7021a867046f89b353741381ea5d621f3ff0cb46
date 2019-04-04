@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4afe674d_4329b58d",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-04-04T15:00:13Z",
+      "side": 1,
+      "message": "It\u0027s not ideal that some parameters are provided by metadata, and other via overriding methods. But scale type and matrix would be weird in metadata. Scale type would be an integer the meaning of which you\u0027d have to know where to look up. Matrix would be an array of perhaps comma-separated floats that we\u0027d have to parse, and would be even harder to understand (whereas with Matrix class you have properly named methods like preTranslate etc).",
+      "revId": "7021a867046f89b353741381ea5d621f3ff0cb46",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
