@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "655af612_e64d4230",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-04-04T16:32:46Z",
+      "side": 1,
+      "message": "nit: androidx.browser.trusted",
+      "range": {
+        "startLine": 166,
+        "startChar": 17,
+        "endLine": 166,
+        "endChar": 24
+      },
+      "revId": "a121e597a76593cfefee4a285d6b5f50ba7deb2a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
