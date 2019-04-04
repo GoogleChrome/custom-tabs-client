@@ -5,18 +5,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.TrustedWebUtils;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
 
 import java.io.File;
@@ -36,7 +29,7 @@ public class SplashImageTransferTask {
     private static final String PREF_LAST_UPDATE_TIME = "lastUpdateTime";
 
     private final Context mContext;
-    private final int mResourceId;
+    private final Bitmap mBitmap;
     private final String mAuthority;
     private final CustomTabsSession mSession;
     private final String mProviderPackage;
@@ -46,15 +39,15 @@ public class SplashImageTransferTask {
 
     /**
      * @param context {@link Context} to use.
-     * @param resourceId Id of the Drawable to save into file.
+     * @param bitmap image to transfer.
      * @param authority {@link FileProvider} authority.
      * @param session {@link CustomTabsSession} to use for transferring the file.
      * @param providerPackage Package name of the Custom Tabs provider.
      */
-    public SplashImageTransferTask(Context context, @DrawableRes int resourceId, String authority,
+    public SplashImageTransferTask(Context context, Bitmap bitmap, String authority,
             CustomTabsSession session, String providerPackage) {
         mContext = context.getApplicationContext();
-        mResourceId = resourceId;
+        mBitmap = bitmap;
         mAuthority = authority;
         mSession = session;
         mProviderPackage = providerPackage;
@@ -103,13 +96,8 @@ public class SplashImageTransferTask {
                 return transferToCustomTabsProvider(file);
             }
             try(OutputStream os = new FileOutputStream(file)) {
-                Bitmap bitmap = drawableToBitmap(mContext, mResourceId);
-                if (bitmap == null) {
-                    Log.w(TAG, "Failed to retrieve a bitmap from the given resource id");
-                    return false;
-                }
                 if (isCancelled()) return false;
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
+                mBitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
                 os.flush();
                 prefs.edit().putLong(PREF_LAST_UPDATE_TIME, lastUpdateTime).commit();
 
@@ -142,23 +130,6 @@ public class SplashImageTransferTask {
             }
         }
     };
-
-    @Nullable
-    private static Bitmap drawableToBitmap(Context context, int drawableId) {
-        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
-        if (drawable == null) {
-            return null;
-        }
-        drawable = DrawableCompat.wrap(drawable);
-
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-
-        return bitmap;
-    }
 
     /** Callback to be called when the file is saved and transferred to Custom Tabs provider. */
     public interface Callback {
