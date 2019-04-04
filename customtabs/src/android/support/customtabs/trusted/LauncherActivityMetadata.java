@@ -39,6 +39,13 @@ public class LauncherActivityMetadata {
             "android.support.customtabs.trusted.SPLASH_SCREEN_BACKGROUND_COLOR";
 
     /**
+     * The duration of fade out animation in milliseconds to be played when removing splash
+     * screen.
+     */
+    private static final String METADATA_SPLASH_SCREEN_FADE_OUT_DURATION =
+            "android.support.customtabs.trusted.SPLASH_SCREEN_FADE_OUT_DURATION";
+
+    /**
      * Authority of FileProvider used to share files (e.g. splash image) with the browser
      */
     private static final String METADATA_FILE_PROVIDER_AUTHORITY =
@@ -52,6 +59,7 @@ public class LauncherActivityMetadata {
     public final int splashImageDrawableId;
     public final int splashScreenBackgroundColorId;
     @Nullable public final String fileProviderAuthority;
+    public final int splashScreenFadeOutDurationMillis;
 
     private LauncherActivityMetadata(@NonNull Bundle metaData) {
         defaultUrl = metaData.getString(METADATA_DEFAULT_URL);
@@ -60,6 +68,8 @@ public class LauncherActivityMetadata {
         splashScreenBackgroundColorId = metaData.getInt(METADATA_SPLASH_SCREEN_BACKGROUND_COLOR,
                 DEFAULT_COLOR_ID);
         fileProviderAuthority = metaData.getString(METADATA_FILE_PROVIDER_AUTHORITY);
+        splashScreenFadeOutDurationMillis =
+                metaData.getInt(METADATA_SPLASH_SCREEN_FADE_OUT_DURATION, 0);
     }
 
     /**

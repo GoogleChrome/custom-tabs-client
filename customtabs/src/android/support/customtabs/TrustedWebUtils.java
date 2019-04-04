@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.StringDef;
@@ -140,7 +141,7 @@ public class TrustedWebUtils {
      * {@link SplashScreenParamKey}.
      */
     public static final String EXTRA_SPLASH_SCREEN_PARAMS =
-            "android.support.customtabs.trusted.EXTRA_SPLASH_SCREEN_PARAMS";
+            "androidx.browser.trusted.EXTRA_SPLASH_SCREEN_PARAMS";
 
 
     /**
@@ -150,15 +151,43 @@ public class TrustedWebUtils {
     @Retention(RetentionPolicy.SOURCE)
     public @interface SplashScreenParamKey {
 
-        /** The background color of the splash screen. */
-        String BACKGROUND_COLOR =
-                "android.support.customtabs.trusted.KEY_SPLASH_SCREEN_BACKGROUND_COLOR";
-
         /**
          * The version of splash screens to use.
          * The value must be one of {@link SplashScreenVersion}.
          */
-        String VERSION = "android.support.customtabs.trusted.KEY_SPLASH_SCREEN_VERSION";
+        String VERSION = "androidx.browser.trusted.KEY_SPLASH_SCREEN_VERSION";
+
+        /**
+         * The background color of the splash screen.
+         * The value must be an integer representing the color in RGB. Alpha channel is ignored.
+         * The default is white.
+         */
+        String BACKGROUND_COLOR =
+                "androidx.browser.trusted.trusted.KEY_SPLASH_SCREEN_BACKGROUND_COLOR";
+
+        /**
+         * The {@link android.widget.ImageView.ScaleType} to use for the splash screen.
+         * The value must be an integer - the ordinal of the ScaleType.
+         * The default is {@link android.widget.ImageView.ScaleType#CENTER}.
+         */
+        String SCALE_TYPE = "androidx.browser.trusted.KEY_SPLASH_SCREEN_SCALE_TYPE";
+
+        /**
+         * The image transformation matrix to use for the splash screen. See
+         * {@link android.widget.ImageView#setImageMatrix}. Only needs to be provided if the scale
+         * type is {@link android.widget.ImageView.ScaleType#MATRIX}.
+         * The value must be an array of 9 floats or null. This array can be retrieved from
+         * {@link Matrix#getValues)}. The default is null.
+         */
+        String IMAGE_TRANSFORMATION_MATRIX =
+                "androidx.browser.trusted.KEY_SPLASH_SCREEN_TRANSFORMATION_MATRIX";
+
+        /**
+         * The duration of fade out animation in milliseconds to be played when removing splash
+         * screen.
+         * The value must be provided as an int. The default is 0 (no animation).
+         */
+        String FADE_OUT_DURATION = "androidx.browser.trusted.KEY_SPLASH_SCREEN_FADE_OUT_DURATION";
     }
 
 
@@ -175,9 +204,12 @@ public class TrustedWebUtils {
          * The splash screen is transferred via {@link CustomTabsSession#receiveFile},
          * and then used by Trusted Web Activity when it is launched.
          *
-         * The passed image is shown in a full-screen ImageView, with FIT_CENTER ScaleType, and
-         * with background color provided via {@link SplashScreenParamKey#BACKGROUND_COLOR},
-         * defaulting to white.
+         * The passed image is shown in a full-screen ImageView.
+         * The following parameters are supported:
+         * - {@link SplashScreenParamKey#BACKGROUND_COLOR},
+         * - {@link SplashScreenParamKey#SCALE_TYPE},
+         * - {@link SplashScreenParamKey#IMAGE_TRANSFORMATION_MATRIX}
+         * - {@link SplashScreenParamKey#FADE_OUT_DURATION}.
          */
         String V1 = "android.support.customtabs.category.TrustedWebActivitySplashScreensV1";
     }
