@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a1bd155_2a13cacc",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-04-04T19:04:52Z",
+      "side": 1,
+      "message": "How about: \"The value must be an integer representing the color in RGB. (no alpha)\"\n\nIt is weird to say that \"alpha channel is ignored\" given that RGB color\u0027s don\u0027t have an alpha channel.",
+      "revId": "c29a2fc370446efa1a69b162578a8f9e58e73032",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "997ba313_299f68c3",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-04-04T19:04:52Z",
+      "side": 1,
+      "message": "NOT IMPORTANT: From a strict correctness perspective, we should not call customizeStatusAndNavBarDuringSplashScreen() if converting the splash image to a bitmap fails",
+      "revId": "c29a2fc370446efa1a69b162578a8f9e58e73032",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
