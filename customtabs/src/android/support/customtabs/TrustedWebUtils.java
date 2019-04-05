@@ -212,7 +212,7 @@ public class TrustedWebUtils {
          * - {@link SplashScreenParamKey#IMAGE_TRANSFORMATION_MATRIX}
          * - {@link SplashScreenParamKey#FADE_OUT_DURATION_MS}.
          */
-        String V1 = "android.support.customtabs.category.TrustedWebActivitySplashScreensV1";
+        String V1 = "androidx.browser.trusted.category.TrustedWebActivitySplashScreensV1";
     }
 
     private TrustedWebUtils() {}
