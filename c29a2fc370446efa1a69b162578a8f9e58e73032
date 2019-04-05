@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "65895808_c6ef424f",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-04-05T09:45:45Z",
+      "side": 1,
+      "message": "\"no alpha\" will make it sound like the client necessarily has to take care of removing alpha before passing in the value, which is not so - we are removing alpha in Chrome anyway. So I\u0027ll change to \"alpha channel is ignored if provided\".",
+      "parentUuid": "6a1bd155_2a13cacc",
+      "revId": "c29a2fc370446efa1a69b162578a8f9e58e73032",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85eaf3f6_3cb8f74f",
         "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "4826e540_5c8f6858",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-04-05T09:45:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85eaf3f6_3cb8f74f",
+      "range": {
+        "startLine": 190,
+        "startChar": 25,
+        "endLine": 190,
+        "endChar": 26
+      },
+      "revId": "c29a2fc370446efa1a69b162578a8f9e58e73032",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "997ba313_299f68c3",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 4
@@ -56,6 +98,24 @@
       "revId": "c29a2fc370446efa1a69b162578a8f9e58e73032",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5199541_265bdb2c",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-04-05T09:45:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "997ba313_299f68c3",
+      "revId": "c29a2fc370446efa1a69b162578a8f9e58e73032",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
