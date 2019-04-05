@@ -17,8 +17,11 @@ package android.support.customtabs.trusted;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 import android.content.ComponentName;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsCallback;
 import android.support.customtabs.CustomTabsClient;
@@ -26,6 +29,7 @@ import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.TrustedWebUtils;
+import android.support.customtabs.TrustedWebUtils.SplashScreenParamKey;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -98,6 +102,8 @@ public class LauncherActivity extends AppCompatActivity {
 
     private boolean mShouldShowSplashScreen;
 
+    @Nullable private Bitmap mSplashImage;
+
     /** We only want to show the update prompt once per instance of this application. */
     private static boolean sChromeVersionChecked;
 
@@ -146,7 +152,9 @@ public class LauncherActivity extends AppCompatActivity {
 
         if (mShouldShowSplashScreen) {
             showSplashScreen();
-            customizeStatusAndNavBarDuringSplashScreen();
+            if (mSplashImage != null) {
+                customizeStatusAndNavBarDuringSplashScreen();
+            }
         }
 
         mServiceConnection = new TwaCustomTabsServiceConnection();
@@ -174,12 +182,44 @@ public class LauncherActivity extends AppCompatActivity {
      * This method shows the splash screen in the LauncherActivity.
      */
     private void showSplashScreen() {
+        mSplashImage = LauncherActivityUtils.convertDrawableToBitmap(this,
+                mMetadata.splashImageDrawableId);
+        if (mSplashImage == null) {
+            Log.w(TAG, "Failed to retrieve splash image from provided drawable id");
+            return;
+        }
         ImageView view = new ImageView(this);
         view.setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));
-        view.setImageResource(mMetadata.splashImageDrawableId);
+        view.setImageBitmap(mSplashImage);
         view.setBackgroundColor(getColorCompat(mMetadata.splashScreenBackgroundColorId));
-        view.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+        ImageView.ScaleType scaleType = getSplashImageScaleType();
+        view.setScaleType(scaleType);
+        if (scaleType == ImageView.ScaleType.MATRIX) {
+            view.setImageMatrix(getSplashImageTransformationMatrix());
+        }
+
         setContentView(view);
+    }
+
+    /**
+     * Override to set a custom scale type for the image displayed on a splash screen.
+     * See {@link ImageView.ScaleType}.
+     */
+    @NonNull
+    protected ImageView.ScaleType getSplashImageScaleType() {
+        return ImageView.ScaleType.CENTER;
+    }
+
+    /**
+     * Override to set a transformation matrix for the image displayed on a splash screen.
+     * See {@link ImageView#setImageMatrix}.
+     * Has any effect only if {@link #getSplashImageScaleType()} returns {@link
+     * ImageView.ScaleType#MATRIX}.
+     */
+    @Nullable
+    protected Matrix getSplashImageTransformationMatrix() {
+        return null;
     }
 
     /**
@@ -188,14 +228,14 @@ public class LauncherActivity extends AppCompatActivity {
      */
     protected void customizeStatusAndNavBarDuringSplashScreen() {
         int statusBarColor = getColorCompat(mMetadata.statusBarColorId);
-        StatusAndNavBarUtils.setStatusBarColor(this, statusBarColor);
+        LauncherActivityUtils.setStatusBarColor(this, statusBarColor);
 
         // Custom tabs may in future support customizing status bar icon color and nav bar color.
         // For now, we apply the colors Chrome uses.
-        if (StatusAndNavBarUtils.shouldUseDarkStatusBarIcons(statusBarColor)) {
-            StatusAndNavBarUtils.setDarkStatusBarIcons(this);
+        if (LauncherActivityUtils.shouldUseDarkStatusBarIcons(statusBarColor)) {
+            LauncherActivityUtils.setDarkStatusBarIcons(this);
         }
-        StatusAndNavBarUtils.setWhiteNavigationBar(this);
+        LauncherActivityUtils.setWhiteNavigationBar(this);
     }
 
     @Override
@@ -280,7 +320,7 @@ public class LauncherActivity extends AppCompatActivity {
             TrustedWebActivityBuilder builder =
                     new TrustedWebActivityBuilder(LauncherActivity.this, session, getLaunchingUrl())
                             .setStatusBarColor(getColorCompat(mMetadata.statusBarColorId));
-            if (mShouldShowSplashScreen) {
+            if (mShouldShowSplashScreen && mSplashImage != null) {
                 launchTwaAfterTransferringSplashImage(builder, session);
             } else {
                 launchTwa(builder);
@@ -295,7 +335,7 @@ public class LauncherActivity extends AppCompatActivity {
                 return;
             }
             mSplashImageTransferTask = new SplashImageTransferTask(LauncherActivity.this,
-                    mMetadata.splashImageDrawableId, mMetadata.fileProviderAuthority, session,
+                    mSplashImage, mMetadata.fileProviderAuthority, session,
                     mCustomTabsProviderPackage);
 
             mSplashImageTransferTask.execute(success -> onSplashImageTransferred(builder, success));
@@ -307,14 +347,29 @@ public class LauncherActivity extends AppCompatActivity {
                 launchTwa(builder);
                 return;
             }
-            Bundle splashScreenParams = new Bundle();
-            splashScreenParams.putString(TrustedWebUtils.SplashScreenParamKey.VERSION,
-                    TrustedWebUtils.SplashScreenVersion.V1);
-            splashScreenParams.putInt(TrustedWebUtils.SplashScreenParamKey.BACKGROUND_COLOR,
-                    getColorCompat(mMetadata.splashScreenBackgroundColorId));
-            builder.setSplashScreenParams(splashScreenParams);
+            builder.setSplashScreenParams(makeSplashScreenParamsBundle());
             launchTwa(builder);
             overridePendingTransition(0, 0); // Avoid window animations during transition.
+        }
+
+        @NonNull
+        private Bundle makeSplashScreenParamsBundle() {
+            Bundle bundle = new Bundle();
+            bundle.putString(SplashScreenParamKey.VERSION, TrustedWebUtils.SplashScreenVersion.V1);
+            bundle.putInt(SplashScreenParamKey.FADE_OUT_DURATION_MS,
+                    mMetadata.splashScreenFadeOutDurationMillis);
+            bundle.putInt(SplashScreenParamKey.BACKGROUND_COLOR,
+                    getColorCompat(mMetadata.splashScreenBackgroundColorId));
+            bundle.putInt(SplashScreenParamKey.SCALE_TYPE,
+                    getSplashImageScaleType().ordinal());
+            Matrix matrix = getSplashImageTransformationMatrix();
+            if (matrix != null) {
+                float[] values = new float[9];
+                matrix.getValues(values);
+                bundle.putFloatArray(SplashScreenParamKey.IMAGE_TRANSFORMATION_MATRIX,
+                        values);
+            }
+            return bundle;
         }
 
         private void launchTwa(TrustedWebActivityBuilder builder) {
