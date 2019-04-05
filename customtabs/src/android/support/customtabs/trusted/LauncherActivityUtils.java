@@ -1,15 +1,22 @@
 package android.support.customtabs.trusted;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.View;
 
 /**
  * Utility functions for changing status bar and navigation bar colors.
  * All functions include checks of SDK version.
  */
-public class StatusAndNavBarUtils {
+public class LauncherActivityUtils {
 
     /** Sets status bar color. */
     public static void setStatusBarColor(Activity activity, int color) {
@@ -57,5 +64,24 @@ public class StatusAndNavBarUtils {
     private static float luminanceOfColorComponent(float c) {
         c /= 255f;
         return (c < 0.03928f) ? c / 12.92f : (float) Math.pow((c + 0.055f) / 1.055f, 2.4f);
+    }
+
+    /**
+     * Converts drawable located at given resource id into a Bitmap.
+     */
+    @Nullable
+    public static Bitmap convertDrawableToBitmap(Context context, int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        if (drawable == null) {
+            return null;
+        }
+        drawable = DrawableCompat.wrap(drawable);
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 }
