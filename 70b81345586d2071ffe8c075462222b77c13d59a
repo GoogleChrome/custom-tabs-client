@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "335374e0_99f76280",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-04-12T13:26:58Z",
+      "side": 1,
+      "message": "Could you add to the comment below saying that session here will have reattached to the existing Custom Tab Activity (it\u0027s just a bit non-obvious with the name of \u0027getSession\u0027).",
+      "range": {
+        "startLine": 319,
+        "startChar": 40,
+        "endLine": 319,
+        "endChar": 50
+      },
+      "revId": "70b81345586d2071ffe8c075462222b77c13d59a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
