@@ -317,6 +317,14 @@ public class LauncherActivity extends AppCompatActivity {
             }
 
             CustomTabsSession session = getSession(client);
+            if (mBrowserWasLaunched) {
+                // Browser process got killed and then restored, which led to re-establishing the
+                // connection. We don't need to re-launch TWA, it should restore itself when user
+                // returns to it. The session obtained from getSession above is re-attached to the
+                // existing TWA instance.
+                return;
+            }
+
             TrustedWebActivityBuilder builder =
                     new TrustedWebActivityBuilder(LauncherActivity.this, session, getLaunchingUrl())
                             .setStatusBarColor(getColorCompat(mMetadata.statusBarColorId));
