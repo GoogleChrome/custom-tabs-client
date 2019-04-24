@@ -1,4 +1,4 @@
-package android.support.customtabs.trusted;
+package android.support.customtabs.trusted.splashscreens;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -14,27 +14,18 @@
 
 package android.support.customtabs.trusted;
 
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-
-import android.content.ComponentName;
-import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsCallback;
-import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
-import android.support.customtabs.CustomTabsServiceConnection;
-import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.TrustedWebUtils;
-import android.support.customtabs.TrustedWebUtils.SplashScreenParamKey;
+import android.support.customtabs.trusted.splashscreens.PwaWrapperSplashScreenStrategy;
+import android.support.customtabs.trusted.splashscreens.SplashScreenStrategy;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 /**
@@ -88,11 +79,8 @@ public class LauncherActivity extends AppCompatActivity {
     private static final String BROWSER_WAS_LAUNCHED_KEY =
             "android.support.customtabs.trusted.BROWSER_WAS_LAUNCHED_KEY";
 
-    private static final int SESSION_ID = 96375;
-
-    @Nullable private TwaCustomTabsServiceConnection mServiceConnection;
-
-    @Nullable private SplashImageTransferTask mSplashImageTransferTask;
+    /** We only want to show the update prompt once per instance of this application. */
+    private static boolean sChromeVersionChecked;
 
     private LauncherActivityMetadata mMetadata;
 
@@ -100,12 +88,11 @@ public class LauncherActivity extends AppCompatActivity {
 
     private String mCustomTabsProviderPackage;
 
-    private boolean mShouldShowSplashScreen;
+    @Nullable
+    private SplashScreenStrategy mSplashScreenStrategy;
 
-    @Nullable private Bitmap mSplashImage;
-
-    /** We only want to show the update prompt once per instance of this application. */
-    private static boolean sChromeVersionChecked;
+    @Nullable
+    private TwaLauncher mTwaLauncher;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -148,18 +135,23 @@ public class LauncherActivity extends AppCompatActivity {
             sChromeVersionChecked = true;
         }
 
-        mShouldShowSplashScreen = shouldShowSplashScreen();
+        int statusBarColor = getColorCompat(mMetadata.statusBarColorId);
 
-        if (mShouldShowSplashScreen) {
-            showSplashScreen();
-            if (mSplashImage != null) {
-                customizeStatusAndNavBarDuringSplashScreen();
-            }
+        if (shouldShowSplashScreen()) {
+            mSplashScreenStrategy = new PwaWrapperSplashScreenStrategy(this,
+                    mCustomTabsProviderPackage,
+                    mMetadata.splashImageDrawableId,
+                    getColorCompat(mMetadata.splashScreenBackgroundColorId),
+                    statusBarColor,
+                    getSplashImageScaleType(),
+                    getSplashImageTransformationMatrix(),
+                    mMetadata.splashScreenFadeOutDurationMillis,
+                    mMetadata.fileProviderAuthority);
         }
 
-        mServiceConnection = new TwaCustomTabsServiceConnection();
-        CustomTabsClient.bindCustomTabsService(
-                this, mCustomTabsProviderPackage, mServiceConnection);
+        mTwaLauncher = new TwaLauncher(this, mCustomTabsProviderPackage);
+        mTwaLauncher.openUrl(getLaunchingUrl(), statusBarColor, mSplashScreenStrategy,
+                () -> mBrowserWasLaunched = true);
     }
 
     private boolean shouldShowSplashScreen() {
@@ -174,32 +166,6 @@ public class LauncherActivity extends AppCompatActivity {
 
         return TrustedWebUtils.splashScreensAreSupported(this, mCustomTabsProviderPackage,
                 TrustedWebUtils.SplashScreenVersion.V1);
-    }
-
-    /**
-     * Splash screen is shown both before the Trusted Web Activity is launched - in this activity,
-     * and for some time after that - in browser, on top of web page being loaded.
-     * This method shows the splash screen in the LauncherActivity.
-     */
-    private void showSplashScreen() {
-        mSplashImage = LauncherActivityUtils.convertDrawableToBitmap(this,
-                mMetadata.splashImageDrawableId);
-        if (mSplashImage == null) {
-            Log.w(TAG, "Failed to retrieve splash image from provided drawable id");
-            return;
-        }
-        ImageView view = new ImageView(this);
-        view.setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));
-        view.setImageBitmap(mSplashImage);
-        view.setBackgroundColor(getColorCompat(mMetadata.splashScreenBackgroundColorId));
-
-        ImageView.ScaleType scaleType = getSplashImageScaleType();
-        view.setScaleType(scaleType);
-        if (scaleType == ImageView.ScaleType.MATRIX) {
-            view.setImageMatrix(getSplashImageTransformationMatrix());
-        }
-
-        setContentView(view);
     }
 
     /**
@@ -222,22 +188,6 @@ public class LauncherActivity extends AppCompatActivity {
         return null;
     }
 
-    /**
-     * Sets the colors of status and navigation bar to match the ones seen after the splash screen
-     * is transferred to the browser. Override to customize these colors.
-     */
-    protected void customizeStatusAndNavBarDuringSplashScreen() {
-        int statusBarColor = getColorCompat(mMetadata.statusBarColorId);
-        LauncherActivityUtils.setStatusBarColor(this, statusBarColor);
-
-        // Custom tabs may in future support customizing status bar icon color and nav bar color.
-        // For now, we apply the colors Chrome uses.
-        if (LauncherActivityUtils.shouldUseDarkStatusBarIcons(statusBarColor)) {
-            LauncherActivityUtils.setDarkStatusBarIcons(this);
-        }
-        LauncherActivityUtils.setWhiteNavigationBar(this);
-    }
-
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -249,11 +199,11 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mServiceConnection != null) {
-            unbindService(mServiceConnection);
+        if (mTwaLauncher != null) {
+            mTwaLauncher.destroy();
         }
-        if (mSplashImageTransferTask != null) {
-            mSplashImageTransferTask.cancel();
+        if (mSplashScreenStrategy != null) {
+            mSplashScreenStrategy.destroy();
         }
     }
 
@@ -261,22 +211,6 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(BROWSER_WAS_LAUNCHED_KEY, mBrowserWasLaunched);
-    }
-
-    /**
-     * Creates a {@link CustomTabsSession}. Default implementation returns a CustomTabsSession using
-     * a constant session id, see {@link CustomTabsClient#newSession(CustomTabsCallback, int)}, so
-     * that if an instance of Trusted Web Activity associated with this app is already running, the
-     * new Intent will be routed to it, allowing for seamless page transitions. The user will be
-     * able to navigate to the previous page with the back button.
-     *
-     * Override this if you want any special session specific behaviour. To launch separate Trusted
-     * Web Activity instances, return CustomTabsSessions either without session ids (see
-     * {@link CustomTabsClient#newSession(CustomTabsCallback)}) or with different ones on each
-     * call.
-     */
-    protected CustomTabsSession getSession(CustomTabsClient client) {
-        return client.newSession(null, SESSION_ID);
     }
 
     /**
@@ -304,86 +238,5 @@ public class LauncherActivity extends AppCompatActivity {
 
     private int getColorCompat(int resourceId) {
         return ContextCompat.getColor(this, resourceId);
-    }
-
-    private class TwaCustomTabsServiceConnection extends CustomTabsServiceConnection {
-
-        @Override
-        public void onCustomTabsServiceConnected(ComponentName componentName,
-                CustomTabsClient client) {
-            if (TrustedWebUtils.warmupIsRequired(
-                    LauncherActivity.this, mCustomTabsProviderPackage)) {
-                client.warmup(0);
-            }
-
-            CustomTabsSession session = getSession(client);
-            TrustedWebActivityBuilder builder =
-                    new TrustedWebActivityBuilder(LauncherActivity.this, session, getLaunchingUrl())
-                            .setStatusBarColor(getColorCompat(mMetadata.statusBarColorId));
-            if (mShouldShowSplashScreen && mSplashImage != null) {
-                launchTwaAfterTransferringSplashImage(builder, session);
-            } else {
-                launchTwa(builder);
-            }
-        }
-
-        private void launchTwaAfterTransferringSplashImage(TrustedWebActivityBuilder builder,
-                CustomTabsSession session) {
-            if (TextUtils.isEmpty(mMetadata.fileProviderAuthority)) {
-                Log.w(TAG, "FileProvider authority not specified, can't transfer splash image.");
-                onSplashImageTransferred(builder, false);
-                return;
-            }
-            mSplashImageTransferTask = new SplashImageTransferTask(LauncherActivity.this,
-                    mSplashImage, mMetadata.fileProviderAuthority, session,
-                    mCustomTabsProviderPackage);
-
-            mSplashImageTransferTask.execute(success -> onSplashImageTransferred(builder, success));
-        }
-
-        private void onSplashImageTransferred(TrustedWebActivityBuilder builder, boolean success) {
-            if (!success) {
-                Log.w(TAG, "Failed to transfer splash image.");
-                launchTwa(builder);
-                return;
-            }
-            builder.setSplashScreenParams(makeSplashScreenParamsBundle());
-            launchTwa(builder);
-            overridePendingTransition(0, 0); // Avoid window animations during transition.
-        }
-
-        @NonNull
-        private Bundle makeSplashScreenParamsBundle() {
-            Bundle bundle = new Bundle();
-            bundle.putString(SplashScreenParamKey.VERSION, TrustedWebUtils.SplashScreenVersion.V1);
-            bundle.putInt(SplashScreenParamKey.FADE_OUT_DURATION_MS,
-                    mMetadata.splashScreenFadeOutDurationMillis);
-            bundle.putInt(SplashScreenParamKey.BACKGROUND_COLOR,
-                    getColorCompat(mMetadata.splashScreenBackgroundColorId));
-            bundle.putInt(SplashScreenParamKey.SCALE_TYPE,
-                    getSplashImageScaleType().ordinal());
-            Matrix matrix = getSplashImageTransformationMatrix();
-            if (matrix != null) {
-                float[] values = new float[9];
-                matrix.getValues(values);
-                bundle.putFloatArray(SplashScreenParamKey.IMAGE_TRANSFORMATION_MATRIX,
-                        values);
-            }
-            return bundle;
-        }
-
-        private void launchTwa(TrustedWebActivityBuilder builder) {
-            Log.d(TAG, "Launching Trusted Web Activity.");
-            builder.launchActivity();
-
-            // Remember who we connect to as the package that is allowed to delegate notifications
-            // to us.
-            TrustedWebActivityService.setVerifiedProvider(
-                    LauncherActivity.this, mCustomTabsProviderPackage);
-            mBrowserWasLaunched = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) { }
     }
 }
