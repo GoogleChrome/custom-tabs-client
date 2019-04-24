@@ -166,14 +166,15 @@ public class TrustedWebUtils {
                 "androidx.browser.trusted.trusted.KEY_SPLASH_SCREEN_BACKGROUND_COLOR";
 
         /**
-         * The {@link android.widget.ImageView.ScaleType} to use for the splash screen.
+         * The {@link android.widget.ImageView.ScaleType} to apply to the image on the splash
+         * screen.
          * The value must be an integer - the ordinal of the ScaleType.
          * The default is {@link android.widget.ImageView.ScaleType#CENTER}.
          */
         String SCALE_TYPE = "androidx.browser.trusted.KEY_SPLASH_SCREEN_SCALE_TYPE";
 
         /**
-         * The image transformation matrix to use for the splash screen. See
+         * The transformation matrix to apply to the image on the splash screen. See
          * {@link android.widget.ImageView#setImageMatrix}. Only needs to be provided if the scale
          * type is {@link android.widget.ImageView.ScaleType#MATRIX}.
          * The value must be an array of 9 floats or null. This array can be retrieved from
