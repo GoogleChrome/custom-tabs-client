@@ -166,14 +166,15 @@ public class TrustedWebUtils {
                 "androidx.browser.trusted.trusted.KEY_SPLASH_SCREEN_BACKGROUND_COLOR";
 
         /**
-         * The {@link android.widget.ImageView.ScaleType} to use for the splash screen.
+         * The {@link android.widget.ImageView.ScaleType} to apply to the image on the splash
+         * screen.
          * The value must be an integer - the ordinal of the ScaleType.
          * The default is {@link android.widget.ImageView.ScaleType#CENTER}.
          */
         String SCALE_TYPE = "androidx.browser.trusted.KEY_SPLASH_SCREEN_SCALE_TYPE";
 
         /**
-         * The image transformation matrix to use for the splash screen. See
+         * The transformation matrix to apply to the image on the splash screen. See
          * {@link android.widget.ImageView#setImageMatrix}. Only needs to be provided if the scale
          * type is {@link android.widget.ImageView.ScaleType#MATRIX}.
          * The value must be an array of 9 floats or null. This array can be retrieved from
@@ -251,11 +252,11 @@ public class TrustedWebUtils {
      * supported, display a Toast to the user asking them to update.
      * @param context {@link Context} to launch the Toast and access Resources and the
      *                PackageManager.
-     * @param chromePackage Chrome package we're about to use.
+     * @param providerPackage Provider package we're about to use.
      */
-    public static void promptForChromeUpdateIfNeeded(Context context, String chromePackage) {
-        if (!TrustedWebUtils.VERSION_CHECK_CHROME_PACKAGES.contains(chromePackage)) return;
-        if (!chromeNeedsUpdate(context.getPackageManager(), chromePackage)) {
+    public static void promptForChromeUpdateIfNeeded(Context context, String providerPackage) {
+        if (!TrustedWebUtils.VERSION_CHECK_CHROME_PACKAGES.contains(providerPackage)) return;
+        if (!chromeNeedsUpdate(context.getPackageManager(), providerPackage)) {
             return;
         }
 
