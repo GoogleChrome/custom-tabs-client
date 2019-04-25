@@ -20,6 +20,7 @@ import android.content.ComponentName;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -151,9 +152,15 @@ public class LauncherActivity extends AppCompatActivity {
         mShouldShowSplashScreen = shouldShowSplashScreen();
 
         if (mShouldShowSplashScreen) {
-            showSplashScreen();
-            if (mSplashImage != null) {
-                customizeStatusAndNavBarDuringSplashScreen();
+            mSplashImage = LauncherActivityUtils.convertDrawableToBitmap(this,
+                    mMetadata.splashImageDrawableId);
+            if (mSplashImage == null) {
+                Log.w(TAG, "Failed to retrieve splash image from provided drawable id");
+                return;
+            }
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                // Before L, onEnterAnimationComplete is not triggered by the system.
+                onEnterAnimationComplete();
             }
         }
 
@@ -182,12 +189,6 @@ public class LauncherActivity extends AppCompatActivity {
      * This method shows the splash screen in the LauncherActivity.
      */
     private void showSplashScreen() {
-        mSplashImage = LauncherActivityUtils.convertDrawableToBitmap(this,
-                mMetadata.splashImageDrawableId);
-        if (mSplashImage == null) {
-            Log.w(TAG, "Failed to retrieve splash image from provided drawable id");
-            return;
-        }
         ImageView view = new ImageView(this);
         view.setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));
         view.setImageBitmap(mSplashImage);
@@ -200,6 +201,14 @@ public class LauncherActivity extends AppCompatActivity {
         }
 
         setContentView(view);
+    }
+
+    @Override
+    public void onEnterAnimationComplete() {
+        if (mShouldShowSplashScreen && mSplashImage != null) {
+            showSplashScreen();
+            customizeStatusAndNavBarDuringSplashScreen();
+        }
     }
 
     /**
