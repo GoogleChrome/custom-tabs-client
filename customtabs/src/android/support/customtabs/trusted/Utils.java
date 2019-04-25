@@ -13,10 +13,9 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.View;
 
 /**
- * Utility functions for changing status bar and navigation bar colors.
- * All functions include checks of SDK version.
+ * Utilities used by helper classes that are setting up and launching Trusted Web Activities.
  */
-public class LauncherActivityUtils {
+public class Utils {
 
     /** Sets status bar color. */
     public static void setStatusBarColor(Activity activity, int color) {
