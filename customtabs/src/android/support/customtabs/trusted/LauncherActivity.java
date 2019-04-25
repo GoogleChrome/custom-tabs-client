@@ -20,6 +20,7 @@ import android.content.ComponentName;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -72,11 +73,21 @@ import android.widget.ImageView;
  * Showing splash screen in the app first is optional, but highly recommended, because on slow
  * devices (e.g. Android Go) it can take seconds to boot up a browser.
  *
- * Note: despite the opaque splash screen, LauncherActivity should still have a transparent style.
+ * Note: despite the opaque splash screen, LauncherActivity should still have a transparent theme.
  * That way it can gracefully fall back to being a transparent "trampoline" activity in the
  * following cases:
  * - Splash screens are not supported by the picked browser.
  * - The TWA is already running, and LauncherActivity merely needs to deliver a new Intent to it.
+ *
+ * Recommended theme is:
+ * <pre>{@code
+ * <style name="LauncherActivityTheme" parent="Theme.AppCompat.NoActionBar">
+ *     <item name="android:windowIsTranslucent">true</item>
+ *     <item name="android:windowBackground">@android:color/transparent</item>
+ *     <item name="android:statusBarColor">@android:color/transparent</item>
+ *     <item name="android:navigationBarColor">@android:color/transparent</item>
+ * </style>
+ * }</pre>
  *
  * [1] https://developers.google.com/digital-asset-links/v1/getting-started
  * [2] https://www.chromium.org/developers/how-tos/run-chromium-with-flags#TOC-Setting-Flags-for-Chrome-on-Android
@@ -151,9 +162,15 @@ public class LauncherActivity extends AppCompatActivity {
         mShouldShowSplashScreen = shouldShowSplashScreen();
 
         if (mShouldShowSplashScreen) {
-            showSplashScreen();
-            if (mSplashImage != null) {
-                customizeStatusAndNavBarDuringSplashScreen();
+            mSplashImage = LauncherActivityUtils.convertDrawableToBitmap(this,
+                    mMetadata.splashImageDrawableId);
+            if (mSplashImage == null) {
+                Log.w(TAG, "Failed to retrieve splash image from provided drawable id");
+                return;
+            }
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                // Before L, onEnterAnimationComplete is not triggered by the system.
+                onEnterAnimationComplete();
             }
         }
 
@@ -182,12 +199,6 @@ public class LauncherActivity extends AppCompatActivity {
      * This method shows the splash screen in the LauncherActivity.
      */
     private void showSplashScreen() {
-        mSplashImage = LauncherActivityUtils.convertDrawableToBitmap(this,
-                mMetadata.splashImageDrawableId);
-        if (mSplashImage == null) {
-            Log.w(TAG, "Failed to retrieve splash image from provided drawable id");
-            return;
-        }
         ImageView view = new ImageView(this);
         view.setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));
         view.setImageBitmap(mSplashImage);
@@ -200,6 +211,14 @@ public class LauncherActivity extends AppCompatActivity {
         }
 
         setContentView(view);
+    }
+
+    @Override
+    public void onEnterAnimationComplete() {
+        if (mShouldShowSplashScreen && mSplashImage != null) {
+            showSplashScreen();
+            customizeStatusAndNavBarDuringSplashScreen();
+        }
     }
 
     /**
