@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b760d4fd_1513902b",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SplashScreenStrategy.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-04-25T15:31:29Z",
+      "side": 1,
+      "message": "With the change https://chromium-review.googlesource.com/c/custom-tabs-client/+/1584143\nthis interface would need onActivityEnterAnimationFinished method. It\u0027s not part of activity lifecycle, so unfortunately will have to be called manually by LauncherActivity.",
+      "revId": "3c6cffe169b390b41a8961f16da59ab8c65a7b15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
