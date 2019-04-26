@@ -61,9 +61,20 @@ import android.widget.ImageView;
  * Showing splash screen in the app first is optional, but highly recommended, because on slow
  * devices (e.g. Android Go) it can take seconds to boot up a browser.
  *
- * Note: despite the opaque splash screen, LauncherActivity should still have a transparent style.
- * That way it can gracefully fall back to being a transparent "trampoline" activity in the
- * following cases:
+ * Recommended theme for this Activity is:
+ * <pre>{@code
+ * <style name="LauncherActivityTheme" parent="Theme.AppCompat.NoActionBar">
+ *     <item name="android:windowIsTranslucent">true</item>
+ *     <item name="android:windowBackground">@android:color/transparent</item>
+ *     <item name="android:statusBarColor">@android:color/transparent</item>
+ *     <item name="android:navigationBarColor">@android:color/transparent</item>
+ *     <item name="android:backgroundDimEnabled">false</item>
+ * </style>
+ * }</pre>
+ *
+ * Note that even with splash screen enabled, it is still recommended to use a transparent theme.
+ * That way the Activity can gracefully fall back to being a transparent "trampoline" activity in
+ * the following cases:
  * - Splash screens are not supported by the picked browser.
  * - The TWA is already running, and LauncherActivity merely needs to deliver a new Intent to it.
  *
