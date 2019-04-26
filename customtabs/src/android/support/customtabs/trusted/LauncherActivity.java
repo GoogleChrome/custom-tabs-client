@@ -20,6 +20,7 @@ import android.content.ComponentName;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -72,9 +73,20 @@ import android.widget.ImageView;
  * Showing splash screen in the app first is optional, but highly recommended, because on slow
  * devices (e.g. Android Go) it can take seconds to boot up a browser.
  *
- * Note: despite the opaque splash screen, LauncherActivity should still have a transparent style.
- * That way it can gracefully fall back to being a transparent "trampoline" activity in the
- * following cases:
+ * Recommended theme for this Activity is:
+ * <pre>{@code
+ * <style name="LauncherActivityTheme" parent="Theme.AppCompat.NoActionBar">
+ *     <item name="android:windowIsTranslucent">true</item>
+ *     <item name="android:windowBackground">@android:color/transparent</item>
+ *     <item name="android:statusBarColor">@android:color/transparent</item>
+ *     <item name="android:navigationBarColor">@android:color/transparent</item>
+ *     <item name="android:backgroundDimEnabled">false</item>
+ * </style>
+ * }</pre>
+ *
+ * Note that even with splash screen enabled, it is still recommended to use a transparent theme.
+ * That way the Activity can gracefully fall back to being a transparent "trampoline" activity in
+ * the following cases:
  * - Splash screens are not supported by the picked browser.
  * - The TWA is already running, and LauncherActivity merely needs to deliver a new Intent to it.
  *
@@ -103,6 +115,11 @@ public class LauncherActivity extends AppCompatActivity {
     private boolean mShouldShowSplashScreen;
 
     @Nullable private Bitmap mSplashImage;
+
+    @Nullable private Runnable mOnEnterAnimationCompleteRunnable;
+
+    // Defaulting to true for pre-L because enter animations were introduced in L.
+    private boolean mEnterAnimationComplete = Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
 
     /** We only want to show the update prompt once per instance of this application. */
     private static boolean sChromeVersionChecked;
@@ -239,6 +256,15 @@ public class LauncherActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onEnterAnimationComplete() {
+        mEnterAnimationComplete = true;
+        if (mOnEnterAnimationCompleteRunnable != null) {
+            mOnEnterAnimationCompleteRunnable.run();
+            mOnEnterAnimationCompleteRunnable = null;
+        }
+    }
+
+    @Override
     protected void onRestart() {
         super.onRestart();
         if (mBrowserWasLaunched) {
@@ -356,8 +382,13 @@ public class LauncherActivity extends AppCompatActivity {
                 return;
             }
             builder.setSplashScreenParams(makeSplashScreenParamsBundle());
-            launchTwa(builder);
-            overridePendingTransition(0, 0); // Avoid window animations during transition.
+
+            // Launching the next activity before current activity finishes its enter animation
+            // can lead to visual glitches: https://crbug.com/956361.
+            runWhenEnterAnimationComplete(() -> {
+                launchTwa(builder);
+                overridePendingTransition(0, 0); // Avoid window animations during transition.
+            });
         }
 
         @NonNull
@@ -378,6 +409,14 @@ public class LauncherActivity extends AppCompatActivity {
                         values);
             }
             return bundle;
+        }
+
+        private void runWhenEnterAnimationComplete(Runnable runnable) {
+            if (mEnterAnimationComplete) {
+                runnable.run();
+            } else {
+                mOnEnterAnimationCompleteRunnable = runnable;
+            }
         }
 
         private void launchTwa(TrustedWebActivityBuilder builder) {
