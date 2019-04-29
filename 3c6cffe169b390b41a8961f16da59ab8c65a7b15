@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "4ccbba10_b7130505",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2019-04-29T03:53:17Z",
+      "side": 1,
+      "message": "should this be provider agnostic as well?",
+      "range": {
+        "startLine": 259,
+        "startChar": 13,
+        "endLine": 259,
+        "endChar": 30
+      },
+      "revId": "3c6cffe169b390b41a8961f16da59ab8c65a7b15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ad94041_c5ab1672",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TwaLauncher.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2019-04-29T03:53:17Z",
+      "side": 1,
+      "message": "Looks like context and url are the critical pieces here. How about a Builder and a buildAndLaunch() at the end? Everything that is nullable down can be builder customizations with defaults as is if not set. We can incorporate FallBackBehavior to that now or later as well as Andre suggested.\n\nThis way you can do\n\nnew TwaLaunchBuilder(context, url).buildAndLaunch();\n\nvs\n\nTwaLauncher launcher \u003d new TwaLauncher(context);\nlaunch.openUrl(url, 0, null, null);\n\nor keep cascading them.\n\n\nHmm, reading through the rest, this may definitely get confused with the TrustedWebActivity builder. Can we add these customizations into that as well? So that instead of being a builder for the splash screen related bits, it is a builder for the whole experience? And if you dont want anything custom you still use the above dummy flow.\n\nWe can keep the class structure for SplashScreenStrategy etc same or can make some more classes internal implementation details as well. So the client mostly interacts with the builder that way. wdyt?",
+      "range": {
+        "startLine": 51,
+        "startChar": 23,
+        "endLine": 51,
+        "endChar": 30
+      },
+      "revId": "3c6cffe169b390b41a8961f16da59ab8c65a7b15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c60496dc_8c2b9768",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TwaLauncher.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2019-04-29T03:53:17Z",
+      "side": 1,
+      "message": "is there no default for statusBarColor? Do we have to pick one?",
+      "range": {
+        "startLine": 93,
+        "startChar": 47,
+        "endLine": 93,
+        "endChar": 61
+      },
+      "revId": "3c6cffe169b390b41a8961f16da59ab8c65a7b15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "743bde25_11fa5ce7",
         "filename": "customtabs/src/android/support/customtabs/trusted/TwaLauncher.java",
         "patchSetId": 5
@@ -13,6 +82,29 @@
       "writtenOn": "2019-04-26T14:31:40Z",
       "side": 1,
       "message": "Developers may want to customise the behaviour when TWAs are not available. Maybe we could have a \"FallbackBehaviour\", where the CctFallbackBehaviour is the default implementation, but developer could customise, passing their own implementation when constructing the launcher (eg: a WebViewFallbackBehaviour)\n\nWe can do that on another PR though.",
+      "revId": "3c6cffe169b390b41a8961f16da59ab8c65a7b15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e11ca696_9dc4bb49",
+        "filename": "customtabs/src/android/support/customtabs/trusted/Utils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1116074
+      },
+      "writtenOn": "2019-04-29T03:53:17Z",
+      "side": 1,
+      "message": "Should we try to consolidate this class and TrustedWebUtils a bit? Looks like they are both utils. Should we move the other one to /trusted/ as well and call the combination TrustedWebUtils?",
+      "range": {
+        "startLine": 18,
+        "startChar": 13,
+        "endLine": 18,
+        "endChar": 18
+      },
       "revId": "3c6cffe169b390b41a8961f16da59ab8c65a7b15",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
