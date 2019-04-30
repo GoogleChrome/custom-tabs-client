@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c291e279_f1a2e64b",
+        "filename": "customtabs/src/android/support/customtabs/TrustedWebUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-04-30T13:29:16Z",
+      "side": 1,
+      "message": "TrustedWebUtils should definitely be cleaned from Chrome specifics, but that will be the subject of a different CL.",
+      "parentUuid": "4ccbba10_b7130505",
+      "range": {
+        "startLine": 259,
+        "startChar": 13,
+        "endLine": 259,
+        "endChar": 30
+      },
+      "revId": "3c6cffe169b390b41a8961f16da59ab8c65a7b15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ad94041_c5ab1672",
         "filename": "customtabs/src/android/support/customtabs/trusted/TwaLauncher.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-29T03:53:17Z",
       "side": 1,
       "message": "Looks like context and url are the critical pieces here. How about a Builder and a buildAndLaunch() at the end? Everything that is nullable down can be builder customizations with defaults as is if not set. We can incorporate FallBackBehavior to that now or later as well as Andre suggested.\n\nThis way you can do\n\nnew TwaLaunchBuilder(context, url).buildAndLaunch();\n\nvs\n\nTwaLauncher launcher \u003d new TwaLauncher(context);\nlaunch.openUrl(url, 0, null, null);\n\nor keep cascading them.\n\n\nHmm, reading through the rest, this may definitely get confused with the TrustedWebActivity builder. Can we add these customizations into that as well? So that instead of being a builder for the splash screen related bits, it is a builder for the whole experience? And if you dont want anything custom you still use the above dummy flow.\n\nWe can keep the class structure for SplashScreenStrategy etc same or can make some more classes internal implementation details as well. So the client mostly interacts with the builder that way. wdyt?",
+      "range": {
+        "startLine": 51,
+        "startChar": 23,
+        "endLine": 51,
+        "endChar": 30
+      },
+      "revId": "3c6cffe169b390b41a8961f16da59ab8c65a7b15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4508fb0a_0597bb43",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TwaLauncher.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-04-30T13:29:16Z",
+      "side": 1,
+      "message": "\u003e\u003e Hmm, reading through the rest, this may definitely get confused with the TrustedWebActivity builder.\n\nYes, that\u0027s exactly why I didn\u0027t use builder pattern here. \n\n\n\u003e\u003e Can we add these customizations into that as well?\n\nI think we shouldn\u0027t. TwaLauncher and TwaBuilder are different levels of abstraction. TwaBuilder along with TrustedWebUtils represents a relatively low-level api that we plan to add into androidx (after some clean-up). TwaLauncher and splash screen strategies are high-level helpers, the usage of which is very much optional; we plan to keep these in a separate library. They are also different in that TwaBuilder is actually a builder with no asynchrony, like the CustomTabsIntent.Builder, while TwaLauncher is much more than that.\n\nIn other words, clients that need to customize the flow of launching TWAs should be able to use bare TwaBuilder and TrustedWebUtils without TwaLauncher.\n\nWhat we can probably do is to allow clients to pass an instance of TwaBuilder into here. That would allow to avoid duplicating the list of parameters. A separate launch() method with just url argument is also reasonable.",
+      "parentUuid": "6ad94041_c5ab1672",
       "range": {
         "startLine": 51,
         "startChar": 23,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "12e9e2d5_6b491c45",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TwaLauncher.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-04-30T13:29:16Z",
+      "side": 1,
+      "message": "Addressed in the updated CL.",
+      "parentUuid": "c60496dc_8c2b9768",
+      "range": {
+        "startLine": 93,
+        "startChar": 47,
+        "endLine": 93,
+        "endChar": 61
+      },
+      "revId": "3c6cffe169b390b41a8961f16da59ab8c65a7b15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "743bde25_11fa5ce7",
         "filename": "customtabs/src/android/support/customtabs/trusted/TwaLauncher.java",
         "patchSetId": 5
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "91d34658_015ca64e",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TwaLauncher.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-04-30T13:29:16Z",
+      "side": 1,
+      "message": "Alternatively, the clients can do this:\n\nAction action \u003d TwaProviderPicker.pickProvider(context.getPackageManager());\nif (action.launchMode \u003d\u003d LaunchMode.TRUSTED_WEB_ACTIVITY) {\n   TwaLauncher launcher \u003d new TwaLauncher(context, action.providerPackage);\n   // Use launcher.\n} else {\n   // Fallback logic\n}\n\nI added the constructor \"public TwaLauncher(Context context, @Nullable String providerPackage)\" with this use case in mind.\n\nI feel a bit uneasy about adding new interfaces and complexity in order to save just a line or two.",
+      "parentUuid": "743bde25_11fa5ce7",
+      "revId": "3c6cffe169b390b41a8961f16da59ab8c65a7b15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e11ca696_9dc4bb49",
         "filename": "customtabs/src/android/support/customtabs/trusted/Utils.java",
         "patchSetId": 5
@@ -99,6 +189,30 @@
       "writtenOn": "2019-04-29T03:53:17Z",
       "side": 1,
       "message": "Should we try to consolidate this class and TrustedWebUtils a bit? Looks like they are both utils. Should we move the other one to /trusted/ as well and call the combination TrustedWebUtils?",
+      "range": {
+        "startLine": 18,
+        "startChar": 13,
+        "endLine": 18,
+        "endChar": 18
+      },
+      "revId": "3c6cffe169b390b41a8961f16da59ab8c65a7b15",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3520fb1d_ac63f446",
+        "filename": "customtabs/src/android/support/customtabs/trusted/Utils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-04-30T13:29:16Z",
+      "side": 1,
+      "message": "While TrustedWebUtils represent the low-level api, including the constants the implementing browsers need to refer to, these Utils are for the TwaLauncher/SplashScreenStrategy layer. They are by themselves not even directly related to twas. TrustedWebUtils should go to androidx, Utils shouldn\u0027t.",
+      "parentUuid": "e11ca696_9dc4bb49",
       "range": {
         "startLine": 18,
         "startChar": 13,
