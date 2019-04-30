@@ -18,8 +18,10 @@ import java.util.List;
  */
 public class TrustedWebActivityBuilder {
     private final Context mContext;
-    private final CustomTabsIntent.Builder mIntentBuilder;
     private final Uri mUri;
+
+    @Nullable
+    private Integer mStatusBarColor;
 
     @Nullable
     private List<String> mAdditionalTrustedOrigins;
@@ -30,12 +32,10 @@ public class TrustedWebActivityBuilder {
     /**
      * Creates a Builder given the required parameters.
      * @param context {@link Context} to use.
-     * @param session The {@link CustomTabsSession} to use for launching a Trusted Web Activity.
      * @param uri The web page to launch as Trusted Web Activity.
      */
-    public TrustedWebActivityBuilder(Context context, CustomTabsSession session, Uri uri) {
+    public TrustedWebActivityBuilder(Context context, Uri uri) {
         mContext = context;
-        mIntentBuilder = new CustomTabsIntent.Builder(session);
         mUri = uri;
     }
 
@@ -43,7 +43,7 @@ public class TrustedWebActivityBuilder {
      * Sets the status bar color to be seen while the Trusted Web Activity is running.
      */
     public TrustedWebActivityBuilder setStatusBarColor(int color) {
-        mIntentBuilder.setToolbarColor(color); // Toolbar color applies also to the status bar.
+        mStatusBarColor = color;
         return this;
     }
 
@@ -91,13 +91,21 @@ public class TrustedWebActivityBuilder {
     /**
      * Launches a Trusted Web Activity. Once it is launched, browser side implementations may
      * have their own fallback behavior (e.g. showing the page in a custom tab UI with toolbar).
+     *
+     * @param session The {@link CustomTabsSession} to use for launching a Trusted Web Activity.
      */
-    public void launchActivity() {
-        Intent intent = mIntentBuilder.build().intent;
-        if (!intent.hasExtra(CustomTabsIntent.EXTRA_SESSION)) {
-            throw new IllegalArgumentException(
-                    "The CustomTabsIntent should be associated with a CustomTabsSession");
+    public void launchActivity(CustomTabsSession session) {
+        if (session == null) {
+            throw new NullPointerException("CustomTabsSession is required for launching a TWA");
         }
+
+        CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder(session);
+        if (mStatusBarColor != null) {
+            // Toolbar color applies also to the status bar.
+            intentBuilder.setToolbarColor(mStatusBarColor);
+        }
+
+        Intent intent = intentBuilder.build().intent;
         intent.setData(mUri);
         intent.putExtra(TrustedWebUtils.EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY, true);
         if (mAdditionalTrustedOrigins != null) {
@@ -110,4 +118,20 @@ public class TrustedWebActivityBuilder {
         }
         ContextCompat.startActivity(mContext, intent, null);
     }
+
+    /**
+     * Returns the {@link Uri} to be launched with this Builder.
+     */
+    public Uri getUrl() {
+        return mUri;
+    }
+
+    /**
+     * Returns the color set via {@link #setStatusBarColor(int)} or null if not set.
+     */
+    @Nullable
+    public Integer getStatusBarColor() {
+        return mStatusBarColor;
+    }
+
 }
