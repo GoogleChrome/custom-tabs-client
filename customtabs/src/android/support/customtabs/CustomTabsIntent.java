@@ -34,6 +34,7 @@ import android.support.annotation.RestrictTo;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.BundleCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -276,6 +277,15 @@ public final class CustomTabsIntent {
             "android.support.customtabs.extra.EXTRA_ENABLE_INSTANT_APPS";
 
     /**
+     * Extra that contains a SparseArray, mapping color schemes (except
+     * {@link CustomTabsIntent#COLOR_SCHEME_SYSTEM}) to {@link Bundle} representing a
+     * {@link CustomTabThemeParameters}.
+     * Extra may be null, and the mapping for each color scheme may not exist. In those cases, as
+     * well as when a particular value in {@link CustomTabThemeParameters} is null, the values for
+     */
+    public static final String EXTRA_THEMES = "androidx.browser.customtabs.THEMES";
+
+    /**
      * Key that specifies the unique ID for an action button. To make a button to show on the
      * toolbar, use {@link #TOOLBAR_ACTION_BUTTON_ID} as its ID.
      */
@@ -321,10 +331,15 @@ public final class CustomTabsIntent {
      */
     public static final class Builder {
         private final Intent mIntent = new Intent(Intent.ACTION_VIEW);
+        private final CustomTabThemeParameters.Builder mDefaultThemeBuilder
+                = new CustomTabThemeParameters.Builder();
         private ArrayList<Bundle> mMenuItems = null;
         private Bundle mStartAnimationBundle = null;
         private ArrayList<Bundle> mActionButtons = null;
         private boolean mInstantAppsEnabled = true;
+
+        @Nullable
+        private SparseArray<Bundle> mThemeBundles;
 
         /**
          * Creates a {@link CustomTabsIntent.Builder} object associated with no
@@ -379,7 +394,7 @@ public final class CustomTabsIntent {
          */
         @NonNull
         public Builder setToolbarColor(@ColorInt int color) {
-            mIntent.putExtra(EXTRA_TOOLBAR_COLOR, color);
+            mDefaultThemeBuilder.setToolbarColor(color);
             return this;
         }
 
@@ -523,7 +538,7 @@ public final class CustomTabsIntent {
          */
         @NonNull
         public Builder setSecondaryToolbarColor(@ColorInt int color) {
-            mIntent.putExtra(EXTRA_SECONDARY_TOOLBAR_COLOR, color);
+            mDefaultThemeBuilder.setSecondaryToolbarColor(color);
             return this;
         }
 
@@ -543,8 +558,9 @@ public final class CustomTabsIntent {
          * @see CustomTabsIntent#EXTRA_REMOTEVIEWS_CLICKED_ID
          */
         @NonNull
-        public Builder setSecondaryToolbarViews(@NonNull RemoteViews remoteViews,
+        public Builder setSecondaryToolbarViews(@Nullable RemoteViews remoteViews,
                 @Nullable int[] clickableIDs, @Nullable PendingIntent pendingIntent) {
+            mDefaultThemeBuilder.setSecondaryToolbarViews(remoteViews);
             mIntent.putExtra(EXTRA_REMOTEVIEWS, remoteViews);
             mIntent.putExtra(EXTRA_REMOTEVIEWS_VIEW_IDS, clickableIDs);
             mIntent.putExtra(EXTRA_REMOTEVIEWS_PENDINGINTENT, pendingIntent);
@@ -611,6 +627,41 @@ public final class CustomTabsIntent {
         }
 
         /**
+         * Sets {@link CustomTabThemeParameters} for the given theme.
+         *
+         * This allows to specify visual parameters of a Custom Tabs for all themes. This can be
+         * useful if {@link CustomTabsIntent#COLOR_SCHEME_SYSTEM} is set: Custom Tab will follow the
+         * the system settings, and apply the corresponding {@link CustomTabThemeParameters} when
+         * the settings change.
+         *
+         * For example, this allows to specify two different colors for the toolbar for light and
+         * dark modes, whereas {@link #setToolbarColor} will apply the given color to both modes.
+         *
+         * If there is no {@link CustomTabThemeParameters} for the current theme, or a particular
+         * field of it is null, Custom Tab will fall back to "default" values provided via
+         * {@link #setToolbarColor} and similar methods. If, on the other hand, a non-null value is
+         * present, it will override the one set by those methods.
+         *
+         * @param colorScheme One of {@link ColorScheme} constants. It should not be
+         *                    {@link #COLOR_SCHEME_SYSTEM}, because that represents a behavior
+         *                    rather than a particular theme.
+         * @param theme A {@link CustomTabThemeParameters}.
+         */
+        @NonNull
+        public Builder setThemeParameters(@ColorScheme int colorScheme,
+                @NonNull CustomTabThemeParameters theme) {
+            if (colorScheme < 0 || colorScheme > COLOR_SCHEME_MAX
+                    || colorScheme == COLOR_SCHEME_SYSTEM) {
+                throw new IllegalArgumentException("colorScheme should not be COLOR_SCHEME_SYSTEM");
+            }
+            if (mThemeBundles == null) {
+                mThemeBundles = new SparseArray<>();
+            }
+            mThemeBundles.put(colorScheme, theme.toBundle());
+            return this;
+        }
+
+        /**
          * Combines all the options that have been set and returns a new {@link CustomTabsIntent}
          * object.
          */
@@ -623,6 +674,14 @@ public final class CustomTabsIntent {
                 mIntent.putParcelableArrayListExtra(EXTRA_TOOLBAR_ITEMS, mActionButtons);
             }
             mIntent.putExtra(EXTRA_ENABLE_INSTANT_APPS, mInstantAppsEnabled);
+
+            mIntent.putExtras(mDefaultThemeBuilder.build().toBundle());
+            if (mThemeBundles != null) {
+                Bundle bundle = new Bundle();
+                bundle.putSparseParcelableArray(EXTRA_THEMES, mThemeBundles);
+                mIntent.putExtras(bundle);
+            }
+
             return new CustomTabsIntent(mIntent, mStartAnimationBundle);
         }
     }
