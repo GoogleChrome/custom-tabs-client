@@ -57,7 +57,7 @@ public class PwaWrapperSplashScreenStrategy implements SplashScreenStrategy {
     @DrawableRes
     private final int mDrawableId;
     @ColorInt
-    private final int mBackgroundColor;;
+    private final int mBackgroundColor;
     private final ImageView.ScaleType mScaleType;
     @Nullable
     private final Matrix mTransformationMatrix;

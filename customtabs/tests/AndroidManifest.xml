@@ -28,6 +28,10 @@
                       android:host="www.example.com"
                       android:pathPrefix="/notifications"/>
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <service android:name="android.support.customtabs.PostMessageService"
@@ -41,6 +45,15 @@
         </service>
 
         <service android:name="android.support.customtabs.TestCustomTabsServiceSupportsTwas"
+                 android:enabled="false">
+            <intent-filter>
+                <action android:name="android.support.customtabs.action.CustomTabsService" />
+                <category android:name="androidx.browser.trusted.category.TrustedWebActivities" />
+                <category android:name="androidx.browser.trusted.category.TrustedWebActivitySplashScreensV1" />
+            </intent-filter>
+        </service>
+
+        <service android:name="android.support.customtabs.TestCustomTabsServiceNoSplashScreens"
                  android:enabled="false">
             <intent-filter>
                 <action android:name="android.support.customtabs.action.CustomTabsService" />
@@ -80,7 +93,18 @@
 
             <meta-data
                 android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR"
-                android:resource="@color/browser_actions_bg_grey" />
+                android:resource="@color/status_bar_color" />
         </activity>
+
+        <!-- For TWA splash screens -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="android.support.customtabs.trusted.test_fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
     </application>
 </manifest>

@@ -16,12 +16,21 @@
 
 package android.support.customtabs;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.io.FileDescriptor;
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A test class that simulates how a {@link CustomTabsService} would behave.
@@ -31,6 +40,16 @@ public class TestCustomTabsService extends CustomTabsService {
     public static final String CALLBACK_BIND_TO_POST_MESSAGE = "BindToPostMessageService";
     private boolean mPostMessageRequested;
     private CustomTabsSessionToken mSession;
+
+    public static TestCustomTabsService sInstance;
+
+    public CountDownLatch mFileReceivingLatch = new CountDownLatch(1);
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        sInstance = this;
+        return super.onBind(intent);
+    }
 
     @Override
     protected boolean warmup(long flags) {
@@ -83,6 +102,38 @@ public class TestCustomTabsService extends CustomTabsService {
     @Override
     protected boolean receiveFile(@NonNull CustomTabsSessionToken sessionToken, @NonNull Uri uri,
             int purpose, @Nullable Bundle extras) {
-        return false;
+        boolean success = retrieveBitmap(uri);
+        if (success) {
+            mFileReceivingLatch.countDown();
+        }
+        return success;
+    }
+
+    private boolean retrieveBitmap(Uri uri) {
+        try (ParcelFileDescriptor parcelFileDescriptor =
+                     getContentResolver().openFileDescriptor(uri, "r")) {
+            if (parcelFileDescriptor == null) return false;
+            FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+            if (fileDescriptor == null) return false;
+            Bitmap bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+            return bitmap != null;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Waits until a splash image file is successfully received and decoded in {@link #receiveFile}.
+     * Returns whether that happened before timeout.
+     * If already received, returns "true" immediately.
+     */
+    public boolean waitForSplashImageFile(int timeoutMillis) {
+        try {
+            boolean success = mFileReceivingLatch.await(timeoutMillis, TimeUnit.MILLISECONDS);
+            mFileReceivingLatch = new CountDownLatch(1);
+            return success;
+        } catch (InterruptedException e) {
+            return false;
+        }
     }
 }
