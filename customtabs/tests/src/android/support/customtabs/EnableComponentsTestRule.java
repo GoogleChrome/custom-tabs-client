@@ -8,6 +8,7 @@ import android.support.test.InstrumentationRegistry;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class EnableComponentsTestRule extends TestWatcher {
     public EnableComponentsTestRule(Class ... components) {
         // TODO(peconn): Figure out some generic bounds that allows a list of Classes that are
         // either Services or Actvities.
-        mComponents = Arrays.asList(components);
+        mComponents = new ArrayList(Arrays.asList(components));
     }
 
     @Override
@@ -44,9 +45,15 @@ public class EnableComponentsTestRule extends TestWatcher {
      * Manually disables an already enabled component.
      */
     public void manuallyDisable(Class clazz) {
-        // If we were to add a manuallyEnable method, you'd need to add the enabled clazz to
-        // mComponents to ensure it is disabled after the test.
         setComponentEnabled(clazz, false);
+    }
+
+    /**
+     * Manually enables a component. Will be disabled when test finishes.
+     */
+    public void manuallyEnable(Class clazz) {
+        setComponentEnabled(clazz, true);
+        mComponents.add(clazz);
     }
 
     private void setEnabled(boolean enabled) {

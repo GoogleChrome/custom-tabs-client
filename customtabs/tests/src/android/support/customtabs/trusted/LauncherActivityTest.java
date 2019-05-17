@@ -26,9 +26,10 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.EnableComponentsTestRule;
-import android.support.customtabs.R;
+import android.support.customtabs.test.R;
 import android.support.customtabs.TestCustomTabsService;
 import android.support.customtabs.TestCustomTabsServiceSupportsTwas;
+import android.support.customtabs.testutil.TestUtil;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.MediumTest;
 import android.support.test.rule.ActivityTestRule;
@@ -42,8 +43,6 @@ import org.junit.runner.RunWith;
 
 /**
  * Tests for {@link LauncherActivity}.
- *
- * TODO(pshmakov): Add tests for session resumption.
  */
 @RunWith(AndroidJUnit4.class)
 @MediumTest
@@ -51,8 +50,7 @@ public class LauncherActivityTest {
     // The default URL specified in the test AndroidManifest.xml under LauncherActivity.
     private static final Uri DEFAULT_URL = Uri.parse("https://www.test.com/default_url/");
     // The resource id of the color specified as the status bar color.
-    // TODO(peconn): Create a specific test color in a test-only colors.xml
-    private static final int STATUS_BAR_COLOR_ID = R.color.browser_actions_bg_grey;
+    private static final int STATUS_BAR_COLOR_ID = R.color.status_bar_color;
 
     private Context mContext = InstrumentationRegistry.getContext();
 
@@ -86,7 +84,7 @@ public class LauncherActivityTest {
     public void readsUrlFromManifest() {
         TestBrowser browser = launch();
 
-        assertEquals(DEFAULT_URL, browser.getLaunchIntent().getData());
+        assertEquals(DEFAULT_URL, browser.getIntent().getData());
     }
 
     @Test
@@ -100,7 +98,7 @@ public class LauncherActivityTest {
         mEnableComponents.manuallyDisable(TestCustomTabsServiceSupportsTwas.class);
         TestBrowser browser = launch();
 
-        assertFalse(browser.getLaunchIntent().hasExtra(EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY));
+        assertFalse(browser.getIntent().hasExtra(EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY));
     }
 
     @Test
@@ -112,7 +110,7 @@ public class LauncherActivityTest {
     }
 
     private void checkColor(TestBrowser browser) {
-        int requestedColor = browser.getLaunchIntent()
+        int requestedColor = browser.getIntent()
                 .getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0);
         int expectedColor = InstrumentationRegistry.getTargetContext().getResources()
                 .getColor(STATUS_BAR_COLOR_ID);
@@ -121,14 +119,7 @@ public class LauncherActivityTest {
     }
 
     private TestBrowser launch() {
-        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        Instrumentation.ActivityMonitor monitor
-                = instrumentation.addMonitor(TestBrowser.class.getName(), null, false);
-
-        mActivityTestRule.launchActivity(null);
-
-        TestBrowser browserActivity = (TestBrowser) instrumentation.waitForMonitor(monitor);
-        instrumentation.removeMonitor(monitor);
-        return browserActivity;
+        return TestUtil.getBrowserActivityWhenLaunched(() ->
+                mActivityTestRule.launchActivity(null));
     }
 }
