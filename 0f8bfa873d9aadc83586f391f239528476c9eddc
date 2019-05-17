@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a4fc5a8c_b0476c5f",
+        "filename": "customtabs/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-05-17T14:46:24Z",
+      "side": 1,
+      "message": "Sure, let\u0027s use 2.19.0.",
+      "parentUuid": "a68956c2_2bffeca9",
+      "range": {
+        "startLine": 16,
+        "startChar": 44,
+        "endLine": 16,
+        "endChar": 61
+      },
+      "revId": "0f8bfa873d9aadc83586f391f239528476c9eddc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d565add0_1c98e0db",
         "filename": "customtabs/tests/src/android/support/customtabs/TestCustomTabsService.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-17T12:02:36Z",
       "side": 1,
       "message": "You\u0027re using the CountDownLatch to wait for receiveFile (which I\u0027m assuming may be called on a different thread to waitForSplashImageFile) to complete successfully. There\u0027s a slight problem though because you\u0027re creating this new CountDownLatch on a certain thread and a subsequent call to receiveFile on another thread may still use the old one.\n\nI\u0027m sure things will work fine in the tests though, so you may want to just add a comment saying that it\u0027s not 100% threadsafe. Otherwise you\u0027ll need to make mFileReceivingLatch volatile (or use an AtomicReference) and lock on some object around accessing/creating.\n\nAlternatively you could change the CountDownLatch to a CyclicBarrier and call reset instead of creating a new one.",
+      "range": {
+        "startLine": 133,
+        "startChar": 12,
+        "endLine": 133,
+        "endChar": 31
+      },
+      "revId": "0f8bfa873d9aadc83586f391f239528476c9eddc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbdd4d2a_86da1f98",
+        "filename": "customtabs/tests/src/android/support/customtabs/TestCustomTabsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-05-17T14:46:24Z",
+      "side": 1,
+      "message": "I\u0027m not sure CyclicBarrier has the right semantics: both receiveFile and and waitForSplashImage would have to call await, which means receiveFile, if it\u0027s called first, will block until waitForSplashImage is called.\nAdding volatile or using AtomicReference wouldn\u0027t completely solve the problem either. A call from a receiveFile can happen between the lines \"boolean success \u003d ...\" and \"mFileReceivingLatch \u003d ...\".\nFor now I\u0027ll remove resetting the CountDownLatch. If it will be needed, perhaps the right approach would be to use CountDownLatch only on the side of tests with whatever logic they\u0027ll need, and leave in the Service only some kind of observer mechanism.",
+      "parentUuid": "d565add0_1c98e0db",
       "range": {
         "startLine": 133,
         "startChar": 12,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5fe7d140_fa1b2083",
+        "filename": "customtabs/tests/src/android/support/customtabs/testutil/CustomTabConnectionRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-05-17T14:46:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29faf15_0f2f3c4b",
+      "range": {
+        "startLine": 60,
+        "startChar": 25,
+        "endLine": 60,
+        "endChar": 46
+      },
+      "revId": "0f8bfa873d9aadc83586f391f239528476c9eddc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "581b5156_940a1493",
         "filename": "customtabs/tests/src/android/support/customtabs/trusted/splashscreens/PwaWrapperSplashScreenStrategyTest.java",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-05-17T12:02:36Z",
       "side": 1,
       "message": "I\u0027m confused by this behaviour - don\u0027t we still want to show the splashscreen in the client even if the browser doesn\u0027t support it?",
+      "range": {
+        "startLine": 114,
+        "startChar": 16,
+        "endLine": 114,
+        "endChar": 75
+      },
+      "revId": "0f8bfa873d9aadc83586f391f239528476c9eddc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e8d9fe4_2d6ad584",
+        "filename": "customtabs/tests/src/android/support/customtabs/trusted/splashscreens/PwaWrapperSplashScreenStrategyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-05-17T14:46:24Z",
+      "side": 1,
+      "message": "We don\u0027t. If we show it only on client, it will look like a split-second flicker, followed by white Chrome.",
+      "parentUuid": "581b5156_940a1493",
       "range": {
         "startLine": 114,
         "startChar": 16,
@@ -114,6 +210,30 @@
       "revId": "0f8bfa873d9aadc83586f391f239528476c9eddc",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a689f7f_4b5e64b7",
+        "filename": "customtabs/tests/src/android/support/customtabs/trusted/splashscreens/PwaWrapperSplashScreenStrategyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-05-17T14:46:24Z",
+      "side": 1,
+      "message": "Good catch, done",
+      "parentUuid": "e92c4dda_4f2c22ea",
+      "range": {
+        "startLine": 160,
+        "startChar": 8,
+        "endLine": 160,
+        "endChar": 11
+      },
+      "revId": "0f8bfa873d9aadc83586f391f239528476c9eddc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
