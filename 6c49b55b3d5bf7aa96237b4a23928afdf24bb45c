@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83db2814_f718d8de",
+        "filename": "customtabs/tests/src/android/support/customtabs/testutil/TestUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-05-21T13:39:58Z",
+      "side": 1,
+      "message": "Were you seeing failures with this?",
+      "range": {
+        "startLine": 48,
+        "startChar": 81,
+        "endLine": 48,
+        "endChar": 86
+      },
+      "revId": "6c49b55b3d5bf7aa96237b4a23928afdf24bb45c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

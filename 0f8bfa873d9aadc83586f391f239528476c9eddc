@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "7c6c06ba_35a90b82",
+        "filename": "customtabs/tests/src/android/support/customtabs/trusted/splashscreens/PwaWrapperSplashScreenStrategyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-05-21T13:39:58Z",
+      "side": 1,
+      "message": "But what if Chrome is cold on a slow device?",
+      "parentUuid": "3e8d9fe4_2d6ad584",
+      "range": {
+        "startLine": 114,
+        "startChar": 16,
+        "endLine": 114,
+        "endChar": 75
+      },
+      "revId": "0f8bfa873d9aadc83586f391f239528476c9eddc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e92c4dda_4f2c22ea",
         "filename": "customtabs/tests/src/android/support/customtabs/trusted/splashscreens/PwaWrapperSplashScreenStrategyTest.java",
         "patchSetId": 1
