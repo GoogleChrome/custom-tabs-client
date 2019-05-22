@@ -13,6 +13,7 @@ dependencies {
     androidTestImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test:rules:1.0.1'
+    androidTestImplementation 'com.linkedin.dexmaker:dexmaker-mockito:2.19.0'
 }
 
 android {
@@ -37,6 +38,7 @@ android {
 
         androidTest.setRoot('tests')
         androidTest.java.srcDir('tests/src/')
+        androidTest.res.srcDir('tests/res/')
     }
 
     compileOptions {
