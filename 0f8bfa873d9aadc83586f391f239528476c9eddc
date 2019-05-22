@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "4a18d17b_301dcafc",
+        "filename": "customtabs/tests/src/android/support/customtabs/trusted/splashscreens/PwaWrapperSplashScreenStrategyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-05-22T16:44:11Z",
+      "side": 1,
+      "message": "Even on Go device the time we see splash screen on client is about a second or less. So I\u0027d still say it\u0027s a poor experience. Clients can customize the SplashScreenStrategy if they want though.",
+      "parentUuid": "7c6c06ba_35a90b82",
+      "range": {
+        "startLine": 114,
+        "startChar": 16,
+        "endLine": 114,
+        "endChar": 75
+      },
+      "revId": "0f8bfa873d9aadc83586f391f239528476c9eddc",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e92c4dda_4f2c22ea",
         "filename": "customtabs/tests/src/android/support/customtabs/trusted/splashscreens/PwaWrapperSplashScreenStrategyTest.java",
         "patchSetId": 1

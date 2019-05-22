@@ -22,6 +22,30 @@
       "revId": "6c49b55b3d5bf7aa96237b4a23928afdf24bb45c",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a646f72d_40c395f1",
+        "filename": "customtabs/tests/src/android/support/customtabs/testutil/TestUtil.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-05-22T16:44:11Z",
+      "side": 1,
+      "message": "3000 should be enough. Timeouts are just to make sure tests don\u0027t freeze forever when instead of  failing.",
+      "parentUuid": "83db2814_f718d8de",
+      "range": {
+        "startLine": 48,
+        "startChar": 81,
+        "endLine": 48,
+        "endChar": 86
+      },
+      "revId": "6c49b55b3d5bf7aa96237b4a23928afdf24bb45c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
