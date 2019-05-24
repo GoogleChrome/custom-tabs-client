@@ -352,11 +352,9 @@ public class TrustedWebActivityService extends Service {
      * Sets (asynchronously) the package that this service will accept connections from.
      * @param context A context to be used to access SharedPreferences.
      * @param provider The package of the provider to accept connections from or null to clear.
-     * @param callback A {@link Runnable} to be run on completion.
      * @hide
      */
-    public static final void setVerifiedProvider(final Context context, @Nullable String provider,
-            @Nullable Runnable callback) {
+    public static final void setVerifiedProvider(Context context, @Nullable String provider) {
         final String providerEmptyChecked =
                 (provider == null || provider.isEmpty()) ? null : provider;
 
@@ -369,22 +367,26 @@ public class TrustedWebActivityService extends Service {
                 editor.apply();
                 return null;
             }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                if (callback != null) callback.run();
-            }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     /**
-     * Sets (asynchronously) the package that this service will accept connections from.
-     * @param context A context to be used to access SharedPreferences.
-     * @param provider The package of the provider to accept connections from or null to clear.
+     * See {@link #setVerifiedProvider}, the main difference being that this approach sets the
+     * provider synchronously, so may trigger a disk read.
      * @hide
      */
-    public static final void setVerifiedProvider(Context context, @Nullable String provider) {
-        setVerifiedProvider(context, provider, null);
+    public static final void setVerifiedProviderSynchronouslyForTesting(Context context,
+            @Nullable String provider) {
+        String providerEmptyChecked = (provider == null || provider.isEmpty()) ? null : provider;
+
+        StrictMode.ThreadPolicy policy = StrictMode.allowThreadDiskReads();
+        try {
+            SharedPreferences.Editor editor = getPreferences(context).edit();
+            editor.putString(PREFS_VERIFIED_PROVIDER, providerEmptyChecked);
+            editor.apply();
+        } finally {
+            StrictMode.setThreadPolicy(policy);
+        }
     }
 
     private static String channelNameToId(String name) {

@@ -34,11 +34,7 @@ public class VerifiedProviderTestRule extends TestWatcher {
 
     private void set(boolean enabled) {
         Context context = InstrumentationRegistry.getContext();
-        // Can't just use a boolean since we need an effectively final variable for the callback.
-        AtomicBoolean completed = new AtomicBoolean();
-
-        String provider = enabled ? context.getPackageName() : null;
-        TrustedWebActivityService.setVerifiedProvider(context, provider, () -> completed.set(true));
-        PollingCheck.waitFor(completed::get);
+        TrustedWebActivityService.setVerifiedProviderSynchronouslyForTesting(
+                context, enabled ? context.getPackageName() : null);
     }
 }
