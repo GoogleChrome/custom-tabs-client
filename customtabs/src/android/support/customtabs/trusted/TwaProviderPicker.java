@@ -114,7 +114,7 @@ public class TwaProviderPicker {
 
         // These packages will be in order of Android's preference.
         List<ResolveInfo> possibleProviders
-                = pm.queryIntentActivities(queryBrowsersIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                = pm.queryIntentActivities(queryBrowsersIntent, PackageManager.MATCH_ALL);
         Map<String, Integer> customTabsServices = getLaunchModesForCustomTabsServices(pm);
 
         for (ResolveInfo possibleProvider : possibleProviders) {
