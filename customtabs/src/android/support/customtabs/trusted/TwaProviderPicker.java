@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsService;
@@ -54,7 +55,7 @@ import java.util.Map;
  * </pre>
  *
  * A Trusted Web Activity provider is an app that has a Service that answers the following Intent:
- *  * <pre>
+ * <pre>
  * new Intent()
  *         .setAction(CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION)
  *         .addCategory(CustomTabsService.TRUSTED_WEB_ACTIVITY_CATEGORY);
@@ -112,9 +113,19 @@ public class TwaProviderPicker {
         String bestCctProvider = null;
         String bestBrowserProvider = null;
 
+        // According to the Android documentation, the flag we want to use is MATCH_DEFAULT_ONLY.
+        // This would match all the browsers installed on the user's system whose intent handler
+        // contains the category Intent.CATEGORY_DEFAULT. However, in Android M the behavior of
+        // the PackageManager changed to only return the default browser unless the MATCH_ALL is
+        // passed (this is specific to querying browsers - if you query for any other type of
+        // package, MATCH_DEFAULT_ONLY will work as documented). This flag did not exist on Android
+        // versions before M, so we only use it in that case.
+        int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PackageManager.MATCH_ALL
+                : PackageManager.MATCH_DEFAULT_ONLY;
+
         // These packages will be in order of Android's preference.
         List<ResolveInfo> possibleProviders
-                = pm.queryIntentActivities(queryBrowsersIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                = pm.queryIntentActivities(queryBrowsersIntent, flags);
         Map<String, Integer> customTabsServices = getLaunchModesForCustomTabsServices(pm);
 
         for (ResolveInfo possibleProvider : possibleProviders) {
@@ -139,7 +150,7 @@ public class TwaProviderPicker {
         }
 
         if (bestCctProvider != null) {
-            Log.d(TAG,"Found no TWA providers, using first Custom Tabs provider: "
+            Log.d(TAG, "Found no TWA providers, using first Custom Tabs provider: "
                     + bestCctProvider);
             return new Action(LaunchMode.CUSTOM_TAB, bestCctProvider);
         }
