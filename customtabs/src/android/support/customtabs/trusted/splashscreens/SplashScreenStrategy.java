@@ -29,11 +29,12 @@ public interface SplashScreenStrategy {
      * side before the browser is launched.
      * @param providerPackage Package name of the browser being launched. Implementations should
      * check whether this browser supports splash screens.
-     * @param statusBarColor Status bar color of TWA. Implementations that show splash screen in
-     * client app should set this status bar color. Null if client did not specify a status bar
-     * color.
+     * @param builder {@link TrustedWebActivityBuilder} with user-specified parameters.
+     * Implementations that show splash screen in client app should read such parameters as status
+     * bar color and navigation bar color from the builder and apply them while showing the splash
+     * screen.
      */
-    void onTwaLaunchInitiated(String providerPackage, @Nullable Integer statusBarColor);
+    void onTwaLaunchInitiated(String providerPackage, TrustedWebActivityBuilder builder);
 
     /**
      * Called when TWA is ready to be launched.

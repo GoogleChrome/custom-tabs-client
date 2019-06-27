@@ -4,11 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.customtabs.CustomTabColorSchemeParams;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.TrustedWebUtils;
 import android.support.v4.content.ContextCompat;
+import android.util.SparseArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +24,10 @@ public class TrustedWebActivityBuilder {
     private final Context mContext;
     private final Uri mUri;
 
-    @Nullable
-    private Integer mStatusBarColor;
+    @Nullable @ColorInt private Integer mStatusBarColor;
+    @Nullable @ColorInt private Integer mNavigationBarColor;
+    @Nullable private Integer mColorScheme;
+    @Nullable private SparseArray<CustomTabColorSchemeParams> mColorSchemeParams;
 
     @Nullable
     private List<String> mAdditionalTrustedOrigins;
@@ -42,8 +48,48 @@ public class TrustedWebActivityBuilder {
     /**
      * Sets the status bar color to be seen while the Trusted Web Activity is running.
      */
+    @NonNull
     public TrustedWebActivityBuilder setStatusBarColor(int color) {
         mStatusBarColor = color;
+        return this;
+    }
+
+    /**
+     * Sets the navigation bar color, see {@link CustomTabsIntent.Builder#setNavigationBarColor}.
+     */
+    @NonNull
+    public TrustedWebActivityBuilder setNavigationBarColor(@ColorInt int color) {
+        mNavigationBarColor = color;
+        return this;
+    }
+
+    /**
+     * Sets the color scheme, see {@link CustomTabsIntent.Builder#setColorScheme}.
+     * In Trusted Web Activities color scheme may effect such UI elements as info bars and context
+     * menus.
+     */
+    @NonNull
+    public TrustedWebActivityBuilder setColorScheme(int colorScheme) {
+        mColorScheme = colorScheme;
+        return this;
+    }
+
+    /**
+     * Sets {@link CustomTabColorSchemeParams} for the given color scheme.
+     * This allows, for example, to set two status bar colors - for light and dark scheme. Trusted
+     * Web Activity will automatically apply the correct color according to current system settings.
+     * For more details see {@link CustomTabsIntent.Builder#setColorSchemeParams}.
+     *
+     * Note: to set status bar color in the params, use
+     * {@link CustomTabColorSchemeParams.Builder#setToolbarColor}.
+     */
+    @NonNull
+    public TrustedWebActivityBuilder setColorSchemeParams(int colorScheme,
+            @NonNull CustomTabColorSchemeParams params) {
+        if (mColorSchemeParams == null) {
+            mColorSchemeParams = new SparseArray<>();
+        }
+        mColorSchemeParams.put(colorScheme, params);
         return this;
     }
 
@@ -104,6 +150,18 @@ public class TrustedWebActivityBuilder {
             // Toolbar color applies also to the status bar.
             intentBuilder.setToolbarColor(mStatusBarColor);
         }
+        if (mNavigationBarColor != null) {
+            intentBuilder.setNavigationBarColor(mNavigationBarColor);
+        }
+        if (mColorScheme != null) {
+            intentBuilder.setColorScheme(mColorScheme);
+        }
+        if (mColorSchemeParams != null) {
+            for (int i = 0; i < mColorSchemeParams.size(); i++) {
+                intentBuilder.setColorSchemeParams(mColorSchemeParams.keyAt(i),
+                        mColorSchemeParams.valueAt(i));
+            }
+        }
 
         Intent intent = intentBuilder.build().intent;
         intent.setData(mUri);
@@ -132,6 +190,32 @@ public class TrustedWebActivityBuilder {
     @Nullable
     public Integer getStatusBarColor() {
         return mStatusBarColor;
+    }
+
+    /**
+     * Returns the color set via {@link #setNavigationBarColor} or {@code null} if not set.
+     */
+    @Nullable
+    @ColorInt
+    public Integer getNavigationBarColor() {
+        return mNavigationBarColor;
+    }
+
+    /**
+     * Returns the color scheme set via {@link #setColorScheme} or {@code null} if not set.
+     */
+    @Nullable
+    public Integer getColorScheme() {
+        return mColorScheme;
+    }
+
+    /**
+     * Returns the color scheme params set via {@link #setColorSchemeParams} for the given scheme
+     * or {@code null} if not set.
+     */
+    @Nullable
+    public CustomTabColorSchemeParams getColorSchemeParams(int colorScheme) {
+        return mColorSchemeParams == null ? null : mColorSchemeParams.get(colorScheme);
     }
 
 }

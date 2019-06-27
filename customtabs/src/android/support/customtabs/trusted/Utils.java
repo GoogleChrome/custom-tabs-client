@@ -30,13 +30,18 @@ public class Utils {
         addSystemUiVisibilityFlag(activity, View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
-    /** Whitens the navigation bar. */
-    public static void setWhiteNavigationBar(Activity activity) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return;
-        activity.getWindow().setNavigationBarColor(Color.WHITE);
+    /** Sets navigation bar color. */
+    public static void setNavigationBarColor(Activity activity, int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setNavigationBarColor(color);
+        }
+    }
 
-        // Make the button icons dark
-        addSystemUiVisibilityFlag(activity, View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+    /** Darkens the color of navigation bar icons. */
+    public static void setDarkNavigationBarIcons(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            addSystemUiVisibilityFlag(activity, View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+        }
     }
 
     private static void addSystemUiVisibilityFlag(Activity activity, int flag) {
@@ -47,15 +52,15 @@ public class Utils {
     }
 
     /**
-     * Determines whether to use dark status bar icons by comparing the contrast ratio of the color
-     * relative to white (https://www.w3.org/TR/WCAG20/#contrast-ratiodef) to a threshold.
+     * Determines whether to use dark icons on a background with given color by comparing the
+     * contrast ratio (https://www.w3.org/TR/WCAG20/#contrast-ratiodef) to a threshold.
      * This criterion matches the one used by Chrome:
      * https://chromium.googlesource.com/chromium/src/+/90ac05ba6cb9ab5d5df75f0cef62c950be3716c3/chrome/android/java/src/org/chromium/chrome/browser/util/ColorUtils.java#215
      */
-    public static boolean shouldUseDarkStatusBarIcons(int statusBarColor) {
-        float luminance = 0.2126f * luminanceOfColorComponent(Color.red(statusBarColor))
-                + 0.7152f * luminanceOfColorComponent(Color.green(statusBarColor))
-                + 0.0722f * luminanceOfColorComponent(Color.blue(statusBarColor));
+    public static boolean shouldUseDarkIconsOnBackground(int backgroundColor) {
+        float luminance = 0.2126f * luminanceOfColorComponent(Color.red(backgroundColor))
+                + 0.7152f * luminanceOfColorComponent(Color.green(backgroundColor))
+                + 0.0722f * luminanceOfColorComponent(Color.blue(backgroundColor));
         float contrast = Math.abs((1.05f) / (luminance + 0.05f));
         return contrast < 3;
     }

@@ -19,6 +19,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.customtabs.CustomTabColorSchemeParams;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.TrustedWebUtils;
 import android.support.customtabs.trusted.splashscreens.PwaWrapperSplashScreenStrategy;
 import android.support.v4.content.ContextCompat;
@@ -126,7 +128,9 @@ public class LauncherActivity extends AppCompatActivity {
 
         TrustedWebActivityBuilder twaBuilder =
                 new TrustedWebActivityBuilder(this, getLaunchingUrl())
-                        .setStatusBarColor(getColorCompat(mMetadata.statusBarColorId));
+                        .setStatusBarColor(getColorCompat(mMetadata.statusBarColorId))
+                        .setNavigationBarColor(getColorCompat(mMetadata.navigationBarColorId));
+
 
         mTwaLauncher = new TwaLauncher(this);
         mTwaLauncher.launch(twaBuilder, mSplashScreenStrategy, () -> mBrowserWasLaunched = true);
