@@ -113,19 +113,30 @@ public class TwaProviderPicker {
         String bestCctProvider = null;
         String bestBrowserProvider = null;
 
-        // According to the Android documentation, the flag we want to use is MATCH_DEFAULT_ONLY.
+        // These packages will be in order of Android's preference.
+        List<ResolveInfo> possibleProviders
+                = pm.queryIntentActivities(queryBrowsersIntent, PackageManager.MATCH_DEFAULT_ONLY);
+
+        // According to the documentation, the flag we want to use above is MATCH_DEFAULT_ONLY.
         // This would match all the browsers installed on the user's system whose intent handler
         // contains the category Intent.CATEGORY_DEFAULT. However, in Android M the behavior of
         // the PackageManager changed to only return the default browser unless the MATCH_ALL is
         // passed (this is specific to querying browsers - if you query for any other type of
         // package, MATCH_DEFAULT_ONLY will work as documented). This flag did not exist on Android
         // versions before M, so we only use it in that case.
-        int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PackageManager.MATCH_ALL
-                : PackageManager.MATCH_DEFAULT_ONLY;
+        //
+        // Additionally we add the result of the call with MATCH_ALL onto the end of the result of
+        // MATCH_DEFAULT_ONLY (instead of calling queryIntentActivities just once, with MATCH_ALL)
+        // because (again, as opposed to the documentation) when MATCH_ALL is used the results are
+        // not returned in order of Android's preference.
+        //
+        // This will result in the user's default browser being in the list twice, however that
+        // shouldn't affect the correctness of the following code.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            possibleProviders.addAll(pm.queryIntentActivities(queryBrowsersIntent,
+                    PackageManager.MATCH_ALL));
+        }
 
-        // These packages will be in order of Android's preference.
-        List<ResolveInfo> possibleProviders
-                = pm.queryIntentActivities(queryBrowsersIntent, flags);
         Map<String, Integer> customTabsServices = getLaunchModesForCustomTabsServices(pm);
 
         for (ResolveInfo possibleProvider : possibleProviders) {
