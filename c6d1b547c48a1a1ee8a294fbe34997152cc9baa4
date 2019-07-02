@@ -468,6 +468,30 @@
     },
     {
       "key": {
+        "uuid": "d4ed3d79_20cfd92f",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-02T18:40:40Z",
+      "side": 1,
+      "message": "Added a few more examples to the doc.",
+      "parentUuid": "5f8c99a6_d30a209e",
+      "range": {
+        "startLine": 64,
+        "startChar": 32,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "84720387_2cf0c48d",
         "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
         "patchSetId": 2
