@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2f4b63f4_57ef93c2",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-07-02T16:40:42Z",
+      "side": 1,
+      "message": "Judging by that discussion it\u0027s basically just that we wanted to keep the API as small as possible. I\u0027m thinking now that anything that could be conceivably tied to whether the app is in dark mode should be - we still have things like CustomTabsIntent.Builder#setToolbarColor for legacy reasons, but really everything should be in CustomTabsColorSchemeParams.",
+      "parentUuid": "cf89b3cf_f831efc1",
+      "range": {
+        "startLine": 61,
+        "startChar": 37,
+        "endLine": 61,
+        "endChar": 58
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cab4b2ab_18879d0f",
         "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityBuilder.java",
         "patchSetId": 2
@@ -254,6 +278,30 @@
     },
     {
       "key": {
+        "uuid": "03772846_020b1f2c",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-07-02T16:40:42Z",
+      "side": 1,
+      "message": "We have builder.getStatusBarColor() on line 43.\n\nSay the developer sets the TWABuilder\u0027s status bar colour to red and the toolbar colour to blue, then:\n - On Chrome pre-dark mode, the status bar colour is red.\n - On Chrome with dark mode, the status bar colour is blue.\n\nIn both of these cases we should pick blue (since that\u0027s what the TWA will have as the status bar colour).",
+      "parentUuid": "fcf6fcad_46f7fbf7",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 43
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40177cf3_47f75617",
         "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
         "patchSetId": 2
@@ -336,6 +384,30 @@
       "side": 1,
       "message": "I\u0027m not sure how are we diverging: TWABuilder api follows the CustomTabIntent.Builder api, where there is a stand-alone CustomTabIntent.Builder#setFooColor in addition to CustomTabColorSchemeParams.Builder#setFooColor.",
       "parentUuid": "fff8c16a_6b6f1148",
+      "range": {
+        "startLine": 64,
+        "startChar": 32,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94bbf8cd_631b3703",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-07-02T16:40:42Z",
+      "side": 1,
+      "message": "In the API usage examples for your doc [1] you show that the desired usage for CustomTabsIntentBuilder API is:\n\n        new CustomTabsIntent.Builder()\n                .setColorScheme(COLOR_SCHEME_SYSTEM)\n                .setColorSchemeParams(COLOR_SCHEME_LIGHT, lightSchemeParams)\n                .setColorSchemeParams(COLOR_SCHEME_DARK, darkSchemeParams)\n                .build()\n                .launchUrl(context, url);\n\nWith this code, it looks like the TWABuilder API would be\n\n       new TrustedWebActivityBuilder()\n                .setNavigationBarColor(lightSchemeColor)\n                .setColorSchemeParams(COLOR_SCHEME_LIGHT, lightSchemeParams)\n                .setColorSchemeParams(COLOR_SCHEME_DARK, darkSchemeParams)\n                .launchActivity(...)\n\nIt\u0027s the second line where there\u0027s an inconsistency, that we have to set a default colour in case the provide doesn\u0027t support themes (which we handle gracefully with Custom Tabs). I know that CustomTabIntent.Builder#setToolbarColor exists, but that\u0027s a legacy method (and I think we should deprecate it).\n\n[1]: https://docs.google.com/document/d/13m00cZlZ-d-L8prIZ4sy9sZIND1SAicz3m9FXTsxY4Y/edit#",
+      "parentUuid": "10c9ec9a_a63b60f0",
       "range": {
         "startLine": 64,
         "startChar": 32,
