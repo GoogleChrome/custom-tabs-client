@@ -149,9 +149,8 @@ public class TwaLauncher {
     private void launchTwa(TrustedWebActivityBuilder twaBuilder,
             @Nullable SplashScreenStrategy splashScreenStrategy,
             @Nullable Runnable completionCallback) {
-        Integer statusBarColor = twaBuilder.getStatusBarColor();
         if (splashScreenStrategy != null) {
-            splashScreenStrategy.onTwaLaunchInitiated(mProviderPackage, statusBarColor);
+            splashScreenStrategy.onTwaLaunchInitiated(mProviderPackage, twaBuilder);
         }
 
         Runnable onSessionCreatedRunnable = () ->

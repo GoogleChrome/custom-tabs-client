@@ -126,7 +126,9 @@ public class LauncherActivity extends AppCompatActivity {
 
         TrustedWebActivityBuilder twaBuilder =
                 new TrustedWebActivityBuilder(this, getLaunchingUrl())
-                        .setStatusBarColor(getColorCompat(mMetadata.statusBarColorId));
+                        .setStatusBarColor(getColorCompat(mMetadata.statusBarColorId))
+                        .setNavigationBarColor(getColorCompat(mMetadata.navigationBarColorId));
+
 
         mTwaLauncher = new TwaLauncher(this);
         mTwaLauncher.launch(twaBuilder, mSplashScreenStrategy, () -> mBrowserWasLaunched = true);
