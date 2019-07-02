@@ -302,6 +302,30 @@
     },
     {
       "key": {
+        "uuid": "4d38b424_3dbde3cb",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-02T17:16:22Z",
+      "side": 1,
+      "message": "builder.getStatusBarColor() returns the toolbar color. builder.setStatusBarColor() is just a proxy for CustomTabIntent.Builder#setToolbarColor().\n\nThere is no separate status bar color. So I\u0027m not sure what you mean by \"the developer sets the TWABuilder\u0027s status bar colour to red and the toolbar colour to blue\". If the blue toolbar color is in ColorSchemeParams, then the behavior you described is expected. Old Chrome can\u0027t pick blue, it doesn\u0027t know about scheme-specific parameters.",
+      "parentUuid": "03772846_020b1f2c",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 43
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40177cf3_47f75617",
         "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
         "patchSetId": 2
@@ -408,6 +432,30 @@
       "side": 1,
       "message": "In the API usage examples for your doc [1] you show that the desired usage for CustomTabsIntentBuilder API is:\n\n        new CustomTabsIntent.Builder()\n                .setColorScheme(COLOR_SCHEME_SYSTEM)\n                .setColorSchemeParams(COLOR_SCHEME_LIGHT, lightSchemeParams)\n                .setColorSchemeParams(COLOR_SCHEME_DARK, darkSchemeParams)\n                .build()\n                .launchUrl(context, url);\n\nWith this code, it looks like the TWABuilder API would be\n\n       new TrustedWebActivityBuilder()\n                .setNavigationBarColor(lightSchemeColor)\n                .setColorSchemeParams(COLOR_SCHEME_LIGHT, lightSchemeParams)\n                .setColorSchemeParams(COLOR_SCHEME_DARK, darkSchemeParams)\n                .launchActivity(...)\n\nIt\u0027s the second line where there\u0027s an inconsistency, that we have to set a default colour in case the provide doesn\u0027t support themes (which we handle gracefully with Custom Tabs). I know that CustomTabIntent.Builder#setToolbarColor exists, but that\u0027s a legacy method (and I think we should deprecate it).\n\n[1]: https://docs.google.com/document/d/13m00cZlZ-d-L8prIZ4sy9sZIND1SAicz3m9FXTsxY4Y/edit#",
       "parentUuid": "10c9ec9a_a63b60f0",
+      "range": {
+        "startLine": 64,
+        "startChar": 32,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f8c99a6_d30a209e",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-02T17:16:22Z",
+      "side": 1,
+      "message": "There is a section \"should we deprecate the old methods\" in the doc. It\u0027s not just about compatibility. If an app developer doesn\u0027t care about color schemes, they shouldn\u0027t have to pass the same set of parameters for each scheme. It\u0027s much better if in that case they don\u0027t have to touch the color scheme api at all.",
+      "parentUuid": "94bbf8cd_631b3703",
       "range": {
         "startLine": 64,
         "startChar": 32,
