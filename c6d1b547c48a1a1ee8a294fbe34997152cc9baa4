@@ -350,6 +350,30 @@
     },
     {
       "key": {
+        "uuid": "0c96b1b1_a8597d80",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-03T10:38:09Z",
+      "side": 1,
+      "message": "There is no way to make them different via intent parameters. \nHowever, after your change TWAs also take website\u0027s theme color into account. So you can have blue status bar on verified origin and red status bar and toolbar off verified origin.",
+      "parentUuid": "62676bb8_d8904207",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 43
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40177cf3_47f75617",
         "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
         "patchSetId": 2
@@ -528,6 +552,30 @@
       "side": 1,
       "message": "What I\u0027m getting confused with is the spread of the colour scheme logic across CustomTabsIntent and TrustedWebActivityBuilder. It\u0027s annoying that we don\u0027t take the CustomTabsSession in TWABuilder\u0027s constructor and then it can just contain a CustomTabsIntent.Builder and forward setNavigationBarColor, setColorScheme, setColorSchemeParams to it.\n\nIf the developer calls TWABuilder#setNavigationBarColor(red) and does nothing with colour schemes:\n\nIf the provider doesn\u0027t support colour schemes, we get red.\nIf the provider does support colour schemes we call getColorSchemeParams, which is null",
       "parentUuid": "d4ed3d79_20cfd92f",
+      "range": {
+        "startLine": 64,
+        "startChar": 32,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "223da1a4_c00db41d",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-03T10:38:09Z",
+      "side": 1,
+      "message": "\u003e  It\u0027s annoying that we don\u0027t take the CustomTabsSession in TWABuilder\u0027s constructor.\n\nThis actually makes things more flexible: we can collect the parameters before establishing service connection. This helped me do design the TwaLauncher api. If you look at the current code in LauncherActivity, you\u0027ll see that passing the session through constructor wouldn\u0027t work.\n\nTo achieve simple forwarding from TwaBuilder to CustomTabIntent.Builder, I\u0027d go in the opposite direction: move CustomTabSession from CustomTabIntent.Builder constructors into a setSession method. Don\u0027t really see why it shouldn\u0027t be a usual setter. This of course can be done in backward-compatible way as well.\n\n\u003e If the developer calls TWABuilder#setNavigationBarColor(red) and does nothing with colour schemes:\nIf the provider doesn\u0027t support colour schemes, we get red.\nIf the provider does support colour schemes we call getColorSchemeParams, which is null\n\nNo, actually if the provider supports colour schemes it will pick the default parameter if there is no scheme-specific one. See CustomTabIntent#getColorSchemeParams, which providers are supposed to use. So in your example, it\u0027s going to be red in both cases.",
+      "parentUuid": "760809a3_81695e2f",
       "range": {
         "startLine": 64,
         "startChar": 32,
