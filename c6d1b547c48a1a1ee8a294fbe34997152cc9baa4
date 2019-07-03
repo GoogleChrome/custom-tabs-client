@@ -446,6 +446,30 @@
     },
     {
       "key": {
+        "uuid": "df92ab79_07ae22c1",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-03T11:12:47Z",
+      "side": 1,
+      "message": "\u003e applies to only the toolbar in normal Custom Tabs\n\nIn normal Custom Tabs it also applies to both.",
+      "parentUuid": "b45f6211_79d8998c",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 43
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40177cf3_47f75617",
         "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
         "patchSetId": 2
@@ -720,6 +744,30 @@
       "side": 1,
       "message": "I think you\u0027re getting your nesting a bit confused - if the condition on line 60 evaluates to false, the next line executed is line 66. Line 64 is never called.",
       "parentUuid": "be16981b_221be459",
+      "range": {
+        "startLine": 64,
+        "startChar": 32,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a6b8102_0425269b",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-03T11:12:47Z",
+      "side": 1,
+      "message": "Seems to be fixed in the latest patchset. I\u0027m gonna add some tests though.",
+      "parentUuid": "c487f006_db846466",
       "range": {
         "startLine": 64,
         "startChar": 32,
