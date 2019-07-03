@@ -494,6 +494,30 @@
     },
     {
       "key": {
+        "uuid": "9aadd0f7_97e94ed8",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-03T15:51:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "669918d2_91a90dd0",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 43
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40177cf3_47f75617",
         "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
         "patchSetId": 2
@@ -801,6 +825,30 @@
       "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfb34640_2d9c886b",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-03T15:51:54Z",
+      "side": 1,
+      "message": "Added tests.",
+      "parentUuid": "7a6b8102_0425269b",
+      "range": {
+        "startLine": 64,
+        "startChar": 32,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
