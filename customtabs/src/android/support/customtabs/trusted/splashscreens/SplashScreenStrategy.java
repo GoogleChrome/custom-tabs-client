@@ -14,7 +14,6 @@
 
 package android.support.customtabs.trusted.splashscreens;
 
-import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.trusted.TrustedWebActivityBuilder;
 
@@ -29,11 +28,10 @@ public interface SplashScreenStrategy {
      * side before the browser is launched.
      * @param providerPackage Package name of the browser being launched. Implementations should
      * check whether this browser supports splash screens.
-     * @param statusBarColor Status bar color of TWA. Implementations that show splash screen in
-     * client app should set this status bar color. Null if client did not specify a status bar
-     * color.
+     * @param builder {@link TrustedWebActivityBuilder} with user-specified parameters, such as
+     * status bar color.
      */
-    void onTwaLaunchInitiated(String providerPackage, @Nullable Integer statusBarColor);
+    void onTwaLaunchInitiated(String providerPackage, TrustedWebActivityBuilder builder);
 
     /**
      * Called when TWA is ready to be launched.

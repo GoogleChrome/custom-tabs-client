@@ -103,10 +103,10 @@ public class TwaLauncherTest {
     public void transfersTwaBuilderParams() {
         // Checking just one parameters. TrustedWebActivityBuilderTest tests the rest. Here we just
         // check that TwaLauncher doesn't ignore the passed builder.
-        TrustedWebActivityBuilder builder = makeBuilder().setStatusBarColor(0x0000ff);
+        TrustedWebActivityBuilder builder = makeBuilder().setToolbarColor(0xff0000ff);
         Runnable launchRunnable = () -> mTwaLauncher.launch(builder, null, null);
         Intent intent = getBrowserActivityWhenLaunched(launchRunnable).getIntent();
-        assertEquals(0x0000ff, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
+        assertEquals(0xff0000ff, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
     }
 
     @Test
@@ -122,16 +122,16 @@ public class TwaLauncherTest {
     }
 
     @Test
-    public void customTabFallbackUsesStatusBarColor() {
+    public void customTabFallbackUsesToolbarColor() {
         mEnableComponents.manuallyDisable(TestCustomTabsServiceSupportsTwas.class);
         TwaLauncher launcher = new TwaLauncher(mActivity);
 
-        TrustedWebActivityBuilder builder = makeBuilder().setStatusBarColor(0x0000ff);
+        TrustedWebActivityBuilder builder = makeBuilder().setToolbarColor(0xff0000ff);
         Runnable launchRunnable = () -> launcher.launch(builder, null, null);
         Intent intent = getBrowserActivityWhenLaunched(launchRunnable).getIntent();
 
         launcher.destroy();
-        assertEquals(0x0000ff, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
+        assertEquals(0xff0000ff, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
     }
 
     @Test
@@ -192,10 +192,11 @@ public class TwaLauncherTest {
     @Test
     public void notifiesSplashScreenStrategyOfLaunchInitiation() {
         SplashScreenStrategy strategy = mock(SplashScreenStrategy.class);
-        mTwaLauncher.launch(makeBuilder().setStatusBarColor(0xff0000), strategy, null);
+        TrustedWebActivityBuilder builder = makeBuilder();
+        mTwaLauncher.launch(builder, strategy, null);
         verify(strategy).onTwaLaunchInitiated(
                 eq(InstrumentationRegistry.getContext().getPackageName()),
-                eq(0xff0000));
+                eq(builder));
     }
 
     @Test
