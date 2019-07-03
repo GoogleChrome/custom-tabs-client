@@ -422,6 +422,30 @@
     },
     {
       "key": {
+        "uuid": "b45f6211_79d8998c",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-07-03T11:08:05Z",
+      "side": 1,
+      "message": "Yeah, potentially, it\u0027s also weird that CustomTabsIntent#setToolbarColor applies to only the toolbar in normal Custom Tabs but to the toolbar *and* status bar for TWAs.",
+      "parentUuid": "42bc9bc3_c5a53f7e",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 43
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40177cf3_47f75617",
         "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
         "patchSetId": 2
@@ -672,6 +696,30 @@
       "side": 1,
       "message": "This method looks correct as well: there is an \"if (params !\u003d null \u0026\u0026 params.navigationBarColor !\u003d null)\" check, which won\u0027t pass in your example, and we\u0027ll move on to builder.getNavigationBarColor().",
       "parentUuid": "ad7ff338_c171ea73",
+      "range": {
+        "startLine": 64,
+        "startChar": 32,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c487f006_db846466",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-07-03T11:08:05Z",
+      "side": 1,
+      "message": "I think you\u0027re getting your nesting a bit confused - if the condition on line 60 evaluates to false, the next line executed is line 66. Line 64 is never called.",
+      "parentUuid": "be16981b_221be459",
       "range": {
         "startLine": 64,
         "startChar": 32,
