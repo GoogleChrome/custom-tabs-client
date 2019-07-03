@@ -326,6 +326,30 @@
     },
     {
       "key": {
+        "uuid": "62676bb8_d8904207",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-07-03T10:13:58Z",
+      "side": 1,
+      "message": "Ah OK - I think that\u0027s the bit of info I was missing. That is somewhat confusing.\n\nIt seems fine for a Custom Tab intent to not have the concept of a status bar colour because they can\u0027t change it, but with TWAs we\u0027ve now got two different things that we\u0027re tying together.\n\nSo there\u0027s no way for a TWA to set different status bar colour (which will be used on the trusted origin) and toolbar colour (which will be used off the trusted origin)?",
+      "parentUuid": "4d38b424_3dbde3cb",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 43
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40177cf3_47f75617",
         "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
         "patchSetId": 2
@@ -480,6 +504,30 @@
       "side": 1,
       "message": "Added a few more examples to the doc.",
       "parentUuid": "5f8c99a6_d30a209e",
+      "range": {
+        "startLine": 64,
+        "startChar": 32,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "760809a3_81695e2f",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-07-03T10:13:58Z",
+      "side": 1,
+      "message": "What I\u0027m getting confused with is the spread of the colour scheme logic across CustomTabsIntent and TrustedWebActivityBuilder. It\u0027s annoying that we don\u0027t take the CustomTabsSession in TWABuilder\u0027s constructor and then it can just contain a CustomTabsIntent.Builder and forward setNavigationBarColor, setColorScheme, setColorSchemeParams to it.\n\nIf the developer calls TWABuilder#setNavigationBarColor(red) and does nothing with colour schemes:\n\nIf the provider doesn\u0027t support colour schemes, we get red.\nIf the provider does support colour schemes we call getColorSchemeParams, which is null",
+      "parentUuid": "d4ed3d79_20cfd92f",
       "range": {
         "startLine": 64,
         "startChar": 32,
