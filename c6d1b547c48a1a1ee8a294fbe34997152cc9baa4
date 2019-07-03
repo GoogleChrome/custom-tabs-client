@@ -398,6 +398,30 @@
     },
     {
       "key": {
+        "uuid": "42bc9bc3_c5a53f7e",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-03T11:02:39Z",
+      "side": 1,
+      "message": "TWABuilder#setToolbarColor might be more confusing, since you are not supposed to have a toolbar normally. It does get applied to toolbar off-origin though. How about setStatusBarAndToolbarColor?",
+      "parentUuid": "2f585815_efb51aa0",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 43
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40177cf3_47f75617",
         "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
         "patchSetId": 2
@@ -624,6 +648,30 @@
       "side": 1,
       "message": "Yeah, I\u0027d be happy with the setSession method (but that\u0027s probably a future thing).\n\nThe provider will have the correct colour - but this method won\u0027t. This method will check TWABuilder\u0027s mColorSchemeParams which doesn\u0027t contain the nav bar colour.",
       "parentUuid": "223da1a4_c00db41d",
+      "range": {
+        "startLine": 64,
+        "startChar": 32,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be16981b_221be459",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-03T11:02:39Z",
+      "side": 1,
+      "message": "This method looks correct as well: there is an \"if (params !\u003d null \u0026\u0026 params.navigationBarColor !\u003d null)\" check, which won\u0027t pass in your example, and we\u0027ll move on to builder.getNavigationBarColor().",
+      "parentUuid": "ad7ff338_c171ea73",
       "range": {
         "startLine": 64,
         "startChar": 32,
