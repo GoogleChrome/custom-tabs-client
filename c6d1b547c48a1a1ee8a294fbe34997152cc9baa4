@@ -470,6 +470,30 @@
     },
     {
       "key": {
+        "uuid": "669918d2_91a90dd0",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-07-03T11:16:34Z",
+      "side": 1,
+      "message": "Oh no you\u0027re right, I got confused.\n\nI\u0027d probably just standardize on \u0027setToolbarColor\u0027 and mention in the javadoc that it applies to the toolbar when off the verified origin and the status bar on both. Then we can remove all mentions of statusbar from the code and keep things a bit simpler.",
+      "parentUuid": "df92ab79_07ae22c1",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 43
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40177cf3_47f75617",
         "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
         "patchSetId": 2
