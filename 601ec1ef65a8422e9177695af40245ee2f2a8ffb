@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "4e3dfb6b_e815f974",
+        "filename": "customtabs/junit/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-07-04T12:47:29Z",
+      "side": 1,
+      "message": "Also, you can use Uri.EMPTY here if you don\u0027t care about the value.",
+      "range": {
+        "startLine": 49,
+        "startChar": 12,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "601ec1ef65a8422e9177695af40245ee2f2a8ffb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "66f24731_01aa79a5",
         "filename": "customtabs/junit/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictorTest.java",
         "patchSetId": 4
