@@ -77,7 +77,7 @@ public class TrustedWebActivityBuilderTest {
     @Test
     public void intentIsConstructedCorrectly() {
         Uri url = Uri.parse("https://test.com/page");
-        int statusBarColor = 0xaabbcc;
+        int toolbarColor = 0xffaabbcc;
         List<String> additionalTrustedOrigins =
                 Arrays.asList("https://m.test.com", "https://test.org");
 
@@ -87,7 +87,7 @@ public class TrustedWebActivityBuilderTest {
 
         TrustedWebActivityBuilder builder =
                 new TrustedWebActivityBuilder(mActivity, url)
-                        .setStatusBarColor(statusBarColor)
+                        .setToolbarColor(toolbarColor)
                         .setAdditionalTrustedOrigins(additionalTrustedOrigins)
                         .setSplashScreenParams(splashScreenParams);
         Intent intent =
@@ -97,7 +97,7 @@ public class TrustedWebActivityBuilderTest {
         assertTrue(CustomTabsSessionToken.getSessionTokenFromIntent(intent)
                 .isAssociatedWith(mSession));
         assertEquals(url, intent.getData());
-        assertEquals(statusBarColor, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
+        assertEquals(toolbarColor, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
         assertEquals(additionalTrustedOrigins,
                 intent.getStringArrayListExtra(TrustedWebUtils.EXTRA_ADDITIONAL_TRUSTED_ORIGINS));
 

@@ -102,7 +102,7 @@ public final class CustomTabColorSchemeParams {
          */
         @NonNull
         public Builder setToolbarColor(@ColorInt int color) {
-            mToolbarColor = color;
+            mToolbarColor = color | 0xff000000;
             return this;
         }
 
@@ -120,7 +120,7 @@ public final class CustomTabColorSchemeParams {
          */
         @NonNull
         public Builder setNavigationBarColor(@ColorInt int color) {
-            mNavigationBarColor = color;
+            mNavigationBarColor = color | 0xff000000;
             return this;
         }
 
