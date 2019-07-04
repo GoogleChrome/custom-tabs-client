@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "4173a89f_546246e9",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-04T12:24:21Z",
+      "side": 1,
+      "message": "This is a mistake, and I need to fix the navbar category as well :(\n\n\u003e The navbar category somewhat makes sense because you can only set it for navbars\n\nNavbar color are in custom tabs as well. This needs to be fixed, otherwise it can make an impression that it\u0027s for TWAs only.",
+      "parentUuid": "61553669_fdfc2869",
+      "range": {
+        "startLine": 71,
+        "startChar": 30,
+        "endLine": 71,
+        "endChar": 37
+      },
+      "revId": "601ec1ef65a8422e9177695af40245ee2f2a8ffb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17878dd6_853504c5",
         "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityBuilder.java",
         "patchSetId": 4
