@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "751d931a_4adcca28",
+        "filename": "customtabs/junit/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-04T13:59:49Z",
+      "side": 1,
+      "message": "It seems all the Robolectric tests in AndroidX have this annotation. Haven\u0027t yet found an explanation why.",
+      "parentUuid": "1c8fe784_44a3283d",
+      "range": {
+        "startLine": 43,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 16
+      },
+      "revId": "601ec1ef65a8422e9177695af40245ee2f2a8ffb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4e3dfb6b_e815f974",
         "filename": "customtabs/junit/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictorTest.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "285414a7_04bbb2ac",
+        "filename": "customtabs/junit/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-04T13:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e3dfb6b_e815f974",
+      "range": {
+        "startLine": 49,
+        "startChar": 12,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "601ec1ef65a8422e9177695af40245ee2f2a8ffb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66f24731_01aa79a5",
         "filename": "customtabs/junit/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictorTest.java",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "601ec1ef65a8422e9177695af40245ee2f2a8ffb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f502edf0_6c51c06c",
+        "filename": "customtabs/junit/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-04T13:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66f24731_01aa79a5",
+      "range": {
+        "startLine": 121,
+        "startChar": 38,
+        "endLine": 121,
+        "endChar": 41
+      },
+      "revId": "601ec1ef65a8422e9177695af40245ee2f2a8ffb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "f4a3036e_d116a6eb",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-04T13:59:49Z",
+      "side": 1,
+      "message": "Fixed here as well.",
+      "parentUuid": "4173a89f_546246e9",
+      "range": {
+        "startLine": 71,
+        "startChar": 30,
+        "endLine": 71,
+        "endChar": 37
+      },
+      "revId": "601ec1ef65a8422e9177695af40245ee2f2a8ffb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17878dd6_853504c5",
         "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityBuilder.java",
         "patchSetId": 4
@@ -138,6 +234,30 @@
       "revId": "601ec1ef65a8422e9177695af40245ee2f2a8ffb",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf5e728f_a2cbd0f1",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-04T13:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17878dd6_853504c5",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 32
+      },
+      "revId": "601ec1ef65a8422e9177695af40245ee2f2a8ffb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
