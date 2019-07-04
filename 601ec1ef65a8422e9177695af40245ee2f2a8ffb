@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c8fe784_44a3283d",
+        "filename": "customtabs/junit/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-07-04T12:18:07Z",
+      "side": 1,
+      "message": "What is this for?",
+      "range": {
+        "startLine": 43,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 16
+      },
+      "revId": "601ec1ef65a8422e9177695af40245ee2f2a8ffb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66f24731_01aa79a5",
+        "filename": "customtabs/junit/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-07-04T12:18:07Z",
+      "side": 1,
+      "message": "Could you take this as an Integer (that way you can also have a test asserting the expected status/navbar colour cannot be determined)? (fine to leave like this if you prefer though).",
+      "range": {
+        "startLine": 121,
+        "startChar": 38,
+        "endLine": 121,
+        "endChar": 41
+      },
+      "revId": "601ec1ef65a8422e9177695af40245ee2f2a8ffb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61553669_fdfc2869",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-07-04T12:18:07Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be in customtabs instead? The navbar category somewhat makes sense because you can only set it for navbars, but this category is relevant to custom tabs in general.",
+      "range": {
+        "startLine": 71,
+        "startChar": 30,
+        "endLine": 71,
+        "endChar": 37
+      },
+      "revId": "601ec1ef65a8422e9177695af40245ee2f2a8ffb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17878dd6_853504c5",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-07-04T12:18:07Z",
+      "side": 1,
+      "message": "nit: When _a_ Trusted Web Activity is on _the_ verified origin.",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 32
+      },
+      "revId": "601ec1ef65a8422e9177695af40245ee2f2a8ffb",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
