@@ -852,6 +852,30 @@
     },
     {
       "key": {
+        "uuid": "87c6a779_4f2e84f0",
+        "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-05T16:37:27Z",
+      "side": 1,
+      "message": "\u003e Yeah, I\u0027d be happy with the setSession method (but that\u0027s probably a future thing).\n\nI now think that it might be better to make that change before this CL. The thing is, besides some ugliness, we need a bunch of getter methods in TwaBuilder (getToolbarColor etc). Ideally the Builder shouldn\u0027t have such getters, and if we could work with CustomTabIntent.Builder properly, we wouldn\u0027t need them, only perhaps getCustomTabIntentBuilder(). But if we push the getters to AndroidX, it might not be easy to take them back.\n\nSystemBarColorPredictor would simplify a bit as well, as it could build the actual Intent and work with it like browsers do. E.g. use CustomTabsIntent#getColorSchemeParams instead of duplicating the logic.",
+      "parentUuid": "cfb34640_2d9c886b",
+      "range": {
+        "startLine": 64,
+        "startChar": 32,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "c6d1b547c48a1a1ee8a294fbe34997152cc9baa4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "84720387_2cf0c48d",
         "filename": "customtabs/src/android/support/customtabs/trusted/splashscreens/SystemBarColorPredictionUtils.java",
         "patchSetId": 2
