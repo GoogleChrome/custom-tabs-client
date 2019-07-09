@@ -26,6 +26,13 @@ public class LauncherActivityMetadata {
             "android.support.customtabs.trusted.STATUS_BAR_COLOR";
 
     /**
+     * Navigation bar color to use for Trusted Web Activity (note: in Chrome this is supported
+     * from version 76).
+     */
+    private static final String METADATA_NAVIGATION_BAR_COLOR_ID =
+            "android.support.customtabs.trusted.NAVIGATION_BAR_COLOR";
+
+    /**
      * Id of the Drawable to use as a splash screen.
      */
     private static final String METADATA_SPLASH_IMAGE_DRAWABLE_ID =
@@ -56,6 +63,7 @@ public class LauncherActivityMetadata {
 
     @Nullable public final String defaultUrl;
     public final int statusBarColorId;
+    public final int navigationBarColorId;
     public final int splashImageDrawableId;
     public final int splashScreenBackgroundColorId;
     @Nullable public final String fileProviderAuthority;
@@ -64,6 +72,7 @@ public class LauncherActivityMetadata {
     private LauncherActivityMetadata(@NonNull Bundle metaData) {
         defaultUrl = metaData.getString(METADATA_DEFAULT_URL);
         statusBarColorId = metaData.getInt(METADATA_STATUS_BAR_COLOR_ID, DEFAULT_COLOR_ID);
+        navigationBarColorId = metaData.getInt(METADATA_NAVIGATION_BAR_COLOR_ID, DEFAULT_COLOR_ID);
         splashImageDrawableId = metaData.getInt(METADATA_SPLASH_IMAGE_DRAWABLE_ID, 0);
         splashScreenBackgroundColorId = metaData.getInt(METADATA_SPLASH_SCREEN_BACKGROUND_COLOR,
                 DEFAULT_COLOR_ID);

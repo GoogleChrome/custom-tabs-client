@@ -4,11 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.customtabs.CustomTabColorSchemeParams;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.TrustedWebUtils;
 import android.support.v4.content.ContextCompat;
+import android.util.SparseArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +23,7 @@ import java.util.List;
 public class TrustedWebActivityBuilder {
     private final Context mContext;
     private final Uri mUri;
-
-    @Nullable
-    private Integer mStatusBarColor;
+    private final CustomTabsIntent.Builder mIntentBuilder = new CustomTabsIntent.Builder();
 
     @Nullable
     private List<String> mAdditionalTrustedOrigins;
@@ -40,10 +42,52 @@ public class TrustedWebActivityBuilder {
     }
 
     /**
-     * Sets the status bar color to be seen while the Trusted Web Activity is running.
+     * Sets the color applied to the toolbar and the status bar, see
+     * {@link CustomTabsIntent.Builder#setToolbarColor}.
+     *
+     * When a Trusted Web Activity is on the verified origin, the toolbar is hidden, so the color
+     * applies only to the status bar. When it's on an unverified origin, the toolbar is shown, and
+     * the color applies to both toolbar and status bar.
      */
-    public TrustedWebActivityBuilder setStatusBarColor(int color) {
-        mStatusBarColor = color;
+    @NonNull
+    public TrustedWebActivityBuilder setToolbarColor(@ColorInt int color) {
+        mIntentBuilder.setToolbarColor(color);
+        return this;
+    }
+
+    /**
+     * Sets the navigation bar color, see {@link CustomTabsIntent.Builder#setNavigationBarColor}.
+     */
+    @NonNull
+    public TrustedWebActivityBuilder setNavigationBarColor(@ColorInt int color) {
+        mIntentBuilder.setNavigationBarColor(color);
+        return this;
+    }
+
+    /**
+     * Sets the color scheme, see {@link CustomTabsIntent.Builder#setColorScheme}.
+     * In Trusted Web Activities color scheme may effect such UI elements as info bars and context
+     * menus.
+     *
+     * @param colorScheme Must be one of {@link CustomTabsIntent#COLOR_SCHEME_SYSTEM},
+     * {@link CustomTabsIntent#COLOR_SCHEME_LIGHT}, and {@link CustomTabsIntent#COLOR_SCHEME_DARK}.
+     */
+    @NonNull
+    public TrustedWebActivityBuilder setColorScheme(int colorScheme) {
+        mIntentBuilder.setColorScheme(colorScheme);
+        return this;
+    }
+
+    /**
+     * Sets {@link CustomTabColorSchemeParams} for the given color scheme.
+     * This allows, for example, to set two navigation bar colors - for light and dark scheme.
+     * Trusted Web Activity will automatically apply the correct color according to current system
+     * settings. For more details see {@link CustomTabsIntent.Builder#setColorSchemeParams}.
+     */
+    @NonNull
+    public TrustedWebActivityBuilder setColorSchemeParams(int colorScheme,
+            @NonNull CustomTabColorSchemeParams params) {
+        mIntentBuilder.setColorSchemeParams(colorScheme, params);
         return this;
     }
 
@@ -99,13 +143,8 @@ public class TrustedWebActivityBuilder {
             throw new NullPointerException("CustomTabsSession is required for launching a TWA");
         }
 
-        CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder(session);
-        if (mStatusBarColor != null) {
-            // Toolbar color applies also to the status bar.
-            intentBuilder.setToolbarColor(mStatusBarColor);
-        }
-
-        Intent intent = intentBuilder.build().intent;
+        mIntentBuilder.setSession(session);
+        Intent intent = mIntentBuilder.build().intent;
         intent.setData(mUri);
         intent.putExtra(TrustedWebUtils.EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY, true);
         if (mAdditionalTrustedOrigins != null) {
@@ -127,11 +166,10 @@ public class TrustedWebActivityBuilder {
     }
 
     /**
-     * Returns the color set via {@link #setStatusBarColor(int)} or null if not set.
+     * Returns the underlying {@link CustomTabsIntent.Builder}.
      */
-    @Nullable
-    public Integer getStatusBarColor() {
-        return mStatusBarColor;
+    public CustomTabsIntent.Builder getCustomTabsIntentBuilder() {
+        return mIntentBuilder;
     }
 
 }

@@ -53,6 +53,8 @@ public class PwaWrapperSplashScreenStrategy implements SplashScreenStrategy {
 
     private static final String TAG = "SplashScreenStrategy";
 
+    private static SystemBarColorPredictor sSystemBarColorPredictor = new SystemBarColorPredictor();
+
     private final Activity mActivity;
     @DrawableRes
     private final int mDrawableId;
@@ -110,7 +112,7 @@ public class PwaWrapperSplashScreenStrategy implements SplashScreenStrategy {
     }
 
     @Override
-    public void onTwaLaunchInitiated(String providerPackage, @Nullable Integer statusBarColor) {
+    public void onTwaLaunchInitiated(String providerPackage, TrustedWebActivityBuilder builder) {
         mProviderPackage = providerPackage;
         mProviderSupportsSplashScreens = TrustedWebUtils.splashScreensAreSupported(mActivity,
                 providerPackage, TrustedWebUtils.SplashScreenVersion.V1);
@@ -122,7 +124,7 @@ public class PwaWrapperSplashScreenStrategy implements SplashScreenStrategy {
 
         showSplashScreen();
         if (mSplashImage != null) {
-            customizeStatusAndNavBarDuringSplashScreen(statusBarColor);
+            customizeStatusAndNavBarDuringSplashScreen(providerPackage, builder);
         }
     }
 
@@ -154,17 +156,18 @@ public class PwaWrapperSplashScreenStrategy implements SplashScreenStrategy {
      * Sets the colors of status and navigation bar to match the ones seen after the splash screen
      * is transferred to the browser.
      */
-    private void customizeStatusAndNavBarDuringSplashScreen(@Nullable Integer statusBarColor) {
-        // Custom tabs may in future support customizing status bar icon color and nav bar color.
-        // For now, we apply the colors Chrome uses.
-        Utils.setWhiteNavigationBar(mActivity);
+    private void customizeStatusAndNavBarDuringSplashScreen(
+            String providerPackage, @Nullable TrustedWebActivityBuilder builder) {
+        Integer navbarColor = sSystemBarColorPredictor.getExpectedNavbarColor(mActivity,
+                providerPackage, builder);
+        if (navbarColor != null) {
+            Utils.setNavigationBarColor(mActivity, navbarColor);
+        }
 
-        if (statusBarColor == null) return;
-
-        Utils.setStatusBarColor(mActivity, statusBarColor);
-
-        if (Utils.shouldUseDarkStatusBarIcons(statusBarColor)) {
-            Utils.setDarkStatusBarIcons(mActivity);
+        Integer statusBarColor = sSystemBarColorPredictor.getExpectedStatusBarColor(mActivity,
+                providerPackage, builder);
+        if (statusBarColor != null) {
+            Utils.setStatusBarColor(mActivity, statusBarColor);
         }
     }
 

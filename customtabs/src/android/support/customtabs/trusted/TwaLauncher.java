@@ -130,13 +130,7 @@ public class TwaLauncher {
             @Nullable Runnable completionCallback) {
         // CustomTabsIntent will fall back to launching the Browser if there are no Custom Tabs
         // providers installed.
-        CustomTabsIntent.Builder customTabBuilder = new CustomTabsIntent.Builder();
-        Integer statusBarColor = twaBuilder.getStatusBarColor();
-        if (statusBarColor != null) {
-            customTabBuilder.setToolbarColor(statusBarColor);
-        }
-        CustomTabsIntent intent = customTabBuilder.build();
-
+        CustomTabsIntent intent = twaBuilder.getCustomTabsIntentBuilder().build();
         if (mProviderPackage != null) {
             intent.intent.setPackage(mProviderPackage);
         }
@@ -149,9 +143,8 @@ public class TwaLauncher {
     private void launchTwa(TrustedWebActivityBuilder twaBuilder,
             @Nullable SplashScreenStrategy splashScreenStrategy,
             @Nullable Runnable completionCallback) {
-        Integer statusBarColor = twaBuilder.getStatusBarColor();
         if (splashScreenStrategy != null) {
-            splashScreenStrategy.onTwaLaunchInitiated(mProviderPackage, statusBarColor);
+            splashScreenStrategy.onTwaLaunchInitiated(mProviderPackage, twaBuilder);
         }
 
         Runnable onSessionCreatedRunnable = () ->
