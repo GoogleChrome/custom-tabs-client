@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3be14fb8_66af2e24",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityBuilder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-07-09T11:40:57Z",
+      "side": 1,
+      "message": "nit: this is unneeded.",
+      "range": {
+        "startLine": 15,
+        "startChar": 20,
+        "endLine": 15,
+        "endChar": 31
+      },
+      "revId": "bb5ceab5b03f46306824dbc1dbd106fadb9217e8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
