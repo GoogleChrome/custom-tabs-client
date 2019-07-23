@@ -28,7 +28,7 @@ import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.TrustedWebUtils;
 import android.support.customtabs.TrustedWebUtils.SplashScreenParamKey;
-import android.support.customtabs.trusted.TrustedWebActivityBuilder;
+import android.support.customtabs.trusted.TrustedWebActivityIntentBuilder;
 import android.support.customtabs.trusted.Utils;
 import android.text.TextUtils;
 import android.util.Log;
@@ -52,6 +52,8 @@ import android.widget.ImageView;
 public class PwaWrapperSplashScreenStrategy implements SplashScreenStrategy {
 
     private static final String TAG = "SplashScreenStrategy";
+
+    private static SystemBarColorPredictor sSystemBarColorPredictor = new SystemBarColorPredictor();
 
     private final Activity mActivity;
     @DrawableRes
@@ -110,7 +112,7 @@ public class PwaWrapperSplashScreenStrategy implements SplashScreenStrategy {
     }
 
     @Override
-    public void onTwaLaunchInitiated(String providerPackage, @Nullable Integer statusBarColor) {
+    public void onTwaLaunchInitiated(String providerPackage, TrustedWebActivityIntentBuilder builder) {
         mProviderPackage = providerPackage;
         mProviderSupportsSplashScreens = TrustedWebUtils.splashScreensAreSupported(mActivity,
                 providerPackage, TrustedWebUtils.SplashScreenVersion.V1);
@@ -122,7 +124,7 @@ public class PwaWrapperSplashScreenStrategy implements SplashScreenStrategy {
 
         showSplashScreen();
         if (mSplashImage != null) {
-            customizeStatusAndNavBarDuringSplashScreen(statusBarColor);
+            customizeStatusAndNavBarDuringSplashScreen(providerPackage, builder);
         }
     }
 
@@ -154,22 +156,23 @@ public class PwaWrapperSplashScreenStrategy implements SplashScreenStrategy {
      * Sets the colors of status and navigation bar to match the ones seen after the splash screen
      * is transferred to the browser.
      */
-    private void customizeStatusAndNavBarDuringSplashScreen(@Nullable Integer statusBarColor) {
-        // Custom tabs may in future support customizing status bar icon color and nav bar color.
-        // For now, we apply the colors Chrome uses.
-        Utils.setWhiteNavigationBar(mActivity);
+    private void customizeStatusAndNavBarDuringSplashScreen(
+            String providerPackage, @Nullable TrustedWebActivityIntentBuilder builder) {
+        Integer navbarColor = sSystemBarColorPredictor.getExpectedNavbarColor(mActivity,
+                providerPackage, builder);
+        if (navbarColor != null) {
+            Utils.setNavigationBarColor(mActivity, navbarColor);
+        }
 
-        if (statusBarColor == null) return;
-
-        Utils.setStatusBarColor(mActivity, statusBarColor);
-
-        if (Utils.shouldUseDarkStatusBarIcons(statusBarColor)) {
-            Utils.setDarkStatusBarIcons(mActivity);
+        Integer statusBarColor = sSystemBarColorPredictor.getExpectedStatusBarColor(mActivity,
+                providerPackage, builder);
+        if (statusBarColor != null) {
+            Utils.setStatusBarColor(mActivity, statusBarColor);
         }
     }
 
     @Override
-    public void configureTwaBuilder(TrustedWebActivityBuilder builder,
+    public void configureTwaBuilder(TrustedWebActivityIntentBuilder builder,
             CustomTabsSession session,
             Runnable onReadyCallback) {
         if (!mProviderSupportsSplashScreens || mSplashImage == null) {
@@ -189,7 +192,7 @@ public class PwaWrapperSplashScreenStrategy implements SplashScreenStrategy {
                 success -> onSplashImageTransferred(builder, success, onReadyCallback));
     }
 
-    private void onSplashImageTransferred(TrustedWebActivityBuilder builder, boolean success,
+    private void onSplashImageTransferred(TrustedWebActivityIntentBuilder builder, boolean success,
             Runnable onReadyCallback) {
         if (!success) {
             Log.w(TAG, "Failed to transfer splash image.");

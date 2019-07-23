@@ -42,7 +42,7 @@ import android.support.customtabs.test.R;
 import android.support.customtabs.testutil.CustomTabConnectionRule;
 import android.support.customtabs.testutil.TestUtil;
 import android.support.customtabs.trusted.TestBrowser;
-import android.support.customtabs.trusted.TrustedWebActivityBuilder;
+import android.support.customtabs.trusted.TrustedWebActivityIntentBuilder;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.MediumTest;
 import android.support.test.rule.ActivityTestRule;
@@ -105,7 +105,7 @@ public class PwaWrapperSplashScreenStrategyTest {
 
     @Test
     public void showsSplashScreenInClient_WhenTwaLaunchInitiated() {
-        runOnUiThreadBlocking(() ->  mStrategy.onTwaLaunchInitiated(mActivity.getPackageName(), 0));
+        initiateLaunch(mStrategy);
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
         // The splash screen should be full-screen blue. Check just one pixel.
@@ -117,15 +117,15 @@ public class PwaWrapperSplashScreenStrategyTest {
         mEnableComponents.manuallyDisable(TestCustomTabsServiceSupportsTwas.class);
         mEnableComponents.manuallyEnable(TestCustomTabsServiceNoSplashScreens.class);
 
-        runOnUiThreadBlocking(() ->  mStrategy.onTwaLaunchInitiated(mActivity.getPackageName(), 0));
+        initiateLaunch(mStrategy);
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
         assertNotEquals(mActivity.getColor(R.color.splash_screen_color), getColorOfAPixel());
     }
 
     @Test
     public void imageFileIsSuccessfullyTransferredToService() {
-        runOnUiThreadBlocking(() ->  mStrategy.onTwaLaunchInitiated(mActivity.getPackageName(), 0));
-        mStrategy.configureTwaBuilder(new TrustedWebActivityBuilder(mActivity, Uri.EMPTY),
+        initiateLaunch(mStrategy);
+        mStrategy.configureTwaBuilder(new TrustedWebActivityIntentBuilder(Uri.EMPTY),
                 mSession, null);
         assertTrue(TestCustomTabsService.getInstance().waitForSplashImageFile(3000));
     }
@@ -142,9 +142,9 @@ public class PwaWrapperSplashScreenStrategyTest {
                 R.drawable.splash, bgColor, scaleType, matrix, fadeOutDuration,
                 FILE_PROVIDER_AUTHORITY);
         strategy.onActivityEnterAnimationComplete();
+        initiateLaunch(strategy);
 
-        runOnUiThreadBlocking(() ->  strategy.onTwaLaunchInitiated(mActivity.getPackageName(), 0));
-        TrustedWebActivityBuilder builder = new TrustedWebActivityBuilder(mActivity,
+        TrustedWebActivityIntentBuilder builder = new TrustedWebActivityIntentBuilder(
                 Uri.parse("https://test.com"));
 
         CountDownLatch latch = new CountDownLatch(1);
@@ -152,7 +152,7 @@ public class PwaWrapperSplashScreenStrategyTest {
         assertTrue(latch.await(3, TimeUnit.SECONDS));
 
         Intent intent = TestUtil.getBrowserActivityWhenLaunched(
-                () -> builder.launchActivity(mSession)).getIntent();
+                () -> mActivity.startActivity(builder.build(mSession))).getIntent();
         Bundle bundle = intent.getBundleExtra(EXTRA_SPLASH_SCREEN_PARAMS);
 
         assertEquals(bgColor, bundle.getInt(SplashScreenParamKey.BACKGROUND_COLOR));
@@ -168,9 +168,9 @@ public class PwaWrapperSplashScreenStrategyTest {
     @Test
     public void waitsForEnterAnimationCompletion_BeforeDeclaringReady()
             throws InterruptedException {
-        runOnUiThreadBlocking(() ->  mStrategy.onTwaLaunchInitiated(mActivity.getPackageName(), 0));
+        initiateLaunch(mStrategy);
         Runnable readyCallback = mock(Runnable.class);
-        mStrategy.configureTwaBuilder(new TrustedWebActivityBuilder(mActivity, Uri.EMPTY),
+        mStrategy.configureTwaBuilder(new TrustedWebActivityIntentBuilder( Uri.EMPTY),
                 mSession, readyCallback);
         TestCustomTabsService.getInstance().waitForSplashImageFile(3000);
 
@@ -182,6 +182,11 @@ public class PwaWrapperSplashScreenStrategyTest {
             latch.countDown();
         });
         assertTrue(latch.await(3, TimeUnit.SECONDS));
+    }
+
+    private void initiateLaunch(PwaWrapperSplashScreenStrategy strategy) {
+        runOnUiThreadBlocking(() ->  strategy.onTwaLaunchInitiated(mActivity.getPackageName(),
+                new TrustedWebActivityIntentBuilder(Uri.EMPTY)));
     }
 
     private int getColorOfAPixel() {

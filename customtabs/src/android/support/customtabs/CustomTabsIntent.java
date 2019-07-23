@@ -352,7 +352,7 @@ public final class CustomTabsIntent {
          * {@link CustomTabsSession}.
          */
         public Builder() {
-            initialize(null, null);
+            setSessionParameters(null, null);
         }
 
         /**
@@ -362,7 +362,9 @@ public final class CustomTabsIntent {
          * {@see Builder(CustomTabsSession)}
          */
         public Builder(@Nullable CustomTabsSession.PendingSession session) {
-            initialize(null, session.getId());
+            if (session != null) {
+                setPendingSession(session);
+            }
         }
 
         /**
@@ -376,14 +378,36 @@ public final class CustomTabsIntent {
          */
         public Builder(@Nullable CustomTabsSession session) {
             if (session != null) {
-                mIntent.setPackage(session.getComponentName().getPackageName());
-                initialize(session.getBinder(), session.getId());
+                setSession(session);
             } else {
-                initialize(null, null);
+                setSessionParameters(null, null);
             }
         }
 
-        private void initialize(@Nullable IBinder session, @Nullable PendingIntent sessionId) {
+        /**
+         * Associates the {@link Intent} with the given {@link CustomTabsSession}.
+         *
+         * Guarantees that the {@link Intent} will be sent to the same component as the one the
+         * session is associated with.
+         */
+        @NonNull
+        public Builder setSession(@NonNull CustomTabsSession session) {
+            mIntent.setPackage(session.getComponentName().getPackageName());
+            setSessionParameters(session.getBinder(), session.getId());
+            return this;
+        }
+
+        /**
+         * Associates the {@link Intent} with the given {@link CustomTabsSession.PendingSession}.
+         */
+        @NonNull
+        public Builder setPendingSession(@NonNull CustomTabsSession.PendingSession session) {
+            setSessionParameters(null, session.getId());
+            return this;
+        }
+
+        private void setSessionParameters(@Nullable IBinder session,
+                @Nullable PendingIntent sessionId) {
             Bundle bundle = new Bundle();
             BundleCompat.putBinder(bundle, EXTRA_SESSION, session);
             if (sessionId != null) {

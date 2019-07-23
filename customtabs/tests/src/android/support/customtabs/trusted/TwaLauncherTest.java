@@ -103,10 +103,10 @@ public class TwaLauncherTest {
     public void transfersTwaBuilderParams() {
         // Checking just one parameters. TrustedWebActivityBuilderTest tests the rest. Here we just
         // check that TwaLauncher doesn't ignore the passed builder.
-        TrustedWebActivityBuilder builder = makeBuilder().setStatusBarColor(0x0000ff);
+        TrustedWebActivityIntentBuilder builder = makeBuilder().setToolbarColor(0xff0000ff);
         Runnable launchRunnable = () -> mTwaLauncher.launch(builder, null, null);
         Intent intent = getBrowserActivityWhenLaunched(launchRunnable).getIntent();
-        assertEquals(0x0000ff, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
+        assertEquals(0xff0000ff, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
     }
 
     @Test
@@ -122,16 +122,16 @@ public class TwaLauncherTest {
     }
 
     @Test
-    public void customTabFallbackUsesStatusBarColor() {
+    public void customTabFallbackUsesToolbarColor() {
         mEnableComponents.manuallyDisable(TestCustomTabsServiceSupportsTwas.class);
         TwaLauncher launcher = new TwaLauncher(mActivity);
 
-        TrustedWebActivityBuilder builder = makeBuilder().setStatusBarColor(0x0000ff);
+        TrustedWebActivityIntentBuilder builder = makeBuilder().setToolbarColor(0xff0000ff);
         Runnable launchRunnable = () -> launcher.launch(builder, null, null);
         Intent intent = getBrowserActivityWhenLaunched(launchRunnable).getIntent();
 
         launcher.destroy();
-        assertEquals(0x0000ff, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
+        assertEquals(0xff0000ff, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
     }
 
     @Test
@@ -192,21 +192,22 @@ public class TwaLauncherTest {
     @Test
     public void notifiesSplashScreenStrategyOfLaunchInitiation() {
         SplashScreenStrategy strategy = mock(SplashScreenStrategy.class);
-        mTwaLauncher.launch(makeBuilder().setStatusBarColor(0xff0000), strategy, null);
+        TrustedWebActivityIntentBuilder builder = makeBuilder();
+        mTwaLauncher.launch(builder, strategy, null);
         verify(strategy).onTwaLaunchInitiated(
                 eq(InstrumentationRegistry.getContext().getPackageName()),
-                eq(0xff0000));
+                eq(builder));
     }
 
     @Test
     public void doesntLaunch_UntilSplashScreenStrategyFinishesConfiguring() {
         SplashScreenStrategy strategy = mock(SplashScreenStrategy.class);
 
-        // Using spy to verify launchActivity not called to avoid testing directly that activity is
+        // Using spy to verify build not called to avoid testing directly that activity is
         // not launched.
-        TrustedWebActivityBuilder builder = spy(makeBuilder());
+        TrustedWebActivityIntentBuilder builder = spy(makeBuilder());
         mTwaLauncher.launch(builder, strategy, null);
-        verify(builder, never()).launchActivity(any());
+        verify(builder, never()).build(any());
     }
 
     @Test
@@ -221,8 +222,8 @@ public class TwaLauncherTest {
         assertNotNull(getBrowserActivityWhenLaunched(launchRunnable));
     }
 
-    private TrustedWebActivityBuilder makeBuilder() {
-        return new TrustedWebActivityBuilder(mActivity, URL);
+    private TrustedWebActivityIntentBuilder makeBuilder() {
+        return new TrustedWebActivityIntentBuilder(URL);
     }
 
 
