@@ -28,7 +28,7 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.StringDef;
-import android.support.customtabs.trusted.TrustedWebActivityBuilder;
+import android.support.customtabs.trusted.TrustedWebActivityIntentBuilder;
 import android.support.v4.app.BundleCompat;
 import android.support.v4.content.FileProvider;
 import android.widget.Toast;
@@ -119,13 +119,13 @@ public class TrustedWebUtils {
      * Boolean extra that triggers a {@link CustomTabsIntent} launch to be in a fullscreen UI with
      * no browser controls.
      *
-     * @see TrustedWebActivityBuilder#launchActivity
+     * @see TrustedWebActivityIntentBuilder#build
      */
     public static final String EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY =
             "android.support.customtabs.extra.LAUNCH_AS_TRUSTED_WEB_ACTIVITY";
 
     /**
-     * @see TrustedWebActivityBuilder#setAdditionalTrustedOrigins
+     * @see TrustedWebActivityIntentBuilder#setAdditionalTrustedOrigins
      */
     public static final String EXTRA_ADDITIONAL_TRUSTED_ORIGINS =
             "android.support.customtabs.extra.ADDITIONAL_TRUSTED_ORIGINS";
@@ -312,9 +312,9 @@ public class TrustedWebUtils {
      * Transfers the splash image to a Custom Tabs provider. The reading and decoding of the image
      * happens synchronously, so it's recommended to call this method on a worker thread.
      *
-     * This method should be called prior to {@link TrustedWebActivityBuilder#launchActivity}.
+     * This method should be called prior to launching the Activity.
      * Pass additional parameters, such as background color, using
-     * {@link TrustedWebActivityBuilder#setSplashScreenParams(Bundle)}.
+     * {@link TrustedWebActivityIntentBuilder#setSplashScreenParams(Bundle)}.
      *
      * @param context {@link Context} to use.
      * @param file {@link File} with the image.

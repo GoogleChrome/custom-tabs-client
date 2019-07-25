@@ -16,6 +16,7 @@ package android.support.customtabs.trusted;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsClient;
@@ -25,6 +26,7 @@ import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.TrustedWebUtils;
 import android.support.customtabs.trusted.TwaProviderPicker.LaunchMode;
 import android.support.customtabs.trusted.splashscreens.SplashScreenStrategy;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 /**
@@ -100,19 +102,19 @@ public class TwaLauncher {
      * @param url Url to open.
      */
     public void launch(Uri url) {
-        launch(new TrustedWebActivityBuilder(mContext, url), null, null);
+        launch(new TrustedWebActivityIntentBuilder(url), null, null);
     }
 
     /**
      * Similar to {@link #launch(Uri)}, but allows more customization.
      *
-     * @param twaBuilder {@link TrustedWebActivityBuilder} containing the url to open, along with
+     * @param twaBuilder {@link TrustedWebActivityIntentBuilder} containing the url to open, along with
      * optional parameters: status bar color, additional trusted origins, etc.
      * @param splashScreenStrategy {@link SplashScreenStrategy} to use for showing splash screens,
      * null if splash screen not needed.
      * @param completionCallback Callback triggered when the url has been opened.
      */
-    public void launch(TrustedWebActivityBuilder twaBuilder,
+    public void launch(TrustedWebActivityIntentBuilder twaBuilder,
             @Nullable SplashScreenStrategy splashScreenStrategy,
             @Nullable Runnable completionCallback) {
         if (mDestroyed) {
@@ -126,17 +128,11 @@ public class TwaLauncher {
         }
     }
 
-    private void launchCct(TrustedWebActivityBuilder twaBuilder,
+    private void launchCct(TrustedWebActivityIntentBuilder twaBuilder,
             @Nullable Runnable completionCallback) {
         // CustomTabsIntent will fall back to launching the Browser if there are no Custom Tabs
         // providers installed.
-        CustomTabsIntent.Builder customTabBuilder = new CustomTabsIntent.Builder();
-        Integer statusBarColor = twaBuilder.getStatusBarColor();
-        if (statusBarColor != null) {
-            customTabBuilder.setToolbarColor(statusBarColor);
-        }
-        CustomTabsIntent intent = customTabBuilder.build();
-
+        CustomTabsIntent intent = twaBuilder.buildCustomTabsIntent();
         if (mProviderPackage != null) {
             intent.intent.setPackage(mProviderPackage);
         }
@@ -146,12 +142,11 @@ public class TwaLauncher {
         }
     }
 
-    private void launchTwa(TrustedWebActivityBuilder twaBuilder,
+    private void launchTwa(TrustedWebActivityIntentBuilder twaBuilder,
             @Nullable SplashScreenStrategy splashScreenStrategy,
             @Nullable Runnable completionCallback) {
-        Integer statusBarColor = twaBuilder.getStatusBarColor();
         if (splashScreenStrategy != null) {
-            splashScreenStrategy.onTwaLaunchInitiated(mProviderPackage, statusBarColor);
+            splashScreenStrategy.onTwaLaunchInitiated(mProviderPackage, twaBuilder);
         }
 
         Runnable onSessionCreatedRunnable = () ->
@@ -169,7 +164,7 @@ public class TwaLauncher {
                 mServiceConnection);
     }
 
-    private void launchWhenSessionEstablished(TrustedWebActivityBuilder twaBuilder,
+    private void launchWhenSessionEstablished(TrustedWebActivityIntentBuilder twaBuilder,
             @Nullable SplashScreenStrategy splashScreenStrategy,
             @Nullable Runnable completionCallback) {
         if (mSession == null) {
@@ -184,10 +179,11 @@ public class TwaLauncher {
         }
     }
 
-    private void launchWhenSplashScreenReady(TrustedWebActivityBuilder builder,
+    private void launchWhenSplashScreenReady(TrustedWebActivityIntentBuilder builder,
             @Nullable Runnable completionCallback) {
         Log.d(TAG, "Launching Trusted Web Activity.");
-        builder.launchActivity(mSession);
+        Intent intent = builder.build(mSession);
+        ContextCompat.startActivity(mContext, intent, null);
         // Remember who we connect to as the package that is allowed to delegate notifications
         // to us.
         TrustedWebActivityService.setVerifiedProvider(mContext, mProviderPackage);
