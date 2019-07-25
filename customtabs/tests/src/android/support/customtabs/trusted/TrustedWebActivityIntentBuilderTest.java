@@ -45,11 +45,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Tests for {@link TrustedWebActivityBuilder}.
+ * Tests for {@link TrustedWebActivityIntentBuilder}.
  */
 @RunWith(AndroidJUnit4.class)
 @MediumTest
-public class TrustedWebActivityBuilderTest {
+public class TrustedWebActivityIntentBuilderTest {
 
     @Rule
     public final EnableComponentsTestRule mEnableComponents = new EnableComponentsTestRule(
@@ -77,7 +77,7 @@ public class TrustedWebActivityBuilderTest {
     @Test
     public void intentIsConstructedCorrectly() {
         Uri url = Uri.parse("https://test.com/page");
-        int statusBarColor = 0xaabbcc;
+        int toolbarColor = 0xffaabbcc;
         List<String> additionalTrustedOrigins =
                 Arrays.asList("https://m.test.com", "https://test.org");
 
@@ -85,19 +85,17 @@ public class TrustedWebActivityBuilderTest {
         int splashBgColor = 0x112233;
         splashScreenParams.putInt(SplashScreenParamKey.BACKGROUND_COLOR, splashBgColor);
 
-        TrustedWebActivityBuilder builder =
-                new TrustedWebActivityBuilder(mActivity, url)
-                        .setStatusBarColor(statusBarColor)
-                        .setAdditionalTrustedOrigins(additionalTrustedOrigins)
-                        .setSplashScreenParams(splashScreenParams);
         Intent intent =
-                getBrowserActivityWhenLaunched(() -> builder.launchActivity(mSession)).getIntent();
+                new TrustedWebActivityIntentBuilder(url)
+                        .setToolbarColor(toolbarColor)
+                        .setAdditionalTrustedOrigins(additionalTrustedOrigins)
+                        .setSplashScreenParams(splashScreenParams).build(mSession);
 
         assertTrue(intent.getBooleanExtra(EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY, false));
         assertTrue(CustomTabsSessionToken.getSessionTokenFromIntent(intent)
                 .isAssociatedWith(mSession));
         assertEquals(url, intent.getData());
-        assertEquals(statusBarColor, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
+        assertEquals(toolbarColor, intent.getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0));
         assertEquals(additionalTrustedOrigins,
                 intent.getStringArrayListExtra(TrustedWebUtils.EXTRA_ADDITIONAL_TRUSTED_ORIGINS));
 

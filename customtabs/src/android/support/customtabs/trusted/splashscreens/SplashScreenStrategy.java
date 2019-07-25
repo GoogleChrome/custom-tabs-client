@@ -14,9 +14,8 @@
 
 package android.support.customtabs.trusted.splashscreens;
 
-import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsSession;
-import android.support.customtabs.trusted.TrustedWebActivityBuilder;
+import android.support.customtabs.trusted.TrustedWebActivityIntentBuilder;
 
 /**
  * Defines behavior of the splash screen shown when launching a TWA.
@@ -29,21 +28,20 @@ public interface SplashScreenStrategy {
      * side before the browser is launched.
      * @param providerPackage Package name of the browser being launched. Implementations should
      * check whether this browser supports splash screens.
-     * @param statusBarColor Status bar color of TWA. Implementations that show splash screen in
-     * client app should set this status bar color. Null if client did not specify a status bar
-     * color.
+     * @param builder {@link TrustedWebActivityIntentBuilder} with user-specified parameters, such as
+     * status bar color.
      */
-    void onTwaLaunchInitiated(String providerPackage, @Nullable Integer statusBarColor);
+    void onTwaLaunchInitiated(String providerPackage, TrustedWebActivityIntentBuilder builder);
 
     /**
      * Called when TWA is ready to be launched.
-     * @param builder {@link TrustedWebActivityBuilder} to be supplied with splash screen related
+     * @param builder {@link TrustedWebActivityIntentBuilder} to be supplied with splash screen related
      * parameters.
      * @param session {@link CustomTabsSession} with which the TWA will launch.
      * @param onReadyCallback Callback to be triggered when splash screen preparation is finished.
      * TWA is launched immediately upon triggering this callback.
      */
-    void configureTwaBuilder(TrustedWebActivityBuilder builder, CustomTabsSession session,
+    void configureTwaBuilder(TrustedWebActivityIntentBuilder builder, CustomTabsSession session,
             Runnable onReadyCallback);
 
 }

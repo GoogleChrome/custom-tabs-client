@@ -124,9 +124,11 @@ public class LauncherActivity extends AppCompatActivity {
                     mMetadata.fileProviderAuthority);
         }
 
-        TrustedWebActivityBuilder twaBuilder =
-                new TrustedWebActivityBuilder(this, getLaunchingUrl())
-                        .setStatusBarColor(getColorCompat(mMetadata.statusBarColorId));
+        TrustedWebActivityIntentBuilder twaBuilder =
+                new TrustedWebActivityIntentBuilder(getLaunchingUrl())
+                        .setToolbarColor(getColorCompat(mMetadata.statusBarColorId))
+                        .setNavigationBarColor(getColorCompat(mMetadata.navigationBarColorId));
+
 
         mTwaLauncher = new TwaLauncher(this);
         mTwaLauncher.launch(twaBuilder, mSplashScreenStrategy, () -> mBrowserWasLaunched = true);

@@ -352,7 +352,7 @@ public final class CustomTabsIntent {
          * {@link CustomTabsSession}.
          */
         public Builder() {
-            initialize(null, null);
+            setSessionParameters(null, null);
         }
 
         /**
@@ -362,7 +362,9 @@ public final class CustomTabsIntent {
          * {@see Builder(CustomTabsSession)}
          */
         public Builder(@Nullable CustomTabsSession.PendingSession session) {
-            initialize(null, session.getId());
+            if (session != null) {
+                setPendingSession(session);
+            }
         }
 
         /**
@@ -376,14 +378,35 @@ public final class CustomTabsIntent {
          */
         public Builder(@Nullable CustomTabsSession session) {
             if (session != null) {
-                mIntent.setPackage(session.getComponentName().getPackageName());
-                initialize(session.getBinder(), session.getId());
-            } else {
-                initialize(null, null);
+                setSession(session);
             }
         }
 
-        private void initialize(@Nullable IBinder session, @Nullable PendingIntent sessionId) {
+        /**
+         * Associates the {@link Intent} with the given {@link CustomTabsSession}.
+         *
+         * Guarantees that the {@link Intent} will be sent to the same component as the one the
+         * session is associated with.
+         */
+        @NonNull
+        public Builder setSession(@NonNull CustomTabsSession session) {
+            mIntent.setPackage(session.getComponentName().getPackageName());
+            setSessionParameters(session.getBinder(), session.getId());
+            return this;
+        }
+
+        /**
+         * Associates the {@link Intent} with the given {@link CustomTabsSession.PendingSession}.
+         * Overrides the effect of {@link #setSession}.
+         */
+        @NonNull
+        public Builder setPendingSession(@NonNull CustomTabsSession.PendingSession session) {
+            setSessionParameters(null, session.getId());
+            return this;
+        }
+
+        private void setSessionParameters(@Nullable IBinder session,
+                @Nullable PendingIntent sessionId) {
             Bundle bundle = new Bundle();
             BundleCompat.putBinder(bundle, EXTRA_SESSION, session);
             if (sessionId != null) {
@@ -708,6 +731,10 @@ public final class CustomTabsIntent {
          */
         @NonNull
         public CustomTabsIntent build() {
+            if (!mIntent.hasExtra(EXTRA_SESSION)) {
+                // The intent must have EXTRA_SESSION, even if it is null.
+                setSessionParameters(null, null);
+            }
             if (mMenuItems != null) {
                 mIntent.putParcelableArrayListExtra(CustomTabsIntent.EXTRA_MENU_ITEMS, mMenuItems);
             }
