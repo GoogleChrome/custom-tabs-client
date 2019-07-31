@@ -71,6 +71,13 @@ public abstract class CustomTabsService extends Service {
             "androidx.browser.customtabs.category.ColorSchemeCustomization";
 
     /**
+     * An Intent filter category to signify that the Trusted Web Activity provider supports
+     * sending shared data according to the Web Share Target v2 protocol.
+     */
+    public static final String CATEGORY_WEB_SHARE_TARGET =
+            "androidx.browser.trusted.category.WebShareTarget";
+
+    /**
      * For {@link CustomTabsService#mayLaunchUrl} calls that wants to specify more than one url,
      * this key can be used with {@link Bundle#putParcelable(String, android.os.Parcelable)}
      * to insert a new url to each bundle inside list of bundles.
