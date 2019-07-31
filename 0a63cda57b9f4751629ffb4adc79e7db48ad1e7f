@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25ee1194_9aa68779",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityIntentBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-07-31T13:41:23Z",
+      "side": 1,
+      "message": "Similarly to how we need CustomTabsIntent object to contain startAnimationBundle alongside the intent, here we need an object containing intent + shared uris (+ potentially smth else in future). I\u0027m reluctant to call it TrustedWebActivityIntent by analogy though, because it\u0027s not an intent.\n\npeconn@, before we pass the API council review, I assume we can break things, can we? \nIf so, I\u0027d like to change build method signature asap in a small AndroidX CL.",
+      "range": {
+        "startLine": 171,
+        "startChar": 11,
+        "endLine": 171,
+        "endChar": 42
+      },
+      "revId": "0a63cda57b9f4751629ffb4adc79e7db48ad1e7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
