@@ -19,6 +19,10 @@ import java.util.List;
  * details).
  */
 public class TrustedWebActivityIntentBuilder {
+    public static final String EXTRA_SHARE_TARGET = "EXTRA_SHARE_TARGET";
+
+    public static final String EXTRA_SHARE_DATA = "EXTRA_SHARE_DATA";
+
     private final Uri mUri;
     private final CustomTabsIntent.Builder mIntentBuilder = new CustomTabsIntent.Builder();
 
@@ -27,6 +31,12 @@ public class TrustedWebActivityIntentBuilder {
 
     @Nullable
     private Bundle mSplashScreenParams;
+
+    @Nullable
+    private ShareData mShareData;
+    
+    @Nullable
+    private String mShareTargetJson;
 
     /**
      * Creates a Builder given the required parameters.
@@ -128,11 +138,37 @@ public class TrustedWebActivityIntentBuilder {
     }
 
     /**
+     * Sets the parameters for delivering data to a Web Share Target via a Trusted Web Activity.
+     *
+     * @param shareTargetJson JSON String describing the Web Share Target v2. Follows the format of
+     * the "share_target" object of the web manifest json, defined by
+     * https://pr-preview.s3.amazonaws.com/ewilligers/web-share-target/pull/53.html
+     * The "action" field must be a full URL, instead of a relative path.
+     * @param shareData A {@link ShareData} object containing the data to be sent to the share
+     * target.
+     */
+    public TrustedWebActivityIntentBuilder setShareParams(@NonNull String shareTargetJson,
+            @NonNull ShareData shareData) {
+        mShareTargetJson = shareTargetJson;
+        mShareData = shareData;
+        return this;
+    }
+
+    /**
      * Builds the Intent.
      *
      * @param session The {@link CustomTabsSession} to use for launching a Trusted Web Activity.
+     *
+     * @deprecated Use {@link #buildWrapper}.
      */
     public Intent build(CustomTabsSession session) {
+        return buildWrapper(session).getIntent();
+    }
+
+    /**
+     * Builds a {@link TrustedWebActivityIntentWrapper}.
+     */
+    public TrustedWebActivityIntentWrapper buildWrapper(CustomTabsSession session) {
         if (session == null) {
             throw new NullPointerException("CustomTabsSession is required for launching a TWA");
         }
@@ -149,7 +185,13 @@ public class TrustedWebActivityIntentBuilder {
         if (mSplashScreenParams != null) {
             intent.putExtra(TrustedWebUtils.EXTRA_SPLASH_SCREEN_PARAMS, mSplashScreenParams);
         }
-        return intent;
+        List<Uri> sharedUris = null;
+        if (mShareTargetJson != null && mShareData != null) {
+            intent.putExtra(EXTRA_SHARE_TARGET, mShareTargetJson);
+            intent.putExtra(EXTRA_SHARE_DATA, mShareData.toBundle());
+            sharedUris = mShareData.uris;
+        }
+        return new TrustedWebActivityIntentWrapper(intent, sharedUris);
     }
 
     /**
