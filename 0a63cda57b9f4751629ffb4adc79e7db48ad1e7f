@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "fadd949d_2a9f50ac",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-08-02T13:56:00Z",
+      "side": 1,
+      "message": "Sorry ignore this - that\u0027s Web Share v2, not Web Share Target v2.",
+      "parentUuid": "e9031479_9465fbc4",
+      "range": {
+        "startLine": 150,
+        "startChar": 7,
+        "endLine": 150,
+        "endChar": 83
+      },
+      "revId": "0a63cda57b9f4751629ffb4adc79e7db48ad1e7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f0c2733_11e77bc9",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 4
