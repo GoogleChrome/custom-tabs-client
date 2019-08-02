@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "6333df71_83a613ad",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-08-02T13:50:20Z",
+      "side": 1,
+      "message": "Should we put v2 in the String somewhere? Potentially also a link to the protocol.",
+      "range": {
+        "startLine": 75,
+        "startChar": 61,
+        "endLine": 75,
+        "endChar": 63
+      },
+      "revId": "0a63cda57b9f4751629ffb4adc79e7db48ad1e7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9031479_9465fbc4",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-08-02T13:50:20Z",
+      "side": 1,
+      "message": "https://wicg.github.io/web-share/level-2/ looks a little more official of a URL to me (still a bit ugly though).",
+      "range": {
+        "startLine": 150,
+        "startChar": 7,
+        "endLine": 150,
+        "endChar": 83
+      },
+      "revId": "0a63cda57b9f4751629ffb4adc79e7db48ad1e7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f0c2733_11e77bc9",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 4
@@ -53,6 +99,29 @@
     },
     {
       "key": {
+        "uuid": "11e16fb7_cf10b9e3",
+        "filename": "customtabs/src/android/support/customtabs/trusted/ShareData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-08-02T13:50:20Z",
+      "side": 1,
+      "message": "Could you add @NonNull, @NonNull, @Nullable please?",
+      "range": {
+        "startLine": 36,
+        "startChar": 21,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "0a63cda57b9f4751629ffb4adc79e7db48ad1e7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "25ee1194_9aa68779",
         "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityIntentBuilder.java",
         "patchSetId": 4
@@ -64,6 +133,30 @@
       "writtenOn": "2019-07-31T13:41:23Z",
       "side": 1,
       "message": "Similarly to how we need CustomTabsIntent object to contain startAnimationBundle alongside the intent, here we need an object containing intent + shared uris (+ potentially smth else in future). I\u0027m reluctant to call it TrustedWebActivityIntent by analogy though, because it\u0027s not an intent.\n\npeconn@, before we pass the API council review, I assume we can break things, can we? \nIf so, I\u0027d like to change build method signature asap in a small AndroidX CL.",
+      "range": {
+        "startLine": 171,
+        "startChar": 11,
+        "endLine": 171,
+        "endChar": 42
+      },
+      "revId": "0a63cda57b9f4751629ffb4adc79e7db48ad1e7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c90bd0c8_5ce8cd64",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityIntentBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-08-02T13:50:20Z",
+      "side": 1,
+      "message": "We can make breaking API changes as long as we\u0027re still in alpha.\n\nI can see where you\u0027re going - I dislike the name Wrapper though.\n\nHow would the design change if web share were supported for Custom Tabs as well?",
+      "parentUuid": "25ee1194_9aa68779",
       "range": {
         "startLine": 171,
         "startChar": 11,
