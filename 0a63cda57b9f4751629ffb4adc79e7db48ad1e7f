@@ -190,6 +190,30 @@
       "revId": "0a63cda57b9f4751629ffb4adc79e7db48ad1e7f",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f56a0e98_bd1a76f5",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityIntentBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-02T16:33:31Z",
+      "side": 1,
+      "message": "\u003e I can see where you\u0027re going - I dislike the name Wrapper though.\n\nWould you prefer TrustedWebActivityIntent?\n\n\u003e How would the design change if web share were supported for Custom Tabs as well?\n\nCustomTabsIntent.Builder acquires setShareParams method, TrustedWebActivityIntentBuilder delegates to that; \"uris\" field moves from TrustedWebActivityIntent(Wrapper) into CustomTabIntent, TrustedWebActivityIntent(Wrapper) starts using CustomTabIntent internally.",
+      "parentUuid": "c90bd0c8_5ce8cd64",
+      "range": {
+        "startLine": 171,
+        "startChar": 11,
+        "endLine": 171,
+        "endChar": 42
+      },
+      "revId": "0a63cda57b9f4751629ffb4adc79e7db48ad1e7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
     }
   ]
 }
