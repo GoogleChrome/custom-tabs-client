@@ -21,14 +21,14 @@ import static android.support.customtabs.TrustedWebUtils.EXTRA_LAUNCH_AS_TRUSTED
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import android.app.Instrumentation;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.EnableComponentsTestRule;
-import android.support.customtabs.test.R;
 import android.support.customtabs.TestCustomTabsService;
 import android.support.customtabs.TestCustomTabsServiceSupportsTwas;
+import android.support.customtabs.test.R;
 import android.support.customtabs.testutil.TestUtil;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.MediumTest;
@@ -40,6 +40,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Tests for {@link LauncherActivity}.
@@ -109,6 +114,49 @@ public class LauncherActivityTest {
         checkColor(browser);
     }
 
+    @Test
+    public void sendsShareParamsFromSendIntent() {
+        String subject = "foo";
+        String text = "bar";
+        Uri uri = Uri.parse("file://baz");
+
+        Intent intent = new Intent(Intent.ACTION_SEND)
+            .putExtra(Intent.EXTRA_SUBJECT, subject)
+            .putExtra(Intent.EXTRA_TEXT, text)
+            .putExtra(Intent.EXTRA_STREAM, uri);
+
+        TestBrowser browser = launch(intent);
+        assertShareParamsInIntent(browser.getIntent(),
+                new ShareData(subject, text, Collections.singletonList(uri)));
+    }
+
+    @Test
+    public void sendsShareParamsFromSendMultipleIntent() {
+        String subject = "foo";
+        String text = "bar";
+        List<Uri> uris = Arrays.asList(Uri.parse("file://baz"), Uri.parse("file://qux"));
+
+        Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE)
+                .putExtra(Intent.EXTRA_SUBJECT, subject)
+                .putExtra(Intent.EXTRA_TEXT, text)
+                .putParcelableArrayListExtra(Intent.EXTRA_STREAM, new ArrayList<>(uris));
+
+        TestBrowser browser = launch(intent);
+
+        assertShareParamsInIntent(browser.getIntent(), new ShareData(subject, text, uris));
+    }
+
+    private void assertShareParamsInIntent(Intent intent, ShareData shareData) {
+        ShareData data = ShareData.fromBundle(intent.getBundleExtra(
+                TrustedWebActivityIntentBuilder.EXTRA_SHARE_DATA));
+        assertEquals(shareData.title, data.title);
+        assertEquals(shareData.text, data.text);
+        assertEquals(shareData.uris, data.uris);
+        String shareTarget =
+                intent.getStringExtra(TrustedWebActivityIntentBuilder.EXTRA_SHARE_TARGET);
+        assertEquals(mActivityTestRule.getActivity().getString(R.string.share_target), shareTarget);
+    }
+
     private void checkColor(TestBrowser browser) {
         int requestedColor = browser.getIntent()
                 .getIntExtra(CustomTabsIntent.EXTRA_TOOLBAR_COLOR, 0);
@@ -119,7 +167,11 @@ public class LauncherActivityTest {
     }
 
     private TestBrowser launch() {
+        return launch(null);
+    }
+
+    private TestBrowser launch(Intent intent) {
         return TestUtil.getBrowserActivityWhenLaunched(() ->
-                mActivityTestRule.launchActivity(null));
+                mActivityTestRule.launchActivity(intent));
     }
 }
