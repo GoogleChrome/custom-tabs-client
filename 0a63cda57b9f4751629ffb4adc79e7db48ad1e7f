@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "79504137_a90cf1b1",
+        "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-08-06T12:54:09Z",
+      "side": 1,
+      "message": "https://wicg.github.io/web-share-target/level-2/ is the correct one.",
+      "parentUuid": "fadd949d_2a9f50ac",
+      "range": {
+        "startLine": 150,
+        "startChar": 7,
+        "endLine": 150,
+        "endChar": 83
+      },
+      "revId": "0a63cda57b9f4751629ffb4adc79e7db48ad1e7f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f0c2733_11e77bc9",
         "filename": "customtabs/src/android/support/customtabs/trusted/LauncherActivity.java",
         "patchSetId": 4
