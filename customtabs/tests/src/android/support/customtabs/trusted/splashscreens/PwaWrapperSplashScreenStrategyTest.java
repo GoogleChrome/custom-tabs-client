@@ -152,7 +152,7 @@ public class PwaWrapperSplashScreenStrategyTest {
         assertTrue(latch.await(3, TimeUnit.SECONDS));
 
         Intent intent = TestUtil.getBrowserActivityWhenLaunched(
-                () -> mActivity.startActivity(builder.build(mSession))).getIntent();
+                () -> builder.build(mSession).launchTrustedWebActivity(mActivity)).getIntent();
         Bundle bundle = intent.getBundleExtra(EXTRA_SPLASH_SCREEN_PARAMS);
 
         assertEquals(bgColor, bundle.getInt(SplashScreenParamKey.BACKGROUND_COLOR));
