@@ -3,6 +3,7 @@ package android.support.customtabs.trusted;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -58,6 +59,13 @@ public class LauncherActivityMetadata {
     private static final String METADATA_FILE_PROVIDER_AUTHORITY =
             "android.support.customtabs.trusted.FILE_PROVIDER_AUTHORITY";
 
+    /**
+     * Reference to a string resource with the web share target JSON. See description of
+     * {@link LauncherActivity} for more details.
+     */
+    private static final String METADATA_SHARE_TARGET =
+            "android.support.customtabs.trusted.METADATA_SHARE_TARGET";
+
 
     private final static int DEFAULT_COLOR_ID = android.R.color.white;
 
@@ -68,8 +76,9 @@ public class LauncherActivityMetadata {
     public final int splashScreenBackgroundColorId;
     @Nullable public final String fileProviderAuthority;
     public final int splashScreenFadeOutDurationMillis;
+    @Nullable public final String shareTarget;
 
-    private LauncherActivityMetadata(@NonNull Bundle metaData) {
+    private LauncherActivityMetadata(@NonNull Bundle metaData, Resources resources) {
         defaultUrl = metaData.getString(METADATA_DEFAULT_URL);
         statusBarColorId = metaData.getInt(METADATA_STATUS_BAR_COLOR_ID, DEFAULT_COLOR_ID);
         navigationBarColorId = metaData.getInt(METADATA_NAVIGATION_BAR_COLOR_ID, DEFAULT_COLOR_ID);
@@ -79,6 +88,8 @@ public class LauncherActivityMetadata {
         fileProviderAuthority = metaData.getString(METADATA_FILE_PROVIDER_AUTHORITY);
         splashScreenFadeOutDurationMillis =
                 metaData.getInt(METADATA_SPLASH_SCREEN_FADE_OUT_DURATION, 0);
+        int shareTargetId = metaData.getInt(METADATA_SHARE_TARGET, 0);
+        shareTarget = shareTargetId == 0 ? null : resources.getString(shareTargetId);
     }
 
     /**
@@ -94,6 +105,7 @@ public class LauncherActivityMetadata {
             // Will only happen if the package provided (the one we are running in) is not
             // installed - so should never happen.
         }
-        return new LauncherActivityMetadata(metaData == null ? new Bundle() : metaData);
+        return new LauncherActivityMetadata(metaData == null ? new Bundle() : metaData,
+                activity.getResources());
     }
 }

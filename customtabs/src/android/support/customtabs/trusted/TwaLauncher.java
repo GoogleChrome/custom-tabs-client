@@ -16,7 +16,6 @@ package android.support.customtabs.trusted;
 
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsClient;
@@ -26,7 +25,6 @@ import android.support.customtabs.CustomTabsSession;
 import android.support.customtabs.TrustedWebUtils;
 import android.support.customtabs.trusted.TwaProviderPicker.LaunchMode;
 import android.support.customtabs.trusted.splashscreens.SplashScreenStrategy;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 /**
@@ -182,8 +180,7 @@ public class TwaLauncher {
     private void launchWhenSplashScreenReady(TrustedWebActivityIntentBuilder builder,
             @Nullable Runnable completionCallback) {
         Log.d(TAG, "Launching Trusted Web Activity.");
-        Intent intent = builder.build(mSession);
-        ContextCompat.startActivity(mContext, intent, null);
+        builder.build(mSession).launchTrustedWebActivity(mContext);
         // Remember who we connect to as the package that is allowed to delegate notifications
         // to us.
         TrustedWebActivityService.setVerifiedProvider(mContext, mProviderPackage);
