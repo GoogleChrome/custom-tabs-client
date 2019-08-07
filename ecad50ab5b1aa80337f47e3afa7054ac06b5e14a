@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b59ce4a8_92518138",
+        "filename": "customtabs/src/android/support/customtabs/trusted/SharingUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-07T17:02:54Z",
+      "side": 1,
+      "message": "We shouldn\u0027t name non-trivial methods get()\nfetchShareDataFromIntent() or retrieveShareDataFromIntent() are both better options in my opinion",
+      "revId": "ecad50ab5b1aa80337f47e3afa7054ac06b5e14a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}

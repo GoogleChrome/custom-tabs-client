@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79301631_44fc2b9f",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-07T17:02:54Z",
+      "side": 1,
+      "message": "This constant looks unused",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e7b60ae_b04eb8fa",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareData.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-07T17:02:54Z",
+      "side": 1,
+      "message": "Random Observation: The keys in this file follow a different format than the ones in ShareTarget.java",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58ceb0f4_6c1dc910",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareData.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-07T17:02:54Z",
+      "side": 1,
+      "message": "Random comment: Personally I would make the parameter an ArrayList to avoid the copy on line  66",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a62fe263_ecbb614e",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-07T17:02:54Z",
+      "side": 1,
+      "message": "Nit: Probably should be KEY_ENCTYPE (instead of KEY_ENC_TYPE) to match spelling in spec",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9561ba08_6f74760a",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-07T17:02:54Z",
+      "side": 1,
+      "message": "How about: \"Contains the parameter names, see {@link Params}.\"\n\nI don\u0027t think that the other part of the comment makes it clearer",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68335b5d_4faf3ddd",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-07T17:02:54Z",
+      "side": 1,
+      "message": "I think that |params| should be non-nullable\nSharingUtils.parseShareTargetJson() will fail if \u0027params\u0027 is not specified (as it should) because it uses object.getJSONObject() for \u0027params\u0027",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85bd2287_0e6cccdd",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-07T17:02:54Z",
+      "side": 1,
+      "message": "Nit: \"Contains parameter names.\"",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71c5a825_14f7fcd0",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-07T17:02:54Z",
+      "side": 1,
+      "message": "Nit: document -\u003e message\nTo match spec https://wicg.github.io/web-share-target/level-2/#determining-if-a-file-is-accepted and because \u0027body of the document\u0027 makes me think of document.body in JavaScript",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "753b1185_5c1e263b",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-07T17:02:54Z",
+      "side": 1,
+      "message": "androidx.browser.trusted.sharing.KEY_FILE_NAME to be consistent with the style of the rest of the file?",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80fe910d_5f38dbdf",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-07T17:02:54Z",
+      "side": 1,
+      "message": "androidx.browser.trusted.sharing.KEY_ACCEPTED_TYPES to be consistent with the rest of the file?",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
