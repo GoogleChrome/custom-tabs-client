@@ -89,7 +89,9 @@ public class TrustedWebActivityIntentBuilderTest {
                 new TrustedWebActivityIntentBuilder(url)
                         .setToolbarColor(toolbarColor)
                         .setAdditionalTrustedOrigins(additionalTrustedOrigins)
-                        .setSplashScreenParams(splashScreenParams).build(mSession);
+                        .setSplashScreenParams(splashScreenParams)
+                        .build(mSession)
+                        .getIntent();
 
         assertTrue(intent.getBooleanExtra(EXTRA_LAUNCH_AS_TRUSTED_WEB_ACTIVITY, false));
         assertTrue(CustomTabsSessionToken.getSessionTokenFromIntent(intent)
