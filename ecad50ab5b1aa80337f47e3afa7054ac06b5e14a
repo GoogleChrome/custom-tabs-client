@@ -16,6 +16,24 @@
       "revId": "ecad50ab5b1aa80337f47e3afa7054ac06b5e14a",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e84c398_370bcac5",
+        "filename": "customtabs/src/android/support/customtabs/trusted/SharingUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b59ce4a8_92518138",
+      "revId": "ecad50ab5b1aa80337f47e3afa7054ac06b5e14a",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }

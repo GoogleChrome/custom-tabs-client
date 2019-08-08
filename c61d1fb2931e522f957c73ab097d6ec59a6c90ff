@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "52663a21_6a4ca966",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "I\u0027m not sure if a PackageManager call is faster than parsing a small json, and I\u0027d prefer not to add new methods to TrustedWebUtils like \"supportsShareTarget()\" unless necessary, because they are going to get deprecated once we have a proper feature detection API. When that API will be there, I hope it will make only one PackageManager call to gather all the features, and then we can add the check.",
+      "parentUuid": "35b57b08_4536a7ff",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f26936ec_cd375515",
         "filename": "customtabs/src/android/support/customtabs/trusted/SharingUtils.java",
         "patchSetId": 11
@@ -48,6 +66,30 @@
       "writtenOn": "2019-08-08T09:22:23Z",
       "side": 1,
       "message": "I feel this class is a bit unnecessary - the two public methods could just be static methods on ShareData and ShareTarget respectively.",
+      "range": {
+        "startLine": 21,
+        "startChar": 13,
+        "endLine": 21,
+        "endChar": 25
+      },
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e47c02d2_73ec503c",
+        "filename": "customtabs/src/android/support/customtabs/trusted/SharingUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "ShareData and ShareTarget will be part of AndroidX library. These methods won\u0027t be, as they belong to the LauncherActivity infrastructure (we\u0027ll have a separate library for that soon).",
+      "parentUuid": "f26936ec_cd375515",
       "range": {
         "startLine": 21,
         "startChar": 13,
@@ -83,6 +125,30 @@
     },
     {
       "key": {
+        "uuid": "a1bfd4e9_49c4dc3d",
+        "filename": "customtabs/src/android/support/customtabs/trusted/SharingUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "It will throw a JSONException, which is what I believe we want.",
+      "parentUuid": "e30e64aa_27ab738d",
+      "range": {
+        "startLine": 53,
+        "startChar": 24,
+        "endLine": 53,
+        "endChar": 51
+      },
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c3591e92_9d86d9d5",
         "filename": "customtabs/src/android/support/customtabs/trusted/SharingUtils.java",
         "patchSetId": 11
@@ -94,6 +160,30 @@
       "writtenOn": "2019-08-08T09:22:23Z",
       "side": 1,
       "message": "|object.getJSONObject(\"params\")| in the line above may return null, causing a NullPointerException on this line. Could we throw an IllegalArgumentException ourselves?",
+      "range": {
+        "startLine": 57,
+        "startChar": 28,
+        "endLine": 57,
+        "endChar": 34
+      },
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22dddc1c_6e9fb8f9",
+        "filename": "customtabs/src/android/support/customtabs/trusted/SharingUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "The line above will throw JSONException if there\u0027s no \"params\" object.",
+      "parentUuid": "c3591e92_9d86d9d5",
       "range": {
         "startLine": 57,
         "startChar": 28,
@@ -129,6 +219,30 @@
     },
     {
       "key": {
+        "uuid": "1f60a33c_85b82c33",
+        "filename": "customtabs/src/android/support/customtabs/trusted/SharingUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "Ditto.",
+      "parentUuid": "c98997f9_af0dce17",
+      "range": {
+        "startLine": 73,
+        "startChar": 41,
+        "endLine": 73,
+        "endChar": 50
+      },
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87b53d59_5ca1c327",
         "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityIntent.java",
         "patchSetId": 11
@@ -152,6 +266,30 @@
     },
     {
       "key": {
+        "uuid": "11869730_ab66c841",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityIntent.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87b53d59_5ca1c327",
+      "range": {
+        "startLine": 26,
+        "startChar": 12,
+        "endLine": 26,
+        "endChar": 49
+      },
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e7b60ae_b04eb8fa",
         "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareData.java",
         "patchSetId": 11
@@ -166,6 +304,24 @@
       "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33aa408d_e525753d",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareData.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "5e7b60ae_b04eb8fa",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -204,6 +360,24 @@
     },
     {
       "key": {
+        "uuid": "413ea825_92d0955e",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareData.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "I don\u0027t think we care whether it\u0027s immutable. I\u0027d rather keep the copy where it is, because there it\u0027s immediately clear why we\u0027re doing it. I\u0027d also rather not make the input parameter an ArrayList, because it\u0027s an implementation detail clients shouldn\u0027t have to know.",
+      "parentUuid": "21590b3c_73478be8",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a62fe263_ecbb614e",
         "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
         "patchSetId": 11
@@ -218,6 +392,24 @@
       "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4b437f2_0fe255c5",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a62fe263_ecbb614e",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
@@ -238,6 +430,24 @@
     },
     {
       "key": {
+        "uuid": "74afa7a4_61c59338",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9561ba08_6f74760a",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68335b5d_4faf3ddd",
         "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
         "patchSetId": 11
@@ -255,6 +465,24 @@
     },
     {
       "key": {
+        "uuid": "5864dc32_c6d2fbc7",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "You\u0027re right, in the spec params is marked as \"required\".",
+      "parentUuid": "68335b5d_4faf3ddd",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85bd2287_0e6cccdd",
         "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
         "patchSetId": 11
@@ -266,6 +494,24 @@
       "writtenOn": "2019-08-07T17:02:54Z",
       "side": 1,
       "message": "Nit: \"Contains parameter names.\"",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0700cf6_2c9c777d",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "I think that would be too vague.",
+      "parentUuid": "85bd2287_0e6cccdd",
       "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
@@ -289,6 +535,24 @@
     },
     {
       "key": {
+        "uuid": "0111b63a_cb586c7c",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "I think we should then write \"title of the message\" as well, despite the spec, because \"title of the document\" and \"body of the message\" doesn\u0027t make sense.",
+      "parentUuid": "71c5a825_14f7fcd0",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "753b1185_5c1e263b",
         "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
         "patchSetId": 11
@@ -306,6 +570,24 @@
     },
     {
       "key": {
+        "uuid": "b452aa26_fdea1248",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "753b1185_5c1e263b",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80fe910d_5f38dbdf",
         "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
         "patchSetId": 11
@@ -320,6 +602,24 @@
       "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1b3cb11_260cb6fb",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1297953
+      },
+      "writtenOn": "2019-08-08T14:40:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80fe910d_5f38dbdf",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     }
   ]
 }
