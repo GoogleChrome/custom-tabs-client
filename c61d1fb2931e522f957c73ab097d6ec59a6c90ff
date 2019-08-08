@@ -19,6 +19,139 @@
     },
     {
       "key": {
+        "uuid": "35b57b08_4536a7ff",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-08-08T09:22:23Z",
+      "side": 1,
+      "message": "It will be used by the browser to advertise that it supports this API.\n\nAlthough you have a point that potentially we could check whether the browser supports this API and if not save ourselves some work.",
+      "parentUuid": "79301631_44fc2b9f",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f26936ec_cd375515",
+        "filename": "customtabs/src/android/support/customtabs/trusted/SharingUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-08-08T09:22:23Z",
+      "side": 1,
+      "message": "I feel this class is a bit unnecessary - the two public methods could just be static methods on ShareData and ShareTarget respectively.",
+      "range": {
+        "startLine": 21,
+        "startChar": 13,
+        "endLine": 21,
+        "endChar": 25
+      },
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e30e64aa_27ab738d",
+        "filename": "customtabs/src/android/support/customtabs/trusted/SharingUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-08-08T09:22:23Z",
+      "side": 1,
+      "message": "This will throw a NullPointerException if the JSON doesn\u0027t contain \"action\" - could we instead throw an IllegalArgumentException? (I guess higher up in LauncherActivity, we may want to catch the IllegalArgumentException and wrap it in an IllegalStateException with a bit more context).",
+      "range": {
+        "startLine": 53,
+        "startChar": 24,
+        "endLine": 53,
+        "endChar": 51
+      },
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3591e92_9d86d9d5",
+        "filename": "customtabs/src/android/support/customtabs/trusted/SharingUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-08-08T09:22:23Z",
+      "side": 1,
+      "message": "|object.getJSONObject(\"params\")| in the line above may return null, causing a NullPointerException on this line. Could we throw an IllegalArgumentException ourselves?",
+      "range": {
+        "startLine": 57,
+        "startChar": 28,
+        "endLine": 57,
+        "endChar": 34
+      },
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c98997f9_af0dce17",
+        "filename": "customtabs/src/android/support/customtabs/trusted/SharingUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-08-08T09:22:23Z",
+      "side": 1,
+      "message": "Similarly, have a nice error if there\u0027s no \"name\" or no \"accept\" below.",
+      "range": {
+        "startLine": 73,
+        "startChar": 41,
+        "endLine": 73,
+        "endChar": 50
+      },
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87b53d59_5ca1c327",
+        "filename": "customtabs/src/android/support/customtabs/trusted/TrustedWebActivityIntent.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-08-08T09:22:23Z",
+      "side": 1,
+      "message": "nit: this can go on the same line right?",
+      "range": {
+        "startLine": 26,
+        "startChar": 12,
+        "endLine": 26,
+        "endChar": 49
+      },
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5e7b60ae_b04eb8fa",
         "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareData.java",
         "patchSetId": 11
@@ -47,6 +180,24 @@
       "writtenOn": "2019-08-07T17:02:54Z",
       "side": 1,
       "message": "Random comment: Personally I would make the parameter an ArrayList to avoid the copy on line  66",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21590b3c_73478be8",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareData.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1149979
+      },
+      "writtenOn": "2019-08-08T09:22:23Z",
+      "side": 1,
+      "message": "Actually, we should move the copy in line 66 to line 56 otherwise someone could do this:\n\n    List\u003cUri\u003e myList \u003d ...;\n    ShareData data \u003d new ShareData(..., ..., myList);\n    myList.add(...);\n\nAnd they\u0027ll have changed the contents of ShareData, which we assume to be immutable.",
+      "parentUuid": "58ceb0f4_6c1dc910",
       "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
