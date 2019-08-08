@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "0119f243_8ba98455",
+        "filename": "customtabs/src/android/support/customtabs/CustomTabsService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-08T15:03:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "52663a21_6a4ca966",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f26936ec_cd375515",
         "filename": "customtabs/src/android/support/customtabs/trusted/SharingUtils.java",
         "patchSetId": 11
@@ -378,6 +396,24 @@
     },
     {
       "key": {
+        "uuid": "c49ee21c_fd6a38d1",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareData.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-08T15:03:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "413ea825_92d0955e",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a62fe263_ecbb614e",
         "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
         "patchSetId": 11
@@ -518,6 +554,24 @@
     },
     {
       "key": {
+        "uuid": "bf801342_1454c678",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-08T15:03:43Z",
+      "side": 1,
+      "message": "Perhaps less vague: \"Contains parameter names for data being shared.\"\n\"various pieces\" does not add value to the comment",
+      "parentUuid": "a0700cf6_2c9c777d",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "71c5a825_14f7fcd0",
         "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
         "patchSetId": 11
@@ -550,6 +604,24 @@
       "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e548d9e3_e48e86f2",
+        "filename": "customtabs/src/android/support/customtabs/trusted/sharing/ShareTarget.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1176654
+      },
+      "writtenOn": "2019-08-08T15:03:43Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "0111b63a_cb586c7c",
+      "revId": "c61d1fb2931e522f957c73ab097d6ec59a6c90ff",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": false
     },
     {
       "key": {
