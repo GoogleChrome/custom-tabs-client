@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.support.customtabs.trusted;
+package androidx.browser.customtabs.trusted;
 
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
@@ -30,7 +30,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.StrictMode;
 import android.os.TransactionTooLargeException;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import java.util.Collections;

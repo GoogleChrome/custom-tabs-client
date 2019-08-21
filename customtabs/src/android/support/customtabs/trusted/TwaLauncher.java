@@ -12,24 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package android.support.customtabs.trusted;
+package androidx.browser.customtabs.trusted;
 
 import android.content.ComponentName;
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsClient;
-import android.support.customtabs.CustomTabsIntent;
-import android.support.customtabs.CustomTabsServiceConnection;
-import android.support.customtabs.CustomTabsSession;
-import android.support.customtabs.TrustedWebUtils;
-import android.support.customtabs.trusted.TwaProviderPicker.LaunchMode;
-import android.support.customtabs.trusted.splashscreens.SplashScreenStrategy;
+import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsClient;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.browser.customtabs.CustomTabsServiceConnection;
+import androidx.browser.customtabs.CustomTabsSession;
+import androidx.browser.customtabs.TrustedWebUtils;
+import androidx.browser.customtabs.trusted.TwaProviderPicker.LaunchMode;
+import androidx.browser.customtabs.trusted.splashscreens.SplashScreenStrategy;
 import android.util.Log;
 
 /**
  * Encapsulates the steps necessary to launch a Trusted Web Activity, such as establishing a
- * connection with {@link android.support.customtabs.CustomTabsService}.
+ * connection with {@link androidx.browser.customtabs.CustomTabsService}.
  */
 public class TwaLauncher {
     private static final String TAG = "TwaLauncher";

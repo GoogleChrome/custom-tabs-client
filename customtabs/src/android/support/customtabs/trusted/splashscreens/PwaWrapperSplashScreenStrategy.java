@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package android.support.customtabs.trusted.splashscreens;
+package androidx.browser.customtabs.trusted.splashscreens;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
@@ -21,15 +21,15 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsSession;
-import android.support.customtabs.TrustedWebUtils;
-import android.support.customtabs.TrustedWebUtils.SplashScreenParamKey;
-import android.support.customtabs.trusted.TrustedWebActivityBuilder;
-import android.support.customtabs.trusted.Utils;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsSession;
+import androidx.browser.customtabs.TrustedWebUtils;
+import androidx.browser.customtabs.TrustedWebUtils.SplashScreenParamKey;
+import androidx.browser.customtabs.trusted.TrustedWebActivityBuilder;
+import androidx.browser.customtabs.trusted.Utils;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ViewGroup;

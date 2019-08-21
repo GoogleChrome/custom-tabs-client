@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.support.customtabs;
+package androidx.browser.customtabs;
 
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -22,10 +22,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsService.Relation;
-import android.support.v4.app.BundleCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsService.Relation;
+import androidx.core.app.BundleCompat;
 import android.util.Log;
 
 /**

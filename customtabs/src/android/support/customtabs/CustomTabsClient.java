@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.support.customtabs;
+package androidx.browser.customtabs;
 
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -28,9 +28,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.RemoteException;
-import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsService.Relation;
-import android.support.customtabs.trusted.TrustedWebActivityService;
+import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsService.Relation;
+
 import android.text.TextUtils;
 
 import java.util.ArrayList;

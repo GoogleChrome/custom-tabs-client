@@ -1,4 +1,4 @@
-package android.support.customtabs.trusted.splashscreens;
+package androidx.browser.customtabs.trusted.splashscreens;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -6,10 +6,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsSession;
-import android.support.customtabs.TrustedWebUtils;
-import android.support.v4.content.FileProvider;
+import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsSession;
+import androidx.browser.customtabs.TrustedWebUtils;
+import androidx.core.content.FileProvider;
 import android.util.Log;
 
 import java.io.File;

@@ -12,17 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package android.support.customtabs.trusted;
+package androidx.browser.customtabs.trusted;
 
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.customtabs.TrustedWebUtils;
-import android.support.customtabs.trusted.splashscreens.PwaWrapperSplashScreenStrategy;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.browser.customtabs.TrustedWebUtils;
+import androidx.browser.customtabs.trusted.splashscreens.PwaWrapperSplashScreenStrategy;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 

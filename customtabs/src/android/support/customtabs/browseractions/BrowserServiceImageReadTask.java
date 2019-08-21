@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package android.support.customtabs.browseractions;
+package androidx.browser.customtabs.browseractions;
 
 import android.content.ContentResolver;
 import android.graphics.Bitmap;

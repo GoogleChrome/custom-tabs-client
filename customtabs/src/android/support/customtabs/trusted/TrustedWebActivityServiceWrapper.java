@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.support.customtabs.trusted;
+package androidx.browser.customtabs.trusted;
 
 import android.app.Notification;
 import android.content.ComponentName;
@@ -22,7 +22,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.service.notification.StatusBarNotification;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * TrustedWebActivityServiceWrapper is used by a Trusted Web Activity provider app to wrap calls to

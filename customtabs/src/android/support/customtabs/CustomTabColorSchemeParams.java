@@ -1,13 +1,13 @@
-package android.support.customtabs;
+package androidx.browser.customtabs;
 
-import static android.support.customtabs.CustomTabsIntent.EXTRA_NAVIGATION_BAR_COLOR;
-import static android.support.customtabs.CustomTabsIntent.EXTRA_SECONDARY_TOOLBAR_COLOR;
-import static android.support.customtabs.CustomTabsIntent.EXTRA_TOOLBAR_COLOR;
+import static androidx.browser.customtabs.CustomTabsIntent.EXTRA_NAVIGATION_BAR_COLOR;
+import static androidx.browser.customtabs.CustomTabsIntent.EXTRA_SECONDARY_TOOLBAR_COLOR;
+import static androidx.browser.customtabs.CustomTabsIntent.EXTRA_TOOLBAR_COLOR;
 
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Contains visual parameters of a Custom Tab that may depend on the color scheme.

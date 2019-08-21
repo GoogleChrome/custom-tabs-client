@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package android.support.customtabs.browseractions;
+package androidx.browser.customtabs.browseractions;
 
 import android.content.ClipData;
 import android.content.ContentResolver;
@@ -21,18 +21,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
-import android.support.annotation.UiThread;
-import android.support.annotation.WorkerThread;
-import android.support.annotation.GuardedBy;
-import android.support.v4.content.FileProvider;
-import android.support.v4.util.AtomicFile;
+import androidx.annotation.UiThread;
+import androidx.annotation.WorkerThread;
+import androidx.annotation.GuardedBy;
+import androidx.core.content.FileProvider;
+import androidx.core.util.AtomicFile;
 import android.util.Log;
 
 import java.io.File;

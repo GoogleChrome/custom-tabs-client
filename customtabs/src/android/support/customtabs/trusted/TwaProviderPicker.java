@@ -12,18 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package android.support.customtabs.trusted;
+package androidx.browser.customtabs.trusted;
 
-import static android.support.customtabs.CustomTabsService.TRUSTED_WEB_ACTIVITY_CATEGORY;
+import static androidx.browser.customtabs.CustomTabsService.TRUSTED_WEB_ACTIVITY_CATEGORY;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.support.annotation.IntDef;
-import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsService;
-import android.support.customtabs.TrustedWebUtils;
+import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsService;
+import androidx.browser.customtabs.TrustedWebUtils;
 import android.util.Log;
 
 import java.lang.annotation.Retention;

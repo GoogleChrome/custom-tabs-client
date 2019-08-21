@@ -14,8 +14,8 @@
 
 package org.chromium.customtabsclient;
 
-import android.support.annotation.Nullable;
-import android.support.customtabs.CustomTabsSession;
+import androidx.annotation.Nullable;
+import androidx.browser.customtabs.CustomTabsSession;
 
 import java.lang.ref.WeakReference;
 

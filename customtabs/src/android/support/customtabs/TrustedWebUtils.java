@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.support.customtabs;
+package androidx.browser.customtabs;
 
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 
@@ -27,10 +27,10 @@ import android.content.res.Resources;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.StringDef;
-import android.support.customtabs.trusted.TrustedWebActivityBuilder;
-import android.support.v4.app.BundleCompat;
-import android.support.v4.content.FileProvider;
+import androidx.annotation.StringDef;
+import androidx.browser.customtabs.trusted.TrustedWebActivityBuilder;
+import androidx.core.app.BundleCompat;
+import androidx.core.content.FileProvider;
 import android.widget.Toast;
 
 import java.io.File;

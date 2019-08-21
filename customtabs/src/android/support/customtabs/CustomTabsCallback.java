@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package android.support.customtabs;
+package androidx.browser.customtabs;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.customtabs.CustomTabsService.Relation;
+import androidx.browser.customtabs.CustomTabsService.Relation;
 
 /**
  * A callback class for custom tabs client to get messages regarding events in their custom tabs. In

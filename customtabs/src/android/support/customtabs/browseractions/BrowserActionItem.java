@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package android.support.customtabs.browseractions;
+package androidx.browser.customtabs.browseractions;
 
 import android.app.PendingIntent;
 import android.net.Uri;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 
-import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * A wrapper class holding custom item of Browser Actions menu.

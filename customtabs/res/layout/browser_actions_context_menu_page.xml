@@ -14,7 +14,7 @@
      limitations under the License
 -->
 
-<android.support.customtabs.browseractions.BrowserActionsFallbackMenuView
+<androidx.browser.customtabs.browseractions.BrowserActionsFallbackMenuView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/browser_actions_menu_view"
@@ -50,4 +50,4 @@
         android:paddingBottom="8dp"
         android:dividerHeight="0dp"
         android:divider="@null" />
-</android.support.customtabs.browseractions.BrowserActionsFallbackMenuView>
+</androidx.browser.customtabs.browseractions.BrowserActionsFallbackMenuView>

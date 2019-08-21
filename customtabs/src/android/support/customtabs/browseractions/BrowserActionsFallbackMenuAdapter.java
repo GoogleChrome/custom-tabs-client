@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package android.support.customtabs.browseractions;
+package androidx.browser.customtabs.browseractions;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.support.customtabs.R;
-import android.support.v4.content.res.ResourcesCompat;
+import androidx.browser.R;
+import androidx.core.content.res.ResourcesCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.support.customtabs.trusted;
+package androidx.browser.customtabs.trusted;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -27,23 +27,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ServiceInfo;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Parcelable;
 import android.os.StrictMode;
 import android.service.notification.StatusBarNotification;
-import android.support.annotation.CallSuper;
-import android.support.annotation.Nullable;
-import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.ActiveNotificationsArgs;
-import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.CancelNotificationArgs;
-import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.NotificationsEnabledArgs;
-import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.NotifyNotificationArgs;
-import android.support.customtabs.trusted.TrustedWebActivityServiceWrapper.ResultArgs;
-import android.support.v4.app.NotificationManagerCompat;
+import androidx.annotation.CallSuper;
+import androidx.annotation.Nullable;
+import androidx.browser.customtabs.trusted.TrustedWebActivityServiceWrapper.ActiveNotificationsArgs;
+import androidx.browser.customtabs.trusted.TrustedWebActivityServiceWrapper.CancelNotificationArgs;
+import androidx.browser.customtabs.trusted.TrustedWebActivityServiceWrapper.NotificationsEnabledArgs;
+import androidx.browser.customtabs.trusted.TrustedWebActivityServiceWrapper.NotifyNotificationArgs;
+import androidx.browser.customtabs.trusted.TrustedWebActivityServiceWrapper.ResultArgs;
+import androidx.core.app.NotificationManagerCompat;
 
 import java.util.Arrays;
 import java.util.Locale;
