@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71a1f8e6_03612683",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002032
+      },
+      "writtenOn": "2019-09-30T12:34:21Z",
+      "side": 1,
+      "message": "Can we phrase this in a more formal way?\n\nThere are known incompatibilities between the custom-tabs-client library and usage of AndroidX, including crashes (see crbug.com/983378). We recommend using the android-browser-helper library instead.",
+      "revId": "e9afb51688f7d3ac9288348e5a35b982594d0f7b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba",
+      "unresolved": true
+    }
+  ]
+}
