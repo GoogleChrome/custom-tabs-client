@@ -5,6 +5,26 @@ with a Chrome `Activity` on Android. This makes the web content feel like being
 a part of the application, while retaining the full functionality and
 performance of a complete web browser.
 
+## AndroidX
+
+This library is based off (and contains copies of the classes from) the Android
+Support Library Custom Tabs package.
+There are known bugs when using custom-tabs-client with AndroidX or with
+Jetifier (the AndroidX conversion tool) that can cause problems.
+For example, run-time crashes like [this bug](https://crbug.com/983378):
+
+```
+java.lang.IllegalAccessError:
+  Method 'android.os.Bundle android.support.customtabs.CustomTabColorSchemeParams.toBundle()'
+  is inaccessible to class 'androidx.browser.customtabs.CustomTabsIntent$Builder'
+  (declaration of 'androidx.browser.customtabs.CustomTabsIntent$Builder' appears in XYZ.apk)
+```
+
+Please use the
+[Android Browser Helper](https://github.com/GoogleChrome/android-browser-helper)
+library instead.
+It contains the same functionality updated to work with AndroidX.
+
 ## Examples
 
 [Using Custom
