@@ -52,9 +52,6 @@ public class TwaLauncher {
     @Nullable
     private CustomTabsSession mSession;
 
-    @Nullable
-    private Runnable mOnSessionCreatedRunnable;
-
     private boolean mDestroyed;
 
     /**
@@ -156,17 +153,28 @@ public class TwaLauncher {
 
         Runnable onSessionCreatedRunnable = () ->
                 launchWhenSessionEstablished(twaBuilder, splashScreenStrategy, completionCallback);
+
         if (mSession != null) {
             onSessionCreatedRunnable.run();
             return;
         }
 
-        mOnSessionCreatedRunnable = onSessionCreatedRunnable;
+        Runnable onSessionCreationFailedRunnable = () -> {
+            // The provider has been unable to create a session for us, we can't launch a
+            // Trusted Web Activity. We could either exit, forcing the user to try again,
+            // hopefully successfully this time or we could launch a Custom Tab giving the user
+            // a subpar experience (compared to a TWA).
+            // We'll open in a CCT, but pay attention to what users want.
+            launchCct(twaBuilder, completionCallback);
+        };
+
         if (mServiceConnection == null) {
             mServiceConnection = new TwaCustomTabsServiceConnection();
         }
-        CustomTabsClient.bindCustomTabsService(mContext, mProviderPackage,
-                mServiceConnection);
+
+        mServiceConnection.setSessionCreationRunnables(
+                onSessionCreatedRunnable, onSessionCreationFailedRunnable);
+        CustomTabsClient.bindCustomTabsService(mContext, mProviderPackage, mServiceConnection);
     }
 
     private void launchWhenSessionEstablished(TrustedWebActivityBuilder twaBuilder,
@@ -215,6 +223,15 @@ public class TwaLauncher {
     }
 
     private class TwaCustomTabsServiceConnection extends CustomTabsServiceConnection {
+        private Runnable mOnSessionCreatedRunnable;
+        private Runnable mOnSessionCreationFailedRunnable;
+
+        private void setSessionCreationRunnables(@Nullable Runnable onSuccess,
+                @Nullable Runnable onFailure) {
+            mOnSessionCreatedRunnable = onSuccess;
+            mOnSessionCreationFailedRunnable = onFailure;
+        }
+
         @Override
         public void onCustomTabsServiceConnected(ComponentName componentName,
                 CustomTabsClient client) {
@@ -222,10 +239,15 @@ public class TwaLauncher {
                 client.warmup(0);
             }
             mSession = client.newSession(null, mSessionId);
-            if (mOnSessionCreatedRunnable != null) {
+
+            if (mSession != null && mOnSessionCreatedRunnable != null) {
                 mOnSessionCreatedRunnable.run();
-                mOnSessionCreatedRunnable = null;
+            } else if (mSession == null && mOnSessionCreationFailedRunnable != null) {
+                mOnSessionCreationFailedRunnable.run();
             }
+
+            mOnSessionCreatedRunnable = null;
+            mOnSessionCreationFailedRunnable = null;
         }
 
         @Override
