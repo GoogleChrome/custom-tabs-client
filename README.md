@@ -1,3 +1,16 @@
+# Deprecated
+
+This repository is deprecated.
+Please use
+[android-browser-helper](https://github.com/GoogleChrome/android-browser-helper)
+or
+[androidx.browser](https://developer.android.com/jetpack/androidx/releases/browser)
+instead.
+
+You can learn more about the deprecation and which library you should use by
+reading
+[Trusted Web Activities, the Lay of the Land](https://developers.google.com/web/android/trusted-web-activity/lay-of-the-land).
+
 # Chrome Custom Tabs - Examples and Documentation
 
 Chrome Custom Tabs provides a way for an application to customize and interact
