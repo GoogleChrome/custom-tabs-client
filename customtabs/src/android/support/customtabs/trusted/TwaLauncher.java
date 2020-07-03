@@ -176,6 +176,7 @@ public class TwaLauncher {
             @Nullable SplashScreenStrategy splashScreenStrategy,
             @Nullable Runnable completionCallback) {
         if (mSession == null) {
+            // Some devices are throwing this exception
             throw new IllegalStateException("mSession is null in launchWhenSessionEstablished");
         }
 
