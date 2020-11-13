@@ -1,5 +1,4 @@
-# UUID                                  	Group Name
+# UUID                             	Group Name
 #
-4d4288efd7d780ff5a35b8cc13fa6ff0f62c06cc	chrome-commit-bot-deprecated
-cria:project-chromium-committers        	cria/project-chromium-committers
-cria:project-chromium-tryjob-access     	cria/project-chromium-tryjob-access
+cria:project-chromium-committers   	cria/project-chromium-committers
+cria:project-chromium-tryjob-access	cria/project-chromium-tryjob-access
