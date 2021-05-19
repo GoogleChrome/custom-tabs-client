@@ -3,7 +3,7 @@
 ## Summary
 
 This presents a few example applications using Custom Tabs, and a possible usage
-of the APIs, both intent-based and the the background service. It covers UI
+of the APIs, both intent-based and the background service. It covers UI
 customization, setting up callbacks, pre-warming, pre-fetching, and lifecycle
 management. Here we assume that Chrome's implementation of Custom Tabs is used.
 Note that this feature is in no way specific to Chrome, but slight differences
